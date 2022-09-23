@@ -71,16 +71,23 @@
                     </div>
                 </div>
                 <p class="text-gray-500">Обмен валют</p>
-                @foreach($db_ads as $ad)
+                <p class="text-gray-600">Last time {{ gmdate("d.m.Y H:i:s", $last_time) }}</p>
+                @foreach($sell_dollar as $ad)
                     <p class="text-gray-500">{{ $ad->text }}</p>
                     <a class="text-gray-600" href="{{ $ad->link }}" target="_blank">
-                        {{ gmdate("d.m.Y", $ad->date) }}
+                        {{ gmdate("d.m.Y H:i:s", $ad->date) }}
                     </a>
                 @endforeach
                 {{-- <p class="text-gray-500">Url = {{ dd($url) }}</p> --}}
                 {{-- <p class="text-gray-500">Ads = {{ dd($ads) }}</p> --}}
                 {{-- <p class="text-gray-500">Ads = {{ dd($sellDollars) }}</p> --}}
-                <p class="text-gray-500">Ads = {{ dd($db_ads) }}</p>
+                {{-- <p class="text-gray-600">Last time {{ dd($last_time) }}</p> --}}
+                
+                {{-- @foreach($sellDollars as $ad)
+                    <p class="text-gray-500">{{ $ad["text"] }}</p>
+                    <p class="text-gray-600">{{ gmdate("d.m.Y H:i:s", $ad["date"]) }}</p>
+                @endforeach --}}
+                {{-- <p class="text-gray-500">Ads = {{ dd($db_ads) }}</p> --}}
             
             </div>
         </div>
