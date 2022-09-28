@@ -33,13 +33,19 @@ class CurrencyController extends Controller
         if ( !$json_file ){
             $access_token = "vk1.a.Hv_D01r4bJfnTOumY5rCtn7NyYSWLWWDJogEzbnBCkBaDTFWRMfsYHeiALSCFF0W-mAoiqjNK01HfC4n7D7DI_xNOBnVhLVmEcG7wyZ_qP6FENCZO_WSlWnjJDpRtXw--0xazEHvm_UxYqrR_WTRQVtcwzF-FYIMFHessTD0oHVBXpcZyJO-cPBTBmwhVWVf";
             $url = "https://api.vk.com/method/wall.get?access_token=" . $access_token . "&domain=obmenvalut_donetsk&v=5.81&count=100";
-            $response = Http::get($url);
+            try {
+                $response = Http::get($url);
+            } catch(\Exception $exception) {
+                Log::error($exception);
+
+            }
             $json = json_decode($response->getBody(), true);
             Storage::disk('local')->put('api.json', json_encode($json));
             $json_file = Storage::get('api.json');
         }
 
         $ads = json_decode($json_file, true);
+        $this->ads = $ads;
         $this->parseAd( $ads );
         
         return $ads;
@@ -83,6 +89,7 @@ class CurrencyController extends Controller
             if( !count($is_in_table) ){
                 DB::table('ads')->insert([
                     'vk_id'      => $ad["id"],
+                    'vk_user'      => $ad["from_id"],
                     'owner_id'   => $ad["owner_id"],
                     'date'       => $ad["date"],
                     'text'       => $ad["text"],
@@ -93,23 +100,28 @@ class CurrencyController extends Controller
             } 
         }
         
-        $this->db_ads = DB::table('ads')->get();;
+        $this->db_ads = DB::table('ads')->get();
+    }
+
+    public function show( $currency )
+    {
+        return view('currency', ['ads' => $this->getExchangeDirections($currency)]);
     }
 
     public function index()
     {
         return view('currency', [
             'url' => $this->getPosts(),
-            'ads' => $this->ads, 
-            'sell_dollar' => $this->getExchangeDirections('sell_dollar'),
-            'sell_euro' => $this->getExchangeDirections('sell_euro'),
-            'sell_hrn' => $this->getExchangeDirections('sell_hrn'),
-            'sell_cashless' => $this->getExchangeDirections('sell_cashless'),
-            'buy_dollar' => $this->getExchangeDirections('buy_dollar'),
-            'buy_euro' => $this->getExchangeDirections('buy_euro'),
-            'buy_hrn' => $this->getExchangeDirections('buy_hrn'),
-            'buy_cashless' => $this->getExchangeDirections('buy_cashless'),
-            'db_ads' => $this->db_ads,
+            // 'ads' => $this->ads, 
+            // 'sell_dollar' => $this->getExchangeDirections('sell_dollar'),
+            // 'sell_euro' => $this->getExchangeDirections('sell_euro'),
+            // 'sell_hrn' => $this->getExchangeDirections('sell_hrn'),
+            // 'sell_cashless' => $this->getExchangeDirections('sell_cashless'),
+            // 'buy_dollar' => $this->getExchangeDirections('buy_dollar'),
+            // 'buy_euro' => $this->getExchangeDirections('buy_euro'),
+            // 'buy_hrn' => $this->getExchangeDirections('buy_hrn'),
+            // 'buy_cashless' => $this->getExchangeDirections('buy_cashless'),
+            'ads' => $this->db_ads,
             'last_time' => $this->last_ad_time->date
         ]);
     }

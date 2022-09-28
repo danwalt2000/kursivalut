@@ -71,20 +71,37 @@
                     </div>
                 </div>
                 <p class="text-gray-500">Обмен валют</p>
-                <p class="text-gray-600">Last time {{ gmdate("d.m.Y H:i:s", $last_time) }}</p>
-                @foreach($buy_cashless as $ad)
+                <nav class="text-gray-500">
+                    <h2>Найти объявление</h2>
+                    <ul>
+                        <li><a href="/currency">Все объявления</a></li>
+                        <li><a href="/currency/sell_dollar">Продажа доллара</a></li>
+                        <li><a href="/currency/buy_dollar">Покупка доллара</a></li>
+                        <li><a href="/currency/sell_euro">Продажа евро</a></li>
+                        <li><a href="/currency/buy_euro">Покупка евро</a></li>
+                        <li><a href="/currency/sell_hrn">Продажа гривны</a></li>
+                        <li><a href="/currency/buy_hrn">Покупка гривны</a></li>
+                    </ul>
+                </nav>
+                
+                @foreach($ads as $ad)
                     <p class="text-gray-500">{{ $ad->text }}</p>
                     {{-- <a class="text-gray-600" href="{{ $ad->link }}" target="_blank" rel="nofollow">
                         {{ gmdate("d.m.Y H:i:s", $ad->date) }}
                     </a> --}}
                 @endforeach
+                {{-- <p class="text-gray-600">Last time {{ gmdate("d.m.Y H:i:s", $last_time) }}</p> --}}
+                {{-- @foreach($direction as $ad)
+                    <p class="text-gray-500">{{ $ad->text }}</p>
+                @endforeach --}}
                 {{-- <p class="text-gray-500">Url = {{ dd($url) }}</p> --}}
                 {{-- <p class="text-gray-500">Ads = {{ dd($ads) }}</p> --}}
                 {{-- <p class="text-gray-500">Ads = {{ dd($sellDollars) }}</p> --}}
                 {{-- <p class="text-gray-600">Last time {{ dd($last_time) }}</p> --}}
                 
                 
-                {{-- <p class="text-gray-500">Ads = {{ dd($db_ads) }}</p> --}}
+                {{-- <p class="text-gray-500">Ads = {{ dd($ads) }}</p> --}}
+                {{-- <p class="text-gray-500">Ads = {{ dd($direction) }}</p> --}}
             
             </div>
         </div>

@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('ads', function (Blueprint $table) {
             $table->id();
             $table->string('vk_id');
+            $table->string('vk_user');
             $table->string('owner_id');
             $table->string('date');
             $table->text('text');
