@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Http;
 use Psr\Http\Message\RequestInterface;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
+use Log;
  
 class CurrencyController extends Controller
 {
@@ -19,6 +20,14 @@ class CurrencyController extends Controller
     public $ads = [];
     public $db_ads = [];
     public $last_ad_time = '';
+    public $publics = [
+        "obmenvalut_donetsk" => "-87785879", // 5
+        "obmen_valut_donetsk" => "-92215147", // 5
+        "obmenvalyut_dpr" => "-153734109", // 20
+        "club156050748" => "-156050748",  // 20
+        "obmen_valut_dnr" => "-193547744", // 60
+        "donetsk_obmen_valyuta" => "-174075254" //60
+    ];
 
     public function getExchangeDirections ( $direction )
     {
@@ -31,21 +40,13 @@ class CurrencyController extends Controller
     {
         $json_file = Storage::get('api.json');
         if ( !$json_file ){
-            $publics = [
-                "obmenvalut_donetsk" => "-87785879", // 5
-                "obmen_valut_donetsk" => "-92215147", // 5
-                "obmenvalyut_dpr" => "-153734109", // 20
-                "club156050748" => "-156050748",  // 20
-                "obmen_valut_dnr" => "-193547744", // 60
-                "donetsk_obmen_valyuta" => "-174075254" //60
-            ];
             $access_token = "vk1.a.Hv_D01r4bJfnTOumY5rCtn7NyYSWLWWDJogEzbnBCkBaDTFWRMfsYHeiALSCFF0W-mAoiqjNK01HfC4n7D7DI_xNOBnVhLVmEcG7wyZ_qP6FENCZO_WSlWnjJDpRtXw--0xazEHvm_UxYqrR_WTRQVtcwzF-FYIMFHessTD0oHVBXpcZyJO-cPBTBmwhVWVf";
-            $url = "https://api.vk.com/method/wall.get?access_token=" . $access_token . "&owner_id=" . $publics["obmen_valut_donetsk"] . "&v=5.81&count=100";
+            $url = "https://api.vk.com/method/wall.get?access_token=" . $access_token . "&owner_id=" . $this->publics["obmen_valut_donetsk"] . "&v=5.81&count=100";
             try {
                 $response = Http::get($url);
             } catch(\Exception $exception) {
                 Log::error($exception);
-
+                return $this->db_ads = DB::table('ads')->limit('100')->get();
             }
             $json = json_decode($response->getBody(), true);
             Storage::disk('local')->put('api.json', json_encode($json));
@@ -53,15 +54,15 @@ class CurrencyController extends Controller
         }
 
         $ads = json_decode($json_file, true);
-        $this->ads = $ads;
-        $this->parseAd( $ads );
+        $this->ads = $ads["response"]["items"];
+        $this->parseAd( $this->ads );
         
         return $ads;
     }
 
     private function parseAd( $json )
     {
-        $this->ads = $json["response"]["items"];
+        $this->ads = $json;
         $ads = $this->ads;
         $patterns = [
             "sell_dollar"      => "/[Пп]род.*(\$|дол|син|зел|💵)(.*?\d{2})/",
@@ -78,7 +79,7 @@ class CurrencyController extends Controller
             $text = $ad["text"];
             $this->last_ad_time = DB::table('ads')->orderBy("date", "desc")->first();
             
-            $group = "obmenvalut_donetsk";
+            $group = "club" . abs( intval( $this->publics["obmenvalut_donetsk"] ) );
             $owner_and_id = $ad["owner_id"] . "_" . $ad["id"];
             $link = "https://vk.com/" . $group . "?w=wall" . $owner_and_id . "%2Fall";
             
@@ -97,11 +98,14 @@ class CurrencyController extends Controller
                                 ->where('vk_id', '=', $ad["id"])
                                 ->where('owner_id', '=', $ad["owner_id"])
                                 ->get();
+
             $is_text_in_table = DB::table('ads')->where('text', '=', $ad["text"])->get();
+
             if( count($is_text_in_table) ){
                 DB::table('ads') ->where('text', '=', $ad["text"])->update([
                     'vk_id'      => $ad["id"],
-                    'date'       => $ad["date"]
+                    'date'       => $ad["date"],
+                    'link'       => $link
                 ]);
             } elseif( !count($is_id_in_table) && $ad["from_id"] != $ad["owner_id"] ){
                 DB::table('ads')->insert([
@@ -111,13 +115,12 @@ class CurrencyController extends Controller
                     'date'       => $ad["date"],
                     'text'       => $ad["text"],
                     'link'       => $link,
-                    'group'      => $group,
                     'type'       => $type
                 ]);
             } 
         }
         
-        $this->db_ads = DB::table('ads')->get();
+        $this->db_ads = DB::table('ads')->limit('100')->get();
     }
 
     public function show( $currency )
@@ -130,7 +133,6 @@ class CurrencyController extends Controller
         return view('currency', [
             'url' => $this->getPosts(),
             'ads' => $this->db_ads,
-            'last_time' => $this->last_ad_time->date
         ]);
     }
 }

@@ -85,10 +85,10 @@
                 </nav>
                 
                 @foreach($ads as $ad)
-                    <p class="text-gray-500">{{ $ad->text }}</p>
-                    {{-- <a class="text-gray-600" href="{{ $ad->link }}" target="_blank" rel="nofollow">
-                        {{ gmdate("d.m.Y H:i:s", $ad->date) }}
-                    </a> --}}
+                    <span class="text-gray-500">{{ $ad->text }}</span>
+                    <span><a class="text-gray-600" href="{{ $ad->link }}" target="_blank" rel="nofollow">
+                        {{ gmdate("H:i d.m.Y", $ad->date) }}
+                    </a></span><br>
                 @endforeach
                 {{-- <p class="text-gray-600">Last time {{ gmdate("d.m.Y H:i:s", $last_time) }}</p> --}}
                 {{-- @foreach($direction as $ad)

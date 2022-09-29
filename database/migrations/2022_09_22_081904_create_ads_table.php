@@ -21,7 +21,6 @@ return new class extends Migration
             $table->string('date');
             $table->text('text');
             $table->string('link');
-            $table->string('group');
             $table->string('type');
         });
     }
