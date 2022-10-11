@@ -21,30 +21,34 @@ class GetAdsController extends CurrencyController
     public static function getPosts()
     {
         $currency = new CurrencyController;
-        $json_file = Storage::get('api.json');
-        if ( !$json_file ){
-            $access_token = "vk1.a.Hv_D01r4bJfnTOumY5rCtn7NyYSWLWWDJogEzbnBCkBaDTFWRMfsYHeiALSCFF0W-mAoiqjNK01HfC4n7D7DI_xNOBnVhLVmEcG7wyZ_qP6FENCZO_WSlWnjJDpRtXw--0xazEHvm_UxYqrR_WTRQVtcwzF-FYIMFHessTD0oHVBXpcZyJO-cPBTBmwhVWVf";
-            $count = 10;
-            // если таблица пустая
-            if( !count( DB::table('ads')->first() ) ){
-                $count = 1000;
-            }
-            $url = "https://api.vk.com/method/wall.get?access_token=" . $access_token . "&owner_id=" . $currency->publics["obmenvalut_donetsk"] . "&v=5.81&count=" . $count;
-            try {
-                $response = Http::get($url);
-            } catch(\Exception $exception) {
-                Log::error($exception);
-                return $currency::getLatest();
-            }
-            $json = json_decode($response->getBody(), true);
-            Storage::disk('local')->put('api.json', json_encode($json));
-            $json_file = Storage::get('api.json');
+        
+        $access_token = "vk1.a.Hv_D01r4bJfnTOumY5rCtn7NyYSWLWWDJogEzbnBCkBaDTFWRMfsYHeiALSCFF0W-mAoiqjNK01HfC4n7D7DI_xNOBnVhLVmEcG7wyZ_qP6FENCZO_WSlWnjJDpRtXw--0xazEHvm_UxYqrR_WTRQVtcwzF-FYIMFHessTD0oHVBXpcZyJO-cPBTBmwhVWVf";
+        $count = 10;
+        
+        // если таблица пустая, запрашиваем сразу по 1000 записей
+        // if( !count( DB::table('ads')->first() ) ){
+        //     $count = 1000;
+        // }
+        $url = "https://api.vk.com/method/wall.get?access_token=" . $access_token . "&owner_id=" . $currency->publics["obmenvalut_donetsk"] . "&v=5.81&count=" . $count;
+        try {
+            $response = Http::get($url);
+        } catch(\Exception $exception) {
+            Log::error($exception);
+            return $currency::getLatest();
         }
-
-        $ads = json_decode($json_file, true);
-        $currency->ads = $ads["response"]["items"];
+        $json = json_decode($response->getBody(), true);
+        
+        $currency->ads = $json["response"]["items"];
         $currency->db_ads = ParseAdsController::parseAd( $currency->ads );
         
         return $currency->db_ads;
     }
 }
+
+
+// логика сохранения ответа в файл
+// $json_file = Storage::get('api.json');
+// if ( !$json_file ){
+//     Storage::disk('local')->put('api.json', json_encode($json));
+//     $json_file = Storage::get('api.json');
+// }

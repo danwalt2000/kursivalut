@@ -1,12 +1,7 @@
 <?php
  
 namespace App\Http\Controllers;
-// use GuzzleHttp\Middleware;
-// use Illuminate\Support\Facades\Http;
-// use Psr\Http\Message\RequestInterface;
-// use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
-// use Log;
  
 class ParseAdsController extends Controller
 {

@@ -71,6 +71,7 @@ class CurrencyController extends Controller
     {
         return view('currency', [
             'ads' => $this->db_ads,
+            // 'ads' => GetAdsController::getPosts(),
             'directions' => $this->directions,
         ]);
     }
