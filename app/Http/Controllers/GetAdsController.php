@@ -18,7 +18,7 @@ class GetAdsController extends CurrencyController
      */
     
 
-    public static function getPosts()
+    public static function getPosts( $group_id )
     {
         $currency = new CurrencyController;
         
@@ -29,7 +29,7 @@ class GetAdsController extends CurrencyController
         // if( !count( DB::table('ads')->first() ) ){
         //     $count = 1000;
         // }
-        $url = "https://api.vk.com/method/wall.get?access_token=" . $access_token . "&owner_id=" . $currency->publics["obmenvalut_donetsk"] . "&v=5.81&count=" . $count;
+        $url = "https://api.vk.com/method/wall.get?access_token=" . $access_token . "&owner_id=" . $group_id . "&v=5.81&count=" . $count;
         try {
             $response = Http::get($url);
         } catch(\Exception $exception) {
@@ -39,7 +39,7 @@ class GetAdsController extends CurrencyController
         $json = json_decode($response->getBody(), true);
         
         $currency->ads = $json["response"]["items"];
-        $currency->db_ads = ParseAdsController::parseAd( $currency->ads );
+        $currency->db_ads = ParseAdsController::parseAd( $currency->ads, $group_id );
         
         return $currency->db_ads;
     }

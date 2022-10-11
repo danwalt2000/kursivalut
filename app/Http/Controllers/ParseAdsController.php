@@ -12,7 +12,7 @@ class ParseAdsController extends Controller
      * @return \Illuminate\View\View
      */
 
-    public static function parseAd( $json )
+    public static function parseAd( $json, $group_id )
     {
         $currency = new CurrencyController;
         $ads = $json;
@@ -33,7 +33,7 @@ class ParseAdsController extends Controller
             $text = $ad["text"];
             // $this->last_ad_time = DB::table('ads')->orderBy("date", "desc")->first();
             
-            $group = "club" . abs( intval( $currency->publics["obmenvalut_donetsk"] ) );
+            $group = "club" . abs( intval( $group_id ) );
             $owner_and_id = $ad["owner_id"] . "_" . $ad["id"];
             $link = "https://vk.com/" . $group . "?w=wall" . $owner_and_id . "%2Fall";
             
