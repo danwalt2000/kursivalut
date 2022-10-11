@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="ru">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -75,21 +75,23 @@
                     <h2>Найти объявление</h2>
                     <ul>
                         <li><a href="/currency">Все объявления</a></li>
-                        <li><a href="/currency/sell_dollar">Продажа доллара</a></li>
-                        <li><a href="/currency/buy_dollar">Покупка доллара</a></li>
-                        <li><a href="/currency/sell_euro">Продажа евро</a></li>
-                        <li><a href="/currency/buy_euro">Покупка евро</a></li>
-                        <li><a href="/currency/sell_hrn">Продажа гривны</a></li>
-                        <li><a href="/currency/buy_hrn">Покупка гривны</a></li>
+                        @foreach($directions as $name => $title)
+                            <li><a href="/currency/{{ $name }}">{{ $title }}</a></li>
+                        @endforeach
                     </ul>
                 </nav>
                 
-                @foreach($ads as $ad)
+                
+                @forelse($ads as $ad)
                     <span class="text-gray-500">{{ $ad->text }}</span>
                     <span><a class="text-gray-600" href="{{ $ad->link }}" target="_blank" rel="nofollow">
                         {{ gmdate("H:i d.m.Y", $ad->date) }}
-                    </a></span><br>
-                @endforeach
+                    </a></span>
+                    <br>
+                @empty
+                    <span class="text-gray-500">Объявлений не найдено</span>
+                @endforelse
+                
                 {{-- <p class="text-gray-600">Last time {{ gmdate("d.m.Y H:i:s", $last_time) }}</p> --}}
                 {{-- @foreach($direction as $ad)
                     <p class="text-gray-500">{{ $ad->text }}</p>
