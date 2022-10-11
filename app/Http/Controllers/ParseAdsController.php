@@ -17,8 +17,6 @@ class ParseAdsController extends Controller
      * @return \Illuminate\View\View
      */
 
-    public $db_ads = [];
-
     public static function parseAd( $json )
     {
         $currency = new CurrencyController;
@@ -82,6 +80,6 @@ class ParseAdsController extends Controller
             } 
         }
         
-        return DB::table('ads')->limit('100')->orderBy("date", "desc")->get();
+        return CurrencyController::getLatest(); // последние 100 записей в БД
     }
 }

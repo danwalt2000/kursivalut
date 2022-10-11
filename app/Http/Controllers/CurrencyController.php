@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use Log;
 use App\Http\Controllers\GetAdsController;
+use App\Http\Controllers\ScheduleController;
  
 class CurrencyController extends Controller
 {
@@ -20,7 +21,7 @@ class CurrencyController extends Controller
     public $ads = [];
     public $db_ads = [];
     public $get_posts;
-    // public $last_ad_time = '';
+    
     public $publics = [
         "obmenvalut_donetsk" => "-87785879", // 5
         "obmen_valut_donetsk" => "-92215147", // 5
@@ -40,12 +41,22 @@ class CurrencyController extends Controller
        "buy_cashless" => "Покупка безнала руб."
     ];
 
+    public function __construct()
+    {
+        $this->db_ads = $this->getLatest();
+        // ScheduleController::schedule
+    }
+
     public function getExchangeDirections ( $direction )
     {
         $query = htmlspecialchars( $direction );
         return DB::table('ads')->
                 where('type', 'like', "%" . $query . "%")->limit("100")->
                 orderBy("date", "desc")->get();
+    }
+
+    public static function getLatest(){
+        return DB::table('ads')->limit('100')->orderBy("date", "desc")->get();
     }
 
     public function show( $currency )
@@ -58,10 +69,8 @@ class CurrencyController extends Controller
 
     public function index()
     {
-        $ads = (new GetAdsController)::getPosts();
-        
         return view('currency', [
-            'ads' => $ads,
+            'ads' => $this->db_ads,
             'directions' => $this->directions,
         ]);
     }
