@@ -22,13 +22,16 @@ class Kernel extends ConsoleKernel
             $time = $value["time"];
             $id = $value["id"];
 
+            // в рабочее врем частота запросов к группам указана в переменной 
+            // $publics класса CurrencyController
             $schedule->call( function() use ($id){
                 GetAdsController::getPosts( $id );
-            })->$time()->between('7:00', '18:00');
+            })->$time()->between('7:30', '18:00'); 
 
+            // в нерабоче время обращаться к группам раз в час
             $schedule->call( function() use ($id){
                 GetAdsController::getPosts( $id );
-            })->hourly()->unlessBetween('7:00', '18:00');
+            })->hourly()->unlessBetween('7:30', '18:00');
         }
     }
 

@@ -12,6 +12,21 @@ class ParseAdsController extends Controller
      * @return \Illuminate\View\View
      */
 
+    public static function parsePhone ( $text, $id ){
+        $result = $text;
+        $pattern = "/[+0-9-]{10,20}/";
+        preg_match_all( $pattern, $text, $matches );
+        $index = 0;
+        foreach($matches[0] as $phone ){
+            $result = str_replace( $phone, '<a class="hidden_phone" onclick="getPhone([' . $id . ', ' . $index . '])">click</a>', $result );
+            $index++;
+        }
+        return [ 
+            "text"   => $result, 
+            "phones" => $matches[0] 
+        ];
+    }
+
     public static function parseAd( $json, $group_id )
     {
         $currency = new CurrencyController;
@@ -30,7 +45,8 @@ class ParseAdsController extends Controller
             // "course" => "/(по|курс) ([\d\.\,]{2,5}) /"
         ];
         foreach( $ads as $ad ){
-            $text = $ad["text"];
+            // $text = $ad["text"];
+            $phones_parsed = (new self)->parsePhone( $ad["text"], $ad["id"] );
             // $this->last_ad_time = DB::table('ads')->orderBy("date", "desc")->first();
             
             $group = "club" . abs( intval( $group_id ) );
@@ -39,7 +55,7 @@ class ParseAdsController extends Controller
             
             $type = '';
             foreach( $patterns as $key => $pattern ){
-                $test_matches = preg_match($pattern, $text, $match);
+                $test_matches = preg_match($pattern, $phones_parsed["text"], $match);
                 if( !empty($test_matches) ){
                     if( empty($type) ){
                         $type = $key;
@@ -54,10 +70,10 @@ class ParseAdsController extends Controller
                                 ->where('owner_id', '=', $ad["owner_id"])
                                 ->get();
 
-            $is_text_in_table = DB::table('ads')->where('text', '=', $ad["text"])->get();
+            $is_text_in_table = DB::table('ads')->where('text', '=', $phones_parsed["text"])->get();
 
             if( count($is_text_in_table) ){
-                DB::table('ads') ->where('text', '=', $ad["text"])->update([
+                DB::table('ads') ->where('text', '=', $phones_parsed["text"])->update([
                     'vk_id'      => $ad["id"],
                     'date'       => $ad["date"],
                     'link'       => $link
@@ -68,7 +84,9 @@ class ParseAdsController extends Controller
                     'vk_user'    => $ad["from_id"],
                     'owner_id'   => $ad["owner_id"],
                     'date'       => $ad["date"],
-                    'text'       => $ad["text"],
+                    'text'       => $phones_parsed["text"],
+                    'phone'      => implode(",", $phones_parsed["phones"]),
+                    'rate'       => 0,
                     'link'       => $link,
                     'type'       => $type
                 ]);

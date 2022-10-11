@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('owner_id');
             $table->string('date');
             $table->text('text');
+            $table->text('phone');
+            $table->float('rate');
             $table->string('link');
             $table->string('type');
         });

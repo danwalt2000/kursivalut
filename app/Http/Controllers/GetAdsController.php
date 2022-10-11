@@ -25,10 +25,10 @@ class GetAdsController extends CurrencyController
         $access_token = "vk1.a.Hv_D01r4bJfnTOumY5rCtn7NyYSWLWWDJogEzbnBCkBaDTFWRMfsYHeiALSCFF0W-mAoiqjNK01HfC4n7D7DI_xNOBnVhLVmEcG7wyZ_qP6FENCZO_WSlWnjJDpRtXw--0xazEHvm_UxYqrR_WTRQVtcwzF-FYIMFHessTD0oHVBXpcZyJO-cPBTBmwhVWVf";
         $count = 10;
         
-        // если таблица пустая, запрашиваем сразу по 1000 записей
-        // if( !count( DB::table('ads')->first() ) ){
-        //     $count = 1000;
-        // }
+        // если таблица пустая, запрашиваем больше записей
+        if( !( DB::table('ads')->first() ) ){
+            $count = 100;
+        }
         $url = "https://api.vk.com/method/wall.get?access_token=" . $access_token . "&owner_id=" . $group_id . "&v=5.81&count=" . $count;
         try {
             $response = Http::get($url);
