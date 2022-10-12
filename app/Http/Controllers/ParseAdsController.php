@@ -23,7 +23,7 @@ class ParseAdsController extends Controller
         }
         return [ 
             "text"   => $result, 
-            "phones" => $matches[0] 
+            "phones" => implode(",", $matches[0])
         ];
     }
 
@@ -45,14 +45,14 @@ class ParseAdsController extends Controller
             // "course" => "/(по|курс) ([\d\.\,]{2,5}) /"
         ];
         foreach( $ads as $ad ){
-            // $text = $ad["text"];
+            // вырезание номера телефона
             $phones_parsed = (new self)->parsePhone( $ad["text"], $ad["id"] );
-            // $this->last_ad_time = DB::table('ads')->orderBy("date", "desc")->first();
             
             $group = "club" . abs( intval( $group_id ) );
             $owner_and_id = $ad["owner_id"] . "_" . $ad["id"];
             $link = "https://vk.com/" . $group . "?w=wall" . $owner_and_id . "%2Fall";
             
+            // распределение по направлениям купли/продажи и валюты
             $type = '';
             foreach( $patterns as $key => $pattern ){
                 $test_matches = preg_match($pattern, $phones_parsed["text"], $match);
@@ -65,33 +65,35 @@ class ParseAdsController extends Controller
                 }
             }
 
-            // $is_id_in_table = DB::table('ads')
-            //                     ->where('vk_id', '=', $ad["id"])
-            //                     ->where('owner_id', '=', $ad["owner_id"])
-            //                     ->get();
             $is_id_in_table = Ads::where('vk_id', '=', $ad["id"])->count();
 
-            $is_text_in_table = Ads::where('text', '=', $phones_parsed["text"])->count();
+            $is_text_in_table = Ads::where('content', '=', $ad["text"])->count();
+            // $is_phone_in_table = 0;
 
-            // var_dump($is_text_in_table);
+            // if( !empty($phones_parsed["phones"]) ){
+            //     $is_phone_in_table = Ads::where('phone', '=', $phones_parsed["phones"], 'and')
+            //                             ->where('type', '!=', $type)->count();
+            // }
 
             if( $is_text_in_table > 0 ){
-                Ads::where('text', '=', $phones_parsed["text"])->update([
-                    'vk_id'      => $ad["id"],
-                    'date'       => $ad["date"],
-                    'link'       => $link
+                Ads::where('content', '=', $phones_parsed["text"])->update([
+                    'vk_id'           => $ad["id"],
+                    'owner_id'        => $ad["owner_id"],
+                    'date'            => $ad["date"],
+                    'link'            => $link
                 ]);
             } elseif( $is_id_in_table < 1 && $ad["from_id"] != $ad["owner_id"] ){
                 Ads::create([
-                    'vk_id'      => $ad["id"],
-                    'vk_user'    => $ad["from_id"],
-                    'owner_id'   => $ad["owner_id"],
-                    'date'       => $ad["date"],
-                    'text'       => $phones_parsed["text"],
-                    'phone'      => implode(",", $phones_parsed["phones"]),
-                    'rate'       => 0,
-                    'link'       => $link,
-                    'type'       => $type
+                    'vk_id'           => $ad["id"],
+                    'vk_user'         => $ad["from_id"],
+                    'owner_id'        => $ad["owner_id"],
+                    'date'            => $ad["date"],
+                    'content'         => $ad["text"],
+                    'content_changed' => $phones_parsed["text"],
+                    'phone'           => $phones_parsed["phones"],
+                    'rate'            => 0,
+                    'link'            => $link,
+                    'type'            => $type
                 ]);
             } 
         }

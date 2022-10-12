@@ -83,7 +83,7 @@
                 
                 
                 @forelse($ads as $ad)
-                    <span class="text-gray-500">{!! $ad->text !!}</span>
+                    <span class="text-gray-500">{!! $ad->content_changed !!}</span>
                     <span><a class="text-gray-600" href="{{ $ad->link }}" target="_blank" rel="nofollow">
                         {{ gmdate("H:i d.m.Y", $ad->date) }}
                     </a></span>
