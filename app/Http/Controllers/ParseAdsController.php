@@ -41,7 +41,6 @@ class ParseAdsController extends Controller
             "buy_euro"         => "/[Кк]уп.*(\€|евро)(.*?\d{2})/",
             "buy_hrn"          => "/[Кк]уп.*([Гг]рн|грив|[Пп]риват|[Оо]щад|[Мм]оно)/",
             "buy_cashless"     => "/[Кк]уп.*([Cс]бер|[Тт]иньк)/"
-            // "phone_number" => "/[+0-9-]{10,20}/"
             // "course" => "/(по|курс) ([\d\.\,]{2,5}) /"
         ];
         foreach( $ads as $ad ){
@@ -68,12 +67,6 @@ class ParseAdsController extends Controller
             $is_id_in_table = Ads::where('vk_id', '=', $ad["id"])->count();
 
             $is_text_in_table = Ads::where('content', '=', $ad["text"])->count();
-            // $is_phone_in_table = 0;
-
-            // if( !empty($phones_parsed["phones"]) ){
-            //     $is_phone_in_table = Ads::where('phone', '=', $phones_parsed["phones"], 'and')
-            //                             ->where('type', '!=', $type)->count();
-            // }
 
             if( $is_text_in_table > 0 ){
                 Ads::where('content', '=', $phones_parsed["text"])->update([
