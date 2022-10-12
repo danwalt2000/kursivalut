@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Ads extends Model
 {
     use HasFactory;
+    protected $table = 'ads';
+    protected $primaryKey = 'id';
+    protected $guarded = []; 
+    public $timestamps = false;
 }

@@ -1,7 +1,7 @@
 <?php
  
 namespace App\Http\Controllers;
-use Illuminate\Support\Facades\DB;
+use App\Models\Ads;
  
 class ParseAdsController extends Controller
 {
@@ -65,21 +65,24 @@ class ParseAdsController extends Controller
                 }
             }
 
-            $is_id_in_table = DB::table('ads')
-                                ->where('vk_id', '=', $ad["id"])
-                                ->where('owner_id', '=', $ad["owner_id"])
-                                ->get();
+            // $is_id_in_table = DB::table('ads')
+            //                     ->where('vk_id', '=', $ad["id"])
+            //                     ->where('owner_id', '=', $ad["owner_id"])
+            //                     ->get();
+            $is_id_in_table = Ads::where('vk_id', '=', $ad["id"])->count();
 
-            $is_text_in_table = DB::table('ads')->where('text', '=', $phones_parsed["text"])->get();
+            $is_text_in_table = Ads::where('text', '=', $phones_parsed["text"])->count();
 
-            if( count($is_text_in_table) ){
-                DB::table('ads') ->where('text', '=', $phones_parsed["text"])->update([
+            // var_dump($is_text_in_table);
+
+            if( $is_text_in_table > 0 ){
+                Ads::where('text', '=', $phones_parsed["text"])->update([
                     'vk_id'      => $ad["id"],
                     'date'       => $ad["date"],
                     'link'       => $link
                 ]);
-            } elseif( !count($is_id_in_table) && $ad["from_id"] != $ad["owner_id"] ){
-                DB::table('ads')->insert([
+            } elseif( $is_id_in_table < 1 && $ad["from_id"] != $ad["owner_id"] ){
+                Ads::create([
                     'vk_id'      => $ad["id"],
                     'vk_user'    => $ad["from_id"],
                     'owner_id'   => $ad["owner_id"],

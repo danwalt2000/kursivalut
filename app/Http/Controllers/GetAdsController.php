@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Http;
 use Psr\Http\Message\RequestInterface;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\DB;
 use Log;
 use App\Http\Controllers\CurrencyController;
+use App\Models\Ads;
  
 class GetAdsController extends CurrencyController
 {
@@ -26,7 +25,7 @@ class GetAdsController extends CurrencyController
         $count = 10;
         
         // если таблица пустая, запрашиваем больше записей
-        if( !( DB::table('ads')->first() ) ){
+        if( Ads::count() == 0 ){
             $count = 100;
         }
         $url = "https://api.vk.com/method/wall.get?access_token=" . $access_token . "&owner_id=" . $group_id . "&v=5.81&count=" . $count;
@@ -37,6 +36,12 @@ class GetAdsController extends CurrencyController
             return $currency::getLatest();
         }
         $json = json_decode($response->getBody(), true);
+        
+        // бывает, что от vk приходит ошибка
+        if ( isset( $json["error"] ) ){ 
+            Log::error($json);
+            return $currency::getLatest();
+        }
         
         $currency->ads = $json["response"]["items"];
         $currency->db_ads = ParseAdsController::parseAd( $currency->ads, $group_id );

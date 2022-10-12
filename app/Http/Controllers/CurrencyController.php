@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Http;
 use Psr\Http\Message\RequestInterface;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\DB;
 use Log;
 use App\Http\Controllers\GetAdsController;
 use App\Http\Controllers\ScheduleController;
+use App\Models\Ads;
  
 class CurrencyController extends Controller
 {
@@ -50,13 +50,15 @@ class CurrencyController extends Controller
     public function getExchangeDirections ( $direction )
     {
         $query = htmlspecialchars( $direction );
-        return DB::table('ads')->
-                where('type', 'like', "%" . $query . "%")->limit("100")->
-                orderBy("date", "desc")->get();
+        // return DB::table('ads')->
+        //         where('type', 'like', "%" . $query . "%")->limit("100")->
+        //         orderBy("date", "desc")->get();
+        return Ads::where('type', 'like', "%" . $query . "%")->orderBy('date', 'desc')->take(100)->get();
     }
 
-    public static function getLatest(){
-        return DB::table('ads')->limit('100')->orderBy("date", "desc")->get();
+    public static function getLatest( $asc_desc = 'desc' ){
+        // return DB::table('ads')->limit('100')->orderBy("date", "desc")->get();
+        return Ads::orderBy('date', $asc_desc)->take(100)->get();
     }
 
     public function show( $currency )
@@ -70,8 +72,8 @@ class CurrencyController extends Controller
     public function index()
     {
         return view('currency', [
-            'ads' => $this->db_ads,
-            // 'ads' => GetAdsController::getPosts( "-87785879" ),
+            // 'ads' => $this->db_ads,
+            'ads' => GetAdsController::getPosts( "-87785879" ),
             'directions' => $this->directions,
         ]);
     }
