@@ -1,3 +1,9 @@
+:root {
+    --main-bg-color: #fff;
+    --active-bg-color: rgba(0, 194, 151, .1);
+    --link-color: rgb(0, 194, 151);
+    --link-hover-color: rgb(0, 165, 128);
+}
 body {
     font-family: 'Nunito', sans-serif;
     width: 100%;
@@ -5,7 +11,14 @@ body {
     color: #242423
 }
 p{
-    color: #3E3E40
+    color: #3E3E40;
+}
+a{
+    text-decoration: none;
+    color: var(--link-color);
+}
+a:hover{
+    color: var(--link-hover-color);
 }
 .bg-gradient{
     /* background: rgb(9,116,152);
@@ -70,12 +83,46 @@ nav ul{
 .flex{
     display: flex
 }
+.flex-between{
+    justify-content: space-between;
+}
+.nav-wrapper{
+    display: grid;
+    grid-template-columns: 28% 40% 28%;
+    grid-gap: 2%
+}
+.chip{
+    font-size: 16px;
+    padding: 0 11px;
+    line-height: 32px;
+    cursor: pointer;
+    border: 1px #D6D6D6 solid;
+    border-radius: 6px;
+    display: flex;
+}
+.chip-active{
+    border: 1px var(--active-bg-color);
+    background: var(--active-bg-color);
+    color: var(--active-bg-color);
+}
+.chip-active::before,
+.tab-active::before{
+    content: "";
+    background: url(/img/check-label.svg) no-repeat;
+    margin-right: 10px;
+    width: 25px;
+    height: 25px;
+}
+.chip:hover{
+    background-color: var(--active-bg-color);
+}
 .sell-buy{
     display: flex;
-    background-color: rgba(9, 180, 255, 0.1);
+    background-color: var(--main-bg-color);
     width: fit-content;
     border-radius: 6px;
-    padding: 10px
+    padding: 2px;
+    border: 1px #D6D6D6 solid;
 }
 .sell-buy li{
     list-style-type: none;
@@ -84,4 +131,19 @@ nav ul{
     border-radius: 4px;
     cursor: pointer;
 }
+.sell-buy li:hover{
+    background-color: var(--active-bg-color);
+}
+.chip a, .sell-buy a{
+    display: block;
 
+}
+.tab-active{
+    background-color: var(--active-bg-color);
+}
+.currencies{
+    padding: 0
+}
+.currencies li{
+    list-style-type: none;
+}

@@ -24,18 +24,25 @@
                 </div>
                 
                 <div class="columns">
-                    <div class="left_column justify-between">
+                    <div class="left_column">
                         <h2>Найти объявление</h2>
-                        <nav class="flex">
-                            <span><a href="/">Все</a></span>
+                        <nav class="nav-wrapper flex-between">
+                            <span class="chip @if( $path['sell_buy'] == 'all' || $path['sell_buy'] == '' ) chip-active @endif"><a href="/">Все</a></span>
                             <ul class="sell-buy">
-                                <li><a href="/ads/sell/">Продажа</a></li>
-                                <li><a href="/ads/buy/">Покупка</a></li>
+                                <li class="@if($path['sell_buy'] == 'sell') tab-active @endif">
+                                    <a href="/ads/sell/{{ $path['currency'] }}">Продажа</a>
+                                </li>
+                                <li class="@if($path['sell_buy'] == 'buy') tab-active @endif">
+                                    <a href="/ads/buy/{{ $path['currency'] }}">Покупка</a>
+                                </li>
                             </ul>
                             <ul class="currencies">
-                                <li><a href="/ads/all/">Все валюты</a></li>
+                                @isset($path["currencies"])
+                                    <li>{{ $path["currencies"] }}</li>
+                                @endisset
+                                <li><a href="/ads/{{ $path['sell_buy'] }}/">Все валюты</a></li>
                                 @foreach($currencies as $name => $title)
-                                    <li><a href="/ads/all/{{ $name }}">{{ $title }}</a></li>
+                                    <li><a href="/ads/{{ $path['sell_buy'] }}/{{ $name }}">{{ $title }}</a></li>
                                 @endforeach
                             </ul>
                         </nav>

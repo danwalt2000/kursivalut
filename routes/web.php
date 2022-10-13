@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Redirect;
 use App\Http\Controllers\CurrencyController;
 
 /*
@@ -19,6 +20,7 @@ use App\Http\Controllers\CurrencyController;
 // });
 
 Route::resource('/', CurrencyController::class);
+Route::redirect('/ads', '/', 301);
 Route::get('/ads/{sellbuy}/{currency?}', 
      [CurrencyController::class, 'show'])
      ->where(['sellbuy' => 'sell|buy|all', 'currency' => 'dollar|euro|hrn|cashless']);

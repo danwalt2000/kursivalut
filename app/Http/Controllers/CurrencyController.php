@@ -1,9 +1,9 @@
 <?php
  
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Http;
 use Psr\Http\Message\RequestInterface;
-use Illuminate\Support\Facades\Storage;
 use Log;
 use App\Http\Controllers\GetAdsController;
 use App\Http\Controllers\ScheduleController;
@@ -59,11 +59,24 @@ class CurrencyController extends Controller
         return Ads::orderBy('date', $asc_desc)->take(100)->get();
     }
 
+    public function getPath(){
+        $url = URL::current();
+        $path = parse_url($url);
+        $path_parts = [ "sell_buy" => "all", "currency" => "" ];
+        if( !empty($path["path"]) ){
+            $path_array = explode("/", $path["path"]);
+            $path_parts["sell_buy"] =  $path_array[2];
+            $path_parts["currency"] = empty($path_array[3]) ? '' : $path_array[3];
+        }
+        return $path_parts;
+    }
+
     public function show( $sell_buy = "all", $currency = '' )
     {
         return view('currency', [
             'ads' => $this->getExchangeDirections($sell_buy, $currency),
-            'currencies' => $this->currencies
+            'currencies' => $this->currencies,
+            'path' => $this->getPath()
         ]);
     }
 
@@ -73,6 +86,7 @@ class CurrencyController extends Controller
             // 'ads' => $this->db_ads,
             'ads' => GetAdsController::getPosts( "-87785879" ),
             'currencies' => $this->currencies,
+            'path' => $this->getPath()
         ]);
     }
 }
