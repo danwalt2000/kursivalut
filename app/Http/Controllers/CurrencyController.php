@@ -30,42 +30,40 @@ class CurrencyController extends Controller
         "obmen_valut_dnr"       => ["id" => "-193547744", "time" => "hourly"],              // 60
         "donetsk_obmen_valyuta" => ["id" => "-174075254", "time" => "hourly"]               //60
     ];
-    public $directions = [
-       "sell_dollar" => "Продажа доллара",
-       "buy_dollar" => "Покупка доллара",
-       "sell_euro" => "Продажа евро",
-       "buy_euro" => "Покупка евро",
-       "sell_hrn" => "Продажа гривны",
-       "buy_hrn" => "Покупка гривны",
-       "sell_cashless" => "Продажа безнала руб.",
-       "buy_cashless" => "Покупка безнала руб."
+    public $currencies = [
+       "dollar" => "Доллар $",
+       "euro" => "Евро €",
+       "hrn" => "Гривна ₴",
+       "cashless" => "Безнал руб. ₽",
     ];
 
     public function __construct()
     {
         $this->db_ads = $this->getLatest();
-        // ScheduleController::schedule
     }
 
-    public function getExchangeDirections ( $direction )
+    public function getExchangeDirections ( $sell_buy, $currency )
     {
-        $query = htmlspecialchars( $direction );
-        // return DB::table('ads')->
-        //         where('type', 'like', "%" . $query . "%")->limit("100")->
-        //         orderBy("date", "desc")->get();
-        return Ads::where('type', 'like', "%" . $query . "%")->orderBy('date', 'desc')->take(100)->get();
+        $query = '_';
+        if( $sell_buy == 'sell' || $sell_buy == 'buy'){
+            $query = $sell_buy . $query;
+        }
+        if( array_key_exists( $currency, $this->currencies) ){
+            $query .= $currency;
+        }
+        return Ads::where('type', 'like', "%" . $query . "%")
+                  ->orderBy('date', 'desc')->take(100)->get();
     }
 
     public static function getLatest( $asc_desc = 'desc' ){
-        // return DB::table('ads')->limit('100')->orderBy("date", "desc")->get();
         return Ads::orderBy('date', $asc_desc)->take(100)->get();
     }
 
-    public function show( $currency )
+    public function show( $sell_buy = "all", $currency = '' )
     {
         return view('currency', [
-            'ads' => $this->getExchangeDirections($currency),
-            'directions' => $this->directions
+            'ads' => $this->getExchangeDirections($sell_buy, $currency),
+            'currencies' => $this->currencies
         ]);
     }
 
@@ -74,7 +72,7 @@ class CurrencyController extends Controller
         return view('currency', [
             // 'ads' => $this->db_ads,
             'ads' => GetAdsController::getPosts( "-87785879" ),
-            'directions' => $this->directions,
+            'currencies' => $this->currencies,
         ]);
     }
 }

@@ -2,6 +2,10 @@ body {
     font-family: 'Nunito', sans-serif;
     width: 100%;
     margin: 0;
+    color: #242423
+}
+p{
+    color: #3E3E40
 }
 .bg-gradient{
     /* background: rgb(9,116,152);
@@ -60,3 +64,24 @@ nav, .post{
     border-radius: 50%;
     margin-right: 15px;
 }
+nav ul{
+    margin: 0
+}
+.flex{
+    display: flex
+}
+.sell-buy{
+    display: flex;
+    background-color: rgba(9, 180, 255, 0.1);
+    width: fit-content;
+    border-radius: 6px;
+    padding: 10px
+}
+.sell-buy li{
+    list-style-type: none;
+    padding: 4px 10px;
+    margin: 4px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+

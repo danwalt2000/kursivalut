@@ -25,12 +25,17 @@
                 
                 <div class="columns">
                     <div class="left_column justify-between">
-                        <nav class="text-gray-500">
-                            <h2>Найти объявление</h2>
-                            <ul class="flex">
-                                <li><a href="/currency">Все объявления</a></li>
-                                @foreach($directions as $name => $title)
-                                    <li><a href="/currency/{{ $name }}">{{ $title }}</a></li>
+                        <h2>Найти объявление</h2>
+                        <nav class="flex">
+                            <span><a href="/">Все</a></span>
+                            <ul class="sell-buy">
+                                <li><a href="/ads/sell/">Продажа</a></li>
+                                <li><a href="/ads/buy/">Покупка</a></li>
+                            </ul>
+                            <ul class="currencies">
+                                <li><a href="/ads/all/">Все валюты</a></li>
+                                @foreach($currencies as $name => $title)
+                                    <li><a href="/ads/all/{{ $name }}">{{ $title }}</a></li>
                                 @endforeach
                             </ul>
                         </nav>

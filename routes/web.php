@@ -19,4 +19,6 @@ use App\Http\Controllers\CurrencyController;
 // });
 
 Route::resource('/', CurrencyController::class);
-Route::resource('/currency', CurrencyController::class);
+Route::get('/ads/{sellbuy}/{currency?}', 
+     [CurrencyController::class, 'show'])
+     ->where(['sellbuy' => 'sell|buy|all', 'currency' => 'dollar|euro|hrn|cashless']);
