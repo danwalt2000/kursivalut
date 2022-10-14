@@ -25,42 +25,44 @@
                 
                 <div class="columns">
                     <div class="left_column">
-                        <h2>Найти объявление</h2>
-                        <nav class="nav-wrapper flex-between">
-                            <span class="chip @if( $path['sell_buy'] == 'all' || $path['sell_buy'] == '' ) chip-active @endif"><a href="/">Все</a></span>
-                            <ul class="sell-buy">
-                                <li class="@if($path['sell_buy'] == 'sell') tab-active @endif">
-                                    <a href="/ads/sell/{{ $path['currency'] }}">Продажа</a>
-                                </li>
-                                <li class="@if($path['sell_buy'] == 'buy') tab-active @endif">
-                                    <a href="/ads/buy/{{ $path['currency'] }}">Покупка</a>
-                                </li>
-                            </ul>
-                            <ul class="currencies">
-                                {{-- Выбранную валюту отображаем первой --}}
-                                <li id="selected-currency" class="with-arrow" onclick="toggleDropdown()">
-                                    @if($path["currency"] != '' )
-                                        {{ $currencies[$path["currency"]] }}
-                                    @else 
-                                        Все валюты
-                                    @endif
-                                </li>
-                                <div id="currencies-hidden" class="currencies-hidden">
-                                    @if($path["currency"] != '')
-                                        <li><a href="/ads/{{ $path['sell_buy'] }}/">Все валюты</a></li>
-                                    @endif
-
-                                    @foreach($currencies as $name => $title)
-                                        {{-- Выбранную валюту в списке не показываем--}}
-                                        @if($path["currency"] != '' && $currencies[$path["currency"]] == $title )
-                                            @continue
+                        <header class="header-nav">
+                            <h2>Найти объявление</h2>
+                            <nav class="nav-wrapper flex-between">
+                                <span class="chip @if( $path['sell_buy'] == 'all' || $path['sell_buy'] == '' ) chip-active @endif"><a href="/">Все</a></span>
+                                <ul class="sell-buy">
+                                    <li class="@if($path['sell_buy'] == 'sell') tab-active @endif">
+                                        <a href="/ads/sell/{{ $path['currency'] }}">Продажа</a>
+                                    </li>
+                                    <li class="@if($path['sell_buy'] == 'buy') tab-active @endif">
+                                        <a href="/ads/buy/{{ $path['currency'] }}">Покупка</a>
+                                    </li>
+                                </ul>
+                                <ul class="currencies">
+                                    {{-- Выбранную валюту отображаем первой --}}
+                                    <li id="selected-currency" class="with-arrow">
+                                        @if($path["currency"] != '' )
+                                            {{ $currencies[$path["currency"]] }}
+                                        @else 
+                                            Все валюты
+                                        @endif
+                                    </li>
+                                    <div id="currencies-hidden" class="currencies-hidden">
+                                        @if($path["currency"] != '')
+                                            <li><a href="/ads/{{ $path['sell_buy'] }}/">Все валюты</a></li>
                                         @endif
 
-                                        <li><a href="/ads/{{ $path['sell_buy'] }}/{{ $name }}">{{ $title }}</a></li>
-                                    @endforeach
-                                </div>
-                            </ul>
-                        </nav>
+                                        @foreach($currencies as $name => $title)
+                                            {{-- Выбранную валюту в списке не показываем--}}
+                                            @if($path["currency"] != '' && $currencies[$path["currency"]] == $title )
+                                                @continue
+                                            @endif
+
+                                            <li><a href="/ads/{{ $path['sell_buy'] }}/{{ $name }}">{{ $title }}</a></li>
+                                        @endforeach
+                                    </div>
+                                </ul>
+                            </nav>
+                        </header>
                         
                         <section class="feed">
                             @forelse($ads as $ad)
@@ -88,25 +90,6 @@
                 </div>
             </main>
         </div>
-        <script>
-            const dropButton = document.querySelector("#selected-currency");
-            const dropList = document.querySelector("#currencies-hidden");
-
-            const checkDropdown = ()=>{
-                if(dropButton.classList.contains("currencies-active")){
-                    dropButton.classList.remove("currencies-active");
-                    dropList.classList.remove("active");
-                    document.removeEventListener("click", checkDropdown);
-                } else{
-                    dropButton.classList.add("currencies-active");
-                    dropList.classList.add("active");
-                    document.addEventListener("click", checkDropdown);
-                }
-                event.stopPropagation();
-            }
-            const toggleDropdown = ()=>{
-                checkDropdown(); 
-            }
-        </script>
+        <script src="/js/app.js" defer></script>
     </body>
 </html>

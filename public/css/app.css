@@ -40,7 +40,7 @@ a:hover{
     grid-template-columns: 65% 30%;
     grid-gap: 20px;
 }
-nav, .post{
+.header-nav, .post{
     background-color: #fff;
     margin: 20px 0;
     border-radius: 6px;
@@ -48,6 +48,9 @@ nav, .post{
     -webkit-box-shadow: -1px 3px 8px 0px rgba(34, 60, 80, 0.2);
     -moz-box-shadow: -1px 3px 8px 0px rgba(34, 60, 80, 0.2);
     box-shadow: -1px 3px 8px 0px rgba(34, 60, 80, 0.2);
+}
+.header-nav h2{
+    margin-top: 0;
 }
 .post{
     background-image: url(/img/post-bg.svg);
@@ -86,7 +89,7 @@ nav ul{
 }
 .nav-wrapper{
     display: grid;
-    grid-template-columns: 21% 45% 30%;
+    grid-template-columns: 15% 45% 30%;
     grid-gap: 2%
 }
 .chip{
@@ -129,7 +132,7 @@ nav ul{
 }
 .sell-buy li{
     list-style-type: none;
-    padding: 4px 10px;
+    padding: 0 10px;
     margin: 4px;
     border-radius: 4px;
     cursor: pointer;
@@ -167,6 +170,7 @@ nav ul{
     width: 100%;
     z-index: 2;
     border-radius: 6px;
+    margin-top: 2px;
 }
 .currencies-hidden li{
     padding: 0;
@@ -175,6 +179,9 @@ nav ul{
     display: block;
     padding: 10px;
     border-top: #D6D6D6 1px solid;
+}
+.currencies-hidden  li:first-child a{
+    border: unset
 }
 .currencies-hidden  li a:hover{
     background-color: var(--active-bg-color);
@@ -189,7 +196,7 @@ nav ul{
     justify-content: center;
 }
 .currencies .with-arrow{
-    padding: 11px 10px;
+    padding: 7px 10px;
 
 }
 .with-arrow:hover{
