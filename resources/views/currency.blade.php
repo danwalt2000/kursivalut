@@ -37,13 +37,28 @@
                                 </li>
                             </ul>
                             <ul class="currencies">
-                                @isset($path["currencies"])
-                                    <li>{{ $path["currencies"] }}</li>
-                                @endisset
-                                <li><a href="/ads/{{ $path['sell_buy'] }}/">Все валюты</a></li>
-                                @foreach($currencies as $name => $title)
-                                    <li><a href="/ads/{{ $path['sell_buy'] }}/{{ $name }}">{{ $title }}</a></li>
-                                @endforeach
+                                {{-- Выбранную валюту отображаем первой --}}
+                                <li id="selected-currency" class="with-arrow" onclick="toggleDropdown()">
+                                    @if($path["currency"] != '' )
+                                        {{ $currencies[$path["currency"]] }}
+                                    @else 
+                                        Все валюты
+                                    @endif
+                                </li>
+                                <div id="currencies-hidden" class="currencies-hidden">
+                                    @if($path["currency"] != '')
+                                        <li><a href="/ads/{{ $path['sell_buy'] }}/">Все валюты</a></li>
+                                    @endif
+
+                                    @foreach($currencies as $name => $title)
+                                        {{-- Выбранную валюту в списке не показываем--}}
+                                        @if($path["currency"] != '' && $currencies[$path["currency"]] == $title )
+                                            @continue
+                                        @endif
+
+                                        <li><a href="/ads/{{ $path['sell_buy'] }}/{{ $name }}">{{ $title }}</a></li>
+                                    @endforeach
+                                </div>
                             </ul>
                         </nav>
                         
@@ -56,16 +71,14 @@
                                             <a class="text-gray-600" href="{{ $ad->link }}" target="_blank" rel="nofollow noopener noreferrer">
                                                 {{ gmdate("H:i d.m.Y", ($ad->date + 3 * 60 * 60)) }}
                                             </a>
-
                                         </div>
                                         <svg class="three-dots" width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><g id="more_horizontal_24__Page-2" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="more_horizontal_24__more_horizontal_24"><path id="more_horizontal_24__Bounds" d="M24 0H0v24h24z"></path><path d="M18 10a2 2 0 0 1 2 2 2 2 0 0 1-2 2 2 2 0 0 1-2-2c0-1.1.9-2 2-2Zm-6 4a2 2 0 0 1-2-2c0-1.1.9-2 2-2a2 2 0 0 1 2 2 2 2 0 0 1-2 2Zm-6 0a2 2 0 0 1-2-2c0-1.1.9-2 2-2a2 2 0 0 1 2 2 2 2 0 0 1-2 2Z" id="more_horizontal_24__Mask" fill="currentColor"></path></g></g></svg>
                                     </header>
                                     
-                                    <span class="text-gray-500">{!! $ad->content_changed !!}</span>
-                                    
+                                    <span class="">{!! $ad->content_changed !!}</span>
                                 </article>
                             @empty
-                                <h2 class="text-gray-500">Объявлений не найдено</h2>
+                                <h2 class="">Объявлений не найдено</h2>
                             @endforelse
                         </section>
                     </div>
@@ -73,9 +86,27 @@
                         <h2>Подать объявление</h2>
                     </div>
                 </div>
-                
-                
             </main>
         </div>
+        <script>
+            const dropButton = document.querySelector("#selected-currency");
+            const dropList = document.querySelector("#currencies-hidden");
+
+            const checkDropdown = ()=>{
+                if(dropButton.classList.contains("currencies-active")){
+                    dropButton.classList.remove("currencies-active");
+                    dropList.classList.remove("active");
+                    document.removeEventListener("click", checkDropdown);
+                } else{
+                    dropButton.classList.add("currencies-active");
+                    dropList.classList.add("active");
+                    document.addEventListener("click", checkDropdown);
+                }
+                event.stopPropagation();
+            }
+            const toggleDropdown = ()=>{
+                checkDropdown(); 
+            }
+        </script>
     </body>
 </html>

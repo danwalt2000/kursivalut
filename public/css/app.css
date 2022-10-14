@@ -1,7 +1,7 @@
 :root {
     --main-bg-color: #fff;
     --active-bg-color: rgba(0, 194, 151, .1);
-    --link-color: rgb(0, 194, 151);
+    --link-color: rgb(0, 194, 151); /* #00c297 */
     --link-hover-color: rgb(0, 165, 128);
 }
 body {
@@ -21,8 +21,6 @@ a:hover{
     color: var(--link-hover-color);
 }
 .bg-gradient{
-    /* background: rgb(9,116,152);
-    background: linear-gradient(90deg, rgba(9,116,152,1) 0%, rgba(21,172,117,1) 67%); */
     background: url("/img/bg.svg") repeat;
     background-position: top;
     min-height: 100vh;
@@ -88,7 +86,7 @@ nav ul{
 }
 .nav-wrapper{
     display: grid;
-    grid-template-columns: 28% 40% 28%;
+    grid-template-columns: 21% 45% 30%;
     grid-gap: 2%
 }
 .chip{
@@ -101,9 +99,12 @@ nav ul{
     display: flex;
 }
 .chip-active{
-    border: 1px var(--active-bg-color);
+    /* border: 1px var(--active-bg-color); */
     background: var(--active-bg-color);
     color: var(--active-bg-color);
+    display: flex;
+    align-items: center;
+
 }
 .chip-active::before,
 .tab-active::before{
@@ -112,6 +113,7 @@ nav ul{
     margin-right: 10px;
     width: 25px;
     height: 25px;
+    background-position: center;
 }
 .chip:hover{
     background-color: var(--active-bg-color);
@@ -119,6 +121,7 @@ nav ul{
 .sell-buy{
     display: flex;
     background-color: var(--main-bg-color);
+    justify-self: center;
     width: fit-content;
     border-radius: 6px;
     padding: 2px;
@@ -130,20 +133,85 @@ nav ul{
     margin: 4px;
     border-radius: 4px;
     cursor: pointer;
+    display: flex;
 }
 .sell-buy li:hover{
     background-color: var(--active-bg-color);
 }
 .chip a, .sell-buy a{
     display: block;
-
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .tab-active{
     background-color: var(--active-bg-color);
 }
 .currencies{
-    padding: 0
+    padding: 0;
+    position: relative;
 }
 .currencies li{
     list-style-type: none;
+    padding: 10px;
+}
+.currencies-hidden{
+    display: none;
+    background-color: var(--main-bg-color);
+    -webkit-box-shadow: -1px 13px 8px 0px rgba(34, 60, 80, 0.2);
+    -moz-box-shadow: -1px 13px 8px 0px rgba(34, 60, 80, 0.2);
+    box-shadow: -1px 13px 8px 0px rgba(34, 60, 80, 0.2);
+    position: absolute;
+    width: 100%;
+    z-index: 2;
+    border-radius: 6px;
+}
+.currencies-hidden li{
+    padding: 0;
+}
+.currencies-hidden  li a{
+    display: block;
+    padding: 10px;
+    border-top: #D6D6D6 1px solid;
+}
+.currencies-hidden  li a:hover{
+    background-color: var(--active-bg-color);
+}
+.with-arrow{
+    cursor: pointer;
+    color: var(--link-color);
+    border: 1px #D6D6D6 solid;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.currencies .with-arrow{
+    padding: 11px 10px;
+
+}
+.with-arrow:hover{
+    background-color: var(--active-bg-color);
+}
+.with-arrow::after{
+    content: '';
+    background: url(/img/arrow-down-cyan.svg) no-repeat;
+    content: "";
+    display: inline-block;
+    vertical-align: 3px;
+    margin-left: 9px;
+    width: 19px;
+    height: 8px;
+    transition: transform .2s;
+    background-size: 70%;
+    background-position: center;
+    cursor: pointer;
+}
+.currencies-active::after{
+    transform: rotate(.5turn);
+}
+.active{
+    display: block;
 }
