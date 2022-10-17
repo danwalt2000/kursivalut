@@ -2,6 +2,7 @@
  
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Psr\Http\Message\RequestInterface;
 use Log;
@@ -21,6 +22,8 @@ class CurrencyController extends Controller
     public $ads = [];
     public $db_ads = [];
     public $get_posts;
+    public $to_view = [];
+    public $posts;
     
     public $publics = [
         "obmenvalut_donetsk"    => ["id" => "-87785879",  "time" => "everyFiveMinutes"],    // 5
@@ -34,34 +37,33 @@ class CurrencyController extends Controller
        "dollar" => "Доллар $",
        "euro" => "Евро €",
        "hrn" => "Гривна ₴",
-       "cashless" => "Безнал руб. ₽",
+       "cashless" => "Безнал руб. ₽"
+    ];
+    public $date_sort = [
+        1   => "1 час",
+        5   => "5 часов",
+        24  => "24 часа",
+        168 => "7 дней",
+        720 => "30 дней"
     ];
 
     public function __construct()
     {
-        $this->db_ads = $this->getLatest();
-    }
-
-    public function getExchangeDirections ( $sell_buy, $currency )
-    {
-        $query = '_';
-        if( $sell_buy == 'sell' || $sell_buy == 'buy'){
-            $query = $sell_buy . $query;
-        }
-        if( array_key_exists( $currency, $this->currencies) ){
-            $query .= $currency;
-        }
-        return Ads::where('type', 'like', "%" . $query . "%")
-                  ->orderBy('date', 'desc')->take(100)->get();
-    }
-
-    public static function getLatest( $asc_desc = 'desc' ){
-        return Ads::orderBy('date', $asc_desc)->take(100)->get();
+        $this->posts = new DBController;
+        $this->db_ads = $this->posts->getPosts();
+        $this->to_view = [
+            'ads' => $this->db_ads,
+            'ads_count' => $this->posts->countLatest(),
+            'currencies' => $this->currencies,
+            'path' => $this->getPath(),
+            'date_sort' => $this->date_sort
+        ];
     }
 
     public function getPath(){
         $url = URL::current();
         $path = parse_url($url);
+        // var_dump( (new Request)->query("date") );
         $path_parts = [ "sell_buy" => "all", "currency" => "" ];
         if( !empty($path["path"]) ){
             $path_array = explode("/", $path["path"]);
@@ -73,20 +75,13 @@ class CurrencyController extends Controller
 
     public function show( $sell_buy = "all", $currency = '' )
     {
-        return view('currency', [
-            'ads' => $this->getExchangeDirections($sell_buy, $currency),
-            'currencies' => $this->currencies,
-            'path' => $this->getPath()
-        ]);
+        $this->to_view['ads'] = $this->posts->getExchangeDirections($sell_buy, $currency);
+        return view('currency', $this->to_view);
     }
 
     public function index()
     {
-        return view('currency', [
-            // 'ads' => $this->db_ads,
-            'ads' => GetAdsController::getPosts( "-87785879" ),
-            'currencies' => $this->currencies,
-            'path' => $this->getPath()
-        ]);
+        $this->to_view['ads'] = GetAdsController::getPosts( "-87785879" );
+        return view('currency', $this->to_view);
     }
 }

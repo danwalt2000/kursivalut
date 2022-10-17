@@ -1,3 +1,7 @@
+@php 
+    $hours = request()->date;
+    if(!$hours) $hours = 24; 
+@endphp
 <!DOCTYPE html>
 <html lang="ru">
     <head>
@@ -27,7 +31,7 @@
                     <div class="left_column">
                         <header class="header-nav">
                             <h2>Найти объявление</h2>
-                            <nav class="nav-wrapper flex-between">
+                            <nav class="nav-wrapper">
                                 <span class="chip @if( $path['sell_buy'] == 'all' || $path['sell_buy'] == '' ) chip-active @endif"><a href="/">Все</a></span>
                                 <ul class="sell-buy">
                                     <li class="@if($path['sell_buy'] == 'sell') tab-active @endif">
@@ -62,6 +66,23 @@
                                     </div>
                                 </ul>
                             </nav>
+                            <ul class="chips">
+                                <h3>За:</h3>
+                                @foreach($date_sort as $time => $title)
+                                    <li class="chip @if($time == $hours) chip-active @endif">
+                                        <a href="{{ request()->fullUrlWithQuery(['date' => $time]) }} ">{{$title}}</a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                            <ul class="sort chips">
+                                <h3>Сортировать по:</h3>
+                                <li class="chip with-arrow with-arrow-rarr"><a href="{{ request()->fullUrlWithQuery(['sort' => 'date', 'order' => 'asc']) }}">Дате</a></li>
+                                <li class="chip"><a href="{{ request()->fullUrlWithQuery(['sort' => 'popularity', 'order' => 'asc']) }}">Популярности</a></li>
+                                <li class="chip"><a href="{{ request()->fullUrlWithQuery(['sort' => 'rate', 'order' => 'asc']) }}">Курсу</a></li>
+                            </ul>
+                            @if($ads)
+                                <p>Найдено объявлений {{ $ads_count }}</p>
+                            @endif
                         </header>
                         
                         <section class="feed">

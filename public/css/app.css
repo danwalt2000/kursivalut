@@ -1,8 +1,9 @@
 :root {
     --main-bg-color: #fff;
     --active-bg-color: rgba(0, 194, 151, .1);
-    --link-color: rgb(0, 194, 151); /* #00c297 */
-    --link-hover-color: rgb(0, 165, 128);
+    --link-color: #00c297; /* #00c297 */
+    --link-hover-color: #00a580;
+    --para-color: #3E3E40;
 }
 body {
     font-family: 'Nunito', sans-serif;
@@ -11,7 +12,7 @@ body {
     color: #242423
 }
 p{
-    color: #3E3E40;
+    color: var(--para-color);
 }
 a{
     text-decoration: none;
@@ -88,9 +89,15 @@ nav ul{
     justify-content: space-between;
 }
 .nav-wrapper{
-    display: grid;
+    /* display: grid;
     grid-template-columns: 15% 45% 30%;
-    grid-gap: 2%
+    grid-gap: 2% */
+    display: flex;
+}
+.chips{
+    display: flex;
+    align-items: center;
+    padding: 0;
 }
 .chip{
     font-size: 16px;
@@ -100,23 +107,30 @@ nav ul{
     border: 1px #D6D6D6 solid;
     border-radius: 6px;
     display: flex;
+    margin-right: 10px;
 }
 .chip-active{
-    /* border: 1px var(--active-bg-color); */
     background: var(--active-bg-color);
     color: var(--active-bg-color);
     display: flex;
     align-items: center;
-
+    color: var(--link-color);
+}
+.header-nav h3{
+    margin: 0;
+    font: 400 16px/20px "Nunito", sans-serif;
+    margin-right: 10px;
 }
 .chip-active::before,
 .tab-active::before{
     content: "";
     background: url(/img/check-label.svg) no-repeat;
-    margin-right: 10px;
     width: 25px;
     height: 25px;
     background-position: center;
+}
+.tab-active{
+    padding-left: 10px;
 }
 .chip:hover{
     background-color: var(--active-bg-color);
@@ -127,16 +141,21 @@ nav ul{
     justify-self: center;
     width: fit-content;
     border-radius: 6px;
-    padding: 2px;
+    padding: 6px;
     border: 1px #D6D6D6 solid;
+    margin-right: 10px;
 }
 .sell-buy li{
     list-style-type: none;
-    padding: 0 10px;
-    margin: 4px;
     border-radius: 4px;
     cursor: pointer;
     display: flex;
+}
+.sell-buy li a{
+    padding: 0 10px;
+}
+.sell-buy li:first-child a{
+    border-right: 1px solid var(--para-color);
 }
 .sell-buy li:hover{
     background-color: var(--active-bg-color);
@@ -194,10 +213,13 @@ nav ul{
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-right: 9px;
 }
 .currencies .with-arrow{
     padding: 7px 10px;
-
+    min-width: 120px;
+    justify-content: space-around;
+    margin-right: 0;
 }
 .with-arrow:hover{
     background-color: var(--active-bg-color);
@@ -208,13 +230,18 @@ nav ul{
     content: "";
     display: inline-block;
     vertical-align: 3px;
-    margin-left: 9px;
     width: 19px;
     height: 8px;
     transition: transform .2s;
     background-size: 70%;
     background-position: center;
     cursor: pointer;
+}
+.with-arrow-rarr::after{
+    background: url(/img/rarr.svg) no-repeat;
+    height: 20px;
+    transform: rotate(-90deg);
+    width: 20px;
 }
 .currencies-active::after{
     transform: rotate(.5turn);

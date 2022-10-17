@@ -91,6 +91,6 @@ class ParseAdsController extends Controller
             } 
         }
         
-        return CurrencyController::getLatest(); // последние 100 записей в БД
+        return DBController::getPosts(); // последние 100 записей в БД
     }
 }

@@ -20,6 +20,7 @@ class GetAdsController extends CurrencyController
     public static function getPosts( $group_id )
     {
         $currency = new CurrencyController;
+        $posts = new DBController;
         
         $access_token = "vk1.a.Hv_D01r4bJfnTOumY5rCtn7NyYSWLWWDJogEzbnBCkBaDTFWRMfsYHeiALSCFF0W-mAoiqjNK01HfC4n7D7DI_xNOBnVhLVmEcG7wyZ_qP6FENCZO_WSlWnjJDpRtXw--0xazEHvm_UxYqrR_WTRQVtcwzF-FYIMFHessTD0oHVBXpcZyJO-cPBTBmwhVWVf";
         $count = 10;
@@ -33,14 +34,14 @@ class GetAdsController extends CurrencyController
             $response = Http::get($url);
         } catch(\Exception $exception) {
             Log::error($exception);
-            return $currency::getLatest();
+            return $posts::getPosts();
         }
         $json = json_decode($response->getBody(), true);
         
         // бывает, что от vk приходит ошибка
         if ( isset( $json["error"] ) ){ 
             Log::error($json);
-            return $currency::getLatest();
+            return $posts::getPosts();
         }
         
         $currency->ads = $json["response"]["items"];
