@@ -34,8 +34,10 @@ class DBController extends Controller
         if(!empty($_GET["date"]) && filter_var($_GET["date"], FILTER_VALIDATE_INT)!== false ){
             $time_range = $_GET["date"];
         }
-
-        $query = $sell_buy . '_' . $currency;
+        $query = '';
+        if( $sell_buy != "all" && !empty($sell_buy) || !empty($currency) ){
+            $query = $sell_buy . '_' . $currency;
+        }
         $cut_by_time = time() - $time_range * 60 * 60;
         return Ads::where("date", ">", $cut_by_time)
                   ->where('type', 'like', "%" . $query . "%")

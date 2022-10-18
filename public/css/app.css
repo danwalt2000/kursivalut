@@ -12,6 +12,9 @@ body {
     margin: 0;
     color: #242423
 }
+h1{
+    font: 600 30px/140% 'Nunito', sans-serif;
+}
 p{
     color: var(--para-color);
 }
@@ -30,12 +33,17 @@ a:hover{
 .logo{
     display: flex;
     max-height: 70px;
-
+    background-color: var(--main-bg-color);
+    border-radius: 6px;
+}
+.lowercased{
+    text-transform: lowercase;
 }
 .main{
     max-width: 880px;
     width: 100%;
-    margin: auto
+    margin: auto;
+    padding-top: 10px;
 }
 .columns{
     display: grid;
@@ -102,7 +110,6 @@ nav ul{
 }
 .chip{
     font-size: 16px;
-    padding: 0 11px;
     line-height: 32px;
     cursor: pointer;
     border: 1px #D6D6D6 solid;
@@ -124,12 +131,13 @@ nav ul{
     font: 400 16px/20px "Nunito", sans-serif;
     margin-right: 10px;
 }
-.chip-active::before,
-.tab-active::before{
+.chip-active a::before,
+.tab-active a::before{
     content: "";
     background: url(/img/check-label.svg) no-repeat;
-    width: 25px;
-    height: 25px;
+    width: 20px;
+    height: 20px;
+    margin-right: 9px;
     background-position: center;
 }
 .tab-active{
@@ -164,13 +172,16 @@ nav ul{
 .sell-buy li:hover{
     background-color: var(--active-bg-color);
 }
-.chip a, .sell-buy a{
+.chip a, 
+.sell-buy a, 
+.with-arrow a{
     display: block;
     height: 100%;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 0 11px;
 }
 .tab-active{
     background-color: var(--active-bg-color);
@@ -233,7 +244,8 @@ nav ul{
 .with-arrow:hover{
     background-color: var(--active-bg-color);
 }
-.with-arrow::after{
+.currencies .with-arrow::after,
+.with-arrow a::after{
     content: '';
     background: url(/img/arrow-down-cyan.svg) no-repeat;
     content: "";
@@ -246,14 +258,14 @@ nav ul{
     background-position: center;
     cursor: pointer;
 }
-.with-arrow-rarr::after{
+.with-arrow-rarr a::after{
     background: url(/img/rarr.svg) no-repeat;
     height: 20px;
     transform: rotate(-90deg);
     width: 20px;
     background-position: center;
 }
-.with-arrow-rarr-up::after{
+.with-arrow-rarr-up a::after{
     transform: rotate(90deg);
 }
 .currencies-active::after{
