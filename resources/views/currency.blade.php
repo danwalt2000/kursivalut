@@ -1,7 +1,3 @@
-@php 
-    $hours = request()->date;
-    if(!$hours) $hours = 24; 
-@endphp
 <!DOCTYPE html>
 <html lang="ru">
     <head>
@@ -32,13 +28,14 @@
                         <header class="header-nav">
                             <h2>Найти объявление</h2>
                             <nav class="nav-wrapper">
-                                <span class="chip @if( $path['sell_buy'] == 'all' || $path['sell_buy'] == '' ) chip-active @endif"><a href="/">Все</a></span>
-                                <ul class="sell-buy">
+                                <span class="chip @if( $path['sell_buy'] == 'all' || $path['sell_buy'] == '' ) chip-active @endif"><a href="/?{{ $path['query'] }}">Все</a></span>
+                                <ul class="sell-buy @if($path['sell_buy'] != 'all') sell-buy-active @endif">
                                     <li class="@if($path['sell_buy'] == 'sell') tab-active @endif">
-                                        <a href="/ads/sell/{{ $path['currency'] }}">Продажа</a>
+                                        {{-- {{ dd(Request::get('date')) }} --}}
+                                        <a href="/ads/sell/{{ $path['currency'] }}?{{ $path['query'] }}">Продажа</a>
                                     </li>
                                     <li class="@if($path['sell_buy'] == 'buy') tab-active @endif">
-                                        <a href="/ads/buy/{{ $path['currency'] }}">Покупка</a>
+                                        <a href="/ads/buy/{{ $path['currency'] }}?{{ $path['query'] }}">Покупка</a>
                                     </li>
                                 </ul>
                                 <ul class="currencies">
@@ -69,7 +66,7 @@
                             <ul class="chips">
                                 <h3>За:</h3>
                                 @foreach($date_sort as $time => $title)
-                                    <li class="chip @if($time == $hours) chip-active @endif">
+                                    <li class="chip @if($time == $path['hours']) chip-active @endif">
                                         <a href="{{ request()->fullUrlWithQuery(['date' => $time]) }} ">{{$title}}</a>
                                     </li>
                                 @endforeach

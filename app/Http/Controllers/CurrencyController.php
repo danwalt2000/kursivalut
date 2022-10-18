@@ -24,6 +24,7 @@ class CurrencyController extends Controller
     public $get_posts;
     public $to_view = [];
     public $posts;
+    public $parsed_url = [];
     
     public $publics = [
         "obmenvalut_donetsk"    => ["id" => "-87785879",  "time" => "everyFiveMinutes"],    // 5
@@ -53,20 +54,35 @@ class CurrencyController extends Controller
         $this->db_ads = $this->posts->getPosts();
         $this->to_view = [
             'ads' => $this->db_ads,
-            'ads_count' => $this->posts->countLatest(),
+            'ads_count' => $this->posts->getPosts("count"),
             'currencies' => $this->currencies,
-            'path' => $this->getPath(),
+            'path' => $this->parseUri(),
             'date_sort' => $this->date_sort
         ];
     }
 
-    public function getPath(){
-        $url = URL::current();
-        $path = parse_url($url);
-        // var_dump( (new Request)->query("date") );
-        $path_parts = [ "sell_buy" => "all", "currency" => "" ];
-        if( !empty($path["path"]) ){
-            $path_array = explode("/", $path["path"]);
+    public function parseUri(){
+        $url = explode("?", \Request::getRequestUri());
+        $path = $url[0];
+        $query = '';
+        $hours = 24;
+
+        if( !empty($url[1]) ){
+            $query = $url[1];
+            // var_dump($url[1]);
+            $hours_pattern = "/(?<=(date\=))[\d+.-]+/";
+            preg_match($hours_pattern, $url[1], $matches);
+            $hours = $matches[0];
+        }
+        $path_parts = [ 
+            "sell_buy" => "all", 
+            "currency" => "", 
+            "query"    => $query,
+            "hours"    => $hours    // количество часов для фильтрации
+        ];
+        
+        if( $path !== "/" ){
+            $path_array = explode("/", $path);
             $path_parts["sell_buy"] =  $path_array[2];
             $path_parts["currency"] = empty($path_array[3]) ? '' : $path_array[3];
         }
@@ -75,13 +91,14 @@ class CurrencyController extends Controller
 
     public function show( $sell_buy = "all", $currency = '' )
     {
-        $this->to_view['ads'] = $this->posts->getExchangeDirections($sell_buy, $currency);
+        $this->to_view['ads'] = $this->posts->getPosts( "get", $sell_buy, $currency );
+        $this->to_view['ads_count'] = $this->posts->getPosts("count", $sell_buy, $currency);
         return view('currency', $this->to_view);
     }
 
     public function index()
     {
-        $this->to_view['ads'] = GetAdsController::getPosts( "-87785879" );
+        // $this->to_view['ads'] = GetAdsController::getPosts( "-87785879" );
         return view('currency', $this->to_view);
     }
 }

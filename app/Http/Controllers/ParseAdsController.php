@@ -85,6 +85,8 @@ class ParseAdsController extends Controller
                     'content_changed' => $phones_parsed["text"],
                     'phone'           => $phones_parsed["phones"],
                     'rate'            => 0,
+                    'phone_showed'    => 0,
+                    'link_followed'   => 0,
                     'link'            => $link,
                     'type'            => $type
                 ]);

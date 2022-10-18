@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\DB;
 use Psr\Http\Message\RequestInterface;
 use Log;
 use App\Http\Controllers\GetAdsController;
@@ -19,37 +20,25 @@ class DBController extends Controller
      * @return \Illuminate\View\View
      */
 
-    public function getExchangeDirections ( $sell_buy, $currency )
-    {
-        $query = '_';
-        if( $sell_buy == 'sell' || $sell_buy == 'buy'){
-            $query = $sell_buy . $query;
+    public static function getPosts( $get_or_count = "get", $sell_buy = '', $currency = '' ){
+        $sort = 'date';
+        if(!empty($_GET["sort"]) && str_contains( "date rate popularity", $_GET["sort"]) ){
+            $sort = $_GET["sort"];
+        } 
+        $asc_desc = 'desc';
+        if(!empty($_GET["order"]) && str_contains( "asc desc", $_GET["order"]) ){
+            $asc_desc = $_GET["order"];
         }
-        if( array_key_exists( $currency, (new CurrencyController)->currencies) ){
-            $query .= $currency;
-        }
-        $db_query = "where('type', 'like', '%' . $query . '%')";
-        // return $this->getPosts();
-        return Ads::where('type', 'like', "%" . $query . "%")
-                  ->orderBy('date', 'desc')->take(100)->get();
-    }
-
-    public static function getPosts( $param = 'date', $asc_desc = 'desc', $date_range = 24, $direction = '' ){
+        
         $time_range = 24;
         if(!empty($_GET["date"]) && filter_var($_GET["date"], FILTER_VALIDATE_INT)!== false ){
             $time_range = $_GET["date"];
         }
 
+        $query = $sell_buy . '_' . $currency;
         $cut_by_time = time() - $time_range * 60 * 60;
-        return Ads::where("date", ">", $cut_by_time)->orderBy($param, $asc_desc)->take(100)->get();
-    }
-    public static function countLatest( $param = 'date', $asc_desc = 'desc', $date_range = 24 ){
-        $time_range = 24;
-        if(!empty($_GET["date"]) && filter_var($_GET["date"], FILTER_VALIDATE_INT)!== false  ){
-            $time_range = $_GET["date"];
-        }
-
-        $cut_by_time = time() - $time_range * 60 * 60;
-        return Ads::where("date", ">", $cut_by_time)->orderBy($param, $asc_desc)->count();
+        return Ads::where("date", ">", $cut_by_time)
+                  ->where('type', 'like', "%" . $query . "%")
+                  ->orderBy($sort, $asc_desc)->take(100)->$get_or_count();
     }
 }
