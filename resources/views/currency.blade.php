@@ -16,6 +16,13 @@
             <main class="main">
                 <div class="logo">
                     <p class="text-gray-500">Обмен валют</p>
+                    <form action="/s" class="search-form" method="get">
+                        <input id="search" type="text" placeholder="Поиск в объявлениях"
+                            class="search-input @error('search') is-invalid @enderror">
+                        <button type="submit" class="search-submit">
+                            <img class="search" src="/img/search.svg" alt="" width="18" height="18">
+                        </button>  
+                    </form>
                 </div>
                 
                 <div class="columns">

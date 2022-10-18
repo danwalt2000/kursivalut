@@ -26,12 +26,12 @@ class Kernel extends ConsoleKernel
             // $publics класса CurrencyController
             $schedule->call( function() use ($id){
                 GetAdsController::getPosts( $id );
-            })->$time()->between('7:30', '18:00'); 
+            })->$time()->between('4:30', '15:00'); 
 
             // в нерабоче время обращаться к группам раз в час
             $schedule->call( function() use ($id){
                 GetAdsController::getPosts( $id );
-            })->hourly()->unlessBetween('7:30', '18:00');
+            })->hourly()->unlessBetween('4:30', '15:00');
         }
     }
 
