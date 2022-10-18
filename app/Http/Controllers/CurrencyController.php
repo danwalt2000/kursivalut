@@ -66,19 +66,25 @@ class CurrencyController extends Controller
         $path = $url[0];
         $query = '';
         $hours = 24;
+        $sort = "date_desc";
 
         if( !empty($url[1]) ){
             $query = $url[1];
-            // var_dump($url[1]);
             $hours_pattern = "/(?<=(date\=))[\d+.-]+/";
-            preg_match($hours_pattern, $url[1], $matches);
-            $hours = $matches[0];
+            $sort_type_pattern = "/((?<=(sort\=))[\w+.]+)/";
+            $order_pattern = "/((?<=(order\=))[\w+.]+)/";
+            preg_match($hours_pattern, $url[1], $hours_matches);
+            preg_match($sort_type_pattern, $url[1], $sort_matches);
+            preg_match($order_pattern, $url[1], $order_matches);
+            if(!empty($hours_matches[0])) $hours = $hours_matches[0];
+            if(!empty($sort_matches[0]) && !empty($order_matches[0])) $sort = $sort_matches[0] . "_" . $order_matches[0];
         }
         $path_parts = [ 
             "sell_buy" => "all", 
             "currency" => "", 
-            "query"    => $query,
-            "hours"    => $hours    // количество часов для фильтрации
+            "query"    => $query,    // строка get-параметров
+            "hours"    => $hours,    // количество часов для фильтрации
+            "sort"     => $sort      // тип сортировки для подсветки активных чипсов
         ];
         
         if( $path !== "/" ){

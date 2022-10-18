@@ -25,6 +25,7 @@ return new class extends Migration
             $table->float('rate');
             $table->integer('phone_showed');
             $table->integer('link_followed');
+            $table->integer('popularity');
             $table->string('link');
             $table->string('type');
         });
