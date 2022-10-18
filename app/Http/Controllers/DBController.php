@@ -35,7 +35,7 @@ class DBController extends Controller
             $time_range = $_GET["date"];
         }
         $query = '';
-        if( $sell_buy != "all" && !empty($sell_buy) || !empty($currency) ){
+        if( $sell_buy != "all" && ( !empty($sell_buy) || !empty($currency) ) ){
             $query = $sell_buy . '_' . $currency;
         }
         $cut_by_time = time() - $time_range * 60 * 60;

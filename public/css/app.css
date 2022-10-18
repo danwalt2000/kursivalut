@@ -59,6 +59,10 @@ a:hover{
     box-sizing: border-box;
     border-radius: 4px;
 }
+.search-input:focus-visible{
+    outline: unset;
+    border: 1px solid var(--link-color);;
+}
 .search-submit{
     position: absolute;
     top: 8px;
@@ -256,7 +260,6 @@ nav ul{
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-right: 9px;
 }
 .currencies .with-arrow{
     padding: 7px 10px;
@@ -299,6 +302,10 @@ nav ul{
 }
 .currencies-active::after{
     transform: rotate(.5turn);
+}
+.form-wrapper{
+    position: sticky;
+    top: 0   
 }
 .active{
     display: block;

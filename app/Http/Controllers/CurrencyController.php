@@ -25,6 +25,7 @@ class CurrencyController extends Controller
     public $to_view = [];
     public $posts;
     public $parsed_url = [];
+    public $path = [];
     
     public $publics = [
         "obmenvalut_donetsk"    => ["id" => "-87785879",  "time" => "everyFiveMinutes"],    // 5
@@ -40,6 +41,12 @@ class CurrencyController extends Controller
        "hrn" => "Гривна ₴",
        "cashless" => "Безнал руб. ₽"
     ];
+    public $currencies_loc = [
+       "dollar" => "доллара",
+       "euro" => "евро",
+       "hrn" => "гривны",
+       "cashless" => "безнала руб."
+    ];
     public $date_sort = [
         1   => "1 час",
         5   => "5 часов",
@@ -52,13 +59,38 @@ class CurrencyController extends Controller
     {
         $this->posts = new DBController;
         $this->db_ads = $this->posts->getPosts();
+        $this->path = $this->parseUri();
         $this->to_view = [
             'ads' => $this->db_ads,
-            'ads_count' => $this->posts->getPosts("count"),
-            'currencies' => $this->currencies,
-            'path' => $this->parseUri(),
-            'date_sort' => $this->date_sort
+            'ads_count'      => $this->posts->getPosts("count"),
+            'currencies'     => $this->currencies,
+            'currencies_loc' => $this->currencies_loc,
+            'path'           => $this->path,
+            'date_sort'      => $this->date_sort,
+            'h1'             => $this->getH1()    
         ];
+    }
+
+    public function getH1(){
+        $path = $this->path;
+        $result = "Объявления о ";
+        if( $path['sell_buy'] == 'sell'){
+            $result .= "продаже ";
+        } elseif( $path['sell_buy'] == 'buy'){
+            $result .= "покупке ";
+        } else{
+            $result .= "продаже/покупке ";
+        }
+        foreach($this->currencies_loc as $name => $title){
+            if($path["currency"] == ''){
+                $result .= "валюты";
+                break;
+            }
+            if($path["currency"] == $name ){
+                $result .= $title;
+            }
+        }
+        return $result . " в Донецке";
     }
 
     public function parseUri(){
