@@ -141,6 +141,20 @@ nav ul{
     display: flex;
     justify-content: space-between;
 }
+
+.scrolled{
+    position: sticky;
+    top: 0;
+    z-index: 3;
+}
+.scrolled h1, 
+.scrolled p, 
+.scrolled .chips{
+    display: none;
+}
+.scrolled .nav-wrapper{
+    position: static;
+}
 .chips{
     display: flex;
     align-items: center;
@@ -305,7 +319,7 @@ nav ul{
 }
 .form-wrapper{
     position: sticky;
-    top: 0   
+    top: 0
 }
 .active{
     display: block;

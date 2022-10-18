@@ -20,9 +20,10 @@
 
             <main class="main">
                 <div class="logo">
+                    {{-- {{ dd(url("currency")) }} --}}
                     <p class="text-gray-500">Обмен валют</p>
-                    <form action="/s" class="search-form" method="get">
-                        <input id="search" type="text" placeholder="Поиск в объявлениях"
+                    <form action="{{ url("s") }}" class="search-form" method="get">
+                        <input id="search" type="text" placeholder="Поиск в объявлениях" value=""
                             class="search-input @error('search') is-invalid @enderror">
                         <button type="submit" class="search-submit">
                             <img class="search" src="/img/search.svg" alt="" width="18" height="18">
@@ -37,6 +38,7 @@
                         <section class="form-wrapper">
                             <h2>Подать объявление</h2>
                             <form action="" method="get" class="form-example">
+                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                 <div class="form-example">
                                     <label for="name">Enter your name: </label>
                                     <input type="text" name="name" id="name" required>

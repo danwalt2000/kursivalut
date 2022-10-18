@@ -67,7 +67,8 @@ class CurrencyController extends Controller
             'currencies_loc' => $this->currencies_loc,
             'path'           => $this->path,
             'date_sort'      => $this->date_sort,
-            'h1'             => $this->getH1()    
+            'h1'             => $this->getH1(),
+            'search'         => ''    
         ];
     }
 
@@ -138,5 +139,12 @@ class CurrencyController extends Controller
     {
         // $this->to_view['ads'] = GetAdsController::getPosts( "-87785879" );
         return view('currency', $this->to_view);
+    }
+    public function search( $search )
+    {
+        $this->to_view['search'] = $search;
+        $this->to_view['ads'] = $this->posts->getPosts( "get", "all", "", $search );
+        $this->to_view['ads_count'] = $this->posts->getPosts( "count", "all", "", $search );
+        return view('search', $this->to_view);
     }
 }

@@ -20,7 +20,7 @@ class DBController extends Controller
      * @return \Illuminate\View\View
      */
 
-    public static function getPosts( $get_or_count = "get", $sell_buy = '', $currency = '' ){
+    public static function getPosts( $get_or_count = "get", $sell_buy = '', $currency = '', $search = '' ){
         $sort = 'date';
         if(!empty($_GET["sort"]) && str_contains( "date rate popularity", $_GET["sort"]) ){
             $sort = $_GET["sort"];
@@ -38,9 +38,17 @@ class DBController extends Controller
         if( $sell_buy != "all" && ( !empty($sell_buy) || !empty($currency) ) ){
             $query = $sell_buy . '_' . $currency;
         }
+        $limit = 20;
+        $search_clean = '';
+
+        if( !empty($search) ){
+            $search_clean = $search;
+            $limit = -1;
+        }
         $cut_by_time = time() - $time_range * 60 * 60;
         return Ads::where("date", ">", $cut_by_time)
                   ->where('type', 'like', "%" . $query . "%")
-                  ->orderBy($sort, $asc_desc)->take(100)->$get_or_count();
+                  ->where('content', 'like', "%" . $search_clean . "%")
+                  ->orderBy($sort, $asc_desc)->take($limit)->$get_or_count();
     }
 }
