@@ -36,7 +36,6 @@
                                 @else
                                     Продать/купить
                                 @endif
-                                {{-- {{ dd($path["currency"])}} --}}
                                 @foreach($currencies as $name => $title)
                                     @if($path["currency"] == '')
                                         все валюты
@@ -143,7 +142,26 @@
                         </section>
                     </div>
                     <div class="right_column">
-                        <h2>Подать объявление</h2>
+                        <section class="form-wrapper">
+                            <h2>Подать объявление</h2>
+                            <form action="" method="get" class="form-example">
+                                <div class="form-example">
+                                    <label for="name">Enter your name: </label>
+                                    <input type="text" name="name" id="name" required>
+                                </div>
+                                <div class="form-example">
+                                    <label for="email">Enter your email: </label>
+                                    <input type="email" name="email" id="email" required>
+                                </div>
+                                <label for="story">Tell us your story:</label>
+                                <textarea id="story" name="story" rows="5" cols="33">
+                                    It was a dark and stormy night...
+                                </textarea>
+                                <div class="form-example">
+                                    <input type="submit" value="Subscribe!">
+                                </div>
+                            </form>
+                        </section>
                     </div>
                 </div>
             </main>

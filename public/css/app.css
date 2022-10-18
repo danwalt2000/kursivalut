@@ -12,8 +12,17 @@ body {
     margin: 0;
     color: #242423
 }
+h1, h2, h3, h4, h5{
+    margin-top: 0;
+}
 h1{
     font: 600 30px/140% 'Nunito', sans-serif;
+}
+h2{
+    font: 600 22px/140% 'Nunito', sans-serif;
+}
+h3{
+    font: 400 18px/140% "Nunito", sans-serif
 }
 p{
     color: var(--para-color);
@@ -74,7 +83,7 @@ a:hover{
     grid-template-columns: 65% 30%;
     grid-gap: 20px;
 }
-.header-nav, .post{
+.header-nav, .post, .form-wrapper{
     background-color: #fff;
     margin: 20px 0;
     border-radius: 6px;
@@ -126,10 +135,12 @@ nav ul{
     grid-template-columns: 15% 45% 30%;
     grid-gap: 2% */
     display: flex;
+    justify-content: space-between;
 }
 .chips{
     display: flex;
     align-items: center;
+    justify-content: space-between;
     padding: 0;
 }
 .chip{
@@ -139,7 +150,6 @@ nav ul{
     border: 1px #D6D6D6 solid;
     border-radius: 6px;
     display: flex;
-    margin-right: 10px;
     background-color: var(--chip-bg-color);
 }
 .chip-active{
@@ -151,9 +161,7 @@ nav ul{
     border: 1px solid var(--link-color)
 }
 .header-nav h3{
-    margin: 0;
-    font: 400 16px/20px "Nunito", sans-serif;
-    margin-right: 10px;
+    margin: 0 10px 0 0;
 }
 .chip-active a::before,
 .tab-active a::before{
@@ -163,9 +171,6 @@ nav ul{
     height: 20px;
     margin-right: 9px;
     background-position: center;
-}
-.tab-active{
-    padding-left: 10px;
 }
 .chip:hover{
     background-color: var(--active-bg-color);
