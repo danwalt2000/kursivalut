@@ -75,7 +75,7 @@ class ParseAdsController extends Controller
                     'date'            => $ad["date"],
                     'link'            => $link
                 ]);
-            } elseif( $is_id_in_table < 1 && $ad["from_id"] != $ad["owner_id"] ){
+            } elseif( $is_id_in_table < 1 && $ad["from_id"] != $ad["owner_id"] && !empty($ad["text"])){
                 Ads::create([
                     'vk_id'           => $ad["id"],
                     'vk_user'         => $ad["from_id"],

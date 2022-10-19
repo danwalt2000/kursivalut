@@ -15,6 +15,7 @@
         </article>
     @empty
     <article class="post no-ads">
+        <img class="no-ads-img" src="/img/no-ads.svg" >
         <h2 class="">Объявлений не найдено</h2>
     </article>
     @endforelse

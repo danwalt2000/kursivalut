@@ -4,25 +4,31 @@
     --active-bg-color: rgba(0, 194, 151, .1);
     --link-color: #00c297; /* #00c297 */
     --link-hover-color: #00a580;
+    --secondary-color: #ff6b00;
+    --title-color: #242423;
     --para-color: #3E3E40;
+    --h1-font: 700 30px/140% 'Nunito', sans-serif;
+    --h2-font: 600 22px/140% 'Nunito', sans-serif;
+    --h3-font: 400 18px/140% "Nunito", sans-serif;
+
 }
 body {
     font-family: 'Nunito', sans-serif;
     width: 100%;
     margin: 0;
-    color: #242423
+    color: var(--title-color);
 }
 h1, h2, h3, h4, h5{
     margin-top: 0;
 }
 h1{
-    font: 600 30px/140% 'Nunito', sans-serif;
+    font: var(--h1-font);
 }
 h2{
-    font: 600 22px/140% 'Nunito', sans-serif;
+    font: var(--h2-font);
 }
 h3{
-    font: 400 18px/140% "Nunito", sans-serif
+    font: var(--h3-font);
 }
 p{
     color: var(--para-color);
@@ -40,16 +46,25 @@ a:hover{
     min-height: 100vh;
 }
 .logo{
-    display: flex;
-    max-height: 70px;
+    display: grid;
+    grid-template-columns: 10% 25% 65%;
     background-color: var(--main-bg-color);
     border-radius: 6px;
     justify-content: space-between;
     align-items: center;
     padding: 0 25px
 }
+.logo-title{
+    font: var(--h2-font);
+    margin: 0;
+    color: var(--title-color);
+}
+.logo-img{
+    width: 70px;
+}
 .search-form{
     position: relative;
+    justify-self: flex-end;
 }
 .search-input{
     min-width: 180px;
@@ -84,8 +99,9 @@ a:hover{
 }
 .columns{
     display: grid;
-    grid-template-columns: 65% 30%;
+    grid-template-columns: 65% 33%;
     grid-gap: 20px;
+    justify-content: space-between;
 }
 .header-nav, .post, .form-wrapper{
     background-color: #fff;
@@ -320,6 +336,9 @@ nav ul{
 .form-wrapper{
     position: sticky;
     top: 0
+}
+.no-ads{
+    text-align: center;
 }
 .active{
     display: block;
