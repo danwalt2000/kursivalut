@@ -120,7 +120,7 @@ class CurrencyController extends Controller
             "sort"     => $sort      // тип сортировки для подсветки активных чипсов
         ];
         
-        if( $path !== "/" ){
+        if( $path !== "/" && $path !== "/s" ){
             $path_array = explode("/", $path);
             $path_parts["sell_buy"] =  $path_array[2];
             $path_parts["currency"] = empty($path_array[3]) ? '' : $path_array[3];
@@ -140,8 +140,11 @@ class CurrencyController extends Controller
         // $this->to_view['ads'] = GetAdsController::getPosts( "-87785879" );
         return view('currency', $this->to_view);
     }
-    public function search( $search )
+    public function search()
     {
+        if( !empty($_GET["search"]) ){
+            $search = $_GET["search"];
+        }
         $this->to_view['search'] = $search;
         $this->to_view['ads'] = $this->posts->getPosts( "get", "all", "", $search );
         $this->to_view['ads_count'] = $this->posts->getPosts( "count", "all", "", $search );

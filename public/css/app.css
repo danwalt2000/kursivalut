@@ -10,6 +10,7 @@
     --h1-font: 700 30px/140% 'Nunito', sans-serif;
     --h2-font: 600 22px/140% 'Nunito', sans-serif;
     --h3-font: 400 18px/140% "Nunito", sans-serif;
+    --para-small-font: 400 12px/140% "Nunito", sans-serif;
 
 }
 body {
@@ -74,6 +75,8 @@ a:hover{
     box-sizing: border-box;
     border-radius: 4px;
 }
+.form-wrapper input:focus-visible,
+.form-ad-row textarea:focus-visible,
 .search-input:focus-visible{
     outline: unset;
     border: 1px solid var(--link-color);;
@@ -220,19 +223,22 @@ nav ul{
     margin-right: 10px;
     background-color: var(--chip-bg-color);
 }
-.sell-buy li{
+.sell-buy li,
+.sell-buy label{
     list-style-type: none;
     border-radius: 4px;
     cursor: pointer;
     display: flex;
 }
-.sell-buy li a{
+.sell-buy li a,
+.sell-buy label{
     padding: 0 10px;
 }
 .sell-buy li:first-child a{
-    border-right: 1px solid var(--para-color);
+    border-right: 1px solid #cccccc;
 }
-.sell-buy li:hover{
+.sell-buy li:hover,
+.sell-buy label:hover{
     background-color: var(--active-bg-color);
 }
 .chip a, 
@@ -246,7 +252,8 @@ nav ul{
     justify-content: center;
     padding: 0 11px;
 }
-.tab-active{
+.tab-active,
+.form-ad-row-radio input[type="radio"]:checked+label{
     background-color: var(--active-bg-color);
 }
 .currencies{
@@ -320,12 +327,21 @@ nav ul{
     background-position: center;
     cursor: pointer;
 }
-.with-arrow-rarr a::after{
+.with-arrow-rarr a::after,
+.back-home::before{
+    content: "";
+    display: block;
     background: url(/img/rarr.svg) no-repeat;
-    height: 20px;
     transform: rotate(-90deg);
     width: 20px;
+    height: 20px;
     background-position: center;
+}
+.back-home{
+    display: flex;
+}
+.back-home::before{
+    transform: unset;
 }
 .with-arrow-rarr-up a::after{
     transform: rotate(90deg);
@@ -335,10 +351,72 @@ nav ul{
 }
 .form-wrapper{
     position: sticky;
-    top: 0
+    top: 10px
+}
+.form-wrapper input{
+    border: 1px solid rgba(102, 102, 102, 0.4);
+    box-sizing: border-box;
+    border-radius: 4px;
+    background-color: var(--background-color);
+    font-family: "Fira Sans", sans-serif;
+    font-weight: 400;
+    font: var(--para-small-font);
+    color: var(--para-color);
+    padding: 12px 16px;
+}
+.form-wrapper input:focus::placeholder{
+    opacity: 0;
+}
+.form-ad-row input::placeholder{
+    font: var(--para-small-font);
+    color: var(--para-color);
+}
+.form-ad-row{
+    position: relative;
+    margin-top: 10px;
+}
+.form-ad-row label{
+    font: var(--para-small-font);
+    color: var(--para-color);
+    position: absolute;
+    top: 13px; 
+    left: 10px;
+    background: #fff;
+    padding: 0 5px;
+    visibility: hidden;
+    transition: transform .3s linear;
+}
+.form-ad-row input:focus+label{
+    visibility: visible;
+    transform: translateY(-18px);
+    font-size: 10px;
+    color: var(--link-color);
+    transition: all .2s linear;
+}
+.form-ad-row textarea{
+    max-width: 173px;
+    width: 100%;
+    border-radius: 4px;
+    border: 1px solid rgba(102, 102, 102, 0.4);
+}
+.form-ad-row-radio input[type="radio"]{
+    opacity: 0;
+    position: absolute;
+}
+.form-ad-row-radio span{
+    font-weight: 100;
+    color: #cccccc;
 }
 .no-ads{
     text-align: center;
+}
+.form-ad-submit{
+    width: 100%;
+    max-width: 173px;
+    cursor: pointer;
+}
+.form-ad-submit:hover{
+    background-color: var(--active-bg-color);
 }
 .active{
     display: block;
