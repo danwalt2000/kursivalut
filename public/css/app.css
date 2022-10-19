@@ -436,6 +436,7 @@ nav ul{
     width: 100%;
     max-width: 94%;
     justify-content: center;
+    align-items: center;
 }
 .form-ad-row-radio label{
     width: 45%;
