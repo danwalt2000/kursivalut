@@ -25,7 +25,7 @@
                     <p class="logo-title">Обмен валют</p>
                     <form action="{{ url("s") }}" class="search-form" method="get">
                         <input id="search" type="text" placeholder="Поиск в объявлениях" name="search" value=""
-                            class="search-input @error('search') is-invalid @enderror">
+                            class="search-input @error('search') is-invalid @enderror" required>
                         <button type="submit" class="search-submit">
                             <img class="search" src="/img/search.svg" alt="" width="18" height="18">
                         </button>  
@@ -40,7 +40,7 @@
                             <h2>Подать объявление</h2>
                             <form action="" method="get" class="form-ad">
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                <p class="form-ad-para">Хочу</p>
+                                {{-- <p class="form-ad-para">Хочу</p> --}}
                                 <div class="form-ad-row-radio sell-buy">
                                     <input type="radio" id="tosell"
                                     name="contact" value="sell" checked>
@@ -62,7 +62,7 @@
                                 </div>
 
                                 <div class="form-ad-row">
-                                    <input type="text" name="name" id="name" placeholder="В сумме">
+                                    <input type="text" name="name" id="name" placeholder="Сумма">
                                     <label for="name">Сумма</label>
                                 </div>
                                 <div class="form-ad-row">
@@ -71,8 +71,7 @@
                                 </div>
                                 <div class="form-ad-row">
                                     <textarea id="story" name="story" rows="5" cols="33" 
-                                    placeholder="Хочу продать 1000 долларов в Донецке">
-                                    </textarea>
+                                    placeholder="Хочу продать 1000 долларов в Донецке"></textarea>
                                     <label for="story">Текст объявления</label>
                                 </div>
                                 <div class="form-ad-row">

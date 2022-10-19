@@ -353,7 +353,7 @@ nav ul{
     position: sticky;
     top: 10px
 }
-.form-wrapper input{
+.form-ad-row input{
     border: 1px solid rgba(102, 102, 102, 0.4);
     box-sizing: border-box;
     border-radius: 4px;
@@ -363,6 +363,7 @@ nav ul{
     font: var(--para-small-font);
     color: var(--para-color);
     padding: 12px 16px;
+    width: 100%;
 }
 .form-wrapper input:focus::placeholder{
     opacity: 0;
@@ -394,10 +395,21 @@ nav ul{
     transition: all .2s linear;
 }
 .form-ad-row textarea{
-    max-width: 173px;
+    max-width: 87%;
     width: 100%;
     border-radius: 4px;
     border: 1px solid rgba(102, 102, 102, 0.4);
+    padding: 12px 16px;
+}
+.form-ad-row-radio{
+    width: 100%;
+    max-width: 94%;
+    justify-content: center;
+}
+.form-ad-row-radio label{
+    width: 45%;
+    justify-content: center;
+    padding: 3px 10px;
 }
 .form-ad-row-radio input[type="radio"]{
     opacity: 0;
@@ -405,6 +417,7 @@ nav ul{
 }
 .form-ad-row-radio span{
     font-weight: 100;
+    font-size: 20px;
     color: #cccccc;
 }
 .no-ads{
@@ -412,7 +425,6 @@ nav ul{
 }
 .form-ad-submit{
     width: 100%;
-    max-width: 173px;
     cursor: pointer;
 }
 .form-ad-submit:hover{
