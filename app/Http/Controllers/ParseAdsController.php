@@ -69,7 +69,7 @@ class ParseAdsController extends Controller
             $is_text_in_table = Ads::where('content', '=', $ad["text"])->count();
 
             if( $is_text_in_table > 0 ){
-                Ads::where('content', '=', $phones_parsed["text"])->update([
+                Ads::where('content', '=', $ad["text"])->update([
                     'vk_id'           => $ad["id"],
                     'owner_id'        => $ad["owner_id"],
                     'date'            => $ad["date"],

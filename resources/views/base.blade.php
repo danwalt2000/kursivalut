@@ -20,12 +20,15 @@
 
             <main class="main">
                 <div class="logo">
-                    <a href="/"><img class="logo-img" src="/img/pig.svg" ></a>
+                    <a href="/" class="logo-link">
+                        <img class="logo-img" src="/img/pig.svg" >
+                        <p class="logo-title">Обмен валют</p>
+                    </a>
                     {{-- {{ dd(url("currency")) }} --}}
-                    <p class="logo-title">Обмен валют</p>
+                    
                     <form action="{{ url("s") }}" class="search-form" method="get">
                         <input id="search" type="text" placeholder="Поиск в объявлениях" name="search" value=""
-                            class="search-input @error('search') is-invalid @enderror" required>
+                            class="search-input @error('search') is-invalid @enderror" minlength="1" maxlength="30" required>
                         <button type="submit" class="search-submit">
                             <img class="search" src="/img/search.svg" alt="" width="18" height="18">
                         </button>  
