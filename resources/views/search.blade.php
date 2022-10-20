@@ -11,7 +11,8 @@
             @include('sorting', ['date_sort' => $date_sort, 'path' => $path, 'ads' => $ads])    
         </header>
         
-        @include('feed', ['ads' => $ads])
-        
+        <section id="feed" class="feed">
+            @include('feed', ['ads' => $ads])
+        </section>
     </div>
 @stop

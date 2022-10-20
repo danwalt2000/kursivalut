@@ -20,7 +20,7 @@ class DBController extends Controller
      * @return \Illuminate\View\View
      */
 
-    public static function getPosts( $get_or_count = "get", $sell_buy = '', $currency = '', $search = '' ){
+    public static function getPosts( $get_or_count = "get", $sell_buy = '', $currency = '', $search = '', $offset = 0 ){
         $sort = 'date';
         if(!empty($_GET["sort"]) && str_contains( "date rate popularity", $_GET["sort"]) ){
             $sort = $_GET["sort"];
@@ -40,16 +40,16 @@ class DBController extends Controller
         }
         $limit = 20;
         $search_clean = '';
+        $offset = $offset * $limit;
 
-        if( !empty($search) ){
-            $search_clean = $search;
-            $limit = -1;
-        }
         $cut_by_time = time() - $time_range * 60 * 60;
         return Ads::where("date", ">", $cut_by_time)
                   ->where('type', 'like', "%" . $query . "%")
                   ->where('content', 'like', "%" . $search_clean . "%")
-                  ->orderBy($sort, $asc_desc)->take($limit)->$get_or_count();
+                  ->orderBy($sort, $asc_desc)
+                  ->skip($offset)
+                  ->take($limit)
+                  ->$get_or_count();
     }
 
     public static function getPhone( $info ){

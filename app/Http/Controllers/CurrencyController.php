@@ -120,7 +120,7 @@ class CurrencyController extends Controller
             "sort"     => $sort      // тип сортировки для подсветки активных чипсов
         ];
         
-        if( $path !== "/" && $path !== "/s" ){
+        if( $path !== "/" && $path !== "/s" && $path !== "/ajax" ){
             $path_array = explode("/", $path);
             $path_parts["sell_buy"] =  $path_array[2];
             $path_parts["currency"] = empty($path_array[3]) ? '' : $path_array[3];
@@ -128,13 +128,6 @@ class CurrencyController extends Controller
         return $path_parts;
     }
 
-    public function ajaxPost(Request $request){
-        $input = $request->all();
-          
-        Log::info($input);
-     
-        return response()->json(['success'=>'Got Simple Ajax Request.']);
-    }
     public function show( $sell_buy = "all", $currency = '' )
     {
         $this->to_view['ads'] = $this->posts->getPosts( "get", $sell_buy, $currency );

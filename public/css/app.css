@@ -173,6 +173,7 @@ a:hover{
 }
 .info-hidden a{
     white-space: nowrap;
+    font: var(--para-small-font);
 }
 nav ul{
     margin: 0
@@ -184,9 +185,6 @@ nav ul{
     justify-content: space-between;
 }
 .nav-wrapper{
-    /* display: grid;
-    grid-template-columns: 15% 45% 30%;
-    grid-gap: 2% */
     display: flex;
     justify-content: space-between;
 }

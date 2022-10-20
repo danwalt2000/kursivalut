@@ -90,6 +90,53 @@
                 </div>
             </main>
         </div>
+        <script>
+            window.ifMore = Math.ceil( Number("{{ $ads_count / 20 }}"));
+            window.feedStatus = 0;
+            window.currentHeight = 0;
+
+            var feed = document.querySelector('#feed');
+            let currency = "{{ $path['currency'] }}";
+            let url = "/ajax?" 
+            url += "sellbuy=" + "{{ $path['sell_buy'] }}&amp;";
+            if(currency) url += "currency=" + currency + "&amp;";
+            url += "offset=" + window.feedStatus + "&amp;";
+            url += "{{ $path['query'] }}";
+            url = url.replaceAll('&amp;', '&');
+
+            var loadMore = function() {  
+                // если дошли до конца записей
+                if(window.feedStatus >= window.ifMore - 1) return;
+
+                // условие, чтобы функция не срабатывала несколько раз при скроллинге
+                if( window.currentHeight && window.currentHeight + 1000 > window.pageYOffset ) return;
+                window.currentHeight = window.pageYOffset;
+                
+                function reqListener () {
+                    window.feedStatus++;
+                    var item = document.createElement('div');
+                    item.innerHTML = this.responseText;
+                    feed.appendChild(item);
+                    console.log(window.feedStatus);
+                }
+                const req = new XMLHttpRequest();
+                req.addEventListener("load", reqListener);
+                req.open("GET", url);
+                req.send();
+            }
+
+            // Detect when scrolled to bottom.
+            if( window.ifMore > 1){
+                document.addEventListener('scroll', function() {
+                    if ( window.pageYOffset + window.screen.height >= feed.scrollHeight) {
+                        loadMore();
+                    }
+                });
+            }
+
+            // Initially load some items.
+            // loadMore();
+        </script>
         <script src="/js/app.js" defer></script>
     </body>
 </html>

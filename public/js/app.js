@@ -1,5 +1,6 @@
 let csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 const linksToVk = Array.from(document.querySelectorAll(".go_to_vk"));
+
 function getPhone( arr, phoneOrLink = "phone" ){
     let phoneBlock = event.target;
     let postObj = { 
@@ -20,7 +21,6 @@ function getPhone( arr, phoneOrLink = "phone" ){
     xhr.onload = function () {
         if(xhr.status === 200) {
              if( !phoneBlock.classList.contains("go_to_vk")){
-                console.log(xhr.response);
                 phoneBlock.classList.add("hidden_phone-visible");
                 phoneBlock.innerText = xhr.response;
              }             
@@ -48,11 +48,13 @@ window.addEventListener('DOMContentLoaded', () => {
         checkDropdown(event); 
     }
 
-    dropButton.addEventListener("click", toggleDropdown, false);
-    linksToVk.forEach( link =>{
-        link.addEventListener("click", function(e){
-            let adId = [ e.target.dataset.id, 0 ];
-            getPhone( adId, "link" );
-        }, false);
-    });
+    if( dropButton ){
+        dropButton.addEventListener("click", toggleDropdown, false);
+        linksToVk.forEach( link =>{
+            link.addEventListener("click", function(e){
+                let adId = [ e.target.dataset.id, 0 ];
+                getPhone( adId, "link" );
+            }, false);
+        });
+    }
 });
