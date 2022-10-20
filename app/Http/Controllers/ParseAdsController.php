@@ -44,6 +44,11 @@ class ParseAdsController extends Controller
             // "course" => "/(по|курс) ([\d\.\,]{2,5}) /"
         ];
         foreach( $ads as $ad ){
+            $is_id_in_table = Ads::where('vk_id', '=', $ad["id"])->count();
+            if( $is_id_in_table > 1 ){
+                continue;               // если объявление уже есть в базе, пропускаем его
+            }
+
             // вырезание номера телефона
             $phones_parsed = (new self)->parsePhone( $ad["text"], $ad["id"] );
             
@@ -64,8 +69,6 @@ class ParseAdsController extends Controller
                 }
             }
 
-            $is_id_in_table = Ads::where('vk_id', '=', $ad["id"])->count();
-
             $is_text_in_table = Ads::where('content', '=', $ad["text"])->count();
 
             if( $is_text_in_table > 0 ){
@@ -76,7 +79,7 @@ class ParseAdsController extends Controller
                     'content_changed' => $phones_parsed["text"],
                     'link'            => $link
                 ]);
-            } elseif( $is_id_in_table < 1 && $ad["from_id"] != $ad["owner_id"] && !empty($ad["text"])){
+            } elseif( $ad["from_id"] != $ad["owner_id"] && !empty($ad["text"])){
                 Ads::create([
                     'vk_id'           => $ad["id"],
                     'vk_user'         => $ad["from_id"],
