@@ -128,16 +128,17 @@ class CurrencyController extends Controller
         return $path_parts;
     }
 
+    public function ajaxPost(Request $request){
+        $input = $request->all();
+          
+        Log::info($input);
+     
+        return response()->json(['success'=>'Got Simple Ajax Request.']);
+    }
     public function show( $sell_buy = "all", $currency = '' )
     {
         $this->to_view['ads'] = $this->posts->getPosts( "get", $sell_buy, $currency );
         $this->to_view['ads_count'] = $this->posts->getPosts("count", $sell_buy, $currency);
-        return view('currency', $this->to_view);
-    }
-
-    public function index()
-    {
-        // $this->to_view['ads'] = GetAdsController::getPosts( "-87785879" );
         return view('currency', $this->to_view);
     }
     public function search()
@@ -149,5 +150,13 @@ class CurrencyController extends Controller
         $this->to_view['ads'] = $this->posts->getPosts( "get", "all", "", $search );
         $this->to_view['ads_count'] = $this->posts->getPosts( "count", "all", "", $search );
         return view('search', $this->to_view);
+    }
+
+    public function index()
+    {
+        // $this->to_view['ads'] = GetAdsController::getPosts( "-87785879" );
+        // $this->to_view['ads'] = DBController::getPhone( ["postId" => 1558558, "phoneIndex" => "0"] );
+        // $this->to_view['ads'] = DBController::getPhone( ["postId" => 58, "phoneIndex" => 0] );
+        return view('currency', $this->to_view);
     }
 }

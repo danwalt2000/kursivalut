@@ -1,22 +1,34 @@
+let csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+const linksToVk = Array.from(document.querySelectorAll(".go_to_vk"));
+function getPhone( arr, phoneOrLink = "phone" ){
+    let phoneBlock = event.target;
+    let postObj = { 
+        postId: arr[0], 
+        phoneIndex: arr[1],
+        phoneOrLink: phoneOrLink
+    }
+    let post = JSON.stringify(postObj)
+
+    const url = "/ajax";
+    let xhr = new XMLHttpRequest()
+    
+    xhr.open('POST', url, true)
+    xhr.setRequestHeader('Content-type', 'application/json; charset=UTF-8');
+    xhr.setRequestHeader('X-CSRF-TOKEN', csrfToken);
+    xhr.send(post);
+    
+    xhr.onload = function () {
+        if(xhr.status === 200) {
+             if( !phoneBlock.classList.contains("go_to_vk")){
+                console.log(xhr.response);
+                phoneBlock.classList.add("hidden_phone-visible");
+                phoneBlock.innerText = xhr.response;
+             }             
+        }
+    }
+}
 window.addEventListener('DOMContentLoaded', () => {
-    const headerNav = document.querySelector(".header-nav");
-    const leftColumn = document.querySelector(".left_column");
-    let eTop = headerNav.offsetTop;
-    // console.log(headerNav);
-    // addEventListener('scroll', (event) => {
-    //     var top = (window.pageYOffset || document.scrollTop)  - (document.clientTop || 0);
-        
-    //     let eBottom = eTop + headerNav.clientHeight;
-    //     console.log(top > 250)
-    //     // console.log(headerNav.classList.contains('scrolled'))
-    //     if( top > 250 ){
-    //         if(!headerNav.classList.contains('scrolled') ) headerNav.classList.add("scrolled");
-    //     } else{
-    //         if(headerNav.classList.contains('scrolled') )headerNav.classList.remove("scrolled");
-    //     }
-    // });
-
-
+    
     const dropButton = document.querySelector("#selected-currency");
     const dropList = document.querySelector("#currencies-hidden");
     
@@ -37,4 +49,10 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 
     dropButton.addEventListener("click", toggleDropdown, false);
+    linksToVk.forEach( link =>{
+        link.addEventListener("click", function(e){
+            let adId = [ e.target.dataset.id, 0 ];
+            getPhone( adId, "link" );
+        }, false);
+    });
 });

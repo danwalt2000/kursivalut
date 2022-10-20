@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Controllers\CurrencyController;
+use App\Http\Controllers\AjaxController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,3 +26,6 @@ Route::get('/ads/{sellbuy}/{currency?}',
      [CurrencyController::class, 'show'])
      ->where(['sellbuy' => 'sell|buy|all', 'currency' => 'dollar|euro|hrn|cashless']);
 Route::get('/s', [CurrencyController::class, 'search']);
+
+Route::get('/ajax', [AjaxController::class, 'ajax']);
+Route::post('/ajax', [AjaxController::class, 'ajaxPost']);

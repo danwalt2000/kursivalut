@@ -14,7 +14,7 @@ class ParseAdsController extends Controller
 
     public static function parsePhone ( $text, $id ){
         $result = $text;
-        $pattern = "/[+0-9-]{10,20}/";
+        $pattern = "/[+0-9-]{10,20}/"; // (?<=[0-9\+])[0-9 )(+-]+   ([0-9\+][0-9 )(+-]+?(?=\w)){10,20}
         preg_match_all( $pattern, $text, $matches );
         $index = 0;
         foreach($matches[0] as $phone ){
@@ -73,6 +73,7 @@ class ParseAdsController extends Controller
                     'vk_id'           => $ad["id"],
                     'owner_id'        => $ad["owner_id"],
                     'date'            => $ad["date"],
+                    'content_changed' => $phones_parsed["text"],
                     'link'            => $link
                 ]);
             } elseif( $is_id_in_table < 1 && $ad["from_id"] != $ad["owner_id"] && !empty($ad["text"])){
@@ -93,6 +94,6 @@ class ParseAdsController extends Controller
             } 
         }
         
-        return DBController::getPosts(); // последние 100 записей в БД
+        return DBController::getPosts(); // последние записи в БД
     }
 }

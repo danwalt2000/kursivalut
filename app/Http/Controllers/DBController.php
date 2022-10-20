@@ -51,4 +51,32 @@ class DBController extends Controller
                   ->where('content', 'like', "%" . $search_clean . "%")
                   ->orderBy($sort, $asc_desc)->take($limit)->$get_or_count();
     }
+
+    public static function getPhone( $info ){
+        $ad = Ads::where('vk_id', $info["postId"])->take(1)->get();
+        if( !count($ad) ){
+            return;
+        }
+        $ad = $ad[0]; 
+
+        // добавляем +1 к показам телефона или открытию ссылки
+        $phone_or_link = "phone_showed";
+        if( $info["phoneOrLink"] == "link" ){
+            $phone_or_link = "link_followed";
+        }
+        $actual_value = $ad->{$phone_or_link};
+        if( empty($actual_value) ) $actual_value = 0; 
+
+        // добавляем +1 к популярности при каждом просмотре номера 
+        $popularity = $ad->popularity; 
+        if( empty($popularity) ) $popularity = 0; 
+        $ad->update([
+            'popularity'     => $popularity + 1,
+            $phone_or_link   => $actual_value + 1
+        ]); 
+
+        // если телефонов несколько, отдаем по индексу
+        $phones = explode(",", $ad->phone);
+        return $phones[$info["phoneIndex"]];
+    }
 }

@@ -4,18 +4,20 @@
     --active-bg-color: rgba(0, 194, 151, .1);
     --link-color: #00c297; /* #00c297 */
     --link-hover-color: #00a580;
+    --spoiler-color: #4ccad7;
     --secondary-color: #ff6b00;
     --title-color: #242423;
     --para-color: #3E3E40;
-    --h1-font: 700 30px/140% 'Nunito', sans-serif;
-    --h2-font: 600 22px/140% 'Nunito', sans-serif;
-    --h3-font: 400 18px/140% "Nunito", sans-serif;
-    --para-medium-font: 400 15px/140% "Nunito", sans-serif;
-    --para-small-font: 400 12px/140% "Nunito", sans-serif;
+    --h1-font: 700 30px/140% 'Open Sans', sans-serif;
+    --h2-font: 600 22px/140% 'Open Sans', sans-serif;
+    --h3-font: 400 18px/140% "Open Sans", sans-serif;
+    --para-medium-font: 400 15px/140% "Open Sans", sans-serif;
+    --para-small-font: 400 12px/140% "Open Sans", sans-serif;
 
 }
 body {
-    font-family: 'Nunito', sans-serif;
+    /* font-family: 'Nunito', sans-serif; */
+    font-family: 'Open Sans', sans-serif;
     width: 100%;
     margin: 0;
     color: var(--title-color);
@@ -44,7 +46,7 @@ a:hover{
     color: var(--link-hover-color);
 }
 .bg-gradient{
-    background: url("/img/bg.svg") repeat;
+    background-color: #edeef0;
     background-position: top;
     min-height: 100vh;
 }
@@ -119,9 +121,6 @@ a:hover{
     margin: 20px 0;
     border-radius: 6px;
     padding: 25px;
-    -webkit-box-shadow: -1px 3px 8px 0px rgba(34, 60, 80, 0.2);
-    -moz-box-shadow: -1px 3px 8px 0px rgba(34, 60, 80, 0.2);
-    box-shadow: -1px 3px 8px 0px rgba(34, 60, 80, 0.2);
 }
 .header-nav h2{
     margin-top: 0;
@@ -459,9 +458,14 @@ nav ul{
     width: 100%;
     cursor: pointer;
 }
+.form-ad-row .form-ad-submit{
+    color: var(--main-bg-color);
+    background-color: var(--link-color);
+}
 .form-ad-submit:hover{
     background-color: var(--active-bg-color);
     border: 1px solid var(--link-color);
+    color: var(--link-color);
 }
 .time-published{
     margin: 0 0 10px;
@@ -469,6 +473,30 @@ nav ul{
 .time{
     margin: 0;
     font: var(--para-small-font);
+}
+.hidden_phone{
+    width: fit-content;
+    min-width: 100px;
+    padding: 0 5px;
+    background-image: url(/img/spoiler.svg);
+    color: rgba(0, 0, 0, 0);
+    display: inline-block;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+}
+.hidden_phone-visible{
+    white-space: nowrap;
+    background-image: unset;
+    background-color: rgba(204, 243, 247, .2);
+    transition: all .3s linear;
+    color: var(--para-color);
+}
+.hidden_phone:hover{
+    color: rgba(0, 0, 0, 0);
+}
+.hidden_phone-visible:hover{
+    color: var(--para-color);
 }
 .active{
     display: block;
