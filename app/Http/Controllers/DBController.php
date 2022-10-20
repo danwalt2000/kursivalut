@@ -40,6 +40,9 @@ class DBController extends Controller
         }
         $limit = 20;
         $search_clean = '';
+        if( !empty($search) ){
+            $search_clean = htmlspecialchars($search);
+        }
         $offset = $offset * $limit;
 
         $cut_by_time = time() - $time_range * 60 * 60;
