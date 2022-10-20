@@ -14,6 +14,7 @@
                         {{-- {{ dd(Request::get('date')) }} --}}
                         <a href="/ads/sell/{{ $path['currency'] }}?{{ $path['query'] }}">Продажа</a>
                     </li>
+                    <span>|</span>
                     <li class="@if($path['sell_buy'] == 'buy') tab-active @endif">
                         <a href="/ads/buy/{{ $path['currency'] }}?{{ $path['query'] }}">Покупка</a>
                     </li>

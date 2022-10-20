@@ -31,9 +31,9 @@ class CurrencyController extends Controller
         "obmenvalut_donetsk"    => ["id" => "-87785879",  "time" => "everyFiveMinutes"],    // 5
         "obmen_valut_donetsk"   => ["id" => "-92215147",  "time" => "everyFiveMinutes"],    // 5
         "obmenvalyut_dpr"       => ["id" => "-153734109", "time" => "everyThirtyMinutes"],  // 30
-        "club156050748"         => ["id" => "-156050748", "time" => "everyThirtyMinutes"],  // 20
+        "club156050748"         => ["id" => "-156050748", "time" => "everyThirtyMinutes"],  // 30
         "obmen_valut_dnr"       => ["id" => "-193547744", "time" => "hourly"],              // 60
-        "donetsk_obmen_valyuta" => ["id" => "-174075254", "time" => "hourly"]               //60
+        "donetsk_obmen_valyuta" => ["id" => "-174075254", "time" => "hourly"]               // 60
     ];
     public $currencies = [
        "dollar" => "Доллар $",
@@ -134,6 +134,12 @@ class CurrencyController extends Controller
         $this->to_view['ads_count'] = $this->posts->getPosts("count", $sell_buy, $currency);
         return view('currency', $this->to_view);
     }
+    
+    public function store()
+    {
+
+    }
+    
     public function search()
     {
         if( !empty($_GET["search"]) ){

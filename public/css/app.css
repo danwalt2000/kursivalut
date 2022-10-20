@@ -262,9 +262,6 @@ nav ul{
 .sell-buy label{
     padding: 0 10px;
 }
-.sell-buy li:first-child a{
-    border-right: 1px solid #cccccc;
-}
 .sell-buy li:hover,
 .sell-buy label:hover{
     background-color: var(--active-bg-color);
@@ -444,7 +441,7 @@ nav ul{
     opacity: 0;
     position: absolute;
 }
-.form-ad-row-radio span{
+.sell-buy span{
     font-weight: 100;
     font-size: 20px;
     color: #cccccc;
