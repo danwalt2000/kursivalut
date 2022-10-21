@@ -158,7 +158,6 @@ class CurrencyController extends Controller
             
             $smallest_id_ad = DBController::getSmallestId();
             $smallest_id = $smallest_id_ad["vk_id"];
-            var_dump($smallest_id);
             if( $smallest_id > 99999 ){
                 $smallest_id = 99999;
             }
@@ -187,7 +186,7 @@ class CurrencyController extends Controller
 
         $this->to_view["is_allowed"] = SessionController::isAllowed();
         $this->to_view["next_submit"] = SessionController::nextSubmit();
-        return view('currency', $this->to_view);
+        return view('all', $this->to_view);
     }
     
     public function search()

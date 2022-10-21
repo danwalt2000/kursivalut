@@ -25,7 +25,11 @@ Route::redirect('/ads', '/', 301);
 Route::get('/ads/{sellbuy}/{currency?}', 
      [CurrencyController::class, 'show'])
      ->where(['sellbuy' => 'sell|buy|all', 'currency' => 'dollar|euro|hrn|cashless']);
+
 Route::post('/all', [CurrencyController::class, 'store']);
+Route::get('/all', function () {
+     return redirect('/');
+ });
 
 Route::get('/s', [CurrencyController::class, 'search']);
 
