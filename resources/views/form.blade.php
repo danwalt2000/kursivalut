@@ -1,7 +1,16 @@
 <section class="form-wrapper">
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     @if($is_allowed)
         <h2>Подать объявление</h2>
-        <form id="ad_form" action="/" method="post" class="form-ad">
+        <form id="ad_form" action="/all" method="post" class="form-ad">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <div class="form-ad-row-radio sell-buy">
                 <input type="radio" id="tosell"
@@ -23,7 +32,7 @@
                 </datalist>
             </div>
             <div class="form-ad-row">
-                <input type="number" step="0.01" name="rate" id="rate" placeholder="Курс *">
+                <input type="number" step="0.01" name="rate" id="rate" placeholder="Курс *" required>
                 <label for="rate">Курс *</label>
             </div>
 
@@ -31,7 +40,7 @@
                 <input type="text" name="phone" 
                 id="phone" placeholder="Телефон *"
                 oninvalid="setCustomValidity('Допускаются только цифры и символы +-. Длина телефона 7-20 символов')" 
-                oninput="setCustomValidity('')" >
+                oninput="setCustomValidity('')" required>
                 <label for="phone">Телефон *</label>
             </div>
             <div class="form-ad-row">

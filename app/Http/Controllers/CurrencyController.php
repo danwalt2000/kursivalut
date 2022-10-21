@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Session\Middleware\StartSession;
 use Psr\Http\Message\RequestInterface;
 use Log;
 use App\Http\Controllers\GetAdsController;
@@ -71,9 +70,9 @@ class CurrencyController extends Controller
             'date_sort'       => $this->date_sort,
             'h1'              => $this->getH1(),
             'search'          => '',
-            'is_allowed'      => $this->isAllowed(),
-            'submit_msg'      => '',
-            'next_submit'     => $this->nextSubmit()
+            'is_allowed'      => true,
+            'submit_msg'      => 'Вы уже публиковали объявление.',
+            'next_submit'     => ''
         ];
     }
 
@@ -125,7 +124,7 @@ class CurrencyController extends Controller
             "sort"     => $sort      // тип сортировки для подсветки активных чипсов
         ];
         
-        if( $path !== "/" && $path !== "/s" && $path !== "/ajax" ){
+        if( $path !== "/" && $path !== "/s" && $path !== "/ajax" && $path !== "/all" ){
             $path_array = explode("/", $path);
             $path_parts["sell_buy"] =  $path_array[2];
             $path_parts["currency"] = empty($path_array[3]) ? '' : $path_array[3];
@@ -133,21 +132,10 @@ class CurrencyController extends Controller
         return $path_parts;
     }
 
-    protected function isAllowed() {
-        $lastSubmit = session()->get('last_submit');
-        $is_allowed = true;
-        if (!empty($lastSubmit) ){
-            $is_allowed = !($lastSubmit > (time() - 10 * 60));
-        }
-        return $is_allowed;
-     }
-     
-     protected function updateAllowed() {
-        session()->put('last_submit', time());
-     }
-
     public function show( $sell_buy = "all", $currency = '' )
     {
+        $this->to_view["is_allowed"] = SessionController::isAllowed();
+        $this->to_view["next_submit"] = SessionController::nextSubmit();
         $this->to_view['ads'] = $this->posts->getPosts( "get", $sell_buy, $currency );
         $this->to_view['ads_count'] = $this->posts->getPosts("count", $sell_buy, $currency);
         return view('currency', $this->to_view);
@@ -155,11 +143,20 @@ class CurrencyController extends Controller
     
     public function store( Request $request )
     {
-        if ( $this->isAllowed())  {
+        if ( SessionController::isAllowed() && $request->path() == "all" )  {
             $input = $request->all();
-    
-            $currency = array_search($input["currency"], $this->currencies);
-            $type = $input["sellbuy"] . "_" . $currency;
+            var_dump($input);
+            
+            $validated = $request->validate([
+                'sellbuy'   => [ 'required', 'regex:/sell|buy/' ],
+                'currency'  => 'required',
+                'rate'      => 'required',
+                'phone'     => 'required',
+                'ad-text'   => 'required|max:400',
+            ]);
+
+            $currency = array_search($validated["currency"], $this->currencies);
+            $type = $validated["sellbuy"] . "_" . $currency;
             
             $smallest_id_ad = DBController::getSmallestId();
             $smallest_id = $smallest_id_ad["vk_id"];
@@ -167,7 +164,7 @@ class CurrencyController extends Controller
                 $smallest_id = 99999;
             }
             $smallest_id -= 1;
-            $phones_parsed = ParseAdsController::parsePhone( $input["ad-text"], $smallest_id );
+            $phones_parsed = ParseAdsController::parsePhone( $validated["ad-text"], $smallest_id );
     
             $rate = filter_var($input["rate"], FILTER_VALIDATE_FLOAT);
             $args = [
@@ -175,9 +172,9 @@ class CurrencyController extends Controller
                 'vk_user'         => 0,
                 'owner_id'        => 1,
                 'date'            => time(),
-                'content'         => $input["ad-text"],
+                'content'         => $validated["ad-text"],
                 'content_changed' => $phones_parsed["text"],
-                'phone'           => $input["phone"],
+                'phone'           => $validated["phone"],
                 'rate'            => $rate,
                 'phone_showed'    => 0,
                 'link_followed'   => 0,
@@ -185,20 +182,14 @@ class CurrencyController extends Controller
                 'link'            => '',
                 'type'            => $type
             ];
-            // var_dump($args);
             DBController::storePosts($args);
             $this->to_view['submit_msg'] = "Ваше объявление опубликовано!";
-            $this->updateAllowed();
-        } else{
-            $this->to_view['submit_msg'] = "Вы уже публиковали объявление.";
+            SessionController::updateAllowed();
         }
 
-        return  view('currency', $this->to_view);
-    }
-
-    public function nextSubmit(){
-        $time_to_next_submit = 10 * 60 + session()->get('last_submit') - time();
-        return date('m мин. s сек.', $time_to_next_submit);
+        $this->to_view["is_allowed"] = SessionController::isAllowed();
+        $this->to_view["next_submit"] = SessionController::nextSubmit();
+        return view('currency', $this->to_view);
     }
     
     public function search()
@@ -209,14 +200,15 @@ class CurrencyController extends Controller
         $this->to_view['search'] = $search;
         $this->to_view['ads'] = $this->posts->getPosts( "get", "all", "", $search );
         $this->to_view['ads_count'] = $this->posts->getPosts( "count", "all", "", $search );
+        $this->to_view["is_allowed"] = SessionController::isAllowed();
+        $this->to_view["next_submit"] = SessionController::nextSubmit();
         return view('search', $this->to_view);
     }
 
     public function index()
     {
-        $this->to_view['ads'] = GetAdsController::getPosts( "-87785879" );
-        // $this->to_view['ads'] = DBController::getPhone( ["postId" => 1558558, "phoneIndex" => "0"] );
-        // $this->to_view['ads'] = DBController::getPhone( ["postId" => 58, "phoneIndex" => 0] );
+        $this->to_view["is_allowed"] = SessionController::isAllowed();
+        $this->to_view["next_submit"] = SessionController::nextSubmit();
         return view('currency', $this->to_view);
     }
 }

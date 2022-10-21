@@ -425,7 +425,6 @@ nav ul{
     transition: all .2s linear;
 }
 .form-ad-row textarea{
-    max-width: 86%;
     width: 100%;
     border-radius: 4px;
     border: 1px solid rgba(102, 102, 102, 0.4);
