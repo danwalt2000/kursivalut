@@ -145,12 +145,10 @@ class CurrencyController extends Controller
     {
         if ( SessionController::isAllowed() && $request->path() == "all" )  {
             $input = $request->all();
-            var_dump($input);
-            
             $validated = $request->validate([
-                'sellbuy'   => [ 'required', 'regex:/sell|buy/' ],
+                'sellbuy'   => 'required', 
                 'currency'  => 'required',
-                'rate'      => 'required',
+                'rate'      => 'required|integer',
                 'phone'     => 'required',
                 'ad-text'   => 'required|max:400',
             ]);
@@ -160,13 +158,13 @@ class CurrencyController extends Controller
             
             $smallest_id_ad = DBController::getSmallestId();
             $smallest_id = $smallest_id_ad["vk_id"];
+            var_dump($smallest_id);
             if( $smallest_id > 99999 ){
                 $smallest_id = 99999;
             }
             $smallest_id -= 1;
             $phones_parsed = ParseAdsController::parsePhone( $validated["ad-text"], $smallest_id );
     
-            $rate = filter_var($input["rate"], FILTER_VALIDATE_FLOAT);
             $args = [
                 'vk_id'           => $smallest_id,
                 'vk_user'         => 0,
@@ -175,7 +173,7 @@ class CurrencyController extends Controller
                 'content'         => $validated["ad-text"],
                 'content_changed' => $phones_parsed["text"],
                 'phone'           => $validated["phone"],
-                'rate'            => $rate,
+                'rate'            => $validated["rate"],
                 'phone_showed'    => 0,
                 'link_followed'   => 0,
                 'popularity'      => 1,
