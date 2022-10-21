@@ -88,9 +88,6 @@
                     }
                 });
             }
-
-            // Initially load some items.
-            // loadMore();
         </script>
         <script src="/js/app.js" defer></script>
     </body>

@@ -32,37 +32,42 @@ window.addEventListener('DOMContentLoaded', () => {
     const adForm = document.querySelector("#ad_form");
     const adFormSubmit = document.querySelector("#ad_form_submit");
     const adFormText = document.querySelector("#ad-text");
-    const adFormSellBuy = document.querySelector("#tosell");
+    const adFormToSell = document.querySelector("#tosell");
+    const adFormToBuy = document.querySelector("#tobuy");
     const adFormRate = document.querySelector("#rate");
+    const adFormPhone = document.querySelector("#phone");
     const adFormCurrency = document.querySelector("#ad-currencies");
     const adFormSum = document.querySelector("#sum");
     const adFormCity = document.querySelector("#city");
     
     const changePlaceholder = ()=>{
-        // console.log("ddddddddddddddddd")
-        let sellBuy = adFormSellBuy.value === "buy" ? "Куплю" : "Продам ";
+        let sellBuy = adFormToSell.checked ? "Продам " : "Куплю ";
         let currency = adFormCurrency.value ? adFormCurrency.value.toLowerCase() + " "  : "валюту ";
-        let rate = adFormRate.value ? "по курсу " + adFormRate.value + " " : "";
-        let sum = adFormSum.value ? "в сумме " + adFormSum.value + " " : '';
-        let city = adFormCity.value ? "в городе " + adFormCity.value : "";
-        let text = sellBuy + currency + rate + sum + city;
+        let rate = adFormRate.value ? "по курсу " + adFormRate.value : "";
+        let sum = adFormSum.value ? " в сумме " + adFormSum.value : '';
+        let city = adFormCity.value ? " в городе " + adFormCity.value : "";
+        let phone = adFormPhone.value ? ". Мой номер: " + adFormPhone.value : "";
+        let text = sellBuy + currency + rate + sum + city + phone;
         if(!adFormText.value){
             adFormText.placeholder = text;
         }
     }
     const submitForm = (e)=>{
-        e.preventDefault();
         if(!adFormText.value){
             adFormText.value = adFormText.placeholder;
         }
     }
-    adFormSellBuy.addEventListener('change', changePlaceholder);
-    adFormCurrency.addEventListener('change', changePlaceholder);
-    adFormRate.addEventListener('change', changePlaceholder);
-    adFormSum.addEventListener('change', changePlaceholder);
 
-    if(ad_form){
+    if(adForm){
         adForm.addEventListener("submit", submitForm, false);
+
+        adFormToSell.addEventListener('change', changePlaceholder);
+        adFormToBuy.addEventListener('change', changePlaceholder);
+        adFormCurrency.addEventListener('change', changePlaceholder);
+        adFormRate.addEventListener('change', changePlaceholder);
+        adFormPhone.addEventListener('change', changePlaceholder);
+        adFormSum.addEventListener('change', changePlaceholder);
+        adFormCity.addEventListener('change', changePlaceholder);
     }
     
     // выпадающий список валют

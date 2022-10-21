@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Session\Middleware\StartSession;
 use Psr\Http\Message\RequestInterface;
 use Log;
 use App\Http\Controllers\GetAdsController;
-use App\Http\Controllers\ScheduleController;
+use App\Http\Controllers\ParseAdsController;
+use App\Http\Controllers\DBController;
 use App\Models\Ads;
  
 class CurrencyController extends Controller
@@ -36,10 +38,10 @@ class CurrencyController extends Controller
         "donetsk_obmen_valyuta" => ["id" => "-174075254", "time" => "hourly"]               // 60
     ];
     public $currencies = [
-       "dollar" => "Доллар $",
-       "euro" => "Евро €",
-       "hrn" => "Гривна ₴",
-       "cashless" => "Безнал руб. ₽"
+       "dollar" => "Доллар",
+       "euro" => "Евро",
+       "hrn" => "Гривна",
+       "cashless" => "Безнал руб."
     ];
     public $currencies_loc = [
        "dollar" => "доллара",
@@ -61,14 +63,17 @@ class CurrencyController extends Controller
         $this->db_ads = $this->posts->getPosts();
         $this->path = $this->parseUri();
         $this->to_view = [
-            'ads' => $this->db_ads,
-            'ads_count'      => $this->posts->getPosts("count"),
-            'currencies'     => $this->currencies,
-            'currencies_loc' => $this->currencies_loc,
-            'path'           => $this->path,
-            'date_sort'      => $this->date_sort,
-            'h1'             => $this->getH1(),
-            'search'         => ''    
+            'ads'             => $this->db_ads,
+            'ads_count'       => $this->posts->getPosts("count"),
+            'currencies'      => $this->currencies,
+            'currencies_loc'  => $this->currencies_loc,
+            'path'            => $this->path,
+            'date_sort'       => $this->date_sort,
+            'h1'              => $this->getH1(),
+            'search'          => '',
+            'is_allowed'      => $this->isAllowed(),
+            'submit_msg'      => '',
+            'next_submit'     => $this->nextSubmit()
         ];
     }
 
@@ -128,6 +133,19 @@ class CurrencyController extends Controller
         return $path_parts;
     }
 
+    protected function isAllowed() {
+        $lastSubmit = session()->get('last_submit');
+        $is_allowed = true;
+        if (!empty($lastSubmit) ){
+            $is_allowed = !($lastSubmit > (time() - 10 * 60));
+        }
+        return $is_allowed;
+     }
+     
+     protected function updateAllowed() {
+        session()->put('last_submit', time());
+     }
+
     public function show( $sell_buy = "all", $currency = '' )
     {
         $this->to_view['ads'] = $this->posts->getPosts( "get", $sell_buy, $currency );
@@ -135,9 +153,52 @@ class CurrencyController extends Controller
         return view('currency', $this->to_view);
     }
     
-    public function store()
+    public function store( Request $request )
     {
+        if ( $this->isAllowed())  {
+            $input = $request->all();
+    
+            $currency = array_search($input["currency"], $this->currencies);
+            $type = $input["sellbuy"] . "_" . $currency;
+            
+            $smallest_id_ad = DBController::getSmallestId();
+            $smallest_id = $smallest_id_ad["vk_id"];
+            if( $smallest_id > 99999 ){
+                $smallest_id = 99999;
+            }
+            $smallest_id -= 1;
+            $phones_parsed = ParseAdsController::parsePhone( $input["ad-text"], $smallest_id );
+    
+            $rate = filter_var($input["rate"], FILTER_VALIDATE_FLOAT);
+            $args = [
+                'vk_id'           => $smallest_id,
+                'vk_user'         => 0,
+                'owner_id'        => 1,
+                'date'            => time(),
+                'content'         => $input["ad-text"],
+                'content_changed' => $phones_parsed["text"],
+                'phone'           => $input["phone"],
+                'rate'            => $rate,
+                'phone_showed'    => 0,
+                'link_followed'   => 0,
+                'popularity'      => 1,
+                'link'            => '',
+                'type'            => $type
+            ];
+            // var_dump($args);
+            DBController::storePosts($args);
+            $this->to_view['submit_msg'] = "Ваше объявление опубликовано!";
+            $this->updateAllowed();
+        } else{
+            $this->to_view['submit_msg'] = "Вы уже публиковали объявление.";
+        }
 
+        return  view('currency', $this->to_view);
+    }
+
+    public function nextSubmit(){
+        $time_to_next_submit = 10 * 60 + session()->get('last_submit') - time();
+        return date('m мин. s сек.', $time_to_next_submit);
     }
     
     public function search()
@@ -153,7 +214,7 @@ class CurrencyController extends Controller
 
     public function index()
     {
-        // $this->to_view['ads'] = GetAdsController::getPosts( "-87785879" );
+        $this->to_view['ads'] = GetAdsController::getPosts( "-87785879" );
         // $this->to_view['ads'] = DBController::getPhone( ["postId" => 1558558, "phoneIndex" => "0"] );
         // $this->to_view['ads'] = DBController::getPhone( ["postId" => 58, "phoneIndex" => 0] );
         return view('currency', $this->to_view);

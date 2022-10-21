@@ -8,7 +8,7 @@
     --secondary-color: #ff6b00;
     --title-color: #242423;
     --para-color: #3E3E40;
-    --h1-font: 700 30px/140% 'Open Sans', sans-serif;
+    --h1-font: 700 28px/140% 'Open Sans', sans-serif;
     --h2-font: 600 22px/140% 'Open Sans', sans-serif;
     --h3-font: 400 18px/140% "Open Sans", sans-serif;
     --para-medium-font: 400 15px/140% "Open Sans", sans-serif;
@@ -41,6 +41,7 @@ p{
 a{
     text-decoration: none;
     color: var(--link-color);
+    font: var(--para-medium-font)
 }
 a:hover{
     color: var(--link-hover-color);
@@ -157,6 +158,10 @@ a:hover{
     display: flex;
     align-items: center;
 }
+.info-more-our{
+    cursor: pointer;
+    width: 50px;
+}
 .info-more:hover .info-hidden{
     display: block;
 }
@@ -209,12 +214,12 @@ nav ul{
     padding: 0;
 }
 .chip{
-    font-size: 16px;
     line-height: 32px;
     cursor: pointer;
     border: 1px #D6D6D6 solid;
     border-radius: 6px;
     display: flex;
+    align-items: center;
     background-color: var(--chip-bg-color);
 }
 .chip-active{
@@ -275,7 +280,7 @@ nav ul{
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0 11px;
+    padding: 6px 11px;
 }
 .tab-active,
 .form-ad-row-radio input[type="radio"]:checked+label{
@@ -492,6 +497,12 @@ nav ul{
 }
 .hidden_phone-visible:hover{
     color: var(--para-color);
+}
+#tosell{
+    left: 50px;
+}
+#tobuy{
+    right: 50px;
 }
 .active{
     display: block;

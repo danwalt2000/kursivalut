@@ -82,4 +82,18 @@ class DBController extends Controller
         $phones = explode(",", $ad->phone);
         return $phones[$info["phoneIndex"]];
     }
+
+    public static function storePosts( $args, $store = ["type" => "create", "compare" => [] ] )
+    {
+        if( !empty($store["type"]) && $store["type"] == "update" ){
+            Ads::where($store["compare"]["key"], '=', $store["compare"]["value"])
+                ->update($args);
+        } else{
+            Ads::create($args);
+        }
+    }
+
+    public static function getSmallestId(){
+        return Ads::orderBy("vk_id")->first();
+    }
 }

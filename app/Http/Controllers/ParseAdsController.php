@@ -2,7 +2,8 @@
  
 namespace App\Http\Controllers;
 use App\Models\Ads;
- 
+use App\Http\Controllers\DBController;
+
 class ParseAdsController extends Controller
 {
     /**
@@ -72,15 +73,24 @@ class ParseAdsController extends Controller
             $is_text_in_table = Ads::where('content', '=', $ad["text"])->count();
 
             if( $is_text_in_table > 0 ){
-                Ads::where('content', '=', $ad["text"])->update([
+                $args = [
                     'vk_id'           => $ad["id"],
                     'owner_id'        => $ad["owner_id"],
                     'date'            => $ad["date"],
                     'content_changed' => $phones_parsed["text"],
                     'link'            => $link
-                ]);
+                ];
+                $store = [
+                    "type" => "update",
+                    "compare" => [ 
+                        "key"   => 'content', 
+                        "value" => $ad["text"]
+                    ]
+                ];
+                DBController::storePosts( $args, $store );
+
             } elseif( $ad["from_id"] != $ad["owner_id"] && !empty($ad["text"])){
-                Ads::create([
+                $args = [
                     'vk_id'           => $ad["id"],
                     'vk_user'         => $ad["from_id"],
                     'owner_id'        => $ad["owner_id"],
@@ -91,9 +101,11 @@ class ParseAdsController extends Controller
                     'rate'            => 0,
                     'phone_showed'    => 0,
                     'link_followed'   => 0,
+                    'popularity'      => 0,
                     'link'            => $link,
                     'type'            => $type
-                ]);
+                ];
+                DBController::storePosts( $args );
             } 
         }
         

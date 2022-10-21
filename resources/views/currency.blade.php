@@ -11,7 +11,6 @@
                 <span class="chip @if( $path['sell_buy'] == 'all' || $path['sell_buy'] == '' ) chip-active @endif"><a href="/?{{ $path['query'] }}">Все</a></span>
                 <ul class="sell-buy @if($path['sell_buy'] != 'all') sell-buy-active @endif">
                     <li class="@if($path['sell_buy'] == 'sell') tab-active @endif">
-                        {{-- {{ dd(Request::get('date')) }} --}}
                         <a href="/ads/sell/{{ $path['currency'] }}?{{ $path['query'] }}">Продажа</a>
                     </li>
                     <span>|</span>
