@@ -156,16 +156,11 @@ class CurrencyController extends Controller
             $currency = array_search($validated["currency"], $this->currencies);
             $type = $validated["sellbuy"] . "_" . $currency;
             
-            $smallest_id_ad = DBController::getSmallestId();
-            $smallest_id = $smallest_id_ad["vk_id"];
-            if( $smallest_id > 99999 ){
-                $smallest_id = 99999;
-            }
-            $smallest_id -= 1;
-            $phones_parsed = ParseAdsController::parsePhone( $validated["ad-text"], $smallest_id );
+            $id = time();
+            $phones_parsed = ParseAdsController::parsePhone( $validated["ad-text"], $id );
     
             $args = [
-                'vk_id'           => $smallest_id,
+                'vk_id'           => $id,
                 'vk_user'         => 0,
                 'owner_id'        => 1,
                 'date'            => time(),

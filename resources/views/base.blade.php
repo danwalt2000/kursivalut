@@ -6,7 +6,7 @@
 
         <title>@yield('title')</title>
         <meta name="robots" content="noyaca">
-        <meta name="description" content="Агрегатор объявлений о покупке и продаже валюты">
+        <meta name="description" content="Агрегатор объявлений о купле-продаже валюты в Донецке и области">
         <meta name="keywords" content="купить валюту, купить доллар, купить евро, купить гривну, купить рубль, купить безнал, продать валюту, продать доллар, продать евро, продать гривну, продать безнал, Донецк, купить доллар в ДНР, купить доллар в Макеевке, Горловка" />
 
         <meta property="og:title" content="@yield('title')">
