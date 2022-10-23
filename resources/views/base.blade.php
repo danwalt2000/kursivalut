@@ -21,7 +21,15 @@
     </head>
     <body class="antialiased">
         <div class="bg-gradient">
+            <!-- Google tag (gtag.js) -->
+            <script async src="https://www.googletagmanager.com/gtag/js?id=G-4ZFLR96373"></script>
+            <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
 
+            gtag('config', 'G-4ZFLR96373');
+            </script>
             <main class="main">
                 <div class="logo">
                     <a href="/" class="logo-link">
