@@ -199,6 +199,7 @@ class CurrencyController extends Controller
 
     public function index()
     {
+        // $this->to_view['ads'] = GetAdsController::getPosts( "-87785879" );
         $this->to_view["is_allowed"] = SessionController::isAllowed();
         $this->to_view["next_submit"] = SessionController::nextSubmit();
         return view('currency', $this->to_view);

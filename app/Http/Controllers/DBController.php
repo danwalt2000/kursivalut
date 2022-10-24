@@ -35,8 +35,11 @@ class DBController extends Controller
             $time_range = $_GET["date"];
         }
         $query = '';
-        if( $sell_buy != "all" && ( !empty($sell_buy) || !empty($currency) ) ){
-            $query = $sell_buy . '_' . $currency;
+        if( !empty($sell_buy) || !empty($currency) ){
+            $query = '_' . $currency;
+            if($sell_buy != "all"){
+                $query = $sell_buy . $query;
+            }
         }
         $limit = 20;
         $search_clean = '';

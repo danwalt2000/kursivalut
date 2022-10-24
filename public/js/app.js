@@ -48,6 +48,9 @@ window.addEventListener('DOMContentLoaded', () => {
         let city = adFormCity.value ? " в городе " + adFormCity.value : "";
         let phone = adFormPhone.value ? ". Мой номер: " + adFormPhone.value : "";
         let text = sellBuy + currency + rate + sum + city + phone;
+        
+        if(currency === "гривна ") currency = "гривну "; // склоняем слово "гривна"
+
         if(!adFormText.value){
             adFormText.placeholder = text;
         }
