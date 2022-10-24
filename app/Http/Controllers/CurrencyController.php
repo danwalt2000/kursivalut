@@ -123,8 +123,7 @@ class CurrencyController extends Controller
             "hours"    => $hours,    // количество часов для фильтрации
             "sort"     => $sort      // тип сортировки для подсветки активных чипсов
         ];
-        
-        if( $path !== "/" && $path !== "/s" && $path !== "/ajax" && $path !== "/all" ){
+        if( str_contains($path, "ads") ){
             $path_array = explode("/", $path);
             $path_parts["sell_buy"] =  $path_array[2];
             $path_parts["currency"] = empty($path_array[3]) ? '' : $path_array[3];
