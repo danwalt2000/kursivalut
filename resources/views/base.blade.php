@@ -18,6 +18,7 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
         <link href="/css/app.css" rel="stylesheet">
+        <link rel="icon" type="image/x-icon" href="/img/valuta.ico">
     </head>
     <body class="antialiased">
         <div class="bg-gradient">
@@ -59,43 +60,45 @@
             window.feedStatus = 0;
             window.currentHeight = 0;
 
-            var feed = document.querySelector('#feed');
-            let currency = "{{ $path['currency'] }}";
-            let url = "/ajax?" 
-            url += "sellbuy=" + "{{ $path['sell_buy'] }}&amp;";
-            if(currency) url += "currency=" + currency + "&amp;";
-            url += "offset=" + window.feedStatus + "&amp;";
-            url += "{{ $path['query'] }}";
-            url = url.replaceAll('&amp;', '&');
-
-            var loadMore = function() {  
-                // если дошли до конца записей
-                if(window.feedStatus >= window.ifMore - 1) return;
-
-                // условие, чтобы функция не срабатывала несколько раз при скроллинге
-                if( window.currentHeight && window.currentHeight + 1000 > window.pageYOffset ) return;
-                window.currentHeight = window.pageYOffset;
-                
-                function reqListener () {
-                    window.feedStatus++;
-                    var item = document.createElement('div');
-                    item.innerHTML = this.responseText;
-                    feed.appendChild(item);
-                }
-                const req = new XMLHttpRequest();
-                req.addEventListener("load", reqListener);
-                req.open("GET", url);
-                req.send();
-            }
-
-            // Detect when scrolled to bottom.
-            if( window.ifMore > 1){
-                document.addEventListener('scroll', function() {
-                    if ( window.pageYOffset + window.screen.height >= feed.scrollHeight) {
-                        loadMore();
+            window.addEventListener('DOMContentLoaded', () => {
+                var feed = document.querySelector('#feed');
+                let currency = "{{ $path['currency'] }}";
+                let url = "/ajax?" 
+                url += "sellbuy=" + "{{ $path['sell_buy'] }}&amp;";
+                if(currency) url += "currency=" + currency + "&amp;";
+                url += "offset=" + window.feedStatus + "&amp;";
+                url += "{{ $path['query'] }}";
+                url = url.replaceAll('&amp;', '&');
+    
+                var loadMore = function() {  
+                    // если дошли до конца записей
+                    if(window.feedStatus >= window.ifMore - 1) return;
+    
+                    // условие, чтобы функция не срабатывала несколько раз при скроллинге
+                    if( window.currentHeight && window.currentHeight + 1000 > window.pageYOffset ) return;
+                    window.currentHeight = window.pageYOffset;
+                    
+                    function reqListener () {
+                        window.feedStatus++;
+                        var item = document.createElement('div');
+                        item.innerHTML = this.responseText;
+                        feed.appendChild(item);
                     }
-                });
-            }
+                    const req = new XMLHttpRequest();
+                    req.addEventListener("load", reqListener);
+                    req.open("GET", url);
+                    req.send();
+                }
+    
+                // Detect when scrolled to bottom.
+                if( window.ifMore > 1){
+                    document.addEventListener('scroll', function() {
+                        if ( window.pageYOffset + window.screen.height >= feed.scrollHeight) {
+                            loadMore();
+                        }
+                    });
+                }
+            });
         </script>
         <script src="/js/app.js" defer></script>
     </body>

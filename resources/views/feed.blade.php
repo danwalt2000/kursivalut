@@ -2,7 +2,7 @@
     <article class="post">
         <header class="post-header">
             <div class="info">
-                <img src="/img/groups/{!! str_replace('-', '', $ad->owner_id) !!}.jpg">
+                <img src="/img/groups/{!! str_replace('-', '', $ad->owner_id) !!}.webp">
                 <div class="time-info">
                     <p class="time-published">Опубликовано в</p>
                     <p class="time">{{ gmdate("H:i d.m.Y", ($ad->date + 3 * 60 * 60)) }}</p>
