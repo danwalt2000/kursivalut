@@ -24,6 +24,7 @@ class GetAdsController extends CurrencyController
         
         $access_token = "vk1.a.Hv_D01r4bJfnTOumY5rCtn7NyYSWLWWDJogEzbnBCkBaDTFWRMfsYHeiALSCFF0W-mAoiqjNK01HfC4n7D7DI_xNOBnVhLVmEcG7wyZ_qP6FENCZO_WSlWnjJDpRtXw--0xazEHvm_UxYqrR_WTRQVtcwzF-FYIMFHessTD0oHVBXpcZyJO-cPBTBmwhVWVf";
         $count = 10;
+        // $count = 1000;
         
         // если таблица пустая, запрашиваем больше записей
         if( Ads::count() == 0 ){
