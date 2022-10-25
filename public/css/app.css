@@ -1,8 +1,8 @@
 :root {
     --main-bg-color: #fff;
     --chip-bg-color: #fefafa;
-    --active-bg-color: rgba(0, 194, 151, .1);
-    --link-color: #00c297; /* #00c297 */
+    --active-bg-color: rgba(81, 209, 224, .1);
+    --link-color: #51d1e0; /* #00c297 */
     --link-hover-color: #00a580;
     --spoiler-color: #4ccad7;
     --secondary-color: #ff6b00;
@@ -498,6 +498,12 @@ nav ul{
 .hidden_phone-visible:hover{
     color: var(--para-color);
 }
+.form-open{
+    display: none;
+}
+.open-search{
+    display: none;
+}
 #tosell{
     left: 50px;
 }
@@ -506,4 +512,124 @@ nav ul{
 }
 .active{
     display: block;
+}
+
+@media (max-width: 992px){
+    .logo{
+        margin: 0 15px;
+    }
+    .columns{
+        display: flex;
+        flex-direction: column-reverse;
+        margin: 0 15px;
+        grid-gap: unset;
+    }
+    .main{
+        padding: 10px 0;
+    }
+    .form-bg{
+        width: 100vw;
+        height: 100vh;
+        position: fixed;
+        background-color: rgba(0, 0, 0, 0.1);
+        top: 0;
+        left: 0;
+        display: none;
+    }
+    .form-bg-open{
+        display: block;
+    }
+    .form-bg-open+.form-open{
+        display: none;
+    }
+    .form-open{
+        display: block;
+        background-color: var(--para-color);
+        color: var(--main-bg-color);
+        font: var(--para-medium-font);
+        border-radius: 8px;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+        max-width: 300px;
+        padding: 10px;
+    }
+    .form-wrapper{
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 10%;
+        margin: auto;
+        max-width: 500px;
+    }
+    .nav-wrapper, .chips{
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        margin: 0;
+    }
+    .nav-wrapper ul, .chip{
+        margin: 0 0 10px 10px;
+    }
+    .nav-wrapper .chip{
+        margin-left: 0;
+    }
+    h1, .form-wrapper h2{
+        text-align: center;
+    }
+    .form-ad-row-radio,
+    .form-ad-row{
+        max-width: 400px;
+        margin: 10px auto;
+    }
+}
+
+@media (max-width: 768px){
+    .logo-img{
+        width: 50px;
+    }
+    .logo-title{
+        font: var(--h3-font)
+    }
+    .logo{
+        grid-template-columns: 80% 20%;
+        padding: 10px 15px;
+        position: relative;
+    }
+    .open-search{
+        display: block;
+        justify-self: flex-end;
+        width: 30px;
+        height: 30px;
+        background-color: var(--link-color);
+        object-fit: none;
+        border-radius: 50%;
+    }
+    .search-form{
+        grid-column: 1 / 3;
+        width: 100%;
+        transform: scale(1, 0);
+        position: absolute;
+        top: 98%;
+        transition: transform .1s;
+        background: var(--main-bg-color);
+        width: calc(100vw - 30px);
+        left: -30px;
+        right: -30px;
+        margin: auto;
+    }
+    .search-submit{
+        right: 15px;
+    }
+    .open-search-active + .search-form{
+        transform: scale(1, 1);
+        transition: transform .1s;
+    }
+    .search-input{
+        max-width: 97%;
+        width: 100%;
+        display: block;
+        margin: auto;
+    }
 }

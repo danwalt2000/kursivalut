@@ -59,6 +59,7 @@ window.addEventListener('DOMContentLoaded', () => {
         if(!adFormText.value){
             adFormText.value = adFormText.placeholder;
         }
+        formBg.classList.remove("form-bg-open");
     }
 
     if(adForm){
@@ -102,4 +103,21 @@ window.addEventListener('DOMContentLoaded', () => {
             }, false);
         });
     }
+
+    const formOpen = document.querySelector("#form-open");
+    const formBg = document.querySelector("#form-bg");
+    const formWrapper = document.querySelector("#form-wrapper");
+    formOpen.addEventListener("click", function(){
+        formBg.classList.add("form-bg-open");
+    });
+    formBg.addEventListener('click', function (event) {
+        if ( !formWrapper.contains(event.target) ) {
+            formBg.classList.remove("form-bg-open");
+        }
+    });
+    
+    const openSearch = document.querySelector("#open-search");
+    openSearch.addEventListener("click", function(){
+        openSearch.classList.toggle("open-search-active");
+    });
 });
