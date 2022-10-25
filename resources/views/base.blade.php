@@ -18,7 +18,7 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
         <link href="/css/app.css" rel="stylesheet">
-        <link rel="icon" type="image/x-icon" href="/img/valuta.ico">
+        <link rel="icon" type="image/x-icon" alt="icon" href="/img/valuta.ico">
     </head>
     <body class="antialiased">
         <div class="bg-gradient">
@@ -34,15 +34,15 @@
             <main class="main">
                 <div class="logo">
                     <a href="/" class="logo-link">
-                        <img class="logo-img" src="/img/pig.svg" >
+                        <img alt="Обмен валют" class="logo-img" src="/img/pig.svg" >
                         <p class="logo-title">Обмен валют</p>
                     </a>
-                    <img id="open-search" class="search open-search" src="/img/search-white.svg" alt="" width="18" height="18">
+                    <img alt="Открыть строку поиска" id="open-search" class="search open-search" src="/img/search-white.svg" alt="" width="18" height="18">
                     <form action="{{ url("s") }}" class="search-form" method="get">
                         <input id="search" type="text" placeholder="Поиск в объявлениях" name="search" value=""
                             class="search-input @error('search') is-invalid @enderror" minlength="1" maxlength="30" required>
-                        <button type="submit" class="search-submit">
-                            <img class="search" src="/img/search.svg" alt="" width="18" height="18">
+                        <button id="search-submit" type="submit" class="search-submit" title="Поиск">
+                            <img alt="Поиск" class="search" src="/img/search.svg" alt="" width="18" height="18">
                         </button>  
                     </form>
                 </div>
