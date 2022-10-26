@@ -53,7 +53,7 @@
                     <label for="city">В городе</label>
                 </div>
                 <div class="form-ad-row">
-                    <textarea id="ad-text" name="ad-text" rows="5" cols="33" 
+                    <textarea id="ad-text" name="ad-text" rows="3" cols="33" 
                     placeholder="Продам 1000 долларов в Донецке"></textarea>
                     <label for="ad-text">Текст объявления</label>
                 </div>
