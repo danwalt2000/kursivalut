@@ -131,10 +131,14 @@ class CurrencyController extends Controller
         return $path_parts;
     }
 
-    public function show( $sell_buy = "all", $currency = '' )
-    {
+    public function passFormDataToview(){
         $this->to_view["is_allowed"] = SessionController::isAllowed();
         $this->to_view["next_submit"] = SessionController::nextSubmit();
+    }
+
+    public function show( $sell_buy = "all", $currency = '' )
+    {
+        $this->passFormDataToview();
         $this->to_view['ads'] = $this->posts->getPosts( "get", $sell_buy, $currency );
         $this->to_view['ads_count'] = $this->posts->getPosts("count", $sell_buy, $currency);
         return view('currency', $this->to_view);
@@ -178,8 +182,7 @@ class CurrencyController extends Controller
             SessionController::updateAllowed();
         }
 
-        $this->to_view["is_allowed"] = SessionController::isAllowed();
-        $this->to_view["next_submit"] = SessionController::nextSubmit();
+        $this->passFormDataToview();
         return view('all', $this->to_view);
     }
     
@@ -191,16 +194,14 @@ class CurrencyController extends Controller
         $this->to_view['search'] = $search;
         $this->to_view['ads'] = $this->posts->getPosts( "get", "all", "", $search );
         $this->to_view['ads_count'] = $this->posts->getPosts( "count", "all", "", $search );
-        $this->to_view["is_allowed"] = SessionController::isAllowed();
-        $this->to_view["next_submit"] = SessionController::nextSubmit();
+        $this->passFormDataToview();
         return view('search', $this->to_view);
     }
 
     public function index()
     {
         // $this->to_view['ads'] = GetAdsController::getPosts( "-87785879" );
-        $this->to_view["is_allowed"] = SessionController::isAllowed();
-        $this->to_view["next_submit"] = SessionController::nextSubmit();
+        $this->passFormDataToview();
         return view('currency', $this->to_view);
     }
 }

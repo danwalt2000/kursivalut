@@ -2,7 +2,8 @@
     --main-bg-color: #fff;
     --chip-bg-color: #fefafa;
     --active-bg-color: rgba(81, 209, 224, .1);
-    --link-color: #51d1e0; /* #00c297 */
+    --link-color: #1f7c87; /* #51d1e0 */
+    --logo-color: #51d1e0;
     --link-hover-color: #267f89;
     --spoiler-color: #4ccad7;
     --secondary-color: #ff6b00;
@@ -31,7 +32,7 @@ h1{
 h2{
     font: var(--h2-font);
 }
-h3{
+h3, .h3{
     font: var(--h3-font);
 }
 p{
@@ -236,7 +237,8 @@ nav ul{
 .chip-active a{
     color: var(--link-color);
 }
-.header-nav h3{
+.header-nav h3,
+.header-nav .h3{
     margin: 0 10px 0 0;
 }
 .chip-active a::before,
@@ -628,7 +630,7 @@ nav ul{
         justify-self: flex-end;
         width: 30px;
         height: 30px;
-        background-color: var(--link-color);
+        background-color: var(--logo-color);
         object-fit: none;
         border-radius: 50%;
     }
