@@ -13,24 +13,9 @@ class ParseAdsController extends Controller
      * @return \Illuminate\View\View
      */
 
-    public static function parsePhone ( $text, $id ){
-        $result = $text;
-        $pattern = "/[+0-9-]{10,20}/"; // (?<=[0-9\+])[0-9 )(+-]+   ([0-9\+][0-9 )(+-]+?(?=\w)){10,20}
-        preg_match_all( $pattern, $text, $matches );
-        $index = 0;
-        foreach($matches[0] as $phone ){
-            $result = str_replace( $phone, '<button class="hidden_phone" onclick="getPhone([' . $id . ', ' . $index . '])">click</button>', $result );
-            $index++;
-        }
-        return [ 
-            "text"   => $result, 
-            "phones" => implode(",", $matches[0])
-        ];
-    }
-
     public static function parseAd( $json, $group_id )
     {
-        $currency = new CurrencyController;
+        $posts = new DBController;
         $ads = $json;
         $patterns = [
             "sell_dollar"      => "/[Пп]род.*(\$|дол|син|зел|💵)(.*?\d{2})/",
@@ -87,7 +72,7 @@ class ParseAdsController extends Controller
                         "value" => $ad["text"]
                     ]
                 ];
-                DBController::storePosts( $args, $store );
+                $posts::storePosts( $args, $store );
 
             } elseif( $ad["from_id"] != $ad["owner_id"] && !empty($ad["text"])){
                 $args = [
@@ -105,10 +90,25 @@ class ParseAdsController extends Controller
                     'link'            => $link,
                     'type'            => $type
                 ];
-                DBController::storePosts( $args );
+                $posts::storePosts( $args );
             } 
         }
         
-        return DBController::getPosts(); // последние записи в БД
+        return $posts::getPosts(); // последние записи в БД
+    }
+
+    public static function parsePhone ( $text, $id ){
+        $result = $text;
+        $pattern = "/[+0-9-]{10,20}/"; // (?<=[0-9\+])[0-9 )(+-]+   ([0-9\+][0-9 )(+-]+?(?=\w)){10,20}
+        preg_match_all( $pattern, $text, $matches );
+        $index = 0;
+        foreach($matches[0] as $phone ){
+            $result = str_replace( $phone, '<button class="hidden_phone" onclick="getPhone([' . $id . ', ' . $index . '])">click</button>', $result );
+            $index++;
+        }
+        return [ 
+            "text"   => $result, 
+            "phones" => implode(",", $matches[0])
+        ];
     }
 }

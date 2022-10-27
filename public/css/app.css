@@ -477,7 +477,7 @@ nav ul{
 }
 .form-ad-row .form-ad-submit{
     color: var(--main-bg-color);
-    background-color: var(--link-color);
+    background-color: var(--logo-color);
 }
 .form-ad-submit:hover{
     background-color: var(--active-bg-color);

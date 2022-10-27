@@ -33,7 +33,7 @@
             </script>
             <main class="main">
                 <div class="logo">
-                    <a href="{{request()->getHttpHost()}}" class="logo-link">
+                    <a href="/" class="logo-link">
                         <img alt="Обмен валют" class="logo-img" src="/img/pig.svg" >
                         <p class="logo-title">Обмен валют</p>
                     </a>

@@ -19,8 +19,6 @@ class SessionController extends Controller
      * @param  int  $id
      * @return \Illuminate\View\View
      */
-    
-   
 
     public static function isAllowed() {
         $lastSubmit = session()->get('last_submit');
@@ -28,9 +26,6 @@ class SessionController extends Controller
         if (!empty($lastSubmit) ){
             $is_allowed = !($lastSubmit > (time() - 10 * 60));
         }
-        // var_dump( date('H:i:s', $lastSubmit ));
-        // var_dump( date('H:i:s', time() - 10 * 60 ) );
-        // var_dump( date('H:i:s', time() ) );
         // var_dump(session()->getID());
         return $is_allowed;
      }
@@ -40,7 +35,6 @@ class SessionController extends Controller
      }
 
      public static function nextSubmit(){
-        // var_dump(session()->getID());
         $time_to_next_submit = session()->get('last_submit') + 10 * 60 - time() ;
         return date('i мин. s сек.', $time_to_next_submit);
     }

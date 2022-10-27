@@ -95,8 +95,4 @@ class DBController extends Controller
             Ads::create($args);
         }
     }
-
-    public static function getSmallestId(){
-        return Ads::orderByDesc("vk_id")->first();
-    }
 }

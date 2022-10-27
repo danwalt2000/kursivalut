@@ -2,7 +2,6 @@
  
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Http;
-use Psr\Http\Message\RequestInterface;
 use Log;
 use App\Http\Controllers\CurrencyController;
 use App\Models\Ads;
@@ -17,7 +16,7 @@ class GetAdsController extends CurrencyController
      */
     
 
-    public static function getPosts( $group_id )
+    public static function getNewAds( $group_id )
     {
         $currency = new CurrencyController;
         $posts = new DBController;
@@ -51,11 +50,3 @@ class GetAdsController extends CurrencyController
         return $currency->db_ads;
     }
 }
-
-
-// логика сохранения ответа в файл
-// $json_file = Storage::get('api.json');
-// if ( !$json_file ){
-//     Storage::disk('local')->put('api.json', json_encode($json));
-//     $json_file = Storage::get('api.json');
-// }

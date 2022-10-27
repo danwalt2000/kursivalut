@@ -17,21 +17,20 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
-        foreach( (new CurrencyController)->publics as $name => $value){
+        foreach( CurrencyController::$publics as $name => $value){
             $time = $value["time"];
             $id = $value["id"];
 
-            // в рабочее врем частота запросов к группам указана в переменной 
-            // $publics класса CurrencyController
+            // в рабочее время частота запросов к группам указана в переменной 
+            // $publics класса CurrencyController 
             $schedule->call( function() use ($id){
-                GetAdsController::getPosts( $id );
-            })->$time()->between('4:30', '15:00'); 
+                GetAdsController::getNewAds( $id );
+            })->$time()->between('4:30', '15:00'); // (по Гринвичу) 
 
             // в нерабоче время обращаться к группам раз в час
             $schedule->call( function() use ($id){
-                GetAdsController::getPosts( $id );
-            })->hourly()->unlessBetween('4:30', '15:00');
+                GetAdsController::getNewAds( $id );
+            })->hourly()->unlessBetween('4:30', '15:00'); // (по Гринвичу)
         }
     }
 
