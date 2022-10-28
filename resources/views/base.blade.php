@@ -34,7 +34,7 @@
             <main class="main">
                 <div class="logo">
                     <a href="/" class="logo-link">
-                        <img alt="Обмен валют" class="logo-img" src="/img/pig.svg" >
+                        <img width="70px" height="70px" alt="Обмен валют" class="logo-img" src="/img/pig.svg" >
                         <p class="logo-title">Обмен валют</p>
                     </a>
                     <img alt="Открыть строку поиска" id="open-search" class="search open-search" src="/img/search-white.svg" alt="" width="18" height="18">
