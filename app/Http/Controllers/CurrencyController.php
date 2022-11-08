@@ -128,6 +128,7 @@ class CurrencyController extends Controller
     
     public function search()
     {
+        $search = '';
         if( !empty($_GET["search"]) ){
             $search = $_GET["search"];
         }
