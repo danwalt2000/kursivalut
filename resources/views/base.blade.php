@@ -11,6 +11,9 @@
 
         <meta property="og:title" content="@yield('title')">
         <meta property="og:description" content="Агрегатор объявлений о покупке и продаже валюты">
+        <meta property="og:type" content="website">
+        <meta property="og:site_name" content="Обмен валют в Донецке">
+        <meta property="og:image" content="/img/pig.svg">
         <meta name="csrf-token" content="{{ csrf_token() }}" />
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
