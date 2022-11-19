@@ -2,6 +2,7 @@
  
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Storage;
 use Log;
 use App\Http\Controllers\CurrencyController;
 use App\Models\Ads;
@@ -21,7 +22,8 @@ class GetAdsController extends CurrencyController
         $currency = new CurrencyController;
         $posts = new DBController;
         
-        $access_token = "vk1.a.Hv_D01r4bJfnTOumY5rCtn7NyYSWLWWDJogEzbnBCkBaDTFWRMfsYHeiALSCFF0W-mAoiqjNK01HfC4n7D7DI_xNOBnVhLVmEcG7wyZ_qP6FENCZO_WSlWnjJDpRtXw--0xazEHvm_UxYqrR_WTRQVtcwzF-FYIMFHessTD0oHVBXpcZyJO-cPBTBmwhVWVf";
+        $access_token = Storage::get('/private/token.txt');
+        var_dump($access_token);
         $count = 10;
         // $count = 1000;
         
