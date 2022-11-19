@@ -2,6 +2,5 @@
 
 ## Ads aggregator
 
-This is an app that fetches ads from multi vk publics and stores in on the website with sorting, filtering and search functions.
-It's based on PHP8.1 and Laravel 9 with Nginx on server side.
-Working version you can find here >> [valuta-dn.ru](https://valuta-dn.ru).
+<p>This is an app that fetches ads from multi vk publics and stores in on the website with sorting, filtering and search functions. It's based on PHP8.1 and Laravel 9 with Nginx on server side.</p>
+<p>Working version you can find here <a href="https://valuta-dn.ru">valuta-dn.ru</a>.</p>
