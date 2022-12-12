@@ -15,10 +15,7 @@
         <meta property="og:site_name" content="Обмен валют в Донецке">
         <meta property="og:image" content="/img/pig.svg">
         <meta name="csrf-token" content="{{ csrf_token() }}" />
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="preconnect" href="https://fonts.googleapis.com">
+
         <link href="/css/app.css" rel="stylesheet">
         <link rel="icon" type="image/x-icon" alt="icon" href="/img/valuta.ico">
         <link rel="canonical" href="https://{{Request::url()}}" />
