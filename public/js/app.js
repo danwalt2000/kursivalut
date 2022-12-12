@@ -31,7 +31,7 @@ window.addEventListener('DOMContentLoaded', () => {
     // форма
     const adForm = document.querySelector("#ad_form");
     const adFormSubmit = document.querySelector("#ad_form_submit");
-    const adFormText = document.querySelector("#ad-text");
+    const adFormText = document.querySelector("#textarea");
     const adFormToSell = document.querySelector("#tosell");
     const adFormToBuy = document.querySelector("#tobuy");
     const adFormRate = document.querySelector("#rate");

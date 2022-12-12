@@ -22,6 +22,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
         <link href="/css/app.css" rel="stylesheet">
         <link rel="icon" type="image/x-icon" alt="icon" href="/img/valuta.ico">
+        <link rel="canonical" href="https://{{Request::url()}}" />
     </head>
     <body class="antialiased">
         <div class="bg-gradient">

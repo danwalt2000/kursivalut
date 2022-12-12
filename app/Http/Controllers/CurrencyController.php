@@ -91,21 +91,21 @@ class CurrencyController extends Controller
                 'currency'  => 'required',
                 'rate'      => 'required|numeric',
                 'phone'     => 'required',
-                'ad-text'   => 'required|max:400',
+                'textarea'   => 'required|max:400',
             ]);
 
             $currency = array_search($validated["currency"], $this->currencies);
             $type = $validated["sellbuy"] . "_" . $currency;
             
             $id = time();
-            $phones_parsed = ParseAdsController::parsePhone( $validated["ad-text"], $id );
+            $phones_parsed = ParseAdsController::parsePhone( $validated["textarea"], $id );
     
             $args = [
                 'vk_id'           => $id,
                 'vk_user'         => 0,
                 'owner_id'        => 1,
                 'date'            => time(),
-                'content'         => $validated["ad-text"],
+                'content'         => $validated["textarea"],
                 'content_changed' => $phones_parsed["text"],
                 'phone'           => $validated["phone"],
                 'rate'            => $validated["rate"],
