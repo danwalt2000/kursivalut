@@ -16,6 +16,16 @@
     --para-small-font: 400 12px/140% "Open Sans", sans-serif;
 
 }
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: local(''),
+         url('/fonts/OpenSans-Regular.ttf') format('truetype'), /* Safari, Android, iOS */
+}
+
 body {
     font-family: 'Open Sans', sans-serif;
     width: 100%;
