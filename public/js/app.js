@@ -111,7 +111,7 @@ window.addEventListener('DOMContentLoaded', () => {
         formBg.classList.add("form-bg-open");
     });
     formBg.addEventListener('click', function (event) {
-        if ( !formWrapper.contains(event.target) ) {
+        if ( !formWrapper.contains(event.target) || event.target.id === "close_modal" ) {
             formBg.classList.remove("form-bg-open");
         }
     });
