@@ -1,11 +1,22 @@
-<ul class="chips">
+<ul class="currencies">
     <span class="h3">За:</span>
-    @foreach($date_sort as $time => $title)
-        <li class="chip @if($time == $path['hours']) chip-active @endif">
-            <a href="{{ request()->fullUrlWithQuery(['date' => $time]) }} ">{{$title}}</a>
-        </li>
-    @endforeach
+    {{-- Выбранный диапазон отображаем первым --}}
+
+    <li id="selected-currency" class="with-arrow">
+        {{ $date_sort[ $path['hours'] ] }}
+    </li>
+    <div id="currencies-hidden" class="currencies-hidden">
+        @foreach($date_sort as $time => $title)
+            {{-- Выбранный диапазон в списке не показываем --}}
+            @if($time == $path['hours'] )
+                @continue
+            @endif
+
+            <li><a href="{{ request()->fullUrlWithQuery(['date' => $time]) }} ">{{$title}}</a></li>
+        @endforeach
+    </div>
 </ul>
+
 <ul class="sort chips">
     <span class="h3">Сортировать по:</span>
     <li class="chip with-arrow with-arrow-rarr @if("date_desc" == $path['sort']) chip-active @endif">
@@ -26,5 +37,5 @@
     {{-- <li class="chip"><a href="{{ request()->fullUrlWithQuery(['sort' => 'rate', 'order' => 'asc']) }}">Курсу</a></li> --}}
 </ul>
 @if(count($ads))
-    <p>Найдено объявлений {{ $ads_count }}</p>
+    <p class="ads_found">Найдено объявлений {{ $ads_count }}</p>
 @endif

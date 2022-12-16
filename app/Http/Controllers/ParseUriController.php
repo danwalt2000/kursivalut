@@ -23,13 +23,13 @@ class ParseUriController extends Controller
             "hrn" => "гривны",
             "cashless" => "безнала руб."
          ];
-        $result = "Объявления о ";
+        $result = "";
         if( $path['sell_buy'] == 'sell'){
-            $result .= "продаже ";
+            $result .= "Продажа ";
         } elseif( $path['sell_buy'] == 'buy'){
-            $result .= "покупке ";
+            $result .= "Покупка ";
         } else{
-            $result .= "продаже/покупке ";
+            $result .= "Обмен ";
         }
         foreach($currencies_loc as $name => $title){
             if($path["currency"] == ''){
