@@ -6,7 +6,7 @@
 
         <title>@yield('title')</title>
         <meta name="robots" content="noyaca">
-        <meta name="description" content="Агрегатор объявлений о купле-продаже валюты в Донецке и области">
+        <meta name="description" content="Агрегатор объявлений на тему: {{ $h1 }}. Здесь собраны опубликованные в различных источниках предложения от реальных людей, которые хотят обменять валюту.">
         <meta name="keywords" content="купить валюту, купить доллар, купить евро, купить гривну, купить рубль, купить безнал, продать валюту, продать доллар, продать евро, продать гривну, продать безнал, Донецк, купить доллар в ДНР, купить доллар в Макеевке, Горловка" />
 
         <meta property="og:title" content="@yield('title')">
@@ -15,10 +15,6 @@
         <meta property="og:site_name" content="Обмен валют в Донецке">
         <meta property="og:image" content="/img/pig.svg">
         <meta name="csrf-token" content="{{ csrf_token() }}" />
-
-        {{-- <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet"> --}}
 
         <link href="/css/app.css" rel="stylesheet">
         <link rel="icon" type="image/x-icon" alt="icon" href="/img/valuta.ico">
