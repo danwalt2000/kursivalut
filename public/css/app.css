@@ -459,6 +459,9 @@ nav ul{
 .currencies-active::after{
     transform: rotate(.5turn);
 }
+.mr-10{
+    margin-right: 10px
+}
 .form-bg{
     position: sticky;
     top: 10px

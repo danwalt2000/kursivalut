@@ -1,5 +1,5 @@
 <ul class="currencies">
-    <span class="h6">За:</span>
+    <span class="h6 mr-10">За:</span>
     {{-- Выбранный диапазон отображаем первым --}}
 
     <li id="selected-currency" class="with-arrow">
@@ -18,7 +18,7 @@
 </ul>
 
 <ul class="sort chips">
-    <span class="h6">Сортировать по:</span>
+    <span class="h6 mr-10">Сортировать по:</span>
     <li class="chip with-arrow with-arrow-rarr @if("date_desc" == $path['sort']) chip-active @endif">
         <a href="{{ request()->fullUrlWithQuery(['sort' => 'date', 'order' => 'desc']) }}">
             Дате
