@@ -16,10 +16,6 @@ use App\Http\Controllers\AjaxController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
 Route::resource('/', CurrencyController::class);
 Route::redirect('/ads', '/', 301);
 Route::get('/ads/{sellbuy}/{currency?}', 

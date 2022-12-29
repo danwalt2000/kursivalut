@@ -47,6 +47,7 @@
                 </div>
             </main>
         </div>
+        <footer class="footer">Сайт разработан <a href="https://sharpdesign.ru">SharpDesign</a>.</footer>
         <script>
             window.ifMore = Math.ceil( Number("{{ $ads_count / 20 }}"));
             window.feedStatus = 0;
