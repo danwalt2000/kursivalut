@@ -20,8 +20,8 @@ class ParseUriController extends Controller
         $currencies_loc = [
             "dollar" => "доллара",
             "euro" => "евро",
-            "hrn" => "гривны",
-            "cashless" => "безнала руб."
+            "hrn" => "гривны (Ощад, Приват, Моно)",
+            "cashless" => "безнала руб. (Сбер, Тиньков)"
          ];
         $result = "";
         if( $path['sell_buy'] == 'sell'){
