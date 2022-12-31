@@ -23,7 +23,7 @@ class GetAdsController extends CurrencyController
         $posts = new DBController;
         
         $access_token = Storage::get('/private/token.txt');
-        var_dump($access_token);
+        // var_dump($access_token);
         $count = 10;
         // $count = 1000;
         

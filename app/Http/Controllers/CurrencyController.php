@@ -34,8 +34,11 @@ class CurrencyController extends Controller
         "obmen_valut_donetsk"   => ["id" => "-92215147",  "time" => "everyFiveMinutes"],    // 5
         "obmenvalyut_dpr"       => ["id" => "-153734109", "time" => "everyThirtyMinutes"],  // 30
         "club156050748"         => ["id" => "-156050748", "time" => "everyThirtyMinutes"],  // 30
+        "kursvalut_donetsk"     => ["id" => "-63859238",  "time" => "everyThirtyMinutes"],  // 30
         "obmen_valut_dnr"       => ["id" => "-193547744", "time" => "hourly"],              // 60
-        "donetsk_obmen_valyuta" => ["id" => "-174075254", "time" => "hourly"]               // 60
+        "donetsk_obmen_valyuta" => ["id" => "-174075254", "time" => "hourly"],              // 60
+        "obmenvalut_dnr"        => ["id" => "-172375183", "time" => "hourly"],              // 60
+        "valutoobmen"           => ["id" => "-75586957",  "time" => "hourly"]               // 60
     ];
     public $currencies = [
        "dollar" => "Доллар",
