@@ -23,6 +23,7 @@
         </header>
         
         <span class="">{!! $ad->content_changed !!}</span>
+        {{-- <span class="">{!! $ad->content !!}</span> --}}
     </article>
 @empty
     <article class="post no-ads">

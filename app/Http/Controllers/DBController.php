@@ -22,6 +22,7 @@ class DBController extends Controller
 
     public static function getPosts( $get_or_count = "get", $sell_buy = '', $currency = '', $search = '', $offset = 0 ){
         $sort = 'date';
+        
         if(!empty($_GET["sort"]) && str_contains( "date rate popularity", $_GET["sort"]) ){
             $sort = $_GET["sort"];
         } 
@@ -46,14 +47,15 @@ class DBController extends Controller
         if( !empty($search) ){
             $search_clean = htmlspecialchars($search);
         }
-        $offset = $offset * $limit;
-
+        $skip = $offset * $limit;
+        
         $cut_by_time = time() - $time_range * 60 * 60;
+        var_dump($cut_by_time);
         return Ads::where("date", ">", $cut_by_time)
                   ->where('type', 'like', "%" . $query . "%")
                   ->where('content', 'like', "%" . $search_clean . "%")
                   ->orderBy($sort, $asc_desc)
-                  ->skip($offset)
+                  ->skip($skip)
                   ->take($limit)
                   ->$get_or_count();
     }

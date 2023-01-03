@@ -28,6 +28,7 @@ class ParseAdsController extends Controller
             "buy_hrn"          => "/[Кк]уп.*([Гг]рн|грив|[Пп]риват|[Оо]щад|[Мм]оно)/",
             "buy_cashless"     => "/[Кк]уп.*([Cс]бер|[Тт]иньк)/"
             // "course" => "/(по|курс) ([\d\.\,]{2,5}) /"
+            // "dollar_course" => "/\s[6789][0-9]([\.\,]\d{0,2})?([\s\.\,])/"
         ];
         foreach( $ads as $ad ){
             $is_id_in_table = Ads::where('vk_id', '=', $ad["id"])->count();
@@ -62,7 +63,7 @@ class ParseAdsController extends Controller
                     'vk_id'           => $ad["id"],
                     'owner_id'        => $ad["owner_id"],
                     'date'            => $ad["date"],
-                    'content_changed' => $phones_parsed["text"],
+                    // 'content_changed' => $phones_parsed["text"],
                     'link'            => $link
                 ];
                 $store = [
@@ -99,11 +100,11 @@ class ParseAdsController extends Controller
 
     public static function parsePhone ( $text, $id ){
         $result = $text;
-        $pattern = "/[+0-9-]{10,20}/"; // (?<=[0-9\+])[0-9 )(+-]+   ([0-9\+][0-9 )(+-]+?(?=\w)){10,20}
+        $pattern = "/\s([+\d\- ]{10,20})[\s\.\,]?/"; // "/[+0-9-]{10,20}/"; // (?<=[0-9\+])[0-9 )(+-]+   ([0-9\+][0-9 )(+-]+?(?=\w)){10,20}
         preg_match_all( $pattern, $text, $matches );
         $index = 0;
         foreach($matches[0] as $phone ){
-            $result = str_replace( $phone, '<button class="hidden_phone" onclick="getPhone([' . $id . ', ' . $index . '])">click</button>', $result );
+            $result = str_replace( $phone, '&#32;<button class="hidden_phone" onclick="getPhone([' . $id . ', ' . $index . '])">click</button>&#32;', $result );
             $index++;
         }
         return [ 
