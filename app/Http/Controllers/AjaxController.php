@@ -26,8 +26,11 @@ class AjaxController extends Controller
         
         $offset = $request->query('offset');
         if( empty($offset) ) $offset = 0;
+        
+        $search = $request->query('search');
+        if( empty($search) ) $search = '';
 
-        $to_view['ads'] = DBController::getPosts("get", $sellbuy, $currency, '', $offset );
+        $to_view['ads'] = DBController::getPosts("get", $sellbuy, $currency, $search, $offset );
         return view('feed', $to_view);;
     }
 

@@ -50,22 +50,27 @@
         <footer class="footer">Сайт разработан <a href="https://sharpdesign.ru">SharpDesign</a>.</footer>
         <script>
             window.ifMore = Math.ceil( Number("{{ $ads_count / 20 }}"));
-            window.feedStatus = 0;
+            window.feedStatus = 1;
             window.currentHeight = 0;
-
-            window.addEventListener('DOMContentLoaded', () => {
-                var feed = document.querySelector('#feed');
-                let currency = "{{ $path['currency'] }}";
+            
+            let currency = "{{ $path['currency'] }}";
+            const constructUrl = function (){
                 let url = "/ajax?" 
                 url += "sellbuy=" + "{{ $path['sell_buy'] }}&amp;";
                 if(currency) url += "currency=" + currency + "&amp;";
                 url += "offset=" + window.feedStatus + "&amp;";
                 url += "{{ $path['query'] }}";
                 url = url.replaceAll('&amp;', '&');
-    
-                var loadMore = function() {  
+                return url;
+            }
+
+            window.addEventListener('DOMContentLoaded', () => {
+                var feed = document.querySelector('#feed');
+                let url = constructUrl();
+                   
+                const loadMore = function() {  
                     // если дошли до конца записей
-                    if(window.feedStatus >= window.ifMore - 1) return;
+                    if(window.feedStatus >= window.ifMore) return;
     
                     // условие, чтобы функция не срабатывала несколько раз при скроллинге
                     if( window.currentHeight && window.currentHeight + 1000 > window.pageYOffset ) return;
@@ -73,6 +78,7 @@
                     
                     function reqListener () {
                         window.feedStatus++;
+                        url = constructUrl();
                         var item = document.createElement('div');
                         item.innerHTML = this.responseText;
                         feed.appendChild(item);
