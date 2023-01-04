@@ -50,7 +50,6 @@ class DBController extends Controller
         $skip = $offset * $limit;
         
         $cut_by_time = time() - $time_range * 60 * 60;
-        var_dump($cut_by_time);
         return Ads::where("date", ">", $cut_by_time)
                   ->where('type', 'like', "%" . $query . "%")
                   ->where('content', 'like', "%" . $search_clean . "%")

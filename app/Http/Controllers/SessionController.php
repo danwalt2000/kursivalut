@@ -26,7 +26,6 @@ class SessionController extends Controller
         if (!empty($lastSubmit) ){
             $is_allowed = !($lastSubmit > (time() - 10 * 60));
         }
-        // var_dump(session()->getID());
         return $is_allowed;
      }
      
