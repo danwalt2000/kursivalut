@@ -22,6 +22,7 @@ class DBController extends Controller
 
     public static function getPosts( $get_or_count = "get", $sell_buy = '', $currency = '', $search = '', $offset = 0 ){
         $sort = 'date';
+        $limit = 20;
         
         if(!empty($_GET["sort"]) && str_contains( "date rate popularity", $_GET["sort"]) ){
             $sort = $_GET["sort"];
@@ -31,25 +32,32 @@ class DBController extends Controller
             $asc_desc = $_GET["order"];
         }
         
+        // период, за который запрашиваются записи - измеряется в часах
         $time_range = 24;
         if(!empty($_GET["date"]) && filter_var($_GET["date"], FILTER_VALIDATE_INT)!== false ){
             $time_range = $_GET["date"];
         }
+
+        // Тип объявления, строится по принципу: (купля/продажа)_валюта
+        // купля/продажа берется из пути sellbuy. Варианты: all, sell, buy
+        // Валюта берется из пути currency
         $query = '';
         if( !empty($sell_buy) || !empty($currency) ){
-            $query = '_' . $currency;
             if($sell_buy != "all"){
-                $query = $sell_buy . $query;
+                $query = $sell_buy . '_';
             }
+            $query .= $currency;
         }
-        $limit = 20;
+
+        // строка поиска
         $search_clean = '';
         if( !empty($search) ){
             $search_clean = htmlspecialchars($search);
         }
         $skip = $offset * $limit;
-        
+
         $cut_by_time = time() - $time_range * 60 * 60;
+        
         return Ads::where("date", ">", $cut_by_time)
                   ->where('type', 'like', "%" . $query . "%")
                   ->where('content', 'like', "%" . $search_clean . "%")

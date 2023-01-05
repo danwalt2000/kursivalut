@@ -100,7 +100,7 @@ class ParseAdsController extends Controller
 
     public static function parsePhone ( $text, $id ){
         $result = $text;
-        $pattern = '/[^\d\w][+07]([\d\-\s\)\(]{9,18})/'; // "/[+0-9-]{10,20}/"; // (?<=[0-9\+])[0-9 )(+-]+   ([0-9\+][0-9 )(+-]+?(?=\w)){10,20}
+        $pattern = '/(\+7|071|\+38|79)([\d\-\s\)\(]{5,14})(\d)/'; // "/[+0-9-]{10,20}/";
         preg_match_all( $pattern, $text, $matches );
         $index = 0;
         foreach($matches[0] as $phone ){
