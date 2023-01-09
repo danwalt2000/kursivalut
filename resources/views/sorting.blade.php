@@ -12,7 +12,7 @@
                 @continue
             @endif
 
-            <li><a href="{{ request()->fullUrlWithQuery(['date' => $time]) }} ">{{$title}}</a></li>
+            <li><a href="{{ request()->fullUrlWithQuery(['date' => $time]) }}">{{$title}}</a></li>
         @endforeach
     </div>
 </ul>
