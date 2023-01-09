@@ -208,6 +208,7 @@ a:hover{
 .info-more-our{
     cursor: pointer;
     width: 50px;
+    margin-right: -10px;
 }
 .info-more:hover .info-hidden{
     display: block;

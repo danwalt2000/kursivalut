@@ -28,7 +28,9 @@ class ParseAdsController extends Controller
             "buy_hrn"          => '/(Куп|куп|КУП)(.*)(Грив|грив|ГРИВ|Грн|ГРН|грн|\sгр\s|укр|Укр|Приват|приват|ПРИВАТ|Ощад|ощад|ОЩАД|Моно|моно)/',
             "buy_cashless"     => '/(Куп|куп|КУП)(.*)(Сбер|сбер|СБЕР|[Тт]инько)/'
             // "course" => "/(по|курс) ([\d\.\,]{2,5}) /"
-            // "dollar_course" => "/\s[6789][0-9]([\.\,]\d{0,2})?([\s\.\,])/"
+            // "dollar_course" => "/[^\d][-\s][6789][0-9]([\.\,]\d{0,2})?([\s\.\,\₽Рр\-])[^\d]/"
+            // "hrn_course" => "/([^\d][-\s\(\)][12]([\.\,]\d{0,2})[^\d][^\d])/"
+            // "hrn_course_range" => "/[12]([\.\,]\d{1,2})?\s?-\s?[12]([\.\,]\d{0,2})?/"
         ];
         foreach( $ads as $ad ){
             $is_id_in_table = Ads::where('vk_id', '=', $ad["id"])->count();
@@ -100,7 +102,7 @@ class ParseAdsController extends Controller
 
     public static function parsePhone ( $text, $id ){
         $result = $text;
-        $pattern = '/(\+7|071|\+38|79)([\d\-\s\)\(]{5,14})(\d)/'; // "/[+0-9-]{10,20}/";
+        $pattern = '/(\+7|071|072|\+38|79)([\d\-\s\)\(]{5,14})(\d)/'; // "/[+0-9-]{10,20}/";
         preg_match_all( $pattern, $text, $matches );
         $index = 0;
         foreach($matches[0] as $phone ){
