@@ -22,7 +22,7 @@
             </div>
         </header>
         
-        <span class="">{!! $ad->content_changed !!}</span>
+        <div>{!! $ad->content_changed !!}</div>
         {{-- <span class="">{!! $ad->content !!}</span> --}}
     </article>
 @empty

@@ -106,7 +106,7 @@ class ParseAdsController extends Controller
         preg_match_all( $pattern, $text, $matches );
         $index = 0;
         foreach($matches[0] as $phone ){
-            $result = str_replace( $phone, '&#32;<button class="hidden_phone" onclick="getPhone([' . $id . ', ' . $index . '])">click</button>&#32;', $result );
+            $result = str_replace( $phone, '&#32;<button class="hidden_phone" title="Посмотреть номер" onclick="getPhone([' . $id . ', ' . $index . '])">click</button>&#32;', $result );
             $index++;
         }
         return [ 
