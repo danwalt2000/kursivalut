@@ -6,7 +6,7 @@
 
         <title>@yield('title')</title>
         <meta name="robots" content="noyaca">
-        <meta name="description" content="Агрегатор объявлений на тему: {{ $h1 }}. Здесь собраны опубликованные в различных источниках предложения от реальных людей, которые хотят обменять валюту.">
+        <meta name="description" content="Здесь мы собрали объявления от реальных людей на тему: '{{ $h1 }}'.">
         <meta name="keywords" content="купить валюту, купить доллар, купить евро, купить гривну, купить рубль, купить безнал, продать валюту, продать доллар, продать евро, продать гривну, продать безнал, Донецк, купить доллар в ДНР, купить доллар в Макеевке, Горловка" />
 
         <meta property="og:title" content="@yield('title')">
@@ -18,7 +18,7 @@
 
         <link href="/css/app.css" rel="stylesheet">
         <link rel="icon" type="image/x-icon" alt="icon" href="/img/valuta.ico">
-        <link rel="canonical" href="https://{{Request::url()}}" />
+        <link rel="canonical" href="{{Request::url()}}" />
     </head>
     <body class="antialiased">
         <div class="bg-gradient">
