@@ -10,16 +10,16 @@
             <nav class="nav-wrapper sell_buy">
                 <span class="chip @if( $path['sell_buy'] == 'all' || $path['sell_buy'] == '' ) chip-active @endif"><a href="/?{{ $path['query'] }}">Все</a></span>
                 <li class="chip @if($path['sell_buy'] == 'sell') chip-active @endif">
-                    <a href="/ads/sell/{{ $path['currency'] }}?{{ $path['query'] }}">Продажа</a>
+                    <a href="/ads/sell/{{ $path['currency'] }}@if($path['query'])?{{ $path['query'] }}@endif">Продажа</a>
                 </li>
                 <li class="chip @if($path['sell_buy'] == 'buy') chip-active @endif">
-                    <a href="/ads/buy/{{ $path['currency'] }}?{{ $path['query'] }}">Покупка</a>
+                    <a href="/ads/buy/{{ $path['currency'] }}@if($path['query'])?{{ $path['query'] }}@endif">Покупка</a>
                 </li>
             </nav>
             <nav class="nav-wrapper nav-currencies">
                 @foreach($currencies as $name => $title)
                     <li class="chip @if($path["currency"] != '' && $currencies[$path["currency"]] == $title) chip-active @endif">
-                        <a href="/ads/{{ $path['sell_buy'] }}/{{ $name }}?{{ $path['query'] }}">{{ $title }}</a>
+                        <a href="/ads/{{ $path['sell_buy'] }}/{{ $name }}@if($path['query'])?{{ $path['query'] }}@endif">{{ $title }}</a>
                     </li>
                     {{-- Выбранную валюту в списке не показываем--}}
                 @endforeach
