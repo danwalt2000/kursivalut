@@ -124,7 +124,7 @@
                     accurateTrackBounce:true
                 });
             </script>
-            <noscript><div><img src="https://mc.yandex.ru/watch/90961172" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+            <noscript><div><img src="https://mc.yandex.ru/watch/90961172" style="position:absolute; left:-9999px;" alt="Включите JavaScript, пожалуйста" /></div></noscript>
             <!-- /Yandex.Metrika counter -->
         @endproduction
     </body>
