@@ -28,6 +28,7 @@ class CurrencyController extends Controller
     public $posts;
     public $parsed_url = [];
     public $path = [];
+    public $query = '';
     
     public static $publics = [
         "obmenvalut_donetsk"    => ["id" => "-87785879",  "time" => "everyFiveMinutes"],    // 5
@@ -59,12 +60,14 @@ class CurrencyController extends Controller
         $this->posts = new DBController;
         $this->db_ads = $this->posts->getPosts();
         $this->path = ParseUriController::parseUri();
+        if( !empty($this->path['query']) ) $this->query = "?" . $this->path['query'];
         $this->to_view = [
             'ads'             => $this->db_ads,
             'ads_count'       => $this->posts->getPosts("count"),
             'currencies'      => $this->currencies,
             'date_sort'       => $this->date_sort,
             'path'            => $this->path,
+            'query'            => $this->query,
             'h1'              => ParseUriController::getH1(),
             'search'          => '',
             'is_allowed'      => true,

@@ -6,14 +6,9 @@
 
         <title>@yield('title')</title>
         <meta name="robots" content="noyaca">
-        <meta name="description" content="Черный рынок валюты. Объявления реальных людей на тему: '{{ $h1 }}'.">
+        <meta name="description" content="Ошибка: @yield('title')">
         <meta name="keywords" content="купить валюту, купить доллар, купить евро, купить гривну, купить рубль, купить безнал, продать валюту, продать доллар, продать евро, продать гривну, продать безнал, Донецк, купить доллар в ДНР, купить доллар в Макеевке, Горловка" />
 
-        <meta property="og:title" content="@yield('title')">
-        <meta property="og:description" content="Черный рынок валюты. Объявления реальных людей на тему: '{{ $h1 }}'.">
-        <meta property="og:type" content="website">
-        <meta property="og:site_name" content="Обмен валют в Донецке">
-        <meta property="og:image" content="/img/pig.svg">
         <meta name="csrf-token" content="{{ csrf_token() }}" />
 
         <link href="/css/app.css" rel="stylesheet">
@@ -41,65 +36,13 @@
                     @section('main')
                     @show
 
-                    <div class="right_column">
+                    {{-- <div class="right_column">
                         @include('form')
-                    </div>
+                    </div> --}}
                 </div>
             </main>
         </div>
         <footer class="footer">Сайт разработан <a href="https://sharpdesign.ru">SharpDesign</a>.</footer>
-        <script>
-            window.ifMore = Math.ceil( Number("{{ $ads_count / 20 }}"));
-            window.feedStatus = 1;
-            window.currentHeight = 0;
-            
-            let currency = "{{ $path['currency'] }}";
-            const constructUrl = function (){
-                let url = "/ajax?" 
-                url += "sellbuy=" + "{{ $path['sell_buy'] }}&amp;";
-                if(currency) url += "currency=" + currency + "&amp;";
-                url += "offset=" + window.feedStatus + "&amp;";
-                url += "{{ $path['query'] }}";
-                url = url.replaceAll('&amp;', '&');
-                return url;
-            }
-
-            window.addEventListener('DOMContentLoaded', () => {
-                var feed = document.querySelector('#feed');
-                let url = constructUrl();
-                   
-                const loadMore = function() {  
-                    // если дошли до конца записей
-                    if(window.feedStatus >= window.ifMore) return;
-    
-                    // условие, чтобы функция не срабатывала несколько раз при скроллинге
-                    if( window.currentHeight && window.currentHeight + 1000 > window.pageYOffset ) return;
-                    window.currentHeight = window.pageYOffset;
-                    
-                    function reqListener () {
-                        window.feedStatus++;
-                        url = constructUrl();
-                        var item = document.createElement('div');
-                        item.innerHTML = this.responseText;
-                        feed.appendChild(item);
-                    }
-                    const req = new XMLHttpRequest();
-                    req.addEventListener("load", reqListener);
-                    req.open("GET", url);
-                    req.send();
-                }
-    
-                // Detect when scrolled to bottom.
-                if( window.ifMore > 1){
-                    document.addEventListener('scroll', function() {
-                        if ( window.pageYOffset + window.screen.height >= feed.scrollHeight) {
-                            loadMore();
-                        }
-                    });
-                }
-            });
-        </script>
-        <script src="/js/app.js" defer></script>
         @production
             <!-- Google tag (gtag.js) -->
             <script async src="https://www.googletagmanager.com/gtag/js?id=G-4ZFLR96373"></script>
