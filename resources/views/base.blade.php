@@ -18,7 +18,9 @@
 
         <link href="/css/app.css" rel="stylesheet">
         <link rel="icon" type="image/x-icon" alt="icon" href="/img/valuta.ico">
-        <link rel="canonical" href="{{Request::url()}}" />
+        @if( count( Request()->query ) )
+            <link rel="canonical" href="{{Request::url()}}" />
+        @endif
     </head>
     <body class="antialiased">
         <div class="bg-gradient">
