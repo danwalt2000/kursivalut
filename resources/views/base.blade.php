@@ -4,13 +4,13 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>@yield('title')</title>
+        <title>@yield('title') и ДНР</title>
         <meta name="robots" content="noyaca">
-        <meta name="description" content="Черный рынок валюты. Объявления реальных людей на тему: '{{ $h1 }}'.">
+        <meta name="description" content="Черный рынок валюты. Объявления реальных людей на тему: '{{ $h1 }} и ДНР'.">
         <meta name="keywords" content="купить валюту, купить доллар, купить евро, купить гривну, купить рубль, купить безнал, продать валюту, продать доллар, продать евро, продать гривну, продать безнал, Донецк, купить доллар в ДНР, купить доллар в Макеевке, Горловка" />
 
-        <meta property="og:title" content="@yield('title')">
-        <meta property="og:description" content="Черный рынок валюты. Объявления реальных людей на тему: '{{ $h1 }}'.">
+        <meta property="og:title" content="@yield('title') и ДНР">
+        <meta property="og:description" content="Черный рынок валюты. Объявления реальных людей на тему: '{{ $h1 }} и ДНР'.">
         <meta property="og:type" content="website">
         <meta property="og:site_name" content="Обмен валют в Донецке">
         <meta property="og:image" content="/img/pig.svg">
