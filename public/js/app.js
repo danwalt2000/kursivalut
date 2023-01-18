@@ -32,6 +32,7 @@ window.addEventListener('DOMContentLoaded', () => {
     const adForm = document.querySelector("#ad_form");
     const adFormSubmit = document.querySelector("#ad_form_submit");
     const adFormText = document.querySelector("#textarea");
+    const adFormTextLabel = document.querySelector("#textarea_label");
     const adFormToSell = document.querySelector("#tosell");
     const adFormToBuy = document.querySelector("#tobuy");
     const adFormRate = document.querySelector("#rate");
@@ -47,17 +48,29 @@ window.addEventListener('DOMContentLoaded', () => {
         let rate = adFormRate.value ? "по курсу " + adFormRate.value : "";
         let sum = adFormSum.value ? " в сумме " + adFormSum.value : '';
         let city = adFormCity.value ? " в городе " + adFormCity.value : "";
-        let phone = adFormPhone.value ? ". Мой номер: " + adFormPhone.value : "";
+        let phone = adFormPhone.value ? ". Мой номер: " + adFormPhone.value  + "." : "";
         let text = sellBuy + currency + rate + sum + city + phone;
         
-
+        window.placeholder = text;
+        adFormTextLabel.innerText = window.placeholder;
         if(!adFormText.value){
             adFormText.placeholder = text;
         }
     }
+
+    const changeTextarea = ()=>{
+        if(adFormText.value){
+            adFormText.classList.add("textarea_active");
+        } else{
+            adFormText.classList.remove("textarea_active");
+        }
+    }
+
     const submitForm = (e)=>{
         if(!adFormText.value){
-            adFormText.value = adFormText.placeholder;
+            adFormText.value = window.placeholder;
+        } else{
+            adFormText.value =  window.placeholder + "&nbsp;" + adFormText.value;
         }
         formBg.classList.remove("form-bg-open");
     }
@@ -72,6 +85,7 @@ window.addEventListener('DOMContentLoaded', () => {
         adFormPhone.addEventListener('change', changePlaceholder);
         adFormSum.addEventListener('change', changePlaceholder);
         adFormCity.addEventListener('change', changePlaceholder);
+        adFormText.addEventListener('input', changeTextarea);
     }
     
     // выпадающий список валют
