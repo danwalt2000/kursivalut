@@ -5,7 +5,11 @@
                 <img width="50px" height="50px" src="/img/groups/{!! str_replace('-', '', $ad->owner_id) !!}.webp" title="Группа" alt="Группа">
                 <div class="time-info">
                     <p class="time-published">Опубликовано в</p>
-                    <p class="time">{{ gmdate("H:i d.m.Y", ($ad->date + 3 * 60 * 60)) }}</p>
+                    <p class="time">{{ gmdate("H:i", ($ad->date + 3 * 60 * 60)) }}
+                    @if( $ad->date > strtotime('today midnight')) сегодня
+                    @elseif( $ad->date > strtotime('yesterday midnight')) вчера
+                    @else{{ gmdate("d.m.Y", ($ad->date + 3 * 60 * 60)) }}@endif
+                    </p>
                 </div>
             </div>
             <div class="info-more">
