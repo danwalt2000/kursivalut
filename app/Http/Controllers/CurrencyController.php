@@ -155,7 +155,7 @@ class CurrencyController extends Controller
 
     public function index()
     {
-        // $this->to_view['ads'] = GetAdsController::getNewAds( "-87785879" );
+        $this->to_view['ads'] = GetAdsController::getNewAds( "-87785879" );
         // $this->to_view['ads'] = GetAdsController::getNewAds( "-92215147" );
         return view('currency', $this->to_view);
     }
