@@ -67,7 +67,8 @@ class CurrencyController extends Controller
             'currencies'      => $this->currencies,
             'date_sort'       => $this->date_sort,
             'path'            => $this->path,
-            'query'            => $this->query,
+            'query'           => $this->query,
+            // 'hash'            => $this->getCurrentGitCommit(),
             'h1'              => ParseUriController::getH1(),
             'search'          => '',
             'is_allowed'      => true,
@@ -80,6 +81,14 @@ class CurrencyController extends Controller
             return $next($request);
         });
     }
+
+    // function getCurrentGitCommit( $branch='master' ) {
+    //     if ( $hash = file_get_contents( sprintf( '../../.git/refs/heads/%s', $branch ) ) ) {
+    //         return trim($hash);
+    //     } else {
+    //         return false;
+    //     }
+    // }
 
     public function show( $sell_buy = "all", $currency = '' )
     {
@@ -146,7 +155,7 @@ class CurrencyController extends Controller
 
     public function index()
     {
-        // $this->to_view['ads'] = GetAdsController::getNewAds( "-87785879" );
+        $this->to_view['ads'] = GetAdsController::getNewAds( "-87785879" );
         // $this->to_view['ads'] = GetAdsController::getNewAds( "-92215147" );
         return view('currency', $this->to_view);
     }
