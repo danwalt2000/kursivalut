@@ -33,7 +33,7 @@ class GetAdsController extends CurrencyController
             $count = 100;
         }
         $url = "https://api.vk.com/method/wall.get?access_token=" . $access_token . "&owner_id=" . $group_id . "&v=5.81&count=" . $count;
-        Log::channel('command')->info($url);
+        // Log::channel('command')->info($url);
         try {
             $response = Http::get($url);
         } catch(\Exception $exception) {
