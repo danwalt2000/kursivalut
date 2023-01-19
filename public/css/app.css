@@ -86,12 +86,13 @@ a:hover{
 }
 .logo{
     display: grid;
-    grid-template-columns: 30% 70%;
+    grid-template-columns: max-content 1fr max-content;
     background-color: var(--main-bg-color);
     border-radius: 6px;
     justify-content: space-between;
     align-items: center;
-    padding: 0 25px
+    padding: 0 25px;
+    column-gap: 10px;
 }
 .logo-link{
     display: flex;
@@ -113,7 +114,7 @@ a:hover{
 }
 .search-input{
     min-width: 180px;
-    padding: 10px 40px 10px 10px;
+    padding: 11px 40px 10px 10px;
     border: none;
     border: 1px solid var(--para-color);
     box-sizing: border-box;
@@ -542,6 +543,17 @@ nav ul{
     font-weight: 100;
     font-size: 20px;
     color: #cccccc;
+}
+.social_icons{
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-self: end;
+}
+
+.social_icons a{
+    display: block;
+    line-height: 30px;
 }
 .no-ads{
     text-align: center;

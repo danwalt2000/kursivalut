@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Ads;
 use App\Http\Controllers\DBController;
+use App\Http\Controllers\PostAdsController;
 
 class ParseAdsController extends Controller
 {
@@ -95,6 +96,7 @@ class ParseAdsController extends Controller
                 ];
                 $posts::storePosts( $args );
             } 
+            PostAdsController::postNewAds( $ad["id"] );
         }
         
         return $posts::getPosts(); // последние записи в БД

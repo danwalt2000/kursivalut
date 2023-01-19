@@ -22,7 +22,7 @@ class GetAdsController extends CurrencyController
         $currency = new CurrencyController;
         $posts = new DBController;
         
-        $access_token = Storage::get('/private/token.txt');
+        $access_token = env('VK_TOKEN');
         $count = 10;
         // $count = 100;
         // $count = 1000;

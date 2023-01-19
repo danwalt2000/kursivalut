@@ -30,6 +30,11 @@
                         <img width="70px" height="70px" alt="Обмен валют" class="logo-img" src="/img/pig.svg" >
                         <p class="logo-title">Обмен валют</p>
                     </a>
+                    <div class="social_icons">
+                        <a href="https://vk.com/valuta_dn_ru" target="_blank">
+                            <img width="30" height="30" src="/img/vk-logo.svg">
+                        </a>
+                    </div>
                     <img alt="Открыть строку поиска" id="open-search" class="search open-search" src="/img/search-white.svg" alt="" width="18" height="18">
                     <form action="{{ url("s") }}" class="search-form" method="get">
                         <input id="search" type="text" placeholder="Поиск в объявлениях" name="search" value=""
