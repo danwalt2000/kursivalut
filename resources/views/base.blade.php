@@ -16,7 +16,7 @@
         <meta property="og:image" content="/img/pig.svg">
         <meta name="csrf-token" content="{{ csrf_token() }}" />
 
-        <link href="/css/app.css" rel="stylesheet">
+        <link href="/css/app.css?v=@isset($hash){{$hash}}@endisset" rel="stylesheet">
         <link rel="icon" type="image/x-icon" alt="icon" href="/img/valuta.ico">
         @if( count( Request()->query ) )
             <link rel="canonical" href="{{Request::url()}}" />
