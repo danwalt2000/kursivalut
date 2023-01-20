@@ -96,7 +96,7 @@ class ParseAdsController extends Controller
                 ];
                 $posts::storePosts( $args );
             } 
-            PostAdsController::postNewAds( $ad["id"] );
+            // PostAdsController::postNewAds( $ad["id"] );
         }
         
         return $posts::getPosts(); // последние записи в БД
