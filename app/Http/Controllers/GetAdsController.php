@@ -25,7 +25,7 @@ class GetAdsController extends CurrencyController
         // $access_token = env('VK_TOKEN');
         $access_token = Storage::get('/private/token.txt');
         $count = 10;
-        $count = 100;
+        // $count = 100;
         // $count = 1000;
         
         // если таблица пустая, запрашиваем больше записей
