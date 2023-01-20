@@ -67,8 +67,12 @@ class DBController extends Controller
                   ->$get_or_count();
     }
 
+    public static function getPostById( $id, $get_or_count = "get" ){
+        return Ads::where('vk_id', '=', $id)->take(1)->$get_or_count();
+    }
+    
     public static function getPhone( $info ){
-        $ad = Ads::where('vk_id', $info["postId"])->take(1)->get();
+        $ad = $this->getPostById($info["postId"]); // Ads::where('vk_id', $info["postId"])->take(1)->get();
         if( !count($ad) ){
             return;
         }

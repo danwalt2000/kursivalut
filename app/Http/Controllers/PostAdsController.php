@@ -26,7 +26,7 @@ class PostAdsController extends CurrencyController
         $access_token = Storage::get('/private/ivanov-token.txt');
         $group_id = "-218361718"; // группа, в которую постятся записи
         
-        $ad = Ads::where('vk_id', $ads_id)->take(1)->get();
+        $ad = $posts->getPostById($ads_id); // Ads::where('vk_id', $ads_id)->take(1)->get();
         if( !count($ad) ){
             return;
         }

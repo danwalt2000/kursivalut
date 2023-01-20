@@ -55,6 +55,9 @@
             </main>
         </div>
         <footer class="footer">Сайт разработан <a href="https://sharpdesign.ru">SharpDesign</a>.</footer>
+        {{-- <div id="popup-bg" class="popup-bg">
+            <section id="popup-wrapper"></section>
+        </div> --}}
         <script>
             window.ifMore = Math.ceil( Number("{{ $ads_count / 20 }}"));
             window.feedStatus = 1;

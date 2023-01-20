@@ -651,7 +651,8 @@ nav ul{
     .main{
         padding: 10px 0;
     }
-    .form-bg{
+    .form-bg,
+    .popup-bg{
         width: 100vw;
         height: 100vh;
         position: fixed;
@@ -660,7 +661,8 @@ nav ul{
         left: 0;
         display: none;
     }
-    .form-bg-open{
+    .form-bg-open,
+    .popup-bg-open{
         display: block;
     }
     .form-bg-open+.form-open{
