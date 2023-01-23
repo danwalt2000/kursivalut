@@ -66,7 +66,7 @@ class ParseAdsController extends Controller
                     'vk_id'           => $ad["id"],
                     'owner_id'        => $ad["owner_id"],
                     'date'            => $ad["date"],
-                    // 'content_changed' => $phones_parsed["text"],
+                    'content_changed' => $phones_parsed["text"],
                     'link'            => $link
                 ];
                 $store = [
@@ -104,7 +104,7 @@ class ParseAdsController extends Controller
 
     public static function parsePhone ( $text, $id ){
         $result = $text;
-        $pattern = '/(\+7|071|072|\+38|79)([\d\-\s\)\(]{5,14})(\d)/'; // "/[+0-9-]{10,20}/";
+        $pattern = '/(071|072|949|095|050|066|\+38|79)([\d\-\s\)\(]{5,15})\d|(\+7)([\d\-\s\)\(]{8,15})\d/'; // "/[+0-9-]{10,20}/";
         preg_match_all( $pattern, $text, $matches );
         $index = 0;
         foreach($matches[0] as $phone ){
