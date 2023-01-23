@@ -72,7 +72,7 @@ class DBController extends Controller
     }
     
     public static function getPhone( $info ){
-        $ad = $this->getPostById($info["postId"]); // Ads::where('vk_id', $info["postId"])->take(1)->get();
+        $ad = Ads::where('vk_id', $info["postId"])->take(1)->get();
         if( !count($ad) ){
             return;
         }
