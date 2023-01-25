@@ -29,7 +29,9 @@ class ParseAdsController extends Controller
             "buy_hrn"          => '/(Куп|куп|КУП)(.*)(Грив|грив|ГРИВ|Грн|ГРН|грн|\sгр\s|укр|Укр|Приват|приват|ПРИВАТ|Ощад|ощад|ОЩАД|Моно|моно)/',
             "buy_cashless"     => '/(Куп|куп|КУП)(.*)(Сбер|сбер|СБЕР|[Тт]инько)/'
             // "course" => "/(по|курс) ([\d\.\,]{2,5}) /"
-            // "dollar_course" => "/[\D]{2}[6789][0-9]([\.\,]\d{0,2})?[\D]{2}/"
+            // "dollar_course" => "/[\D]{2}[678][0-9]([\.\,]\d{0,2})?[\D]{2}|[678][0-9]([\.\,]\d{0,2})?-[678][0-9]([\.\,]\d{0,2})?/"
+            // "hrn_course" => "/([^\d][-\s\(\)][12]([\.\,]\d{0,3})[^\d][^\d])|[12]([\.\,]\d{1,2})?\s?-\s?[12]([\.\,]\d{0,2})?/"
+            
             // "hrn_course" => "/([^\d][-\s\(\)][12]([\.\,]\d{0,2})[^\d][^\d])/"
             // "hrn_course_range" => "/[12]([\.\,]\d{1,2})?\s?-\s?[12]([\.\,]\d{0,2})?/"
         ];
@@ -57,6 +59,10 @@ class ParseAdsController extends Controller
                         $type = $type . ", " . $key;
                     }
                 }
+            }
+            $rate = 0;
+            if($type){
+                $rate = (new self)->parseRate( $phones_parsed["text"], $type );
             }
 
             $is_text_in_table = Ads::where('content', '=', $ad["text"])->count();
@@ -87,7 +93,7 @@ class ParseAdsController extends Controller
                     'content'         => $ad["text"],
                     'content_changed' => $phones_parsed["text"],
                     'phone'           => $phones_parsed["phones"],
-                    'rate'            => 0,
+                    'rate'            => $rate,
                     'phone_showed'    => 0,
                     'link_followed'   => 0,
                     'popularity'      => 0,
@@ -100,6 +106,43 @@ class ParseAdsController extends Controller
         }
         
         return $posts::getPosts(); // последние записи в БД
+    }
+
+    // извлекаем из объявления курс 
+    public static function parseRate ( $text, $types ){
+        $patterns = [
+            "dollar"      => '/[\D]{2}[678][0-9]([\.\,]\d{0,2})?[\D]{2}|[678][0-9]([\.\,]\d{0,2})?-[678][0-9]([\.\,]\d{0,2})?/',
+            "euro"        => '/[\D]{2}[678][0-9]([\.\,]\d{0,2})?[\D]{2}|[678][0-9]([\.\,]\d{0,2})?-[678][0-9]([\.\,]\d{0,2})?/',
+            "hrn"         => '/([^\d][-\s\(\)][12]([\.\,]\d{0,3})[^\d][^\d])|[12]([\.\,]\d{1,2})?\s?-\s?[12]([\.\,]\d{0,2})?/',
+            "cashless"    => '/(1[\s]?[к\:х][\s]?1)|(\d+[\.\,])?\d+\s?\%/'
+        ];
+        $get_rate_pattern = '/\d+[\.\,]?\d+/';
+
+        $types_arr = explode(",", $types);
+        $rate = 0;
+
+        foreach($types_arr as $type){         // типы объявлений, например, "sell_dollar, buy_hrn"
+            $currency = explode("_" , $type); // извлекаем вторую часть
+            $currency = $currency[1];         // например, из sell_hrn - hrn  
+
+            preg_match_all( $patterns[$currency], $text, $matches );
+            if( isset($matches[0][0]) ){
+                preg_match_all( $get_rate_pattern, $matches[0][0], $match );
+                $rate_string = str_replace(",", ".", $match[0][0]);
+                $rate = floatval($rate_string);
+
+                $last_char = substr($matches[0][0], -1); // с безналом руб. база 100
+                if($currency == "cashless"){ 
+                    if($last_char == 1){
+                        $rate = 100;                     // 100 = 1 к 1
+                    } else{
+                        $rate = 100 + floatval($rate_string);
+                    }
+                }
+                break;  // если в объявлении несколько предложений и несколько курсов записываем только первый
+            }
+        }
+        return $rate;
     }
 
     public static function parsePhone ( $text, $id ){

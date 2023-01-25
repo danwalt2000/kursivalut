@@ -18,7 +18,7 @@
 
         <link href="/css/app.css?v=@isset($hash){{$hash}}@endisset" rel="stylesheet">
         <link rel="icon" type="image/x-icon" alt="icon" href="/img/valuta.ico">
-        @if( count( Request()->query ) )
+        @if( Request::get('date')  )
             <link rel="canonical" href="{{Request::url()}}" />
         @endif
     </head>
