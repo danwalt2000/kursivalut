@@ -7,13 +7,6 @@ use App\Http\Controllers\PostAdsController;
 
 class ParseAdsController extends Controller
 {
-    /**
-     * Show the profile for a given user.
-     *
-     * @param  int  $id
-     * @return \Illuminate\View\View
-     */
-
     public static function parseAd( $json, $group_id )
     {
         $posts = new DBController;
@@ -112,7 +105,8 @@ class ParseAdsController extends Controller
     public static function parseRate ( $text, $types ){
         $patterns = [
             "dollar"      => '/[\D]{2}[678][0-9]([\.\,]\d{0,2})?[\D]{2}|[678][0-9]([\.\,]\d{0,2})?-[678][0-9]([\.\,]\d{0,2})?/',
-            "euro"        => '/[\D]{2}[678][0-9]([\.\,]\d{0,2})?[\D]{2}|[678][0-9]([\.\,]\d{0,2})?-[678][0-9]([\.\,]\d{0,2})?/',
+            // пока евро одинаковый с долларом
+            "euro"        => '/[\D]{2}[678][0-9]([\.\,]\d{0,2})?[\D]{2}|[678][0-9]([\.\,]\d{0,2})?-[678][0-9]([\.\,]\d{0,2})?/', 
             "hrn"         => '/([^\d][-\s\(\)][12]([\.\,]\d{0,3})[^\d][^\d])|[12]([\.\,]\d{1,2})?\s?-\s?[12]([\.\,]\d{0,2})?/',
             "cashless"    => '/(1[\s]?[к\:х][\s]?1)|(\d+[\.\,])?\d+\s?\%/'
         ];

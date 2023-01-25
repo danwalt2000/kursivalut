@@ -20,17 +20,17 @@
 <ul class="sort chips">
     <span class="h6 mr-10">Сортировать по:</span>
     <li class="chip with-arrow with-arrow-rarr @if("date_desc" == $path['sort']) chip-active @endif">
-        <a href="{{ request()->fullUrlWithQuery(['sort' => 'date', 'order' => 'desc']) }}">
+        <a href="{{ request()->fullUrlWithQuery(['sort' => 'date', 'order' => 'desc']) }}" title="Сортировать от нового к старому">
             Дате
         </a>
     </li>
     <li class="chip with-arrow with-arrow-rarr with-arrow-rarr-up @if("date_asc" == $path['sort']) chip-active @endif">
-        <a href="{{ request()->fullUrlWithQuery(['sort' => 'date', 'order' => 'asc']) }}">
+        <a href="{{ request()->fullUrlWithQuery(['sort' => 'date', 'order' => 'asc']) }}" title="Сортировать от старого к новому">
             Дате
         </a>
     </li>
     <li class="chip with-arrow with-arrow-rarr @if("popularity_desc" == $path['sort']) chip-active @endif">
-        <a href="{{ request()->fullUrlWithQuery(['sort' => 'popularity', 'order' => 'desc']) }}">
+        <a href="{{ request()->fullUrlWithQuery(['sort' => 'popularity', 'order' => 'desc']) }}" title="Сортировать по убыванию популярности">
             Популярности
         </a>
     </li>
@@ -38,4 +38,16 @@
 </ul>
 @if(count($ads))
     <p class="ads_found">Найдено объявлений {{ $ads_count }}</p>
+    {{-- @if($path['currency'])
+        <div class="course_checkbox">
+            @if("true" == $path['rate'])
+                <a href="{{ request()->fullUrlWithQuery(['rate' => 'false']) }}" title="Показать все объявления">
+                    <div class="checkbox checkbox_active"></div>
+            @else
+                <a href="{{ request()->fullUrlWithQuery(['rate' => 'true']) }}" title="Показать только объявления, в которых есть курс">
+                    <div class="checkbox"></div>
+            @endif
+            Только с курсом</a>
+        </div>
+    @endif --}}
 @endif

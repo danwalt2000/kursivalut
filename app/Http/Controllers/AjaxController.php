@@ -8,13 +8,6 @@ use App\Http\Controllers\CurrencyController;
  
 class AjaxController extends Controller
 {
-    /**
-     * Show the profile for a given user.
-     *
-     * @param  int  $id
-     * @return \Illuminate\View\View
-     */
-
     public function ajax(Request $request){
         $to_view = (new CurrencyController)->to_view;
 

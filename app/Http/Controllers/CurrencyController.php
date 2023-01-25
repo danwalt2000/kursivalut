@@ -14,13 +14,6 @@ use App\Models\Ads;
  
 class CurrencyController extends Controller
 {
-    /**
-     * Show the profile for a given user.
-     *
-     * @param  int  $id
-     * @return \Illuminate\View\View
-     */
-    
     public $ads = [];
     public $db_ads = [];
     public $get_posts;
@@ -82,6 +75,7 @@ class CurrencyController extends Controller
         });
     }
 
+    // используется для добавления версии к css файлу
     function getCurrentGitCommit( $branch='master' ) {
         if ( $hash = file_get_contents( sprintf(__DIR__ . '/../../../.git/refs/heads/%s', $branch ) ) ) {
             return trim($hash);

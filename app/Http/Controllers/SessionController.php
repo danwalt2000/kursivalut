@@ -13,13 +13,6 @@ use App\Models\Ads;
  
 class SessionController extends Controller
 {
-    /**
-     * Show the profile for a given user.
-     *
-     * @param  int  $id
-     * @return \Illuminate\View\View
-     */
-
     public static function isAllowed() {
         $lastSubmit = session()->get('last_submit');
         $is_allowed = true;

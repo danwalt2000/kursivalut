@@ -13,16 +13,17 @@ use App\Models\Ads;
  
 class DBController extends Controller
 {
-    /**
-     * Show the profile for a given user.
-     *
-     * @param  int  $id
-     * @return \Illuminate\View\View
-     */
-
-    public static function getPosts( $get_or_count = "get", $sell_buy = '', $currency = '', $search = '', $offset = 0 ){
+    public static function getPosts( 
+            $get_or_count = "get", 
+            $sell_buy = '', 
+            $currency = '', 
+            $search = '', 
+            $offset = 0,
+            $rate = 0
+        ){
         $sort = 'date';
         $limit = 20;
+        $rate_limit = $rate;
         
         if(!empty($_GET["sort"]) && str_contains( "date rate popularity", $_GET["sort"]) ){
             $sort = $_GET["sort"];
@@ -47,6 +48,14 @@ class DBController extends Controller
                 $query = $sell_buy . '_';
             }
             $query .= $currency;
+
+            // на странице валют по умолчанию отображаем только объявления с курсом
+            $rate_limit = 0.01;
+            if( !empty($_GET["rate"]) && str_contains( "true false", $_GET["rate"]) ){
+                if("false" == $_GET["rate"]){
+                    $rate_limit = 0;
+                }
+            }
         }
 
         // строка поиска
@@ -61,6 +70,7 @@ class DBController extends Controller
         return Ads::where("date", ">", $cut_by_time)
                   ->where('type', 'like', "%" . $query . "%")
                   ->where('content', 'like', "%" . $search_clean . "%")
+                  ->where('rate', '>=', $rate_limit)
                   ->orderBy($sort, $asc_desc)
                   ->skip($skip)
                   ->take($limit)

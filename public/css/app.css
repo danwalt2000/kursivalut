@@ -152,29 +152,24 @@ a:hover{
     grid-gap: 20px;
     justify-content: space-between;
 }
-.header-nav, .post, .form-wrapper{
+.header-nav_wrapper, .post, .form-wrapper{
     background-color: #fff;
     margin: 20px 0;
     border-radius: 6px;
     padding: 25px;
     background-repeat: no-repeat;
-    background-position: right bottom;
 }
 .sell_buy{
-    grid-row: 2;
+    grid-row: 1;
     grid-column: 1 / 2;
 }
 .nav-currencies{
-    grid-row: 3;
+    grid-row: 2;
     grid-column: 1 / 3;
 }
 .header-nav{
     display: grid;
     grid-template-columns: 60% 40%;
-}
-.header-nav h1{
-    grid-row: 1;
-    grid-column: 1 / 3;
 }
 .header-nav h2{
     margin-top: 0;
@@ -346,6 +341,41 @@ nav ul{
     justify-content: center;
     padding: 6px 11px;
 }
+.course_checkbox{
+    justify-self: end;
+    align-self: center;
+}
+.course_checkbox a{
+    display: flex;
+    align-items: center;
+    color: var(--para-color);
+    gap: 10px;
+}
+.checkbox{
+    width: 45px;
+    height: 26px;
+    border-radius: 30px;
+    position: relative;
+    background-color: var(--active-bg-color);
+}
+.checkbox_active{
+    background-color: var(--logo-color);
+}
+.checkbox::after{
+    content: "";
+    height: 22px;
+    width: 22px;
+    background-color: var(--main-bg-color);
+    border-radius: 50%;
+    position: absolute;
+    display: inline-block;
+    top: 2px;
+    left: 2px;
+}
+.checkbox_active::after{
+    left: auto;
+    right: 2px;
+}
 .sell-buy a{
     color: var(--para-color);
 }
@@ -356,16 +386,13 @@ nav ul{
 .form-ad-row-radio input[type="radio"]:checked+label{
     background-color: var(--active-bg-color);
 }
-.ads_found{
-    grid-row: 5;
-}
 .currencies{
     padding: 0;
     position: relative;
     display: flex;
     align-items: center;
     width: fit-content;
-    grid-row: 2;
+    grid-row: 1;
     grid-column: 2 / 3;
     margin: 0;
     justify-self: end;
@@ -788,6 +815,10 @@ nav ul{
     .ads_found{
         grid-row: 6;
         grid-column: 1 / 3;
+    }
+    .course_checkbox{
+        justify-self: flex-start;
+        grid-row: 7;
     }
 }
 @media (max-width: 420px){

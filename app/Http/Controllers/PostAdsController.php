@@ -9,14 +9,6 @@ use App\Models\Ads;
  
 class PostAdsController extends CurrencyController
 {
-    /**
-     * Show the profile for a given user.
-     *
-     * @param  int  $id
-     * @return \Illuminate\View\View
-     */
-    
-
     public static function postNewAds( $ads_id )
     {
         $currency = new CurrencyController;

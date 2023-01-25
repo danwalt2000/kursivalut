@@ -8,13 +8,6 @@ use App\Http\Controllers\CurrencyController;
  
 class ParseUriController extends Controller
 {
-    /**
-     * Show the profile for a given user.
-     *
-     * @param  int  $id
-     * @return \Illuminate\View\View
-     */
-
     public static function getH1(){
         $path = ParseUriController::parseUri();
         $currencies_loc = [
@@ -49,24 +42,34 @@ class ParseUriController extends Controller
         $query = '';
         $hours = 24;
         $sort = "date_desc";
+        $rate = "true";
+        $hint = "";
 
         if( !empty($url[1]) ){
             $query = $url[1];
             $hours_pattern = "/(?<=(date\=))[\d+.-]+/";
             $sort_type_pattern = "/((?<=(sort\=))[\w+.]+)/";
             $order_pattern = "/((?<=(order\=))[\w+.]+)/";
+            $rate_pattern = "/((?<=(rate\=))[\w+.]+)/";
             preg_match($hours_pattern, $url[1], $hours_matches);
             preg_match($sort_type_pattern, $url[1], $sort_matches);
             preg_match($order_pattern, $url[1], $order_matches);
+            preg_match($rate_pattern, $url[1], $rate_matches);
             if(!empty($hours_matches[0])) $hours = $hours_matches[0];
             if(!empty($sort_matches[0]) && !empty($order_matches[0])) $sort = $sort_matches[0] . "_" . $order_matches[0];
+            if(!empty($rate_matches[0])){
+                $rate = $rate_matches[0];
+                $hint = "Показаны только объявления, содержащие курс.";
+            } 
         }
         $path_parts = [ 
             "sell_buy" => "all", 
             "currency" => "", 
             "query"    => $query,    // строка get-параметров
             "hours"    => $hours,    // количество часов для фильтрации
-            "sort"     => $sort      // тип сортировки для подсветки активных чипсов
+            "sort"     => $sort,      // тип сортировки для подсветки активных чипсов
+            "rate"     => $rate,
+            "hint"     => $hint
         ];
         if( str_contains($path, "ads") ){
             $path_array = explode("/", $path);
