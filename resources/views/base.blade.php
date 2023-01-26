@@ -37,7 +37,7 @@
                             <img width="30" height="30" src="/img/vk-logo.svg">
                         </a>
                     </div> --}}
-                    <img alt="Открыть строку поиска" id="open-search" class="search open-search" src="/img/search-white.svg" alt="" width="18" height="18">
+                    <img alt="Открыть строку поиска" id="open-search" class="search open-search" src="/img/search-white.svg" alt="" width="30" height="30">
                     <form action="{{ url("s") }}" class="search-form" method="get">
                         <input id="search" type="text" placeholder="Поиск в объявлениях" name="search" value=""
                             class="search-input @error('search') is-invalid @enderror" minlength="1" maxlength="30" required>
@@ -56,7 +56,10 @@
                 </div>
             </main>
         </div>
-        <footer class="footer">Сайт разработан <a href="https://sharpdesign.ru">SharpDesign</a>.</footer>
+        <footer class="footer">
+            <div class="footer_content">
+                Технический партнер <a href="https://sharpdesign.ru">SharpDesign</a>.</footer>
+            </div>
         {{-- <div id="popup-bg" class="popup-bg">
             <section id="popup-wrapper"></section>
         </div> --}}
