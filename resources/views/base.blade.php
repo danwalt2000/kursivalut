@@ -21,7 +21,9 @@
 
         {{-- На страницах фильтрации по дате дублируется контент, поэтому нужен canonical --}}
         @if( Request::get('date') )
-            <link rel="canonical" href="{{ request()->fullUrlWithQuery(['date' => '24']) }}" />
+            <link rel="canonical" href="{{ Request::url() }}" />
+        @elseif( Request::get('rate') )
+            <link rel="canonical" href="{{ Request::url() }}" />
         @endif
     </head>
     <body class="antialiased">
