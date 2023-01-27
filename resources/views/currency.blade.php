@@ -7,9 +7,6 @@
     <div class="left_column">
         <header class="header-nav_wrapper">
             <h1>{{ $h1 }}</h1>
-            {{-- @if($path['hint'])
-                <p>{{$path['hint']}}</p>
-            @endif --}}
             <section class="header-nav">
                 <nav class="nav-wrapper sell_buy">
                     <span class="chip @if( $path['sell_buy'] == 'all' || $path['sell_buy'] == '' ) chip-active @endif"><a href="/{{$query}}">Все</a></span>
@@ -30,6 +27,9 @@
                 </nav>
                 @include('sorting', ['date_sort' => $date_sort, 'path' => $path, 'ads' => $ads])    
             </section>
+            {{-- @if($path['currency'] && $path['hint'])
+                <p class="hint_message">{{$path['hint']}}</p>
+            @endif --}}
         </header>
         
         <section id="feed" class="feed">

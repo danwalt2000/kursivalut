@@ -51,6 +51,7 @@ class ParseUriController extends Controller
             $sort_type_pattern = "/((?<=(sort\=))[\w+.]+)/";
             $order_pattern = "/((?<=(order\=))[\w+.]+)/";
             $rate_pattern = "/((?<=(rate\=))[\w+.]+)/";
+
             preg_match($hours_pattern, $url[1], $hours_matches);
             preg_match($sort_type_pattern, $url[1], $sort_matches);
             preg_match($order_pattern, $url[1], $order_matches);
@@ -59,7 +60,9 @@ class ParseUriController extends Controller
             if(!empty($sort_matches[0]) && !empty($order_matches[0])) $sort = $sort_matches[0] . "_" . $order_matches[0];
             if(!empty($rate_matches[0])){
                 $rate = $rate_matches[0];
-                $hint = "Показаны только объявления, содержащие курс.";
+                if( !empty($_GET["rate"]) && "true" == $rate ){
+                    $hint = 'Показаны только объявления, содержащие курс. Чтобы посмотреть все предложения, снимите галочку "Только с курсом".';
+                }
             } 
         }
         $path_parts = [ 
