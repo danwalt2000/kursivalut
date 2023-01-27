@@ -19,12 +19,17 @@ class DBController extends Controller
             $currency = '', 
             $search = '', 
             $offset = 0,
-            $rate = 0
+            $rate = 0.01
         ){
         $sort = 'date';
         $limit = 20;
+
         $rate_limit = $rate;
-        
+        // по умолчанию отображаем только объявления с курсом
+        if( !empty($_GET["rate"]) && "false" == $_GET["rate"] ){
+            $rate_limit = 0;
+        }
+
         if(!empty($_GET["sort"]) && str_contains( "date rate popularity", $_GET["sort"]) ){
             $sort = $_GET["sort"];
         } 
@@ -48,17 +53,6 @@ class DBController extends Controller
                 $query = $sell_buy . '_';
             }
             $query .= $currency;
-
-            // на странице валют по умолчанию отображаем только объявления с курсом
-            // раскомментировать, когда соберутся объявления с курсом
-            if( !empty($currency) ){
-                $rate_limit = 0.01; 
-                if( !empty($_GET["rate"]) && str_contains( "true false", $_GET["rate"]) ){
-                    if( "false" == $_GET["rate"] ){
-                        $rate_limit = 0;
-                    }
-                }
-            }
         }
 
         // строка поиска

@@ -38,16 +38,14 @@
 </ul>
 @if(count($ads))
     <p class="ads_found">Найдено объявлений {{ $ads_count }}</p>
-    @if($path['currency'])
-        <div class="course_checkbox">
-            @if("true" == $path['rate'])
-                <a href="{{ request()->fullUrlWithQuery(['rate' => 'false']) }}" title="Показать все объявления">
-                    <div class="checkbox checkbox_active"></div>
-            @else
-                <a href="{{ request()->fullUrlWithQuery(['rate' => 'true']) }}" title="Показать только объявления, в которых есть курс">
-                    <div class="checkbox"></div>
-            @endif
-            Только с курсом</a>
-        </div>
-    @endif
+    <div class="course_checkbox">
+        @if("true" == $path['rate'])
+            <a href="{{ request()->fullUrlWithQuery(['rate' => 'false']) }}" title="Показать все объявления">
+                <div class="checkbox checkbox_active"></div>
+        @else
+            <a href="{{ request()->fullUrlWithQuery(['rate' => 'true']) }}" title="Показать только объявления, в которых есть курс">
+                <div class="checkbox"></div>
+        @endif
+        Только с курсом</a>
+    </div>
 @endif

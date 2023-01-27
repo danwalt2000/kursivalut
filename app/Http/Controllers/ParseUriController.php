@@ -44,8 +44,8 @@ class ParseUriController extends Controller
         $hours = 24;
         $sort = "date_desc";
         $rate = "true";
-        $hint = "";
         $message = 'Показаны только объявления, содержащие курс. Чтобы посмотреть все предложения, снимите галочку "Только с курсом".';
+        $hint = $message;
 
         if( !empty($url[1]) ){
             $query = $url[1];
@@ -62,7 +62,7 @@ class ParseUriController extends Controller
             if(!empty($sort_matches[0]) && !empty($order_matches[0])) $sort = $sort_matches[0] . "_" . $order_matches[0];
             if(!empty($rate_matches[0])){
                 $rate = $rate_matches[0];
-                if( !empty($_GET["rate"]) && "true" == $rate ) $hint = $message; 
+                if( !empty($_GET["rate"]) && "false" == $rate ) $hint = ""; 
             } 
         }
         $path_parts = [ 
