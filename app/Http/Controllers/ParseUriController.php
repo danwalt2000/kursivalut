@@ -10,6 +10,7 @@ class ParseUriController extends Controller
 {
     public static function getH1(){
         $path = ParseUriController::parseUri();
+        // с падежами
         $currencies_loc = [
             "dollar" => "доллара",
             "euro" => "евро",
@@ -44,6 +45,7 @@ class ParseUriController extends Controller
         $sort = "date_desc";
         $rate = "true";
         $hint = "";
+        $message = 'Показаны только объявления, содержащие курс. Чтобы посмотреть все предложения, снимите галочку "Только с курсом".';
 
         if( !empty($url[1]) ){
             $query = $url[1];
@@ -60,9 +62,7 @@ class ParseUriController extends Controller
             if(!empty($sort_matches[0]) && !empty($order_matches[0])) $sort = $sort_matches[0] . "_" . $order_matches[0];
             if(!empty($rate_matches[0])){
                 $rate = $rate_matches[0];
-                if( !empty($_GET["rate"]) && "true" == $rate ){
-                    $hint = 'Показаны только объявления, содержащие курс. Чтобы посмотреть все предложения, снимите галочку "Только с курсом".';
-                }
+                if( !empty($_GET["rate"]) && "true" == $rate ) $hint = $message; 
             } 
         }
         $path_parts = [ 
@@ -78,6 +78,9 @@ class ParseUriController extends Controller
             $path_array = explode("/", $path);
             $path_parts["sell_buy"] =  $path_array[2];
             $path_parts["currency"] = empty($path_array[3]) ? '' : $path_array[3];
+            
+            // на странице валют по умолчанию выводим сообщение о курсе
+            if( !empty($path_parts["currency"]) && empty($_GET["rate"]) ) $path_parts["hint"] = $message; 
         }
         return $path_parts;
     }

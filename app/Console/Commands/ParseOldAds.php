@@ -33,7 +33,7 @@ class ParseOldAds extends Command
     {
         $posts = new DBController;
         // $db_posts = Ads::all()->sortByDesc("date");
-        $db_posts = Ads::where('rate', '=', 0)->orderBy("date", "desc")->take(1000)->get();
+        $db_posts = Ads::where('rate', '=', 0)->orderBy("date", "desc")->skip(300)->take(10000)->get();
         $parser = new ParseAdsController;
         foreach( $db_posts as $db_post){
             $parser->parseOldAd($db_post);

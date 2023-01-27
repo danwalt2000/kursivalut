@@ -38,7 +38,7 @@
 </ul>
 @if(count($ads))
     <p class="ads_found">Найдено объявлений {{ $ads_count }}</p>
-    {{-- @if($path['currency'])
+    @if($path['currency'])
         <div class="course_checkbox">
             @if("true" == $path['rate'])
                 <a href="{{ request()->fullUrlWithQuery(['rate' => 'false']) }}" title="Показать все объявления">
@@ -49,5 +49,5 @@
             @endif
             Только с курсом</a>
         </div>
-    @endif --}}
+    @endif
 @endif

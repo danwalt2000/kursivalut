@@ -51,10 +51,12 @@ class DBController extends Controller
 
             // на странице валют по умолчанию отображаем только объявления с курсом
             // раскомментировать, когда соберутся объявления с курсом
-            if( !empty($_GET["rate"]) && str_contains( "true false", $_GET["rate"]) ){
-                // $rate_limit = 0.01; 
-                if( "false" == $_GET["rate"] ){
-                    $rate_limit = 0;
+            if( !empty($currency) ){
+                $rate_limit = 0.01; 
+                if( !empty($_GET["rate"]) && str_contains( "true false", $_GET["rate"]) ){
+                    if( "false" == $_GET["rate"] ){
+                        $rate_limit = 0;
+                    }
                 }
             }
         }

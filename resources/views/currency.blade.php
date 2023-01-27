@@ -27,9 +27,9 @@
                 </nav>
                 @include('sorting', ['date_sort' => $date_sort, 'path' => $path, 'ads' => $ads])    
             </section>
-            {{-- @if($path['currency'] && $path['hint'])
+            @if($path['currency'] && $path['hint'])
                 <p class="hint_message">{{$path['hint']}}</p>
-            @endif --}}
+            @endif
         </header>
         
         <section id="feed" class="feed">
