@@ -52,7 +52,7 @@ class DBController extends Controller
             // на странице валют по умолчанию отображаем только объявления с курсом
             $rate_limit = 0;
             // раскомментировать, когда соберутся объявления с курсом
-            // $rate_limit = 0.01; 
+            $rate_limit = 0.01; 
             if( !empty($_GET["rate"]) && str_contains( "true false", $_GET["rate"]) ){
                 if("false" == $_GET["rate"]){
                     $rate_limit = 0;

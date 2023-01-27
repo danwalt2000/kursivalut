@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 use App\Models\Ads;
 use App\Http\Controllers\DBController;
 use App\Http\Controllers\CurrencyController;
+use App\Http\Controllers\ParseAdsController;
 
 use Illuminate\Console\Command;
 
@@ -21,7 +22,7 @@ class ParseOldAds extends Command
      *
      * @var string
      */
-    protected $description = 'Parses types adt rates for old ads in DB';
+    protected $description = 'Parses types and rates for old ads in DB';
 
     /**
      * Execute the console command.
@@ -30,8 +31,12 @@ class ParseOldAds extends Command
      */
     public function handle()
     {
-        $all_posts = Ads::all();
         $posts = new DBController;
-        return Command::SUCCESS;
+        $db_posts = Ads::all()->sortByDesc("date");
+        $parser = new ParseAdsController;
+        foreach( $db_posts as $db_post){
+            $parser->parseOldAd($db_post);
+
+        }
     }
 }

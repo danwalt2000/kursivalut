@@ -32,6 +32,7 @@ class ParseAdsController extends Controller
     public static function parseAd( $json, $group_id )
     {
         $posts = new DBController;
+        $parser = (new self);
         $ads = $json;
         
         foreach( $ads as $ad ){
@@ -41,7 +42,7 @@ class ParseAdsController extends Controller
             }
 
             // вырезание номера телефона
-            $phones_parsed = (new self)->parsePhone( $ad["text"], $ad["id"] );
+            $phones_parsed = $parser->parsePhone( $ad["text"], $ad["id"] );
             
             $group = "club" . abs( intval( $group_id ) ); // id группы vk начинается с минуса
             $owner_and_id = $ad["owner_id"] . "_" . $ad["id"];
@@ -49,7 +50,7 @@ class ParseAdsController extends Controller
             
             // распределение по направлениям купли/продажи и валюты
             $type = '';
-            foreach( (new self)->course_patterns as $key => $pattern ){
+            foreach( $parser->course_patterns as $key => $pattern ){
                 $test_matches = preg_match($pattern, $phones_parsed["text"], $match);
                 if( !empty($test_matches) ){
                     if( empty($type) ){
@@ -61,7 +62,7 @@ class ParseAdsController extends Controller
             }
             $rate = 0;
             if($type){
-                $rate = (new self)->parseRate( $phones_parsed["text"], $type );
+                $rate = $parser->parseRate( $phones_parsed["text"], $type );
             }
 
             $is_text_in_table = Ads::where('content', '=', $ad["text"])->count();
@@ -109,23 +110,22 @@ class ParseAdsController extends Controller
 
     // извлекаем из объявления курс 
     public static function parseRate ( $text, $types ){
-        
-
         $types_arr = explode(",", $types);
         $rate = 0;
+        $parser = (new self);
 
         foreach($types_arr as $type){         // типы объявлений, например, "sell_dollar, buy_hrn"
             $currency = explode("_" , $type); // извлекаем вторую часть
             $currency = $currency[1];         // например, из sell_hrn - hrn  
 
             // проверяем, есть ли в строке маска курса
-            preg_match_all( (new self)->rate_patterns[$currency], $text, $matches );
+            preg_match_all( $parser->rate_patterns[$currency], $text, $matches );
 
             if( isset($matches[0][0]) ){ // если есть
                 
                 // очищаем курс от лишних символов, 
                 // например, из строки "о 72.2 М" извлекаем "72.2"
-                preg_match_all( (new self)->rate_digit_pattern, $matches[0][0], $match );
+                preg_match_all( $parser->rate_digit_pattern, $matches[0][0], $match );
                 $rate_string = str_replace(",", ".", $match[0][0]); // заменяем запятую на точку
                 $rate = floatval($rate_string);
 
@@ -160,5 +160,44 @@ class ParseAdsController extends Controller
             "text"   => $result, 
             "phones" => implode(",", $matches[0])
         ];
+    }
+
+    /* Парсит направление, номер телефона и курс постов в БД */
+    public static function parseOldAd( $ad ){
+        $parser = (new self);
+        $posts = new DBController;
+        $phones_parsed = $parser->parsePhone( $ad["content"], $ad["vk_id"] );
+            
+        // распределение по направлениям купли/продажи и валюты
+        $type = '';
+        foreach( $parser->course_patterns as $key => $pattern ){
+            $test_matches = preg_match($pattern, $phones_parsed["text"], $match);
+            if( !empty($test_matches) ){
+                if( empty($type) ){
+                    $type = $key;
+                } else{
+                    $type = $type . ", " . $key;
+                }
+            }
+        }
+
+        $rate = 0;
+        if($type){
+            $rate = $parser->parseRate( $phones_parsed["text"], $type );
+        }
+
+        $args = [
+            'content_changed' => $phones_parsed["text"],
+            'phone'           => $phones_parsed["phones"],
+            'rate'            => $rate
+        ];
+        $store = [
+            "type" => "update",
+            "compare" => [ 
+                "key"   => 'vk_id', 
+                "value" => $ad["vk_id"]
+            ]
+        ];
+        $posts::storePosts( $args, $store );
     }
 }
