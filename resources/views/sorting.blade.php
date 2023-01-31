@@ -43,7 +43,7 @@
             <a href="{{ request()->fullUrlWithQuery(['rate' => 'false']) }}" title="Показать все объявления">
                 <div class="checkbox checkbox_active"></div>
         @else
-            <a href="{{ request()->fullUrlWithQuery(['rate' => 'true']) }}" title="Показать только объявления, в которых есть курс">
+            <a href="{{ request()->fullUrlWithQuery(['rate' => null]) }}" title="Показать только объявления, в которых есть курс">
                 <div class="checkbox"></div>
         @endif
         Только с курсом</a>

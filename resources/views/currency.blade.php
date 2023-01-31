@@ -27,7 +27,7 @@
                 </nav>
                 @include('sorting', ['date_sort' => $date_sort, 'path' => $path, 'ads' => $ads])    
             </section>
-            @if($path['hint'])
+            @if($path['hint'] && count($ads))
                 <p class="hint_message">{{$path['hint']}}</p>
             @endif
         </header>
