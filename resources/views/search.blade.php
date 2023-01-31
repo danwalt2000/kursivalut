@@ -5,10 +5,12 @@
 @section('main')
     @parent
     <div class="left_column">
-        <header class="header-nav">
+        <header class="header-nav_wrapper">
             <h1>Поиск результатов по запросу: "{{ $search }}"</h1>
-            <a class="back-home" href="/">Ко всем объявлениям</a>
-            @include('sorting', ['date_sort' => $date_sort, 'path' => $path, 'ads' => $ads])    
+            <section class="header-nav">
+                <a class="back-home" href="/">Ко всем объявлениям</a>
+                @include('sorting', ['date_sort' => $date_sort, 'path' => $path, 'ads' => $ads])    
+            </section>
         </header>
         
         <section id="feed" class="feed">
