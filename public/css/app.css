@@ -189,6 +189,9 @@ a:hover{
     opacity: .5;
     cursor: pointer;
 }
+.post-content{
+    white-space: pre-line;
+}
 .info{
     display: flex;
     align-items: center;

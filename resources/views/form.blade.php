@@ -34,7 +34,10 @@
                     </datalist>
                 </div>
                 <div class="form-ad-row">
-                    <input type="number" step="0.01" name="rate" id="rate" placeholder="Курс *" required>
+                    <input type="number" step="0.01" 
+                    maxlength="3" 
+                    oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                    name="rate" id="rate" placeholder="Курс *" required>
                     <label for="rate">Курс *</label>
                 </div>
 

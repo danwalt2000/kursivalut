@@ -98,7 +98,7 @@ class CurrencyController extends Controller
             $validated = $request->validate([
                 'sellbuy'   => 'required', 
                 'currency'  => 'required',
-                'rate'      => 'required|numeric',
+                'rate'      => 'required|numeric|max:200',
                 'phone'     => 'required',
                 'textarea'   => 'required|max:400',
             ]);
