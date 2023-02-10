@@ -2,9 +2,9 @@
 /public/build
 /public/hot
 /public/storage
+/public\sitemap.xml
 /storage/*.key
 /storage/app/private/*
-/public\sitemap.xml
 /vendor
 .env
 .env.backup
