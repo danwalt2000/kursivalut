@@ -24,15 +24,20 @@ class CurrencyController extends Controller
     public $query = '';
     
     public static $publics = [
-        "obmenvalut_donetsk"    => ["id" => "-87785879",  "time" => "everyFiveMinutes"],    // 5
-        "obmen_valut_donetsk"   => ["id" => "-92215147",  "time" => "everyFiveMinutes"],    // 5
-        "obmenvalyut_dpr"       => ["id" => "-153734109", "time" => "everyThirtyMinutes"],  // 30
-        "club156050748"         => ["id" => "-156050748", "time" => "everyThirtyMinutes"],  // 30
-        "kursvalut_donetsk"     => ["id" => "-63859238",  "time" => "everyThirtyMinutes"],  // 30
-        "obmen_valut_dnr"       => ["id" => "-193547744", "time" => "hourly"],              // 60
-        "donetsk_obmen_valyuta" => ["id" => "-174075254", "time" => "hourly"],              // 60
-        "obmenvalut_dnr"        => ["id" => "-172375183", "time" => "hourly"],              // 60
-        "valutoobmen"           => ["id" => "-75586957",  "time" => "hourly"]               // 60
+        "obmenvalut_donetsk"    => ["id" => "-87785879",  "time" => "everyFiveMinutes", "domain" => "vk"],    // 5
+        "obmen_valut_donetsk"   => ["id" => "-92215147",  "time" => "everyFiveMinutes", "domain" => "vk"],    // 5
+        "obmenvalyut_dpr"       => ["id" => "-153734109", "time" => "everyThirtyMinutes", "domain" => "vk"],  // 30
+        "club156050748"         => ["id" => "-156050748", "time" => "everyThirtyMinutes", "domain" => "vk"],  // 30
+        "kursvalut_donetsk"     => ["id" => "-63859238",  "time" => "everyThirtyMinutes", "domain" => "vk"],  // 30
+        "obmen_valut_dnr"       => ["id" => "-193547744", "time" => "hourly", "domain" => "vk"],              // 60
+        "donetsk_obmen_valyuta" => ["id" => "-174075254", "time" => "hourly", "domain" => "vk"],              // 60
+        "obmenvalut_dnr"        => ["id" => "-172375183", "time" => "hourly", "domain" => "vk"],              // 60
+        "valutoobmen"           => ["id" => "-75586957",  "time" => "hourly", "domain" => "vk"]               // 60
+        // "obmenkadn"           => ["id" => "obmenkadn",  "time" => "everyFiveMinutes", "domain" => "telegram"], // 5
+        // "obmenkadonetck"      => ["id" => "obmenkadonetck",  "time" => "everyFiveMinutes", "domain" => "telegram"], // 5
+        // "obmen_valut_donetsk_1"=> ["id" => "obmen_valut_donetsk_1",  "time" => "everyFiveMinutes", "domain" => "telegram"], // 5
+        // "obmen77market"       => ["id" => "obmen77market",  "time" => "everyThirtyMinutes", "domain" => "telegram"], // 30
+        // "valut_don"           => ["id" => "valut_don",  "time" => "everyThirtyMinutes", "domain" => "telegram"], // 30
     ];
     public $currencies = [
        "dollar" => "Доллар",
