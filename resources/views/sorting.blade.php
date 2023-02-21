@@ -36,7 +36,7 @@
     </li>
     {{-- <li class="chip"><a href="{{ request()->fullUrlWithQuery(['sort' => 'rate', 'order' => 'asc']) }}">Курсу</a></li> --}}
 </ul>
-@if(count($ads))
+@if( !empty($ads) )
     <p class="ads_found">Найдено объявлений {{ $ads_count }}</p>
     <div class="course_checkbox">
         @if("true" == $path['rate'])

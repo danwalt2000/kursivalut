@@ -15,7 +15,9 @@ class GetAdsController extends CurrencyController
         $posts = new DBController;
         $domain = $channel['domain']; // vk or tg
         $channel_id = $channel['id'];
-        $api_keys = ParseAdsController::$api_keys[$domain];
+        $parser = new ParseAdsController;
+        $vars = new VarsController;
+        $api_keys = $vars->api_keys[$domain];
         
         // $access_token = env('VK_TOKEN');
         $access_token = Storage::get('/private/token.txt');
@@ -39,13 +41,10 @@ class GetAdsController extends CurrencyController
         
         // бывает, что от API приходит ошибка
         if ( isset( $json[ $api_keys["error_key"] ] ) ){ 
-            Log::error($json);
-            return $posts::getPosts();
+            return Log::error($json);
         }
         
-        $currency->ads = $json["response"]["items"];
-        $currency->db_ads = ParseAdsController::parseAd( $currency->ads );
-        
-        return $currency->db_ads;
+        $currency->db_ads = $parser->parseAd( $json["response"]["items"] );
+        return$currency->db_ads;
     }
 }

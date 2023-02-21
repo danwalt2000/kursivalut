@@ -4,59 +4,14 @@ namespace App\Http\Controllers;
 use App\Models\Ads;
 use App\Http\Controllers\DBController;
 use App\Http\Controllers\PostAdsController;
+use App\Http\Controllers\VarsController;
 
 class ParseAdsController extends Controller
 {
-    public $course_patterns = [
-        "sell_dollar"      => '/(Прод|прод|ПРОД|[бо]мен[яи])(.*)(\$|Дол|ДОЛ|дол|бел[ыо][йг]|син|зел|💵)/', // старая маска [Пп]род.*(\$|дол|син|зел|💵)(.*?\d{2})
-        "sell_euro"        => '/(Прод|прод|ПРОД|[бо]мен[яи])(.*)(\€|евро|Евро|ЕВРО)/',
-        "sell_hrn"         => '/(Прод|прод|ПРОД|[бо]мен[яи]|Пополн|пополн)(.*)(Грив|грив|ГРИВ|Грн|ГРН|грн|\sгр\s|\sгр\.|укр|Укр|Приват|приват|ПРИВАТ|Ощад|ощад|ОЩАД|Моно|моно)/',
-        "sell_cashless"    => '/(Прод|прод|ПРОД|[бо]мен[яи]|Пополн|пополн)(.*)(Сбер|сбер|СБЕР|[Тт]инько)/',
-        
-        "buy_dollar"       => '/(Куп|куп|КУП)(.*)(\$|Дол|ДОЛ|дол|бел[ыо][йг]|син|зел|💵)/',
-        "buy_euro"         => '/(Куп|куп|КУП)(.*)(\€|евро|Евро|ЕВРО)/',
-        "buy_hrn"          => '/(Куп|куп|КУП|Обналич|обналич)(.*)(Грив|грив|ГРИВ|Грн|ГРН|грн|\sгр\s|\sгр\.|укр|Укр|Приват|приват|ПРИВАТ|Ощад|ощад|ОЩАД|Моно|моно)/',
-        "buy_cashless"     => '/(Куп|куп|КУП|Обналич|обналич)(.*)(Сбер|сбер|СБЕР|[Тт]инько)/'
-    ];
-    public $rate_patterns = [
-        // маска захватывает символы до и после курса, чтобы убедиться, что мы не попали на часть номера телефона, суммы или других чисел
-        "dollar"      => '/\D{2}[678](\d$|\d\D{2}|\d([\.\,]\d?)\d$|\d([\.\,]\d*)\D{2})|[678][0-9]([\.\,]\d{0,2})?-[678][0-9]([\.\,]\d{0,2})?/',
-        // пока евро одинаковый с долларом
-        "euro"        => '/\D{2}[678](\d$|\d\D{2}|\d([\.\,]\d?)\d$|\d([\.\,]\d*)\D{2})|[678][0-9]([\.\,]\d{0,2})?-[678][0-9]([\.\,]\d{0,2})?/', 
-        "hrn"         => '/(\D[-\s\(\)][12]([\.\,]\d{0,2})(\d$|\D\D))|[12]([\.\,]\d{1,2})?\s?-\s?[12]([\.\,]\d{0,2})?/',
-        "cashless"    => '/(1[\s]?[к\:х\*\/][\s]?1)|(\d+[\.\,])?\d+\s?\%/'
-    ];
-
-    public $rate_digit_pattern = '/\d*[\.\,]?\d+/';
-
-    public static $api_keys = [
-        'vk' => [
-            'url_key'        => 'https://api.vk.com/method/wall.get?access_token=',
-            'items_key'      => 'items',
-            'id_key'         => 'id',
-            'text_key'       => 'text',
-            'date_key'       => 'date',
-            'channel_id_key' => 'owner_id',
-            'user_id_key'    => 'from_id', 
-            'error_key'      => 'error'
-        ],
-        'tg' => [
-            'url_key'        => 'http://127.0.0.1:9503/api/getHistory/?data[peer]=@efss111111111111111f&data[limit]=10',
-            'items_key'      => 'messages',
-            'id_key'         => 'id',
-            'text_key'       => 'message',
-            'date_key'       => 'date',
-            'channel_id_key' => 'peer_id', 
-            'channel_sub'    => 'channel_id', // ключ дочернего объекта
-            'user_id_key'    => 'from_id', 
-            'user_sub'       => 'user_id',    // ключ дочернего объекта
-            'error_key'      => 'errors'
-        ]
-    ];
-
-    public static function parseAd( $json )
+    public function parseAd( $json )
     {
         $posts = new DBController;
+        $vars = new VarsController;
         $parser = (new self);
         $ads = $json;
         
@@ -67,11 +22,11 @@ class ParseAdsController extends Controller
             if( $is_id_in_table > 1 ) continue;               
 
             // извлечение номера телефона
-            $phones_parsed = $parser->parsePhone( $ad["text"], $ad["id"] );
+            $phones_parsed = $parser::parsePhone( $ad["text"], $ad["id"] );
             
             // распределение по направлениям купли/продажи и валюты
             $type = '';
-            foreach( $parser->course_patterns as $key => $pattern ){
+            foreach( $vars->course_patterns as $key => $pattern ){
                 $test_matches = preg_match($pattern, $phones_parsed["text"], $match);
                 if( !empty($test_matches) ){
                     if( empty($type) ){
@@ -140,19 +95,20 @@ class ParseAdsController extends Controller
         $types_arr = explode(",", $types);
         $rate = 0;
         $parser = (new self);
+        $vars = new VarsController;
 
         foreach($types_arr as $type){         // типы объявлений, например, "sell_dollar, buy_hrn"
             $currency = explode("_" , $type); // извлекаем вторую часть
             $currency = $currency[1];         // например, из sell_hrn - hrn  
 
             // проверяем, есть ли в строке маска курса
-            preg_match_all( $parser->rate_patterns[$currency], $text, $matches );
+            preg_match_all( $vars->rate_patterns[$currency], $text, $matches );
 
             if( isset($matches[0][0]) ){ // если есть
                 
                 // очищаем курс от лишних символов, 
                 // например, из строки "о 72.2 М" извлекаем "72.2"
-                preg_match_all( $parser->rate_digit_pattern, $matches[0][0], $match );
+                preg_match_all( $vars->rate_digit_pattern, $matches[0][0], $match );
                 $rate_string = str_replace(",", ".", $match[0][0]); // заменяем запятую на точку
                 $rate = floatval($rate_string);
 
@@ -183,44 +139,5 @@ class ParseAdsController extends Controller
             "text"   => $result, 
             "phones" => implode(",", $matches[0])
         ];
-    }
-
-    /* Парсит направление, номер телефона и курс постов в БД */
-    public static function parseOldAd( $ad ){
-        $parser = (new self);
-        $posts = new DBController;
-        $phones_parsed = $parser->parsePhone( $ad["content"], $ad["vk_id"] );
-            
-        // распределение по направлениям купли/продажи и валюты
-        $type = '';
-        foreach( $parser->course_patterns as $key => $pattern ){
-            $test_matches = preg_match($pattern, $phones_parsed["text"], $match);
-            if( !empty($test_matches) ){
-                if( empty($type) ){
-                    $type = $key;
-                } else{
-                    $type = $type . ", " . $key;
-                }
-            }
-        }
-
-        $rate = 0;
-        if($type){
-            $rate = $parser->parseRate( $phones_parsed["text"], $type );
-        }
-
-        $args = [
-            'content_changed' => $phones_parsed["text"],
-            'phone'           => $phones_parsed["phones"],
-            'rate'            => $rate
-        ];
-        $store = [
-            "type" => "update",
-            "compare" => [ 
-                "key"   => 'vk_id', 
-                "value" => $ad["vk_id"]
-            ]
-        ];
-        $posts::storePosts( $args, $store );
     }
 }

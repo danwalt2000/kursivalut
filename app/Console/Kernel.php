@@ -4,6 +4,7 @@ namespace App\Console;
 
 use App\Http\Controllers\GetAdsController;
 use App\Http\Controllers\CurrencyController;
+use App\Http\Controllers\VarsController;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -17,11 +18,11 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        foreach( CurrencyController::$publics as $name => $channel ){
+        $vars = new VarsController;
+        foreach( $vars->publics as $name => $channel ){
             $time = $channel["time"];
 
-            // в рабочее время частота запросов к группам указана в переменной 
-            // $publics класса CurrencyController 
+            // в рабочее время частота запросов к группам указана в переменной $publics
             $schedule->call( function() use ($channel){
                 GetAdsController::getNewAds( $channel );
             })->$time()->between('4:30', '15:00'); // (по Гринвичу) 

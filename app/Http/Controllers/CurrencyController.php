@@ -9,12 +9,12 @@ use Log;
 use App\Http\Controllers\GetAdsController;
 use App\Http\Controllers\ParseAdsController;
 use App\Http\Controllers\ParseUriController;
+use App\Http\Controllers\VarsController;
 use App\Http\Controllers\DBController;
 use App\Models\Ads;
  
 class CurrencyController extends Controller
 {
-    public $ads = [];
     public $db_ads = [];
     public $get_posts;
     public $to_view = [];
@@ -22,48 +22,20 @@ class CurrencyController extends Controller
     public $parsed_url = [];
     public $path = [];
     public $query = '';
-    
-    public static $publics = [
-        "obmenvalut_donetsk"    => ["id" => "-87785879",  "time" => "everyFiveMinutes", "domain" => "vk"],    // 5
-        "obmen_valut_donetsk"   => ["id" => "-92215147",  "time" => "everyFiveMinutes", "domain" => "vk"],    // 5
-        "obmenvalyut_dpr"       => ["id" => "-153734109", "time" => "everyThirtyMinutes", "domain" => "vk"],  // 30
-        "club156050748"         => ["id" => "-156050748", "time" => "everyThirtyMinutes", "domain" => "vk"],  // 30
-        "kursvalut_donetsk"     => ["id" => "-63859238",  "time" => "everyThirtyMinutes", "domain" => "vk"],  // 30
-        "obmen_valut_dnr"       => ["id" => "-193547744", "time" => "hourly", "domain" => "vk"],              // 60
-        "donetsk_obmen_valyuta" => ["id" => "-174075254", "time" => "hourly", "domain" => "vk"],              // 60
-        "obmenvalut_dnr"        => ["id" => "-172375183", "time" => "hourly", "domain" => "vk"],              // 60
-        "valutoobmen"           => ["id" => "-75586957",  "time" => "hourly", "domain" => "vk"]               // 60
-        // "obmenkadn"           => ["id" => "1154050282",  "time" => "everyFiveMinutes", "domain" => "tg"], // 5
-        // "obmenkadonetck"      => ["id" => "obmenkadonetck",  "time" => "everyFiveMinutes", "domain" => "tg"], // 5
-        // "obmen_valut_donetsk_1"=> ["id" => "obmen_valut_donetsk_1",  "time" => "everyFiveMinutes", "domain" => "tg"], // 5
-        // "obmen77market"       => ["id" => "obmen77market",  "time" => "everyThirtyMinutes", "domain" => "tg"], // 30
-        // "valut_don"           => ["id" => "valut_don",  "time" => "everyThirtyMinutes", "domain" => "tg"], // 30
-    ];
-    public $currencies = [
-       "dollar" => "Доллар",
-       "euro" => "Евро",
-       "hrn" => "Гривна",
-       "cashless" => "Безнал руб."
-    ];
-    public $date_sort = [
-        1   => "1 час",
-        5   => "5 часов",
-        24  => "24 часа",
-        168 => "7 дней",
-        720 => "30 дней"
-    ];
+    public $vars;
 
     public function __construct()
     {
         $this->posts = new DBController;
+        $this->vars = new VarsController;
         $this->db_ads = $this->posts->getPosts();
         $this->path = ParseUriController::parseUri();
         if( !empty($this->path['query']) ) $this->query = "?" . $this->path['query'];
         $this->to_view = [
             'ads'             => $this->db_ads,
             'ads_count'       => $this->posts->getPosts("count"),
-            'currencies'      => $this->currencies,
-            'date_sort'       => $this->date_sort,
+            'currencies'      => $this->vars->currencies,
+            'date_sort'       => $this->vars->date_sort,
             'path'            => $this->path,
             'query'           => $this->query,
             'hash'            => $this->getCurrentGitCommit(),
@@ -108,7 +80,7 @@ class CurrencyController extends Controller
                 'textarea'   => 'required|max:400',
             ]);
 
-            $currency = array_search($validated["currency"], $this->currencies);
+            $currency = array_search($validated["currency"], $this->vars->currencies);
             $type = $validated["sellbuy"] . "_" . $currency;
             
             $id = time();
@@ -129,7 +101,7 @@ class CurrencyController extends Controller
                 'link'            => '',
                 'type'            => $type
             ];
-            DBController::storePosts($args);
+            $this->posts->storePosts($args);
             $this->to_view['submit_msg'] = "Ваше объявление опубликовано!";
             SessionController::updateAllowed();
         }
@@ -142,10 +114,8 @@ class CurrencyController extends Controller
     
     public function search()
     {
-        $search = '';
-        if( !empty($_GET["search"]) ){
-            $search = $_GET["search"];
-        }
+        $search = !empty($_GET["search"]) ? $_GET["search"] : '';
+        
         $this->to_view['search'] = $search;
         $this->to_view['ads'] = $this->posts->getPosts( "get", "all", "", $search );
         $this->to_view['ads_count'] = $this->posts->getPosts( "count", "all", "", $search );
@@ -154,7 +124,8 @@ class CurrencyController extends Controller
 
     public function index()
     {
-        $this->to_view['ads'] = GetAdsController::getNewAds( $this::$publics["obmenvalut_donetsk"] );
+        $this->to_view['ads'] = GetAdsController::getNewAds( $this->vars->publics["obmenvalut_donetsk"] );
+        // GetAdsController::getNewAds( $this->vars->publics["obmenvalut_donetsk"] );
         // $this->to_view['ads'] = GetAdsController::getNewAds( "-92215147" );
         return view('currency', $this->to_view);
     }
