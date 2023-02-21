@@ -37,6 +37,7 @@ class ParseAdsController extends Controller
             'text_key'       => 'text',
             'date_key'       => 'date',
             'channel_id_key' => 'owner_id',
+            'user_id_key'    => 'from_id', 
             'error_key'      => 'error'
         ],
         'tg' => [
@@ -45,13 +46,15 @@ class ParseAdsController extends Controller
             'id_key'         => 'id',
             'text_key'       => 'message',
             'date_key'       => 'date',
-            'channel_id_key' => 'peer_id', // + channel_id
-            'user_id_key'    => 'from_id', // + user_id
+            'channel_id_key' => 'peer_id', 
+            'channel_sub'    => 'channel_id', // ключ дочернего объекта
+            'user_id_key'    => 'from_id', 
+            'user_sub'       => 'user_id',    // ключ дочернего объекта
             'error_key'      => 'errors'
         ]
     ];
 
-    public static function parseAd( $json, $group_id )
+    public static function parseAd( $json )
     {
         $posts = new DBController;
         $parser = (new self);
@@ -59,16 +62,12 @@ class ParseAdsController extends Controller
         
         foreach( $ads as $ad ){
             $is_id_in_table = $posts->getPostById($ad["id"], "count"); //Ads::where('vk_id', '=', $ad["id"])->count();
-            if( $is_id_in_table > 1 ){
-                continue;               // если объявление уже есть в базе, пропускаем его
-            }
-
-            // вырезание номера телефона
-            $phones_parsed = $parser->parsePhone( $ad["text"], $ad["id"] );
             
-            $group = "club" . abs( intval( $group_id ) ); // id группы vk начинается с минуса
-            $owner_and_id = $ad["owner_id"] . "_" . $ad["id"];
-            $link = "https://vk.com/" . $group . "?w=wall" . $owner_and_id . "%2Fall";
+            // если объявление уже есть в базе, пропускаем его
+            if( $is_id_in_table > 1 ) continue;               
+
+            // извлечение номера телефона
+            $phones_parsed = $parser->parsePhone( $ad["text"], $ad["id"] );
             
             // распределение по направлениям купли/продажи и валюты
             $type = '';
@@ -82,11 +81,17 @@ class ParseAdsController extends Controller
                     }
                 }
             }
-            $rate = 0;
-            if($type){
-                $rate = $parser->parseRate( $phones_parsed["text"], $type );
-            }
+            // объявления, у которых не получилось определить направление, 
+            // считаются малоценными и в БД не записываются
+            if( !$type ) continue; 
 
+ 
+            $group = "club" . abs( intval( $ad["owner_id"] ) ); // id группы vk начинается с минуса
+            $owner_and_id = $ad["owner_id"] . "_" . $ad["id"];
+            $link = "https://vk.com/" . $group . "?w=wall" . $owner_and_id . "%2Fall";
+
+            $rate = 0;
+            $rate = $parser->parseRate( $phones_parsed["text"], $type );
             $is_text_in_table = Ads::where('content', '=', $ad["text"])->count();
 
             if( $is_text_in_table > 0 ){
@@ -153,15 +158,11 @@ class ParseAdsController extends Controller
 
                 if($currency == "cashless"){ 
                     $last_char = substr($matches[0][0], -1); // по безналу руб. - база 100
-                    // var_dump($matches[0][0]);
-                    // echo "<br>";
                     if($last_char == 1){
                         $rate = 100;                     // 100 = 1 к 1
                     } else{
                         $rate = 100 + floatval($rate_string);
                     }
-                    // var_dump($rate);
-                    // echo "<br>";
                 }
                 break;  // если в объявлении несколько предложений и несколько курсов записываем только первый
             }
