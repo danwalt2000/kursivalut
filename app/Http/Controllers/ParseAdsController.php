@@ -1,6 +1,7 @@
 <?php
  
 namespace App\Http\Controllers;
+use Log;
 use App\Models\Ads;
 use App\Http\Controllers\DBController;
 use App\Http\Controllers\PostAdsController;
@@ -8,25 +9,35 @@ use App\Http\Controllers\VarsController;
 
 class ParseAdsController extends Controller
 {
-    public function parseAd( $json )
+    public $vars;
+    public $channel;
+    public $domain;
+    public $api_keys;
+    
+    /**
+     * Распределяет объявления по направлениям и записывает в БД
+     */
+    public function parseAd( $json, $channel )
     {
         $posts = new DBController;
-        $vars = new VarsController;
-        $parser = (new self);
+        $this->vars = new VarsController;
         $ads = $json;
+        $this->channel = $channel;
+        $this->domain = $channel['domain'];
+        $this->api_keys = $this->vars->api_keys[ $this->channel['domain'] ];
+        $text_key = $this->api_keys['text_key'];
         
         foreach( $ads as $ad ){
-            $is_id_in_table = $posts->getPostById($ad["id"], "count"); //Ads::where('vk_id', '=', $ad["id"])->count();
-            
             // если объявление уже есть в базе, пропускаем его
+            $is_id_in_table = $posts->getPostById($ad["id"], "count"); //Ads::where('vk_id', '=', $ad["id"])->count();
             if( $is_id_in_table > 1 ) continue;               
 
             // извлечение номера телефона
-            $phones_parsed = $parser::parsePhone( $ad["text"], $ad["id"] );
+            $phones_parsed = $this::parsePhone( $ad[ $text_key ], $ad["id"] );
             
             // распределение по направлениям купли/продажи и валюты
             $type = '';
-            foreach( $vars->course_patterns as $key => $pattern ){
+            foreach( $this->vars->course_patterns as $key => $pattern ){
                 $test_matches = preg_match($pattern, $phones_parsed["text"], $match);
                 if( !empty($test_matches) ){
                     if( empty($type) ){
@@ -39,20 +50,24 @@ class ParseAdsController extends Controller
             // объявления, у которых не получилось определить направление, 
             // считаются малоценными и в БД не записываются
             if( !$type ) continue; 
-
  
-            $group = "club" . abs( intval( $ad["owner_id"] ) ); // id группы vk начинается с минуса
-            $owner_and_id = $ad["owner_id"] . "_" . $ad["id"];
-            $link = "https://vk.com/" . $group . "?w=wall" . $owner_and_id . "%2Fall";
+            $link = $this->createAdLink( $ad );
 
             $rate = 0;
-            $rate = $parser->parseRate( $phones_parsed["text"], $type );
-            $is_text_in_table = Ads::where('content', '=', $ad["text"])->count();
+            $rate = $this->parseRate( $phones_parsed["text"], $type );
+            $is_text_in_table = Ads::where('content', '=', $ad[$text_key])->count();
+
+            $user_id = $ad['from_id'];
+            $owner_id = $ad[$this->api_keys['channel_id_key']];
+            if( 'tg' == $this->domain ){ 
+                $user_id = $user_id['user_id'];
+                $owner_id = $owner_id['channel_id'];
+            }
 
             if( $is_text_in_table > 0 ){
                 $args = [
                     'vk_id'           => $ad["id"],
-                    'owner_id'        => $ad["owner_id"],
+                    'owner_id'        => $owner_id,
                     'date'            => $ad["date"],
                     'content_changed' => $phones_parsed["text"],
                     'link'            => $link
@@ -61,18 +76,19 @@ class ParseAdsController extends Controller
                     "type" => "update",
                     "compare" => [ 
                         "key"   => 'content', 
-                        "value" => $ad["text"]
+                        "value" => $ad[$text_key]
                     ]
                 ];
+                
                 $posts::storePosts( $args, $store );
 
-            } elseif( $ad["from_id"] != $ad["owner_id"] && !empty($ad["text"])){
+            } elseif( $ad["from_id"] != $owner_id && !empty($ad[$text_key])){
                 $args = [
                     'vk_id'           => $ad["id"],
-                    'vk_user'         => $ad["from_id"],
-                    'owner_id'        => $ad["owner_id"],
+                    'vk_user'         => $user_id,
+                    'owner_id'        => $owner_id,
                     'date'            => $ad["date"],
-                    'content'         => $ad["text"],
+                    'content'         => $ad[$text_key],
                     'content_changed' => $phones_parsed["text"],
                     'phone'           => $phones_parsed["phones"],
                     'rate'            => $rate,
@@ -82,6 +98,7 @@ class ParseAdsController extends Controller
                     'link'            => $link,
                     'type'            => $type
                 ];
+                
                 $posts::storePosts( $args );
             } 
             // PostAdsController::postNewAds( $ad["id"] );
@@ -91,24 +108,23 @@ class ParseAdsController extends Controller
     }
 
     // извлекаем из объявления курс 
-    public static function parseRate ( $text, $types ){
+    public function parseRate ( $text, $types ){
         $types_arr = explode(",", $types);
         $rate = 0;
         $parser = (new self);
-        $vars = new VarsController;
 
         foreach($types_arr as $type){         // типы объявлений, например, "sell_dollar, buy_hrn"
             $currency = explode("_" , $type); // извлекаем вторую часть
             $currency = $currency[1];         // например, из sell_hrn - hrn  
 
             // проверяем, есть ли в строке маска курса
-            preg_match_all( $vars->rate_patterns[$currency], $text, $matches );
+            preg_match_all( $this->vars->rate_patterns[$currency], $text, $matches );
 
             if( isset($matches[0][0]) ){ // если есть
                 
                 // очищаем курс от лишних символов, 
                 // например, из строки "о 72.2 М" извлекаем "72.2"
-                preg_match_all( $vars->rate_digit_pattern, $matches[0][0], $match );
+                preg_match_all( $this->vars->rate_digit_pattern, $matches[0][0], $match );
                 $rate_string = str_replace(",", ".", $match[0][0]); // заменяем запятую на точку
                 $rate = floatval($rate_string);
 
@@ -139,5 +155,17 @@ class ParseAdsController extends Controller
             "text"   => $result, 
             "phones" => implode(",", $matches[0])
         ];
+    }
+
+    public function createAdLink ( $ad )
+    {
+        if( 'vk' == $this->domain ){
+            $group = "club" . abs( intval( $ad["owner_id"] ) ); // id группы vk начинается с минуса
+            $owner_and_id = $ad["owner_id"] . "_" . $ad["id"];
+            $link = "https://vk.com/" . $group . "?w=wall" . $owner_and_id . "%2Fall";
+        } else{
+            $link = "https://t.me/" . $this->channel['id'] . "/" . $ad["id"];
+        }
+        return $link;
     }
 }

@@ -1,3 +1,4 @@
+@if($ads)
 @forelse($ads as $ad)
     <article class="post">
         <header class="post-header">
@@ -35,3 +36,4 @@
         <h2 class="">Объявлений не найдено</h2>
     </article>
 @endforelse
+@endif

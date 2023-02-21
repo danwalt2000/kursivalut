@@ -29,12 +29,11 @@
             Дате
         </a>
     </li>
-    <li class="chip with-arrow with-arrow-rarr @if("popularity_desc" == $path['sort']) chip-active @endif">
+    {{-- <li class="chip with-arrow with-arrow-rarr @if("popularity_desc" == $path['sort']) chip-active @endif">
         <a href="{{ request()->fullUrlWithQuery(['sort' => 'popularity', 'order' => 'desc']) }}" title="Сортировать по убыванию популярности">
             Популярности
         </a>
-    </li>
-    {{-- <li class="chip"><a href="{{ request()->fullUrlWithQuery(['sort' => 'rate', 'order' => 'asc']) }}">Курсу</a></li> --}}
+    </li> --}}
 </ul>
 @if( !empty($ads) )
     <p class="ads_found">Найдено объявлений {{ $ads_count }}</p>

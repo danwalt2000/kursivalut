@@ -9,28 +9,31 @@ use App\Models\Ads;
  
 class GetAdsController extends CurrencyController
 {
-    public static function getNewAds( $channel )
+    public $vars;
+    public $domain;
+    public $api_keys;
+    public $channel;
+
+    /**
+     * Получение новых объявлений
+     *
+     * @param  array $channel - данные о группе, с которой беруться объявления 
+     * @return object (ads)
+     */
+    public function getNewAds( $channel )
     {
         $currency = new CurrencyController;
         $posts = new DBController;
-        $domain = $channel['domain']; // vk or tg
-        $channel_id = $channel['id'];
         $parser = new ParseAdsController;
-        $vars = new VarsController;
-        $api_keys = $vars->api_keys[$domain];
+        $this->vars = new VarsController;
+
+        $this->channel = $channel; // vk or tg
+        $this->domain = $channel['domain']; // vk or tg
+        $this->api_keys = $this->vars->api_keys[ $this->domain ];
         
-        // $access_token = env('VK_TOKEN');
-        $access_token = Storage::get('/private/token.txt');
-        $count = 10;
-        // $count = 100;
-        // $count = 1000;
+        // $url = "https://api.vk.com/method/wall.get?v=5.81&access_token=" . $access_token . "&owner_id=" . $channel_id . "&count=" . $count;
+        $url = $this->getApiLink();
         
-        // если таблица пустая, запрашиваем больше записей
-        if( Ads::count() == 0 ){
-            $count = 100;
-        }
-        $url = "https://api.vk.com/method/wall.get?access_token=" . $access_token . "&owner_id=" . $channel_id . "&v=5.81&count=" . $count;
-        // Log::channel('command')->info($url);
         try {
             $response = Http::get($url);
         } catch(\Exception $exception) {
@@ -40,11 +43,39 @@ class GetAdsController extends CurrencyController
         $json = json_decode($response->getBody(), true);
         
         // бывает, что от API приходит ошибка
-        if ( isset( $json[ $api_keys["error_key"] ] ) ){ 
+        $errors = $this->api_keys["error_key"]; // у API разные названия ключа: error и errors
+        if ( !empty( $json[$errors] ) ){ 
             return Log::error($json);
         }
         
-        $currency->db_ads = $parser->parseAd( $json["response"]["items"] );
-        return$currency->db_ads;
+        $items = $json["response"][ $this->api_keys['items_key'] ];
+        $currency->db_ads = $parser->parseAd( $items, $channel );
+        
+        return $currency->db_ads;
+    }
+
+    /**
+     * Получение полного url, к которому неомходимо обратиться за json'ом
+     * @return string - url API
+     */
+    public function getApiLink()
+    {
+        $access_token = Storage::get('/private/token.txt');
+        // $access_token = env('VK_TOKEN');
+        $count = 10;
+        // $count = 100;
+        // $count = 1000;
+        
+        // если таблица пустая, запрашиваем больше записей
+        // if( Ads::count() == 0 ){
+        //     $count = 100;
+        // }
+        $api = $this->api_keys;
+        $url_base = $api['url_key'];
+
+        if( 'vk' == $this->domain) $url_base .= $access_token . '&'; // к vk добавляем токен
+        $url = $url_base . $api['url_channel_key'] . '=' . $this->channel['id']; // + &owner_id=
+        $url .= '&' . $api['url_limit_key'] . '=' . $count; // &count=
+        return $url;
     }
 }

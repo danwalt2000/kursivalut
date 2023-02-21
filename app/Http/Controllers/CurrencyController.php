@@ -77,7 +77,7 @@ class CurrencyController extends Controller
                 'currency'  => 'required',
                 'rate'      => 'required|numeric|max:200',
                 'phone'     => 'required',
-                'textarea'   => 'required|max:400',
+                'textarea'  => 'required|max:400',
             ]);
 
             $currency = array_search($validated["currency"], $this->vars->currencies);
@@ -97,7 +97,7 @@ class CurrencyController extends Controller
                 'rate'            => $validated["rate"],
                 'phone_showed'    => 0,
                 'link_followed'   => 0,
-                'popularity'      => 1,
+                'popularity'      => 3,  // добавим популярности объявлениям с нашего сайта
                 'link'            => '',
                 'type'            => $type
             ];
@@ -124,8 +124,9 @@ class CurrencyController extends Controller
 
     public function index()
     {
-        $this->to_view['ads'] = GetAdsController::getNewAds( $this->vars->publics["obmenvalut_donetsk"] );
-        // GetAdsController::getNewAds( $this->vars->publics["obmenvalut_donetsk"] );
+        $receiver = new GetAdsController;
+        // $this->to_view['ads'] = $receiver->getNewAds( $this->vars->publics["obmenvalut_donetsk"] );
+        // $this->to_view['ads'] = $receiver->getNewAds( $this->vars->publics["1154050282"] );
         // $this->to_view['ads'] = GetAdsController::getNewAds( "-92215147" );
         return view('currency', $this->to_view);
     }

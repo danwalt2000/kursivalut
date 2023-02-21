@@ -1,12 +1,12 @@
 <?php
  
 namespace App\Http\Controllers;
+use Log;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\DB;
 use Psr\Http\Message\RequestInterface;
-use Log;
 use App\Http\Controllers\CurrencyController;
 use App\Models\Ads;
  
@@ -111,6 +111,7 @@ class DBController extends Controller
             Ads::where($store["compare"]["key"], '=', $store["compare"]["value"])
                 ->update($args);
         } else{
+            Log::error($args);
             Ads::create($args);
         }
     }

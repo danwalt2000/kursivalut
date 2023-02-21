@@ -19,18 +19,19 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $vars = new VarsController;
+
         foreach( $vars->publics as $name => $channel ){
             $time = $channel["time"];
 
             // в рабочее время частота запросов к группам указана в переменной $publics
             $schedule->call( function() use ($channel){
-                GetAdsController::getNewAds( $channel );
-            })->$time()->between('4:30', '15:00'); // (по Гринвичу) 
+                (new GetAdsController)->getNewAds( $channel );
+            })->$time()->between('4:30', '16:00'); // по Гринвичу 15
 
-            // в нерабоче время обращаться к группам раз в час
+            // в нерабоче время обращаться к группам раз в полчаса
             $schedule->call( function() use ($channel){
-                GetAdsController::getNewAds( $channel );
-            })->hourly()->unlessBetween('4:30', '15:00'); // (по Гринвичу)
+                (new GetAdsController)->getNewAds( $channel );
+            })->everyThirtyMinutes()->unlessBetween('4:30', '16:00'); // по Гринвичу 15
         }
     }
 
