@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Http;
 use Psr\Http\Message\RequestInterface;
 use Log;
 use App\Http\Controllers\GetAdsController;
-use App\Http\Controllers\ParseAdsController;
 use App\Http\Controllers\DBController;
 use App\Models\Ads;
  

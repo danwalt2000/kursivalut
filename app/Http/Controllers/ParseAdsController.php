@@ -29,6 +29,28 @@ class ParseAdsController extends Controller
 
     public $rate_digit_pattern = '/\d*[\.\,]?\d+/';
 
+    public static $api_keys = [
+        'vk' => [
+            'url_key'        => 'https://api.vk.com/method/wall.get?access_token=',
+            'items_key'      => 'items',
+            'id_key'         => 'id',
+            'text_key'       => 'text',
+            'date_key'       => 'date',
+            'channel_id_key' => 'owner_id',
+            'error_key'      => 'error'
+        ],
+        'tg' => [
+            'url_key'        => 'http://127.0.0.1:9503/api/getHistory/?data[peer]=@efss111111111111111f&data[limit]=10',
+            'items_key'      => 'messages',
+            'id_key'         => 'id',
+            'text_key'       => 'message',
+            'date_key'       => 'date',
+            'channel_id_key' => 'peer_id', // + channel_id
+            'user_id_key'    => 'from_id', // + user_id
+            'error_key'      => 'errors'
+        ]
+    ];
+
     public static function parseAd( $json, $group_id )
     {
         $posts = new DBController;
