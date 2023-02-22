@@ -586,7 +586,9 @@ nav ul{
     align-items: center;
     justify-self: end;
 }
-
+.ads_found{
+    margin: 10px 0;
+}
 .social_icons a{
     display: block;
     line-height: 30px;
@@ -647,6 +649,11 @@ nav ul{
 }
 .open-search{
     display: none;
+    width: 30px;
+    height: 30px;
+    background-image: url(/img/search-white.svg);
+    background-repeat: no-repeat;
+    background-position: center;
 }
 #tosell{
     left: 50px;
@@ -802,6 +809,9 @@ nav ul{
     }
     .search-submit{
         right: 15px;
+    }
+    .open-search-active{
+        background-image: url(/img/thin-close-icon-white.svg);
     }
     .open-search-active + .search-form{
         transform: scale(1, 1);
