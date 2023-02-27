@@ -113,7 +113,7 @@ class DBController extends Controller
             Ads::where($store["compare"]["key"], '=', $store["compare"]["value"])
                 ->update($args);
         } else{
-            Log::error($args);
+            // Log::error($args);
             Ads::create($args);
         }
     }
