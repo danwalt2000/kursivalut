@@ -31,7 +31,6 @@ class GetAdsController extends CurrencyController
         $this->domain = $channel['domain']; // vk or tg
         $this->api_keys = $this->vars->api_keys[ $this->domain ];
         
-        // $url = "https://api.vk.com/method/wall.get?v=5.81&access_token=" . $access_token . "&owner_id=" . $channel_id . "&count=" . $count;
         $url = $this->getApiLink();
         
         try {

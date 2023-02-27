@@ -33,7 +33,7 @@ class ParseAdsController extends Controller
             if( $is_id_in_table > 1 ) continue;               
 
             // извлечение номера телефона
-            $phones_parsed = $this::parsePhone( $ad[ $text_key ], $ad["id"] );
+            $phones_parsed = $this::parsePhone( $ad[$text_key], $ad["id"] );
             
             // распределение по направлениям купли/продажи и валюты
             $type = '';

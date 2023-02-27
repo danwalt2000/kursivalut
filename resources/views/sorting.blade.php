@@ -1,7 +1,21 @@
-<section class="sorting-column">
-    <h2 class="sorting-h2">Фильтровать объявления</h2>
+<section class="sorting-column sorting-column-collapsed">
+    <h2 class="sorting-h2">Фильтры</h2>
+    <nav class="show-all-row">
+        <span class="chip @if( $path['sell_buy'] == 'all' || $path['sell_buy'] == '' ) chip-active @endif"><a href="/{{$query}}">Показать все</a></span>
+        @if( !empty($ads) )
+        <div class="course_checkbox">
+            @if("true" == $path['rate'])
+                <a href="{{ request()->fullUrlWithQuery(['rate' => 'false']) }}" title="Показать все объявления">
+                    <div class="checkbox checkbox_active"></div>
+            @else
+                <a href="{{ preg_replace('/\?$/', '', request()->fullUrlWithQuery(['rate' => null])) }}" title="Показать только объявления, в которых есть курс">
+                    <div class="checkbox"></div>
+            @endif
+            Только с курсом</a>
+        </div>
+    @endif
+    </nav>
     <nav class="nav-wrapper sell_buy">
-        <span class="chip @if( $path['sell_buy'] == 'all' || $path['sell_buy'] == '' ) chip-active @endif"><a href="/{{$query}}">Все</a></span>
         <li class="chip @if($path['sell_buy'] == 'sell') chip-active @endif">
             <a href="/ads/sell/{{ $path['currency'] }}{{$query}}">Продажа</a>
         </li>
@@ -9,16 +23,17 @@
             <a href="/ads/buy/{{ $path['currency'] }}{{$query}}">Покупка</a>
         </li>
     </nav>
+    <div class="currency-title">Валюта</div>
     <nav class="nav-wrapper nav-currencies">
         @foreach($currencies as $name => $title)
-            <li class="chip @if($path["currency"] != '' && $currencies[$path["currency"]] == $title) chip-active @endif">
+            <li class="chip @if($path["currency"] != '' && $currencies[$path["currency"]] == $title)chip-active @endif">
                 <a href="/ads/{{ $path['sell_buy'] }}/{{ $name }}{{$query}}">{{ $title }}</a>
             </li>
             {{-- Выбранную валюту в списке не показываем--}}
         @endforeach
     </nav>
     <ul class="currencies">
-        <span class="h6 mr-10">За:</span>
+        <span class="h6">За последние:</span>
         {{-- Выбранный диапазон отображаем первым --}}
     
         <li id="selected-currency" class="with-arrow">
@@ -41,15 +56,15 @@
     </ul>
     
     <ul class="sort chips">
-        <span class="h6 mr-10">Сортировать по:</span>
+        <span class="h6">Сортировка</span>
         <li class="chip with-arrow with-arrow-rarr @if("date_desc" == $path['sort']) chip-active @endif">
             <a href="{{ preg_replace('/\?$/', '', request()->fullUrlWithQuery(['sort' => null, 'order' => null]) ) }}" title="Сортировать от нового к старому">
-                Дате
+                Дата
             </a>
         </li>
         <li class="chip with-arrow with-arrow-rarr with-arrow-rarr-up @if("date_asc" == $path['sort']) chip-active @endif">
             <a href="{{ request()->fullUrlWithQuery(['sort' => 'date', 'order' => 'asc']) }}" title="Сортировать от старого к новому">
-                Дате
+                Дата
             </a>
         </li>
         {{-- <li class="chip with-arrow with-arrow-rarr @if("popularity_desc" == $path['sort']) chip-active @endif">
@@ -58,16 +73,5 @@
             </a>
         </li> --}}
     </ul>
-    @if( !empty($ads) )
-        <div class="course_checkbox">
-            @if("true" == $path['rate'])
-                <a href="{{ request()->fullUrlWithQuery(['rate' => 'false']) }}" title="Показать все объявления">
-                    <div class="checkbox checkbox_active"></div>
-            @else
-                <a href="{{ preg_replace('/\?$/', '', request()->fullUrlWithQuery(['rate' => null])) }}" title="Показать только объявления, в которых есть курс">
-                    <div class="checkbox"></div>
-            @endif
-            Только с курсом</a>
-        </div>
-    @endif
+   
 </section>
