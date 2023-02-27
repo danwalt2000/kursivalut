@@ -15,12 +15,12 @@ class VarsController extends Controller
         "obmenvalut_dnr"        => ["id" => "-172375183", "time" => "hourly", "domain" => "vk"],              // 60
         "valutoobmen"           => ["id" => "-75586957",  "time" => "hourly", "domain" => "vk"],              // 60
 
-        "1154050282" => ["id" => "obmenkadn",  "time" => "everyFiveMinutes", "domain" => "tg"],               // 5
-        "1161871204" => ["id" => "obmenkadonetck",  "time" => "everyTenMinutes", "domain" => "tg"],           // 10
-        "1345575332" => ["id" => "obmen_valut_donetsk_1",  "time" => "everyTenMinutes", "domain" => "tg"],    // 10
-        "1265653325" => ["id" => "obmenvalutdon",  "time" => "everyFifteenMinutes", "domain" => "tg"],        // 15
-        "1295018924" => ["id" => "obmen77market",  "time" => "everyFifteenMinutes", "domain" => "tg"],        // 15
-        "1204646240" => ["id" => "valut_don",  "time" => "everyThirtyMinutes", "domain" => "tg"],             // 30
+        "1154050282" => ["id" => "obmenkadn",             "time" => "everyFiveMinutes", "domain" => "tg"],    // 5
+        "1161871204" => ["id" => "obmenkadonetck",        "time" => "everyTenMinutes", "domain" => "tg"],     // 10
+        "1345575332" => ["id" => "obmen_valut_donetsk_1", "time" => "everyTenMinutes", "domain" => "tg"],     // 10
+        "1265653325" => ["id" => "obmenvalutdon",         "time" => "everyFifteenMinutes", "domain" => "tg"], // 15
+        "1295018924" => ["id" => "obmen77market",         "time" => "everyFifteenMinutes", "domain" => "tg"], // 15
+        "1204646240" => ["id" => "valut_don",             "time" => "everyThirtyMinutes", "domain" => "tg"],  // 30
     ];
 
     public $api_keys = [

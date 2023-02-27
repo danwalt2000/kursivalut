@@ -24,7 +24,7 @@ class ParseAdsController extends Controller
         $ads = $json;
         $this->channel = $channel;
         $this->domain = $channel['domain'];
-        $this->api_keys = $this->vars->api_keys[ $this->channel['domain'] ];
+        $this->api_keys = $this->vars->api_keys[ $this->domain ];
         $text_key = $this->api_keys['text_key'];
         
         foreach( $ads as $ad ){
