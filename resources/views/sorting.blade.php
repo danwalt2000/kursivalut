@@ -5,7 +5,7 @@
         @if( !empty($ads) )
         <div class="course_checkbox">
             @if("true" == $path['rate'])
-                <a href="{{ request()->fullUrlWithQuery(['rate' => 'false']) }}" title="Показать все объявления">
+                <a href="{{ request()->fullUrlWithQuery(['rate' => 'false']) }}" title="Показать в том числе объявления без курса">
                     <div class="checkbox checkbox_active"></div>
             @else
                 <a href="{{ preg_replace('/\?$/', '', request()->fullUrlWithQuery(['rate' => null])) }}" title="Показать только объявления, в которых есть курс">
@@ -33,7 +33,7 @@
         @endforeach
     </nav>
     <ul class="currencies">
-        <span class="h6">За последние:</span>
+        <span class="h6">За время</span>
         {{-- Выбранный диапазон отображаем первым --}}
     
         <li id="selected-currency" class="with-arrow">

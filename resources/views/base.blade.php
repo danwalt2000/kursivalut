@@ -53,7 +53,6 @@
                     @show
 
                     <div class="right_column">
-                        {{-- @include('form') --}}
                         @include('sorting', ['date_sort' => $date_sort, 'path' => $path, 'ads' => $ads])    
                         
                     </div>
@@ -63,6 +62,7 @@
         <footer class="footer">
             <div class="footer_content">
                 Технический партнер <a href="https://sharpdesign.ru">SharpDesign</a>.</footer>
+                @include('form')
             </div>
         {{-- <div id="popup-bg" class="popup-bg">
             <section id="popup-wrapper"></section>
