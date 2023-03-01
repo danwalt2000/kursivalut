@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\URL;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Psr\Http\Message\RequestInterface;
+use Illuminate\Support\Facades\DB;
 use Log;
 use App\Http\Controllers\GetAdsController;
 use App\Http\Controllers\ParseAdsController;
@@ -119,6 +120,14 @@ class CurrencyController extends Controller
         $this->to_view['search'] = $search;
         $this->to_view['ads'] = $this->posts->getPosts( "get", "all", "", $search );
         $this->to_view['ads_count'] = $this->posts->getPosts( "count", "all", "", $search );
+        
+
+        // Test database connection
+        try {
+            DB::connection()->getPdo();
+        } catch (\Exception $e) {
+            Log::error($e);
+        }
         return view('search', $this->to_view);
     }
 

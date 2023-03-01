@@ -33,9 +33,9 @@ class ParseAdsController extends Controller
             if( $is_id_in_table > 1 ) continue;               
 
             if(empty($ad[$text_key])){
-                Log::error($text_key);
-                Log::error($channel);
-                Log::error($ad);
+                // Log::error($text_key);
+                // Log::error($channel);
+                // Log::error($ad);
                 continue;
             }
             // извлечение номера телефона
