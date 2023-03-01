@@ -33,9 +33,9 @@ class ParseAdsController extends Controller
             if( $is_id_in_table > 1 ) continue;               
 
             if(empty($ad[$text_key])){
-                Log::error($channel);
-                Log::error($text_key);
-                Log::error($ad);
+                // Log::error($channel);
+                // Log::error($text_key);
+                // Log::error($ad);
                 continue;
             }
             // извлечение номера телефона
@@ -66,6 +66,9 @@ class ParseAdsController extends Controller
             $user_id = $ad['from_id'];
             $owner_id = $ad[$this->api_keys['channel_id_key']];
             if( 'tg' == $this->domain ){ 
+                if(empty($user_id['user_id'])){
+                    Log::error($ad);
+                }
                 $user_id = $user_id['user_id'];
                 $owner_id = $owner_id['channel_id'];
             }

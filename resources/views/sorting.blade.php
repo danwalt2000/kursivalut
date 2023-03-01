@@ -1,4 +1,5 @@
 <section class="sorting-column sorting-column-collapsed">
+    <div id="open-filters" class="open-filters"><img src="/img/arrow-down-cyan.svg"></div>
     <h2 class="sorting-h2">Фильтры</h2>
     <nav class="show-all-row">
         <span class="chip @if( $path['sell_buy'] == 'all' || $path['sell_buy'] == '' ) chip-active @endif"><a href="/{{$query}}">Показать все</a></span>

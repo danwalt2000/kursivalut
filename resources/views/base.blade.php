@@ -39,6 +39,7 @@
                             <img width="30" height="30" src="/img/vk-logo.svg">
                         </a>
                     </div> --}}
+                    @include('form')
                     <span id="open-search" class="search open-search"></span>
                     <form action="{{ url("s") }}" class="search-form" method="get">
                         <input id="search" type="text" placeholder="Поиск в объявлениях" name="search" value=""
@@ -62,7 +63,6 @@
         <footer class="footer">
             <div class="footer_content">
                 Технический партнер <a href="https://sharpdesign.ru">SharpDesign</a>.</footer>
-                @include('form')
             </div>
         {{-- <div id="popup-bg" class="popup-bg">
             <section id="popup-wrapper"></section>

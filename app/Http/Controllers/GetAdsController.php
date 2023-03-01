@@ -66,9 +66,8 @@ class GetAdsController extends CurrencyController
         // $count = 1000;
         
         // если таблица пустая, запрашиваем больше записей
-        // if( Ads::count() == 0 ){
-        //     $count = 100;
-        // }
+        if( Ads::count() == 0 ) $count = 100; 
+        
         $api = $this->api_keys;
         $url_base = $api['url_key'];
 
