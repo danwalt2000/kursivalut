@@ -118,7 +118,7 @@
                 }
             });
         </script>
-        <script src="/js/app.js" defer></script>
+        <script src="/js/app.js?v=@isset($hash){{$hash}}@endisset" defer></script>
         @production
             <!-- Google tag (gtag.js) -->
             <script async src="https://www.googletagmanager.com/gtag/js?id=G-4ZFLR96373"></script>
