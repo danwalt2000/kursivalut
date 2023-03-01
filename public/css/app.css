@@ -198,6 +198,7 @@ a:hover{
     grid-template-columns: 60% 40%;
     position: sticky;
     top: 80px;
+    padding: 25px 20px;
 }
 .sorting-column h2{
     margin-top: 0;
@@ -325,9 +326,9 @@ nav ul{
 .tab-active a::before{
     content: "";
     background: url(/img/check-label.svg) no-repeat;
-    width: 20px;
-    height: 20px;
-    margin-right: 9px;
+    width: 16px;
+    height: 16px;
+    margin-right: 5px;
     background-position: center;
 }
 .chip:hover{
