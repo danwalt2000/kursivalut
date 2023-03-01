@@ -134,4 +134,15 @@ window.addEventListener('DOMContentLoaded', () => {
     openSearch.addEventListener("click", function(){
         openSearch.classList.toggle("open-search-active");
     });
+    
+    const filtersButton = document.querySelector("#open-filters");
+    const filters = document.querySelector(".sorting-column");
+    const toggleFilters = ()=>{
+        if(filters.classList.contains("sorting-column-collapsed")){
+            filters.classList.remove("sorting-column-collapsed");
+        } else{
+            filters.classList.add("sorting-column-collapsed");
+        }
+    }
+    filtersButton.addEventListener("click", toggleFilters );
 });

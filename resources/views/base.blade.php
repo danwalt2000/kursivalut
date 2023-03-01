@@ -6,11 +6,11 @@
 
         <title>@yield('title') и ДНР</title>
         <meta name="robots" content="noyaca">
-        <meta name="description" content="Черный рынок валюты. Объявления реальных людей на тему: '{{ $h1 }} и ДНР'.">
+        <meta name="description" content="Черный рынок. {{ $h1 }} и ДНР - объявления реальных людей">
         <meta name="keywords" content="купить валюту, купить доллар, купить евро, купить гривну, купить рубль, купить безнал, продать валюту, продать доллар, продать евро, продать гривну, продать безнал, Донецк, купить доллар в ДНР, купить доллар в Макеевке, Горловка" />
 
         <meta property="og:title" content="@yield('title') и ДНР">
-        <meta property="og:description" content="Черный рынок валюты. Объявления реальных людей на тему: '{{ $h1 }} и ДНР'.">
+        <meta property="og:description" content="Черный рынок. {{ $h1 }} и ДНР - объявления реальных людей">
         <meta property="og:type" content="website">
         <meta property="og:site_name" content="Обмен валют в Донецке">
         <meta property="og:image" content="/img/pig.svg">
@@ -26,7 +26,7 @@
             <link rel="canonical" href="{{ Request::url() }}" />
         @endif
     </head>
-    <body class="antialiased">
+    <body class="antialiased @if(Request::path() == "s") page-search @endif">
         <div class="bg-gradient">
             <main class="main">
                 <div class="logo">
@@ -39,6 +39,7 @@
                             <img width="30" height="30" src="/img/vk-logo.svg">
                         </a>
                     </div> --}}
+                    @include('form')
                     <span id="open-search" class="search open-search"></span>
                     <form action="{{ url("s") }}" class="search-form" method="get">
                         <input id="search" type="text" placeholder="Поиск в объявлениях" name="search" value=""
@@ -53,7 +54,8 @@
                     @show
 
                     <div class="right_column">
-                        @include('form')
+                        @include('sorting', ['date_sort' => $date_sort, 'path' => $path, 'ads' => $ads])    
+                        
                     </div>
                 </div>
             </main>

@@ -125,7 +125,7 @@ class CurrencyController extends Controller
 
     public function index()
     {
-        $receiver = new GetAdsController;
+        // $receiver = new GetAdsController;
         // $this->to_view['ads'] = $receiver->getNewAds( $this->vars->publics["obmenvalut_donetsk"] );
         // $this->to_view['ads'] = $receiver->getNewAds( $this->vars->publics["1154050282"] );
         // $this->to_view['ads'] = GetAdsController::getNewAds( "-92215147" );

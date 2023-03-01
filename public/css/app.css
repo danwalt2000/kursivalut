@@ -12,6 +12,7 @@
     --h1-font: 700 28px/140% 'Open Sans', sans-serif;
     --h2-font: 600 22px/140% 'Open Sans', sans-serif;
     --h3-font: 400 18px/140% "Open Sans", sans-serif;
+    --h4-font: 400 16px/140% "Open Sans", sans-serif;
     --para-medium-font: 400 15px/140% "Open Sans", sans-serif;
     --para-small-font: 400 12px/140% "Open Sans", sans-serif;
 
@@ -86,13 +87,17 @@ a:hover{
 }
 .logo{
     display: grid;
-    grid-template-columns: max-content 1fr max-content;
+    grid-template-columns: 1fr max-content  max-content;
     background-color: var(--main-bg-color);
     border-radius: 6px;
     justify-content: space-between;
     align-items: center;
     padding: 0 25px;
     column-gap: 10px;
+    position: sticky;
+    top: 0;
+    box-shadow: 0px 4px 4px rgb(0 0 0 / 8%);
+    z-index: 2;
 }
 .logo-link{
     display: flex;
@@ -152,30 +157,113 @@ a:hover{
 }
 .columns{
     display: grid;
-    grid-template-columns: 65% 33%;
-    grid-gap: 20px;
+    grid-template-columns: 65% 34%;
+    grid-gap: 10px;
     justify-content: space-between;
 }
-.header-nav_wrapper, .post, .form-wrapper{
+.currency-title{
+    grid-column: 1 / 3;
+}
+.show-all-row{
+    grid-column: 1 / 3;
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.form-bg,
+.popup-bg{
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.1);
+    top: 0;
+    left: 0;
+    display: none;
+}
+.header-nav_wrapper, 
+.post, 
+.form-wrapper,
+.sorting-column{
     background-color: #fff;
-    margin: 20px 0;
+    margin: 10px 0;
     border-radius: 6px;
     padding: 25px;
     background-repeat: no-repeat;
 }
+.close_modal{
+    display: block;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    background-image: url(/img/thin-close-icon.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.form-bg,
+.popup-bg{
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.1);
+    top: 0;
+    left: 0;
+    display: none;
+}
+.form-bg-open,
+.popup-bg-open{
+    display: block;
+    z-index: 2;
+}
+.form-open{
+    display: block;
+    background-color: var(--active-bg-color);
+    border: 1px solid var(--link-color);
+    color: var(--link-color);
+    font: var(--para-medium-font);
+    border-radius: 8px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    max-width: 300px;
+    padding: 10px;
+    cursor: pointer;
+}
+.form-open:hover{
+    background-color: var(--logo-color);
+    color: var(--main-bg-color);
+}
+.form-wrapper{
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 10%;
+    margin: auto;
+    max-width: 400px;
+}
+.sorting-h2{
+    grid-column: 1 / 3;
+    margin: 0 0 5px;
+}
 .sell_buy{
-    grid-row: 1;
     grid-column: 1 / 2;
 }
 .nav-currencies{
-    grid-row: 2;
     grid-column: 1 / 3;
 }
-.header-nav{
+.sorting-column{
     display: grid;
     grid-template-columns: 60% 40%;
+    position: sticky;
+    top: 80px;
+    padding: 25px 20px;
+    gap: 10px
 }
-.header-nav h2{
+.sorting-column h2{
     margin-top: 0;
 }
 .post-header{
@@ -241,10 +329,10 @@ nav ul{
     justify-content: space-between;
 }
 .nav-wrapper{
-    display: grid;
-    grid-template-columns: repeat(4, max-content);
-    gap: 0 10px;
-    margin: 5px 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 5px;
+    grid-column: 1 / 3;
 }
 
 .scrolled{
@@ -273,6 +361,7 @@ nav ul{
     border-radius: 6px;
     display: flex;
     align-items: center;
+    width: fit-content;
 }
 .chip a{
     color: var(--para-color);
@@ -291,17 +380,17 @@ nav ul{
 .chip-active a{
     color: var(--link-color);
 }
-.header-nav h3,
-.header-nav .h3{
+.sorting-column h3,
+.sorting-column .h3{
     margin: 0 10px 0 0;
 }
 .chip-active a::before,
 .tab-active a::before{
     content: "";
     background: url(/img/check-label.svg) no-repeat;
-    width: 20px;
-    height: 20px;
-    margin-right: 9px;
+    width: 16px;
+    height: 16px;
+    margin-right: 5px;
     background-position: center;
 }
 .chip:hover{
@@ -335,9 +424,9 @@ nav ul{
 }
 .sort{
     grid-column: 1 / 3;
-    margin: 5px 0;
+    margin: 0;
     justify-content: start;
-    gap: 0 10px;
+    gap: 0 5px;
 }
 .chip a, 
 .sell-buy a, 
@@ -348,7 +437,7 @@ nav ul{
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 6px 11px;
+    padding: 5px 10px;
 }
 .course_checkbox{
     justify-self: end;
@@ -361,8 +450,8 @@ nav ul{
     gap: 10px;
 }
 .checkbox{
-    width: 45px;
-    height: 26px;
+    width: 40px;
+    height: 20px;
     border-radius: 30px;
     position: relative;
     background-color: var(--active-bg-color);
@@ -372,8 +461,8 @@ nav ul{
 }
 .checkbox::after{
     content: "";
-    height: 22px;
-    width: 22px;
+    height: 16px;
+    width: 16px;
     background-color: var(--main-bg-color);
     border-radius: 50%;
     position: absolute;
@@ -401,10 +490,9 @@ nav ul{
     display: flex;
     align-items: center;
     width: fit-content;
-    grid-row: 1;
-    grid-column: 2 / 3;
+    grid-column: 1 / 3;
+    gap: 5px;
     margin: 0;
-    justify-self: end;
 }
 .currencies li{
     list-style-type: none;
@@ -417,14 +505,15 @@ nav ul{
     -moz-box-shadow: -1px 13px 8px 0px rgba(34, 60, 80, 0.2);
     box-shadow: -1px 13px 8px 0px rgba(34, 60, 80, 0.2);
     position: absolute;
-    width: 100%;
+    width: fit-content;
     z-index: 2;
     border-radius: 6px;
     margin-top: 2px;
     top: 100%;
+    right: 0;
 }
 .currencies-hidden li{
-    padding: 0;
+    padding: 0 14px;
 }
 .currencies-hidden  li a{
     display: block;
@@ -434,7 +523,7 @@ nav ul{
 .currencies-hidden  li:first-child a{
     border: unset
 }
-.currencies-hidden  li a:hover{
+.currencies-hidden  li:hover{
     background-color: var(--active-bg-color);
 }
 .with-arrow{
@@ -446,8 +535,8 @@ nav ul{
     justify-content: center;
 }
 .currencies .with-arrow{
-    padding: 7px 10px;
-    min-width: 100px;
+    padding: 5px 10px;
+    min-width: 80px;
     justify-content: space-around;
     margin-right: 0;
     border: 1px solid var(--link-color);
@@ -499,10 +588,6 @@ nav ul{
 }
 .mr-10{
     margin-right: 10px
-}
-.form-bg{
-    position: sticky;
-    top: 10px
 }
 .form-ad-row input{
     border: 1px solid rgba(102, 102, 102, 0.4);
@@ -575,6 +660,9 @@ nav ul{
     opacity: 0;
     position: absolute;
 }
+.open-filters{
+    display: none;
+}
 .sell-buy span{
     font-weight: 100;
     font-size: 20px;
@@ -644,7 +732,10 @@ nav ul{
 .hidden_phone-visible:hover{
     color: var(--para-color);
 }
-.form-open{
+.page-search .show-all-row,
+.page-search .nav-wrapper,
+.page-search .currency-title,
+.page-search .sort{
     display: none;
 }
 .open-search{
@@ -661,9 +752,6 @@ nav ul{
 #tobuy{
     right: 50px;
 }
-.close_modal{
-    display: none;
-}
 .active{
     display: block;
 }
@@ -678,15 +766,12 @@ nav ul{
     text-decoration: underline;
     font: var(--para-small-font);
 }
-@media (min-width: 992px) and (max-height: 550px){
-    .form-bg{
+@media (min-width: 992px) and (max-height: 460px){
+    .sorting-column{
         position: static;
     }
 }
 @media (max-width: 992px){
-    .logo{
-        margin: 0 15px;
-    }
     .columns{
         display: flex;
         flex-direction: column-reverse;
@@ -696,60 +781,29 @@ nav ul{
     .footer_content{
         margin: 0 15px 40px;
     }
+    .logo{
+        border-radius: 0;
+        padding: 0 15px;
+    }
     .main{
-        padding: 10px 0;
-    }
-    .form-bg,
-    .popup-bg{
-        width: 100vw;
-        height: 100vh;
-        position: fixed;
-        background-color: rgba(0, 0, 0, 0.1);
-        top: 0;
-        left: 0;
-        display: none;
-    }
-    .form-bg-open,
-    .popup-bg-open{
-        display: block;
-    }
-    .form-bg-open+.form-open{
-        display: none;
-    }
-    .form-open{
-        display: block;
-        background-color: var(--para-color);
-        color: var(--main-bg-color);
-        font: var(--para-medium-font);
-        border-radius: 8px;
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        margin: auto;
-        max-width: 300px;
-        padding: 10px;
-    }
-    .form-wrapper{
-        position: fixed;
-        left: 0;
-        right: 0;
-        top: 10%;
-        margin: auto;
-        max-width: 500px;
+        padding: 0;
     }
     .nav-wrapper, .chips{
         justify-content: flex-start;
         flex-wrap: wrap;
         margin: 0;
     }
-    .nav-wrapper ul, .chip{
-        margin: 0 0 10px 10px;
+    .sorting-column-collapsed .nav-wrapper{
+        margin: 5px 0;
     }
     .nav-wrapper .chip{
         margin-left: 0;
     }
-    h1, .form-wrapper h2{
+    h1{
+        font: var(--h2-font);
+        text-align: center;
+    }
+    .form-wrapper h2{
         text-align: center;
     }
     .form-ad-row-radio{
@@ -760,29 +814,106 @@ nav ul{
         max-width: 400px;
         margin: 10px auto;
     }
-    .close_modal{
+    .right_column{
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+    }
+    .sorting-column{
+        margin: 0;
+        box-shadow: 0px -2px 8px 0px rgb(34 60 80 / 20%);
+        padding: 30px 15px 20px;
+    }
+    .sorting-column-collapsed{
+        display: flex;
+        gap: 10px;
+        padding-bottom: 10px;
+    }
+    .sorting-h2::before{
+        content: '';
+        width: 24px;
+        height: 24px;
+        background: url(/img/filter-icon.svg) no-repeat;
+        display: inline-block;
+    }
+    .sorting-column-collapsed .currencies,
+    .sorting-column-collapsed .sort,
+    .sorting-column-collapsed .chip,
+    .sorting-column-collapsed .course_checkbox,
+    .sorting-column-collapsed .currency-title{
+        display: none;
+    }
+    .sorting-column-collapsed .chip-active{
+        display: flex;
+        margin: 0;
+    }
+    .sorting-column h2{
+        margin: 0;
+        font: var(--h3-font);
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 18px;
+        line-height: 20px;
+    }
+    .show-all-row{
+        flex-direction: row;
+    }
+    .open-filters{
         display: block;
         position: absolute;
-        top: 10px;
-        right: 10px;
-        width: 20px;
-        height: 20px;
-        background-image: url(/img/thin-close-icon.svg);
-        background-position: center;
-        background-repeat: no-repeat;
+        top: 0;
+        right: 0;
+        left: 0;
+        text-align: center;
+        padding: 7px 0;
+    }
+    .sorting-column-collapsed .open-filters{
+        transform: rotate(.5turn);
     }
 }
 
 @media (max-width: 768px){
+    .form-open{
+        font-size: 0;
+        background: url(/img/add-post.svg) no-repeat;
+        background-size: contain;
+        width: 33px;
+        height: 33px;
+        border: unset;
+        padding: 0;
+        background-position-y: 1px;
+    }
+    .form-open:hover{
+        background-color: unset;
+    }
+}
+@media (max-width: 580px){
+    .form-ad-row input{
+        padding: 10px 16px;
+    }
+    .currencies{
+        grid-row: 4;
+        grid-column: 1 / 3;
+        justify-self: flex-start;
+        margin-bottom: 10px;
+    }
+    .ads_found{
+        grid-row: 6;
+        grid-column: 1 / 3;
+    }
+    .course_checkbox{
+        justify-self: flex-start;
+        grid-row: 7;
+        grid-column: 1 / 3;
+    }
     .logo-img{
         width: 50px;
+        height: 50px;
     }
     .logo-title{
         font: var(--h3-font)
-    }
-    .logo{
-        grid-template-columns: 80% 20%;
-        position: relative;
     }
     .form-wrapper{
         max-width: 300px;
@@ -793,9 +924,10 @@ nav ul{
         background-color: var(--logo-color);
         object-fit: none;
         border-radius: 50%;
+        margin-right: 10px;
     }
     .search-form{
-        grid-column: 1 / 3;
+        grid-column: 1 / 4;
         width: 100%;
         transform: scale(1, 0);
         position: absolute;
@@ -823,30 +955,16 @@ nav ul{
         display: block;
         margin: auto;
     }
-}
-@media (max-width: 580px){
-    .form-ad-row input{
-        padding: 10px 16px;
-    }
-    .currencies{
-        grid-row: 4;
-        grid-column: 1 / 3;
-        justify-self: flex-start;
-        margin-bottom: 10px;
-    }
-    .ads_found{
-        grid-row: 6;
-        grid-column: 1 / 3;
-    }
-    .course_checkbox{
-        justify-self: flex-start;
-        grid-row: 7;
-        grid-column: 1 / 3;
+    .chip a{
+        padding: 5px;
     }
 }
 @media (max-width: 500px){
     .post-content{
         word-break: break-word;
+    }
+    .sorting-column h2{
+        font: var(--h4-font)
     }
 }
 @media (max-width: 450px){

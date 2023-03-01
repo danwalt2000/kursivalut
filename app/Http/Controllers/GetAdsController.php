@@ -31,7 +31,6 @@ class GetAdsController extends CurrencyController
         $this->domain = $channel['domain']; // vk or tg
         $this->api_keys = $this->vars->api_keys[ $this->domain ];
         
-        // $url = "https://api.vk.com/method/wall.get?v=5.81&access_token=" . $access_token . "&owner_id=" . $channel_id . "&count=" . $count;
         $url = $this->getApiLink();
         
         try {
@@ -67,9 +66,8 @@ class GetAdsController extends CurrencyController
         // $count = 1000;
         
         // если таблица пустая, запрашиваем больше записей
-        // if( Ads::count() == 0 ){
-        //     $count = 100;
-        // }
+        if( Ads::count() == 0 ) $count = 100; 
+        
         $api = $this->api_keys;
         $url_base = $api['url_key'];
 

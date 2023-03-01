@@ -7,9 +7,11 @@
     <div class="left_column">
         <header class="header-nav_wrapper">
             <h1>Поиск результатов по запросу: "{{ $search }}"</h1>
+            @if( !empty($ads) )
+                <p class="ads_found">Найдено объявлений {{ $ads_count }}</p>
+            @endif
             <section class="header-nav">
                 <a class="back-home" href="/">Ко всем объявлениям</a>
-                @include('sorting', ['date_sort' => $date_sort, 'path' => $path, 'ads' => $ads])    
             </section>
         </header>
         

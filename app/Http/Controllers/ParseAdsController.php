@@ -24,20 +24,14 @@ class ParseAdsController extends Controller
         $ads = $json;
         $this->channel = $channel;
         $this->domain = $channel['domain'];
-        $this->api_keys = $this->vars->api_keys[ $this->channel['domain'] ];
+        $this->api_keys = $this->vars->api_keys[ $this->domain ];
         $text_key = $this->api_keys['text_key'];
         
         foreach( $ads as $ad ){
             // если объявление уже есть в базе, пропускаем его
             $is_id_in_table = $posts->getPostById($ad["id"], "count"); //Ads::where('vk_id', '=', $ad["id"])->count();
-            if( $is_id_in_table > 1 ) continue;               
+            if( $is_id_in_table > 1 || empty($ad[$text_key]) ) continue;               
 
-            if(empty($ad[$text_key])){
-                // Log::error($text_key);
-                // Log::error($channel);
-                // Log::error($ad);
-                continue;
-            }
             // извлечение номера телефона
             $phones_parsed = $this::parsePhone( $ad[$text_key], $ad["id"] );
             
@@ -66,6 +60,9 @@ class ParseAdsController extends Controller
             $user_id = $ad['from_id'];
             $owner_id = $ad[$this->api_keys['channel_id_key']];
             if( 'tg' == $this->domain ){ 
+                if(empty($user_id['user_id'])){
+                    Log::error($ad);
+                }
                 $user_id = $user_id['user_id'];
                 $owner_id = $owner_id['channel_id'];
             }
