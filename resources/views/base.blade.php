@@ -26,7 +26,7 @@
             <link rel="canonical" href="{{ Request::url() }}" />
         @endif
     </head>
-    <body class="antialiased">
+    <body class="antialiased @if(Request::path() == "s") page-search @endif">
         <div class="bg-gradient">
             <main class="main">
                 <div class="logo">

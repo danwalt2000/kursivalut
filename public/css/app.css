@@ -732,6 +732,12 @@ nav ul{
 .hidden_phone-visible:hover{
     color: var(--para-color);
 }
+.page-search .show-all-row,
+.page-search .nav-wrapper,
+.page-search .currency-title,
+.page-search .sort{
+    display: none;
+}
 .open-search{
     display: none;
     width: 30px;
