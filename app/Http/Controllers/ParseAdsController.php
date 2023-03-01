@@ -32,8 +32,14 @@ class ParseAdsController extends Controller
             $is_id_in_table = $posts->getPostById($ad["id"], "count"); //Ads::where('vk_id', '=', $ad["id"])->count();
             if( $is_id_in_table > 1 ) continue;               
 
+            if(empty($ad[$text_key])){
+                Log::error($text_key);
+                Log::error($channel);
+                Log::error($ad);
+                continue;
+            }
             // извлечение номера телефона
-            $phones_parsed = $this::parsePhone( $ad[ $text_key ], $ad["id"] );
+            $phones_parsed = $this::parsePhone( $ad[$text_key], $ad["id"] );
             
             // распределение по направлениям купли/продажи и валюты
             $type = '';
