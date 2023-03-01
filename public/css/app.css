@@ -224,13 +224,13 @@ a:hover{
     border: 1px solid var(--link-color);
     color: var(--link-color);
     font: var(--para-medium-font);
-    border-radius: 8px;
+    border-radius: 4px;
     bottom: 0;
     left: 0;
     right: 0;
     margin: auto;
     max-width: 300px;
-    padding: 10px;
+    padding: 8px;
     cursor: pointer;
 }
 .form-open:hover{
@@ -243,7 +243,7 @@ a:hover{
     right: 0;
     top: 10%;
     margin: auto;
-    max-width: 400px;
+    max-width: 350px;
 }
 .sorting-h2{
     grid-column: 1 / 3;
