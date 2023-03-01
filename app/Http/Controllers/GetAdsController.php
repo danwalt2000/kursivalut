@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 use Log;
 use App\Http\Controllers\CurrencyController;
 use App\Models\Ads;
@@ -26,6 +27,15 @@ class GetAdsController extends CurrencyController
         $posts = new DBController;
         $parser = new ParseAdsController;
         $this->vars = new VarsController;
+
+        
+        // Test database connection
+        try {
+            DB::connection()->getPdo();
+            Log::error("success");
+        } catch (\Exception $e) {
+            Log::error($e);
+        }
 
         $this->channel = $channel; // vk or tg
         $this->domain = $channel['domain']; // vk or tg
