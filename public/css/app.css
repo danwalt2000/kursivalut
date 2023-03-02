@@ -629,6 +629,7 @@ nav ul{
 .form-ad-row .textarea_active+label{
     visibility: visible;
 }
+.form-ad-row input:not(:placeholder-shown)+label,
 .form-ad-row input:focus+label{
     visibility: visible;
     transform: translateY(-18px);
