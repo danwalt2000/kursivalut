@@ -61,7 +61,7 @@ class ParseAdsController extends Controller
             $owner_id = $ad[$this->api_keys['channel_id_key']];
             if( 'tg' == $this->domain ){ 
                 // бывает, что объявления публикуют каналы
-                if(empty($user_id['user_id'])){
+                if(!empty($user_id['user_id'])){
                     $user_id = $user_id['user_id'];
                 } else{
                     $user_id = $user_id['channel_id']; 
