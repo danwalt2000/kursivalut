@@ -63,8 +63,12 @@ class ParseAdsController extends Controller
                 // бывает, что объявления публикуют каналы
                 if(!empty($user_id['user_id'])){
                     $user_id = $user_id['user_id'];
-                } else{
+                } elseif(!empty($user_id['channel_id'])){
                     $user_id = $user_id['channel_id']; 
+                } else{
+                    Log::error("No user_id and channel_id");
+                    Log::error($ad);
+                    continue;
                 }
                 $owner_id = $owner_id['channel_id'];
             }
