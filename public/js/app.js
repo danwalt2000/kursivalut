@@ -28,6 +28,8 @@ function getPhone( arr, phoneOrLink = "phone" ){
     }
 }
 window.addEventListener('DOMContentLoaded', () => {
+    const url = new URL(window.location.href);
+    const modalParam = url.searchParams.get("modal");
     // форма
     const adForm = document.querySelector("#ad_form");
     const adFormSubmit = document.querySelector("#ad_form_submit");
@@ -121,12 +123,16 @@ window.addEventListener('DOMContentLoaded', () => {
     const formOpen = document.querySelector("#form-open");
     const formBg = document.querySelector("#form-bg");
     const formWrapper = document.querySelector("#form-wrapper");
+
+    if( modalParam && modalParam == "post") formBg.classList.add("form-bg-open");
     formOpen.addEventListener("click", function(){
         formBg.classList.add("form-bg-open");
     });
     formBg.addEventListener('click', function (event) {
         if ( !formWrapper.contains(event.target) || event.target.id === "close_modal" ) {
             formBg.classList.remove("form-bg-open");
+            // при наличии модального окна, перезагружаем страницу
+            if(modalParam) location.href = '/';
         }
     });
     

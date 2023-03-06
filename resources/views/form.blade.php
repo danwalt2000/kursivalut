@@ -9,10 +9,10 @@
                 </ul>
             </div>
         @endif
+        <div id="close_modal" class="close_modal"></div>
         @if($is_allowed)
-            <div id="close_modal" class="close_modal"></div>
             <h2>Подать объявление</h2>
-            <form id="ad_form" action="/all" method="post" class="form-ad">
+            <form id="ad_form" action="/all?modal=post" method="post" class="form-ad">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <div class="form-ad-row-radio sell-buy">
                     <input type="radio" id="tosell"
