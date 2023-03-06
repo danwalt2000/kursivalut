@@ -601,6 +601,7 @@ nav ul{
     padding: 12px 16px;
     width: 100%;
 }
+.search-input:focus::placeholder,
 .form-wrapper input:focus::placeholder{
     opacity: 0;
 }
@@ -612,6 +613,7 @@ nav ul{
     position: relative;
     margin-top: 10px;
 }
+.search-label,
 .form-ad-row label{
     font: var(--para-small-font);
     color: var(--para-color);
@@ -629,6 +631,8 @@ nav ul{
 .form-ad-row .textarea_active+label{
     visibility: visible;
 }
+.search-input:not(:placeholder-shown)+.search-label,
+.search-input:focus+.search-label,
 .form-ad-row input:not(:placeholder-shown)+label,
 .form-ad-row input:focus+label{
     visibility: visible;
