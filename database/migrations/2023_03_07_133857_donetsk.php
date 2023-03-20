@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('ads', function (Blueprint $table) {
+        Schema::create('donetsk', function (Blueprint $table) {
             $table->id();
             $table->string('vk_id');
             $table->string('vk_user');
@@ -28,7 +28,6 @@ return new class extends Migration
             $table->integer('popularity');
             $table->string('link');
             $table->string('type');
-            $table->string('locale');
         });
     }
 
@@ -39,6 +38,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ads');
+        Schema::dropIfExists('donetsk');
     }
 };

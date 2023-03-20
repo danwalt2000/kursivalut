@@ -124,6 +124,7 @@ window.addEventListener('DOMContentLoaded', () => {
     const formBg = document.querySelector("#form-bg");
     const formWrapper = document.querySelector("#form-wrapper");
 
+    // если есть параметр modal=post, значит нужно открыть модальное окно формы
     if( modalParam && modalParam == "post") formBg.classList.add("form-bg-open");
     formOpen.addEventListener("click", function(){
         formBg.classList.add("form-bg-open");
@@ -131,7 +132,7 @@ window.addEventListener('DOMContentLoaded', () => {
     formBg.addEventListener('click', function (event) {
         if ( !formWrapper.contains(event.target) || event.target.id === "close_modal" ) {
             formBg.classList.remove("form-bg-open");
-            // при наличии модального окна, перезагружаем страницу
+            // при наличии модального окна, отправляем на главную
             if(modalParam) location.href = '/';
         }
     });

@@ -44,7 +44,7 @@ class ParseUriController extends Controller
         $hours = 24;
         $sort = "date_desc";
         $rate = "true";
-        $message = 'Показаны только объявления, содержащие курс. Чтобы посмотреть все предложения, снимите галочку "Только с курсом".';
+        $message = 'Показаны только объявления, содержащие курс. Чтобы посмотреть все предложения, снимите в фильтрах галочку "Только с курсом".';
         $hint = $message;
 
         if( !empty($url[1]) ){
@@ -70,7 +70,7 @@ class ParseUriController extends Controller
             "currency" => "", 
             "query"    => $query,    // строка get-параметров
             "hours"    => $hours,    // количество часов для фильтрации
-            "sort"     => $sort,      // тип сортировки для подсветки активных чипсов
+            "sort"     => $sort,     // тип сортировки для подсветки активных чипсов
             "rate"     => $rate,
             "hint"     => $hint
         ];
