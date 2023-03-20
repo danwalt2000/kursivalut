@@ -18,6 +18,7 @@
 
         <link href="/css/app.css?v=@isset($hash){{$hash}}@endisset" rel="stylesheet">
         <link rel="icon" type="image/x-icon" alt="icon" href="/img/valuta.ico">
+        <link rel="apple-touch-icon" href="/img/pig.svg"/>
 
         {{-- На страницах фильтрации по дате дублируется контент, поэтому нужен canonical --}}
         @if( Request::get('date') )
