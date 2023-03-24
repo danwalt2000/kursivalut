@@ -4,10 +4,15 @@ use Illuminate\Support\Facades\Facade;
 use Illuminate\Http\Request;
 
 function getHost(){
-    $current_domain = $_SERVER['SERVER_NAME']; 
-    $current_full_host = $_SERVER['HTTP_HOST'];
+    $current_domain = 'valuta-dn.loc';
+    $current_full_host = 'valuta-dn.loc';
     
-    $domain = str_contains($domain, "valuta-dn") ? 'valuta-dn' : 'kursivalut';
+    if( !empty( $_SERVER['SERVER_NAME'] ) ){
+        $current_domain = $_SERVER['SERVER_NAME']; 
+        $current_full_host = $_SERVER['HTTP_HOST'];
+    }
+    
+    $domain = str_contains($current_domain, "valuta-dn") ? 'valuta-dn' : 'kursivalut';
     $locale = $domain == 'valuta-dn' ? 'donetsk' : 'moscow';
     if( $current_domain != $current_full_host){
         $locale = explode('.', $current_full_host)[0];
@@ -21,10 +26,12 @@ function getHost(){
 return [
     'current_domain' => getHost()['domain'],
     'current_locale' => getHost()['locale'],
+
     'locales'        => [
         'donetsk'       => [
             'title'          => 'Донецк',
             'name'           => 'donetsk',
+            'model'          => 'Donetsk',
             'domain'         => 'valuta-dn',
             'h1_keyword'     => ' в Донецке и ДНР',
             'currencies'     => ['dollar', 'euro', 'hrn', 'cashless'],
@@ -46,7 +53,31 @@ return [
                 "1295018924" => ["id" => "obmen77market",         "time" => "everyFifteenMinutes", "domain" => "tg"], // 15
                 "1204646240" => ["id" => "valut_don",             "time" => "everyThirtyMinutes", "domain" => "tg"],  // 30
             ]
-        ]
-    ],
+        ],
+        'lugansk'       => [
+            'title'          => 'Луганск',
+            'name'           => 'lugansk',
+            'model'          => 'Lugansk',
+            'domain'         => 'valuta-dn',
+            'h1_keyword'     => ' в Луганске и ЛНР',
+            'currencies'     => ['dollar', 'euro', 'hrn', 'cashless'],
+            'publics'        => [
+                "1304227894" => ["id" => "obmenka_lugansk",       "time" => "everyFiveMinutes", "domain" => "tg"],    // 5
+                "1629996803" => ["id" => "obmen_lugansk_obmen",   "time" => "everyTenMinutes", "domain" => "tg"]     // 10
+            ]
+        ],
+        'mariupol'       => [
+            'title'          => 'Мариуполь',
+            'name'           => 'mariupol',
+            'model'          => 'Mariupol',
+            'domain'         => 'valuta-dn',
+            'h1_keyword'     => ' в Мариуполе и ДНР',
+            'currencies'     => ['dollar', 'euro', 'hrn', 'cashless'],
+            'publics'        => [
+                "obmenvalut_mariupol"    => ["id" => "-212955319",  "time" => "everyThirtyMinutes", "domain" => "vk"],    // 5
     
+                "1784051014" => ["id" => "obmenmariupolya",             "time" => "everyThirtyMinutes", "domain" => "tg"]    // 5
+            ]
+        ]
+    ]
 ];
