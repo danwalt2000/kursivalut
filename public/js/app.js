@@ -90,18 +90,24 @@ window.addEventListener('DOMContentLoaded', () => {
         adFormText.addEventListener('input', changeTextarea);
     }
     
-    // выпадающий список валют
-    const dropButton = document.querySelector("#selected-currency");
-    const dropList = document.querySelector("#currencies-hidden");
+    // управление выпадающми списками
+    const dropButtons = document.querySelectorAll(".dropdown-item");
     
     const checkDropdown = (event)=>{
-        if(dropButton.classList.contains("currencies-active")){
-            dropButton.classList.remove("currencies-active");
-            dropList.classList.remove("active");
-            document.removeEventListener("click", checkDropdown);
-        } else{
+        let dropButton = event.target.closest(".dropdown-item");
+        let dropLists = document.querySelectorAll(".dropdown-hidden");
+        needToOpen = false;
+
+        if(dropButton) needToOpen = !dropButton.classList.contains("currencies-active");
+
+        dropButtons.forEach( dropButton => dropButton.classList.remove("currencies-active") );
+        dropLists.forEach( dropList => dropList.classList.remove("active") );
+        document.removeEventListener("click", checkDropdown);
+
+        if(needToOpen){
+            let dropMenu = event.target.closest(".dropdown-menu");
+            dropMenu.querySelector(".dropdown-hidden").classList.add("active");
             dropButton.classList.add("currencies-active");
-            dropList.classList.add("active");
             document.addEventListener("click", checkDropdown);
         }
         event.stopPropagation();
@@ -110,15 +116,18 @@ window.addEventListener('DOMContentLoaded', () => {
         checkDropdown(event); 
     }
 
-    if( dropButton ){
-        dropButton.addEventListener("click", toggleDropdown, false);
-        linksToVk.forEach( link =>{
-            link.addEventListener("click", function(e){
-                let adId = [ e.target.dataset.id, 0 ];
-                getPhone( adId, "link" );
-            }, false);
-        });
+    if( dropButtons ){
+        dropButtons.forEach( (dropButton)=>{
+            dropButton.addEventListener("click", toggleDropdown, false);
+        } );
     }
+
+    linksToVk.forEach( link =>{
+        link.addEventListener("click", function(e){
+            let adId = [ e.target.dataset.id, 0 ];
+            getPhone( adId, "link" );
+        }, false);
+    });
 
     const formOpen = document.querySelector("#form-open");
     const formBg = document.querySelector("#form-bg");

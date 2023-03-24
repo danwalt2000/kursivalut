@@ -1,5 +1,5 @@
 <section class="sorting-column sorting-column-collapsed">
-    <div id="open-filters" class="open-filters"><img src="/img/arrow-down-cyan.svg"></div>
+    <div id="open-filters" class="open-filters"><img alt="Открыть фильтры" width="15" height="8" src="/img/arrow-down-cyan.svg"></div>
     <h2 class="sorting-h2">Фильтры</h2>
     <nav class="show-all-row">
         <span class="chip @if( $path['sell_buy'] == 'all' || $path['sell_buy'] == '' ) chip-active @endif"><a href="/{{$query}}">Показать все</a></span>
@@ -33,14 +33,14 @@
             {{-- Выбранную валюту в списке не показываем--}}
         @endforeach
     </nav>
-    <ul class="currencies">
+    <ul class="currencies dropdown-menu">
         <span class="h6">За время</span>
         {{-- Выбранный диапазон отображаем первым --}}
     
-        <li id="selected-currency" class="with-arrow">
+        <li class="with-arrow dropdown-item">
             {{ $date_sort[ $path['hours'] ] }}
         </li>
-        <div id="currencies-hidden" class="currencies-hidden">
+        <div class="currencies-hidden dropdown-hidden">
             @foreach($date_sort as $time => $title)
                 {{-- Выбранный диапазон в списке не показываем --}}
                 @if($time == $path['hours'] )
@@ -56,9 +56,22 @@
         </div>
     </ul>
     
-    <ul class="sort chips">
+    <ul class="sort dropdown-menu">
         <span class="h6">Сортировка</span>
-        <li class="chip with-arrow with-arrow-rarr @if("date_desc" == $path['sort']) chip-active @endif">
+    
+        <li class="with-arrow dropdown-item">
+            <span class="with-arrow-rarr with-arrow-rarr-span @if("date_desc" == $path['sort']) with-arrow-rarr-up @endif">Дата</span>
+        </li>
+        <div class="dropdown-hidden">
+            <li class="dropdown-item with-arrow-rarr @if("date_desc" == $path['sort']) with-arrow-rarr-up @endif"><a 
+                @if("date_desc" == $path['sort'])
+                    href="{{ request()->fullUrlWithQuery(['sort' => 'date', 'order' => 'asc']) }}"
+                @else
+                    href="{{ preg_replace('/\?$/', '', request()->fullUrlWithQuery(['sort' => null, 'order' => null]) ) }}"
+                @endif >Дата</a>
+        </div>
+        {{-- <span class="h6">Сортировка</span> --}}
+        {{-- <li class="chip with-arrow with-arrow-rarr @if("date_desc" == $path['sort']) chip-active @endif">
             <a href="{{ preg_replace('/\?$/', '', request()->fullUrlWithQuery(['sort' => null, 'order' => null]) ) }}" title="Сортировать от нового к старому">
                 Дата
             </a>
@@ -67,7 +80,7 @@
             <a href="{{ request()->fullUrlWithQuery(['sort' => 'date', 'order' => 'asc']) }}" title="Сортировать от старого к новому">
                 Дата
             </a>
-        </li>
+        </li> --}}
         {{-- <li class="chip with-arrow with-arrow-rarr @if("popularity_desc" == $path['sort']) chip-active @endif">
             <a href="{{ request()->fullUrlWithQuery(['sort' => 'popularity', 'order' => 'desc']) }}" title="Сортировать по убыванию популярности">
                 Популярности
