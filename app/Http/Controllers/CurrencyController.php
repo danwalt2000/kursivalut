@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Psr\Http\Message\RequestInterface;
 use Log;
+use Config;
 use App\Http\Controllers\GetAdsController;
 use App\Http\Controllers\ParseAdsController;
 use App\Http\Controllers\ParseUriController;
@@ -35,6 +36,7 @@ class CurrencyController extends Controller
             'ads'             => $this->db_ads,
             'ads_count'       => $this->posts->getPosts("count"),
             'currencies'      => $this->vars->currencies,
+            'locale'          => Config::get('locales.locale'),
             'date_sort'       => $this->vars->date_sort,
             'path'            => $this->path,
             'query'           => $this->query,
