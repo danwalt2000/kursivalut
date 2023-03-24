@@ -72,5 +72,6 @@
     </section>
 </div>
 <button id="form-open" class="form-open">
+    <span class="form-open-span">+</span>
     Подать объявление
 </button>
