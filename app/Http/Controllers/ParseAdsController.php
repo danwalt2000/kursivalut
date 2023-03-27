@@ -31,7 +31,7 @@ class ParseAdsController extends Controller
         
         foreach( $ads as $ad ){
             // если объявление уже есть в базе, пропускаем его
-            $is_id_in_table = $posts->getPostById($ad["id"]); //Ads::where('vk_id', '=', $ad["id"])->count();
+            $is_id_in_table = $posts->getPostById($ad["id"]); 
             if( !empty($is_id_in_table) || empty($ad[$text_key]) ) continue;               
 
             // извлечение номера телефона
@@ -58,6 +58,7 @@ class ParseAdsController extends Controller
             $rate = 0;
             $rate = $this->parseRate( $phones_parsed["text"], $type );
             // $is_text_in_table = $posts->getPostByContent( $table, $ad[$text_key] );
+            // if(!empty($is_text_in_table)) Log::error($ad);
 
             $user_id = $ad['from_id'];
             $owner_id = $ad[$this->api_keys['channel_id_key']];
@@ -113,11 +114,9 @@ class ParseAdsController extends Controller
                 
                 $posts::storePosts( $table, $args );
             } 
-            
-            // PostAdsController::postNewAds( $ad["id"] );
         }
         
-        return $posts::getPosts( $table ); // последние записи в БД
+        return $posts::getPosts(); // последние записи в БД
     }
 
     // извлекаем из объявления курс 

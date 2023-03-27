@@ -125,11 +125,15 @@ class DBController extends Controller
         //     // Log::error($args);
         //     $model::create($args);
         // }
-        DB::table($table)->upsert(
-            $args,
-            ['content'],
+        DB::table($table)->updateOrInsert(
+            [ 'content' => $args['content'] ],
             $args
         );
+        // DB::table($table)->upsert(
+        //     $args,
+        //     ['id'],
+        //     ['vk_id', 'vk_user', 'owner_id', 'date', 'content', 'content_changed', 'phone' ]
+        // );
         // DB::table($table)::where($store["compare"]["key"], '=', $store["compare"]["value"])
         //         ->update($args);
     }

@@ -62,7 +62,7 @@ return [
             'currencies'     => ['dollar', 'euro', 'hrn', 'cashless'],
             'publics'        => [
                 "1304227894" => ["id" => "obmenka_lugansk",       "time" => "everyFiveMinutes", "domain" => "tg"],    // 5
-                "1629996803" => ["id" => "obmen_lugansk_obmen",   "time" => "everyTenMinutes", "domain" => "tg"]     // 10
+                "1629996803" => ["id" => "obmen_lugansk_obmen",   "time" => "everyFiveMinutes", "domain" => "tg"]     // 10
             ]
         ],
         'mariupol'       => [
@@ -73,9 +73,9 @@ return [
             'h1_keyword'     => ' в Мариуполе и ДНР',
             'currencies'     => ['dollar', 'euro', 'hrn', 'cashless'],
             'publics'        => [
-                "obmenvalut_mariupol"    => ["id" => "-212955319",  "time" => "everyThirtyMinutes", "domain" => "vk"],    // 5
+                "obmenvalut_mariupol"    => ["id" => "-212955319",  "time" => "everyFiveMinutes", "domain" => "vk"],    // 30
     
-                "1784051014" => ["id" => "obmenmariupolya",             "time" => "everyThirtyMinutes", "domain" => "tg"]    // 5
+                "1784051014" => ["id" => "obmenmariupolya",             "time" => "everyFiveMinutes", "domain" => "tg"]    // 30
             ]
         ]
     ]
