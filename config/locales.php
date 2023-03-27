@@ -19,19 +19,18 @@ function getHost(){
     }
     return [
         'domain' => $domain,
-        'locale' => $locale
+        'locale' => $locale,
     ];
 }
 
 return [
-    'current_domain' => getHost()['domain'],
-    'current_locale' => getHost()['locale'],
+    'domain' => getHost()['domain'],
+    'table'  => getHost()['locale'],
 
     'locales'        => [
         'donetsk'       => [
             'title'          => 'Донецк',
             'name'           => 'donetsk',
-            'model'          => 'Donetsk',
             'domain'         => 'valuta-dn',
             'h1_keyword'     => ' в Донецке и ДНР',
             'currencies'     => ['dollar', 'euro', 'hrn', 'cashless'],

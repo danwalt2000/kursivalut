@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Log;
+use Config;
 use App\Http\Controllers\DBController;
 use App\Http\Controllers\CurrencyController;
  
@@ -23,7 +24,7 @@ class AjaxController extends Controller
         $search = $request->query('search');
         if( empty($search) ) $search = '';
 
-        $to_view['ads'] = DBController::getPosts("get", $sellbuy, $currency, $search, $offset );
+        $to_view['ads'] = DBController::getPosts( Config::get('locales.table'), "get", $sellbuy, $currency, $search, $offset );
         return view('feed', $to_view);;
     }
 

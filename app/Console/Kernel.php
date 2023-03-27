@@ -7,6 +7,7 @@ use App\Http\Controllers\CurrencyController;
 use App\Http\Controllers\VarsController;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Config;
 
 class Kernel extends ConsoleKernel
 {
@@ -19,20 +20,23 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $vars = new VarsController;
+        $locales = Config::get('locales.locales');
 
-        foreach( $vars->publics as $name => $channel ){
-            $time = $channel["time"];
-
-            // в рабочее время частота запросов к группам указана в переменной $publics
-            $schedule->call( function() use ($channel){
-                (new GetAdsController)->getNewAds( $channel );
-            })->$time()->between('4:30', '15:00'); // по Гринвичу
-
-            // в нерабоче время обращаться к группам раз в полчаса
-            $schedule->call( function() use ($channel){
-                (new GetAdsController)->getNewAds( $channel );
-            })->everyThirtyMinutes()->unlessBetween('4:30', '15:00'); // по Гринвичу
-        }
+        foreach ( $locales as $subdomain => $locale ){
+            foreach( $locale['publics'] as $name => $channel ){
+                $time = $channel["time"];
+    
+                // в рабочее время частота запросов к группам указана в переменной $publics
+                $schedule->call( function() use ($channel, $locale){
+                    (new GetAdsController)->getNewAds( $channel, $locale );
+                })->$time()->between('4:30', '18:00'); // по Гринвичу
+    
+                // в нерабоче время обращаться к группам раз в полчаса
+                $schedule->call( function() use ($channel, $locale){
+                    (new GetAdsController)->getNewAds( $channel, $locale );
+                })->everyThirtyMinutes()->unlessBetween('4:30', '18:00'); // по Гринвичу
+            }
+        } 
     }
 
     /**

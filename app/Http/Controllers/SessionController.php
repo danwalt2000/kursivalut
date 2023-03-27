@@ -8,7 +8,7 @@ use Psr\Http\Message\RequestInterface;
 use Log;
 use App\Http\Controllers\GetAdsController;
 use App\Http\Controllers\DBController;
-use App\Models\Ads;
+use App\Models\{Ads, Donetsk, Lugansk, Mariupol};
  
 class SessionController extends Controller
 {

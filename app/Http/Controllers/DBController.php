@@ -2,18 +2,20 @@
  
 namespace App\Http\Controllers;
 use Log;
+use Config;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\DB;
 use Psr\Http\Message\RequestInterface;
 use App\Http\Controllers\CurrencyController;
-use App\Models\{Ads, Donetsk, Lugansk, Mariupol};
+// use App\Models\{Ads, Donetsk, Lugansk, Mariupol};
  
 class DBController extends Controller
 {
     public static function getPosts( 
-            $get_or_count = "get", 
+            $table = 'ads',
+            $get_or_count = 'get', 
             $sell_buy = '', 
             $currency = '', 
             $search = '', 
@@ -65,18 +67,25 @@ class DBController extends Controller
 
         $cut_by_time = time() - $time_range * 60 * 60;
         
-        return Ads::where("date", ">", $cut_by_time)
-                  ->where('type', 'like', "%" . $query . "%")
-                  ->where('content', 'like', "%" . $search_clean . "%")
-                  ->where('rate', '>=', $rate_limit)
-                  ->orderBy($sort, $asc_desc)
-                  ->skip($skip)
-                  ->take($limit)
-                  ->$get_or_count();
+        return DB::table($table)
+                ->where("date", ">", $cut_by_time)
+                ->where('type', 'like', "%" . $query . "%")
+                ->where('content', 'like', "%" . $search_clean . "%")
+                ->where('rate', '>=', $rate_limit)
+                ->orderBy($sort, $asc_desc)
+                ->skip($skip)
+                ->take($limit)
+                ->$get_or_count();
     }
 
-    public static function getPostById( $id, $get_or_count = "get" ){
-        return Ads::where('vk_id', '=', $id)->take(1)->$get_or_count();
+    // public function getPostByContent( $table, $content ){
+    //     return DB::table($table)->where( 'content', $content )->count();
+    // }
+
+    public static function getPostById( $id ){
+        $table = Config::get('locales.table');
+        return DB::table($table)->where( 'vk_id', $id )->first();
+        // return $model::where('vk_id', '=', $id)->take(1)->$get_or_count();
     }
     
     public static function getPhone( $info ){
@@ -107,14 +116,21 @@ class DBController extends Controller
         return $phones[$info["phoneIndex"]];
     }
 
-    public static function storePosts( $args, $store = ["type" => "create", "compare" => [] ] )
+    public static function storePosts( $table, $args )
     {
-        if( !empty($store["type"]) && $store["type"] == "update" ){
-            Ads::where($store["compare"]["key"], '=', $store["compare"]["value"])
-                ->update($args);
-        } else{
-            // Log::error($args);
-            Ads::create($args);
-        }
+        // if( !empty($store["type"]) && $store["type"] == "update" ){
+        //     DB::table($table)::where($store["compare"]["key"], '=', $store["compare"]["value"])
+        //         ->update($args);
+        // } else{
+        //     // Log::error($args);
+        //     $model::create($args);
+        // }
+        DB::table($table)->upsert(
+            $args,
+            ['content'],
+            $args
+        );
+        // DB::table($table)::where($store["compare"]["key"], '=', $store["compare"]["value"])
+        //         ->update($args);
     }
 }

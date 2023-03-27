@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Log;
 use App\Http\Controllers\CurrencyController;
-use App\Models\Ads;
+// use App\Models\{Ads, Donetsk, Lugansk, Mariupol};
  
 class GetAdsController extends CurrencyController
 {
@@ -13,6 +13,7 @@ class GetAdsController extends CurrencyController
     public $domain;
     public $api_keys;
     public $channel;
+    public $table;
 
     /**
      * Получение новых объявлений
@@ -20,7 +21,7 @@ class GetAdsController extends CurrencyController
      * @param  array $channel - данные о группе, с которой беруться объявления 
      * @return object (ads)
      */
-    public function getNewAds( $channel )
+    public function getNewAds( $channel, $locale )
     {
         $currency = new CurrencyController;
         $posts = new DBController;
@@ -30,6 +31,7 @@ class GetAdsController extends CurrencyController
         $this->channel = $channel; // vk or tg
         $this->domain = $channel['domain']; // vk or tg
         $this->api_keys = $this->vars->api_keys[ $this->domain ];
+        $table = $locale['name'];
         
         $url = $this->getApiLink();
         
@@ -37,7 +39,7 @@ class GetAdsController extends CurrencyController
             $response = Http::get($url);
         } catch(\Exception $exception) {
             Log::error($exception);
-            return $posts::getPosts();
+            return $posts::getPosts( $this->table );
         }
         $json = json_decode($response->getBody(), true);
         
@@ -48,7 +50,7 @@ class GetAdsController extends CurrencyController
         }
         
         $items = $json["response"][ $this->api_keys['items_key'] ];
-        $currency->db_ads = $parser->parseAd( $items, $channel );
+        $currency->db_ads = $parser->parseAd( $items, $channel, $locale );
         
         return $currency->db_ads;
     }
@@ -66,7 +68,7 @@ class GetAdsController extends CurrencyController
         // $count = 1000;
         
         // если таблица пустая, запрашиваем больше записей
-        if( Ads::count() == 0 ) $count = 100; 
+        // if( Ads::count() == 0 ) $count = 100; 
         
         $api = $this->api_keys;
         $url_base = $api['url_key'];

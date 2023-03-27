@@ -12,7 +12,7 @@ use App\Http\Controllers\ParseAdsController;
 use App\Http\Controllers\ParseUriController;
 use App\Http\Controllers\VarsController;
 use App\Http\Controllers\DBController;
-use App\Models\Ads;
+// use App\Models\{Ads, Donetsk, Lugansk, Mariupol};
  
 class CurrencyController extends Controller
 {
@@ -20,6 +20,7 @@ class CurrencyController extends Controller
     public $get_posts;
     public $to_view = [];
     public $posts;
+    public $table;
     public $parsed_url = [];
     public $path = [];
     public $query = '';
@@ -29,14 +30,15 @@ class CurrencyController extends Controller
     {
         $this->posts = new DBController;
         $this->vars = new VarsController;
-        $this->db_ads = $this->posts->getPosts();
+        $this->table = Config::get('locales.table');
+        $this->db_ads = $this->posts->getPosts( $this->table );
         $this->path = ParseUriController::parseUri();
         if( !empty($this->path['query']) ) $this->query = "?" . $this->path['query'];
         $this->to_view = [
             'ads'             => $this->db_ads,
-            'ads_count'       => $this->posts->getPosts("count"),
+            'ads_count'       => $this->posts->getPosts($this->table, "count"),
             'currencies'      => $this->vars->currencies,
-            'locale'          => Config::get('locales.locale'),
+            'locale'          => $this->table,
             'date_sort'       => $this->vars->date_sort,
             'path'            => $this->path,
             'query'           => $this->query,
@@ -65,8 +67,8 @@ class CurrencyController extends Controller
 
     public function show( $sell_buy = "all", $currency = '' )
     {
-        $this->to_view['ads'] = $this->posts->getPosts( "get", $sell_buy, $currency );
-        $this->to_view['ads_count'] = $this->posts->getPosts("count", $sell_buy, $currency);
+        $this->to_view['ads'] = $this->posts->getPosts( $this->table, "get", $sell_buy, $currency );
+        $this->to_view['ads_count'] = $this->posts->getPosts( $this->table, "count", $sell_buy, $currency);
         return view('currency', $this->to_view);
     }
     
@@ -103,12 +105,12 @@ class CurrencyController extends Controller
                 'link'            => '',
                 'type'            => $type
             ];
-            $this->posts->storePosts($args);
+            $this->posts->storePosts( $this->table, $args);
             $this->to_view['submit_msg'] = "Ваше объявление опубликовано!";
             SessionController::updateAllowed();
         }
 
-        $this->to_view["ads"] = DBController::getPosts();;
+        $this->to_view["ads"] = DBController::getPosts($this->table);;
         $this->to_view["is_allowed"] = SessionController::isAllowed();
         $this->to_view["next_submit"] = SessionController::nextSubmit();
         return view('all', $this->to_view);
@@ -119,8 +121,8 @@ class CurrencyController extends Controller
         $search = !empty($_GET["search"]) ? $_GET["search"] : '';
         
         $this->to_view['search'] = $search;
-        $this->to_view['ads'] = $this->posts->getPosts( "get", "all", "", $search );
-        $this->to_view['ads_count'] = $this->posts->getPosts( "count", "all", "", $search );
+        $this->to_view['ads'] = $this->posts->getPosts( $this->table, "get", "all", "", $search );
+        $this->to_view['ads_count'] = $this->posts->getPosts( $this->table, "count", "all", "", $search );
         
         return view('search', $this->to_view);
     }

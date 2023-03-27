@@ -2,10 +2,11 @@
  
 namespace App\Http\Controllers;
 use Log;
-use App\Models\Ads;
+use Config;
 use App\Http\Controllers\DBController;
 use App\Http\Controllers\PostAdsController;
 use App\Http\Controllers\VarsController;
+// use App\Models\{Ads, Donetsk, Lugansk, Mariupol};
 
 class ParseAdsController extends Controller
 {
@@ -17,20 +18,21 @@ class ParseAdsController extends Controller
     /**
      * Распределяет объявления по направлениям и записывает в БД
      */
-    public function parseAd( $json, $channel )
+    public function parseAd( $json, $channel, $locale )
     {
         $posts = new DBController;
         $this->vars = new VarsController;
         $ads = $json;
         $this->channel = $channel;
         $this->domain = $channel['domain'];
+        $table = $locale['name'];
         $this->api_keys = $this->vars->api_keys[ $this->domain ];
         $text_key = $this->api_keys['text_key'];
         
         foreach( $ads as $ad ){
             // если объявление уже есть в базе, пропускаем его
-            $is_id_in_table = $posts->getPostById($ad["id"], "count"); //Ads::where('vk_id', '=', $ad["id"])->count();
-            if( $is_id_in_table > 1 || empty($ad[$text_key]) ) continue;               
+            $is_id_in_table = $posts->getPostById($ad["id"]); //Ads::where('vk_id', '=', $ad["id"])->count();
+            if( !empty($is_id_in_table) || empty($ad[$text_key]) ) continue;               
 
             // извлечение номера телефона
             $phones_parsed = $this::parsePhone( $ad[$text_key], $ad["id"] );
@@ -55,7 +57,7 @@ class ParseAdsController extends Controller
 
             $rate = 0;
             $rate = $this->parseRate( $phones_parsed["text"], $type );
-            $is_text_in_table = Ads::where('content', '=', $ad[$text_key])->count();
+            // $is_text_in_table = $posts->getPostByContent( $table, $ad[$text_key] );
 
             $user_id = $ad['from_id'];
             $owner_id = $ad[$this->api_keys['channel_id_key']];
@@ -73,25 +75,26 @@ class ParseAdsController extends Controller
                 $owner_id = $owner_id['channel_id'];
             }
 
-            if( $is_text_in_table > 0 ){
-                $args = [
-                    'vk_id'           => $ad["id"],
-                    'owner_id'        => $owner_id,
-                    'date'            => $ad["date"],
-                    'content_changed' => $phones_parsed["text"],
-                    'link'            => $link
-                ];
-                $store = [
-                    "type" => "update",
-                    "compare" => [ 
-                        "key"   => 'content', 
-                        "value" => $ad[$text_key]
-                    ]
-                ];
+            // if( $is_text_in_table > 0 ){
+            //     $args = [
+            //         'vk_id'           => $ad["id"],
+            //         'owner_id'        => $owner_id,
+            //         'date'            => $ad["date"],
+            //         'content_changed' => $phones_parsed["text"],
+            //         'link'            => $link
+            //     ];
+            //     $store = [
+            //         "type" => "update",
+            //         "compare" => [ 
+            //             "key"   => 'content', 
+            //             "value" => $ad[$text_key]
+            //         ]
+            //     ];
                 
-                $posts::storePosts( $args, $store );
+            //     $posts::storePosts( $locale['table'], $args, $store );
 
-            } elseif( $ad["from_id"] != $owner_id && !empty($ad[$text_key])){
+            // } elseif
+            if( $ad["from_id"] != $owner_id && !empty($ad[$text_key])){
                 $args = [
                     'vk_id'           => $ad["id"],
                     'vk_user'         => $user_id,
@@ -108,12 +111,13 @@ class ParseAdsController extends Controller
                     'type'            => $type
                 ];
                 
-                $posts::storePosts( $args );
+                $posts::storePosts( $table, $args );
             } 
+            
             // PostAdsController::postNewAds( $ad["id"] );
         }
         
-        return $posts::getPosts(); // последние записи в БД
+        return $posts::getPosts( $table ); // последние записи в БД
     }
 
     // извлекаем из объявления курс 
@@ -137,7 +141,7 @@ class ParseAdsController extends Controller
                 $rate_string = str_replace(",", ".", $match[0][0]); // заменяем запятую на точку
                 $rate = floatval($rate_string);
 
-                if($currency == "cashless"){ 
+                if( $currency == "cashless" ){ 
                     $last_char = substr($matches[0][0], -1); // по безналу руб. - база 100
                     if($last_char == 1){
                         $rate = 100;                     // 100 = 1 к 1

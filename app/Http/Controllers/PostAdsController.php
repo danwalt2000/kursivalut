@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Log;
 use App\Http\Controllers\CurrencyController;
-use App\Models\Ads;
+use App\Models\{Ads, Donetsk, Lugansk, Mariupol};
  
 class PostAdsController extends CurrencyController
 {
