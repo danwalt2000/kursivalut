@@ -4,19 +4,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Log;
-use App\Http\Controllers\CurrencyController;
+use Config;
  
 class ParseUriController extends Controller
 {
     public static function getH1(){
         $path = ParseUriController::parseUri();
-        // с падежами
-        $currencies_loc = [
-            "dollar" => "доллара",
-            "euro" => "евро",
-            "hrn" => "гривны (Ощад, Приват, Моно)",
-            "cashless" => "безнала руб. (Сбер, Тиньков)"
-         ];
+        $host = SessionController::getHost();
+        $locale = Config::get('locales.' . $host['table']);
+        
         $result = "";
         if( $path['sell_buy'] == 'sell'){
             $result .= "Продажа ";
@@ -25,7 +21,7 @@ class ParseUriController extends Controller
         } else{
             $result .= "Обмен ";
         }
-        foreach($currencies_loc as $name => $title){
+        foreach(Config::get('common.currencies_loc') as $name => $title){
             if($path["currency"] == ''){
                 $result .= "валюты";
                 break;
@@ -34,7 +30,7 @@ class ParseUriController extends Controller
                 $result .= $title;
             }
         }
-        return $result . " в Донецке";
+        return $result . $locale['h1_keyword'];
     }
 
     public static function parseUri(){

@@ -6,8 +6,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Psr\Http\Message\RequestInterface;
 use Log;
-use App\Http\Controllers\GetAdsController;
-use App\Http\Controllers\DBController;
  
 class SessionController extends Controller
 {
@@ -30,8 +28,8 @@ class SessionController extends Controller
     }
 
     public static function getHost(){
-        $current_domain = 'valuta-dn.loc';
-        $current_full_host = 'valuta-dn.loc';
+        $current_domain = 'valuta-dn';
+        $current_full_host = 'valuta-dn';
         
         if( !empty( $_SERVER['SERVER_NAME'] ) ){
             $current_domain = $_SERVER['SERVER_NAME']; 

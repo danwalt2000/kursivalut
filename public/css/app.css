@@ -271,6 +271,7 @@ a:hover{
     justify-content: space-between;
     padding-bottom: 15px;
     margin-bottom: 10px;
+    gap: 10px;
     border-bottom: solid rgb(167 167 167 / 30%) 1px;
 }
 .three-dots{
@@ -292,7 +293,6 @@ a:hover{
 }
 .info-more{
     position: relative;
-    padding: 0 15px;
     display: flex;
     align-items: center;
 }
@@ -575,6 +575,7 @@ nav ul{
 }
 .with-arrow-rarr-span::after,
 .with-arrow-rarr a::after,
+.go_to_vk::after,
 .back-home::before{
     content: "";
     display: block;
@@ -590,6 +591,16 @@ nav ul{
 }
 .back-home::before{
     transform: unset;
+}
+.go_to_vk{
+    display: flex;
+    gap: 2px;
+    align-items: center;
+    font: var(--para-small-font);
+}
+.go_to_vk::after{
+    transform: rotate(180deg);
+    background-position: top;
 }
 .with-arrow-rarr-up a::after{
     transform: rotate(90deg);

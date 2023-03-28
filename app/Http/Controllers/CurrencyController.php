@@ -10,7 +10,6 @@ use Config;
 use App\Http\Controllers\GetAdsController;
 use App\Http\Controllers\ParseAdsController;
 use App\Http\Controllers\ParseUriController;
-use App\Http\Controllers\VarsController;
 use App\Http\Controllers\DBController;
  
 class CurrencyController extends Controller
@@ -20,29 +19,35 @@ class CurrencyController extends Controller
     public $to_view = [];
     public $posts;
     public $host;
+    public $locale;
+    public $currencies = [];
     public $domain;
     public $table;
     public $parsed_url = [];
     public $path = [];
     public $query = '';
-    public $vars;
 
     public function __construct()
     {
         $this->posts = new DBController;
-        $this->vars = new VarsController;
         $this->host = SessionController::getHost();
         $this->domain = $this->host['domain'];
         $this->table = $this->host['table'];
+
+        // в разных локалях разные наборы валют
+        $this->locale = Config::get('locales.' . $this->host['table']);
+        foreach( $this->locale['currencies'] as $currency ){
+            $this->currencies[$currency] = Config::get('common.currencies')[$currency];
+        }
         $this->db_ads = $this->posts->getPosts( $this->table );
         $this->path = ParseUriController::parseUri();
         if( !empty($this->path['query']) ) $this->query = "?" . $this->path['query'];
         $this->to_view = [
             'ads'             => $this->db_ads,
             'ads_count'       => $this->posts->getPosts($this->table, "count"),
-            'currencies'      => $this->vars->currencies,
-            'locale'          => $this->table,
-            'date_sort'       => $this->vars->date_sort,
+            'currencies'      => $this->currencies,
+            'table'           => $this->table,
+            'date_sort'       => Config::get('common.date_sort'),
             'path'            => $this->path,
             'query'           => $this->query,
             'hash'            => $this->getCurrentGitCommit(),
@@ -87,7 +92,7 @@ class CurrencyController extends Controller
                 'textarea'  => 'required|max:400',
             ]);
 
-            $currency = array_search($validated["currency"], $this->vars->currencies);
+            $currency = array_search($validated["currency"], Config::get('common.currencies'));
             $type = $validated["sellbuy"] . "_" . $currency;
             
             $id = time();

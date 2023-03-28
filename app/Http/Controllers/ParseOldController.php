@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 use App\Models\Ads;
 use App\Http\Controllers\DBController;
 use App\Http\Controllers\PostAdsController;
-use App\Http\Controllers\VarsController;
 
 class ParseOldController extends Controller
 {
@@ -12,7 +11,6 @@ class ParseOldController extends Controller
     public static function parseOldAd( $ad ){
         $parser = (new self);
         $posts = new DBController;
-        $vars = new VarsController;
         $phones_parsed = $parser->parsePhone( $ad["content"], $ad["vk_id"] );
             
         // распределение по направлениям купли/продажи и валюты

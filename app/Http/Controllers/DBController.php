@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\DB;
 use Psr\Http\Message\RequestInterface;
-use App\Http\Controllers\CurrencyController;
  
 class DBController extends Controller
 {

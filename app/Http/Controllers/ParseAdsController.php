@@ -4,13 +4,9 @@ namespace App\Http\Controllers;
 use Log;
 use Config;
 use App\Http\Controllers\DBController;
-use App\Http\Controllers\PostAdsController;
-use App\Http\Controllers\VarsController;
-// use App\Models\{Ads, Donetsk, Lugansk, Mariupol};
 
 class ParseAdsController extends Controller
 {
-    public $vars;
     public $channel;
     public $domain;
     public $api_keys;
@@ -21,15 +17,15 @@ class ParseAdsController extends Controller
     public function parseAd( $json, $channel, $locale )
     {
         $posts = new DBController;
-        $this->vars = new VarsController;
         $ads = $json;
         $this->channel = $channel;
         $this->domain = $channel['domain'];
-        $table = $locale['name'];
-        $this->api_keys = $this->vars->api_keys[ $this->domain ];
+        
+        $this->api_keys = Config::get('common.api_keys')[ $this->domain ];
         $text_key = $this->api_keys['text_key'];
         
         foreach( $ads as $ad ){
+            $table = $locale['name'];
             // если объявление уже есть в базе, пропускаем его
             $is_id_in_table = $posts->getPostById($ad["id"]); 
             if( !empty($is_id_in_table) || empty($ad[$text_key]) ) continue;               
@@ -39,7 +35,7 @@ class ParseAdsController extends Controller
             
             // распределение по направлениям купли/продажи и валюты
             $type = '';
-            foreach( $this->vars->course_patterns as $key => $pattern ){
+            foreach( Config::get('common.course_patterns') as $key => $pattern ){
                 $test_matches = preg_match($pattern, $phones_parsed["text"], $match);
                 if( !empty($test_matches) ){
                     if( empty($type) ){
@@ -51,15 +47,18 @@ class ParseAdsController extends Controller
             }
             // объявления, у которых не получилось определить направление, 
             // считаются малоценными и в БД не записываются
-            if( !$type ) continue; 
+            // if( !$type ) continue; 
+            $rate = 0;
+            if( !$type ){
+                $table = 'ads';
+            } else{
+                $rate = $this->parseRate( $phones_parsed["text"], $type );
+            }
  
             $link = $this->createAdLink( $ad );
 
-            $rate = 0;
-            $rate = $this->parseRate( $phones_parsed["text"], $type );
-            // $is_text_in_table = $posts->getPostByContent( $table, $ad[$text_key] );
-            // if(!empty($is_text_in_table)) Log::error($ad);
 
+            if( empty($ad['from_id']) ) continue; 
             $user_id = $ad['from_id'];
             $owner_id = $ad[ $this->api_keys['channel_id_key'] ];
             if( 'tg' == $this->domain ){ 
@@ -90,12 +89,15 @@ class ParseAdsController extends Controller
                     'link'            => $link,
                     'type'            => $type
                 ];
-                
+                // добавляем отсеянные объявления в общую таблицу для анализа
+                // в таблицу записываем также локаль, в которой объявление было размещено
+                if( 'ads' == $table ) $args = array_merge($args, ['locale' => $locale['name']]);
+
                 $posts::storePosts( $table, $args );
             } 
         }
         
-        return $posts::getPosts( $table ); // последние записи в БД
+        return $posts::getPosts(); // последние записи в БД
     }
 
     // извлекаем из объявления курс 
@@ -109,13 +111,13 @@ class ParseAdsController extends Controller
             $currency = $currency[1];         // например, из sell_hrn - hrn  
 
             // проверяем, есть ли в строке маска курса
-            preg_match_all( $this->vars->rate_patterns[$currency], $text, $matches );
+            preg_match_all( Config::get('common.rate_patterns')[$currency], $text, $matches );
 
             if( isset($matches[0][0]) ){ // если есть
                 
                 // очищаем курс от лишних символов, 
                 // например, из строки "о 72.2 М" извлекаем "72.2"
-                preg_match_all( $this->vars->rate_digit_pattern, $matches[0][0], $match );
+                preg_match_all( Config::get('common.rate_digit_pattern'), $matches[0][0], $match );
                 $rate_string = str_replace(",", ".", $match[0][0]); // заменяем запятую на точку
                 $rate = floatval($rate_string);
 

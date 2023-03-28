@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Log;
+use Config;
 use App\Http\Controllers\CurrencyController;
  
 class GetAdsController extends CurrencyController
 {
-    public $vars;
     public $domain;
     public $api_keys;
     public $channel;
@@ -25,11 +25,10 @@ class GetAdsController extends CurrencyController
         $currency = new CurrencyController;
         $posts = new DBController;
         $parser = new ParseAdsController;
-        $this->vars = new VarsController;
 
-        $this->channel = $channel; // vk or tg
+        $this->channel = $channel;          // vk or tg
         $this->domain = $channel['domain']; // vk or tg
-        $this->api_keys = $this->vars->api_keys[ $this->domain ];
+        $this->api_keys = Config::get('common.api_keys')[ $this->domain ];
         $table = $locale['name'];
         
         $url = $this->getApiLink();

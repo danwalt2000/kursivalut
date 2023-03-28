@@ -3,8 +3,6 @@
 namespace App\Console;
 
 use App\Http\Controllers\GetAdsController;
-use App\Http\Controllers\CurrencyController;
-use App\Http\Controllers\VarsController;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use Config;
@@ -19,10 +17,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $vars = new VarsController;
-        $locales = Config::get('locales.locales');
 
-        foreach ( $locales as $subdomain => $locale ){
+        foreach ( Config::get('locales') as $subdomain => $locale ){
             foreach( $locale['publics'] as $name => $channel ){
                 $time = $channel["time"];
     
