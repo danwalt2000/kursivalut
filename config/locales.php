@@ -3,29 +3,9 @@
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Http\Request;
 
-function getHost(){
-    $current_domain = 'valuta-dn.loc';
-    $current_full_host = 'valuta-dn.loc';
-    
-    if( !empty( $_SERVER['SERVER_NAME'] ) ){
-        $current_domain = $_SERVER['SERVER_NAME']; 
-        $current_full_host = $_SERVER['HTTP_HOST'];
-    }
-    
-    $domain = str_contains($current_domain, "valuta-dn") ? 'valuta-dn' : 'kursivalut';
-    $locale = $domain == 'valuta-dn' ? 'donetsk' : 'moscow';
-    if( $current_domain != $current_full_host){
-        $locale = explode('.', $current_full_host)[0];
-    }
-    return [
-        'domain' => $domain,
-        'locale' => $locale,
-    ];
-}
-
 return [
-    'domain' => getHost()['domain'],
-    'table'  => getHost()['locale'],
+    // 'domain' => getHost()['domain'],
+    // 'table'  => getHost()['locale'],
 
     'locales'        => [
         'donetsk'       => [
@@ -61,8 +41,8 @@ return [
             'h1_keyword'     => ' в Луганске и ЛНР',
             'currencies'     => ['dollar', 'euro', 'hrn', 'cashless'],
             'publics'        => [
-                "1304227894" => ["id" => "obmenka_lugansk",       "time" => "everyFiveMinutes", "domain" => "tg"],    // 5
-                "1629996803" => ["id" => "obmen_lugansk_obmen",   "time" => "everyFiveMinutes", "domain" => "tg"]     // 10
+                "1304227894" => ["id" => "obmenka_lugansk",       "time" => "everyTenMinutes", "domain" => "tg"],    // 5
+                "1629996803" => ["id" => "obmen_lugansk_obmen",   "time" => "everyTenMinutes", "domain" => "tg"]     // 10
             ]
         ],
         'mariupol'       => [
@@ -73,9 +53,10 @@ return [
             'h1_keyword'     => ' в Мариуполе и ДНР',
             'currencies'     => ['dollar', 'euro', 'hrn', 'cashless'],
             'publics'        => [
-                "obmenvalut_mariupol"    => ["id" => "-212955319",  "time" => "everyFiveMinutes", "domain" => "vk"],    // 30
+                "obmenvalut_mariupol"    => ["id" => "-212955319",  "time" => "everyThirtyMinutes", "domain" => "vk"],    // 30
     
-                "1784051014" => ["id" => "obmenmariupolya",             "time" => "everyFiveMinutes", "domain" => "tg"]    // 30
+                "1650543563" => ["id" => "obmenmrpl",             "time" => "everyTenMinutes", "domain" => "tg"],    // 10
+                "1784051014" => ["id" => "obmenmariupolya",       "time" => "everyThirtyMinutes", "domain" => "tg"],    // 30
             ]
         ]
     ]

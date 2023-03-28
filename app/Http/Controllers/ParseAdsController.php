@@ -61,40 +61,19 @@ class ParseAdsController extends Controller
             // if(!empty($is_text_in_table)) Log::error($ad);
 
             $user_id = $ad['from_id'];
-            $owner_id = $ad[$this->api_keys['channel_id_key']];
+            $owner_id = $ad[ $this->api_keys['channel_id_key'] ];
             if( 'tg' == $this->domain ){ 
                 // бывает, что объявления публикуют каналы
-                if(!empty($user_id['user_id'])){
+                if( !empty($user_id['user_id']) ){
                     $user_id = $user_id['user_id'];
-                } elseif(!empty($user_id['channel_id'])){
+                } elseif( !empty($user_id['channel_id']) ){
                     $user_id = $user_id['channel_id']; 
                 } else{
-                    Log::error("No user_id and channel_id");
-                    Log::error($ad);
                     continue;
                 }
                 $owner_id = $owner_id['channel_id'];
             }
 
-            // if( $is_text_in_table > 0 ){
-            //     $args = [
-            //         'vk_id'           => $ad["id"],
-            //         'owner_id'        => $owner_id,
-            //         'date'            => $ad["date"],
-            //         'content_changed' => $phones_parsed["text"],
-            //         'link'            => $link
-            //     ];
-            //     $store = [
-            //         "type" => "update",
-            //         "compare" => [ 
-            //             "key"   => 'content', 
-            //             "value" => $ad[$text_key]
-            //         ]
-            //     ];
-                
-            //     $posts::storePosts( $locale['table'], $args, $store );
-
-            // } elseif
             if( $ad["from_id"] != $owner_id && !empty($ad[$text_key])){
                 $args = [
                     'vk_id'           => $ad["id"],
@@ -116,7 +95,7 @@ class ParseAdsController extends Controller
             } 
         }
         
-        return $posts::getPosts(); // последние записи в БД
+        return $posts::getPosts( $table ); // последние записи в БД
     }
 
     // извлекаем из объявления курс 

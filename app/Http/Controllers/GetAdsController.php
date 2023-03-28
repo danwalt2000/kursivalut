@@ -5,7 +5,6 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Log;
 use App\Http\Controllers\CurrencyController;
-// use App\Models\{Ads, Donetsk, Lugansk, Mariupol};
  
 class GetAdsController extends CurrencyController
 {
@@ -66,9 +65,6 @@ class GetAdsController extends CurrencyController
         $count = 10;
         // $count = 100;
         // $count = 1000;
-        
-        // если таблица пустая, запрашиваем больше записей
-        // if( Ads::count() == 0 ) $count = 100; 
         
         $api = $this->api_keys;
         $url_base = $api['url_key'];

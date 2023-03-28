@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\DB;
 use Psr\Http\Message\RequestInterface;
 use App\Http\Controllers\CurrencyController;
-// use App\Models\{Ads, Donetsk, Lugansk, Mariupol};
  
 class DBController extends Controller
 {
@@ -83,33 +82,14 @@ class DBController extends Controller
     // }
 
     public static function getPostById( $id ){
-        $table = Config::get('locales.table');
+        $table = SessionController::getHost()["table"];
         return DB::table($table)->where( 'vk_id', $id )->first();
         // return $model::where('vk_id', '=', $id)->take(1)->$get_or_count();
     }
     
     public static function getPhone( $info ){
-        $ad = (new self)->getPostById($info["postId"]); // Ads::where('vk_id', $info["postId"])->take(1)->get();
-        if( !count($ad) ){
-            return;
-        }
-        $ad = $ad[0]; 
-
-        // добавляем +1 к показам телефона или открытию ссылки
-        $phone_or_link = "phone_showed";
-        if( $info["phoneOrLink"] == "link" ){
-            $phone_or_link = "link_followed";
-        }
-        $actual_value = $ad->{$phone_or_link};
-        if( empty($actual_value) ) $actual_value = 0; 
-
-        // добавляем +1 к популярности при каждом просмотре номера 
-        $popularity = $ad->popularity; 
-        if( empty($popularity) ) $popularity = 0; 
-        $ad->update([
-            'popularity'     => $popularity + 1,
-            $phone_or_link   => $actual_value + 1
-        ]); 
+        $ad = (new self)->getPostById( $info["postId"] ); // Ads::where('vk_id', $info["postId"])->take(1)->get();
+        if( empty($ad) ) return; 
 
         // если телефонов несколько, отдаем по индексу
         $phones = explode(",", $ad->phone);
@@ -118,23 +98,6 @@ class DBController extends Controller
 
     public static function storePosts( $table, $args )
     {
-        // if( !empty($store["type"]) && $store["type"] == "update" ){
-        //     DB::table($table)::where($store["compare"]["key"], '=', $store["compare"]["value"])
-        //         ->update($args);
-        // } else{
-        //     // Log::error($args);
-        //     $model::create($args);
-        // }
-        DB::table($table)->updateOrInsert(
-            [ 'content' => $args['content'] ],
-            $args
-        );
-        // DB::table($table)->upsert(
-        //     $args,
-        //     ['id'],
-        //     ['vk_id', 'vk_user', 'owner_id', 'date', 'content', 'content_changed', 'phone' ]
-        // );
-        // DB::table($table)::where($store["compare"]["key"], '=', $store["compare"]["value"])
-        //         ->update($args);
+        DB::table($table)->updateOrInsert( [ 'content' => $args['content'] ], $args );
     }
 }

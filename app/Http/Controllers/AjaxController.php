@@ -11,6 +11,7 @@ class AjaxController extends Controller
 {
     public function ajax(Request $request){
         $to_view = (new CurrencyController)->to_view;
+        $table = SessionController::getHost()["table"];
 
         $sellbuy = $request->query('sellbuy');
         if( empty($sellbuy) ) $sellbuy = '';
@@ -24,7 +25,7 @@ class AjaxController extends Controller
         $search = $request->query('search');
         if( empty($search) ) $search = '';
 
-        $to_view['ads'] = DBController::getPosts( Config::get('locales.table'), "get", $sellbuy, $currency, $search, $offset );
+        $to_view['ads'] = DBController::getPosts( $table, "get", $sellbuy, $currency, $search, $offset );
         return view('feed', $to_view);;
     }
 

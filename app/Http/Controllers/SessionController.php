@@ -8,7 +8,6 @@ use Psr\Http\Message\RequestInterface;
 use Log;
 use App\Http\Controllers\GetAdsController;
 use App\Http\Controllers\DBController;
-use App\Models\{Ads, Donetsk, Lugansk, Mariupol};
  
 class SessionController extends Controller
 {
@@ -28,5 +27,23 @@ class SessionController extends Controller
      public static function nextSubmit(){
         $time_to_next_submit = session()->get('last_submit') + 10 * 60 - time() ;
         return date('i мин. s сек.', $time_to_next_submit);
+    }
+
+    public static function getHost(){
+        $current_domain = 'valuta-dn.loc';
+        $current_full_host = 'valuta-dn.loc';
+        
+        if( !empty( $_SERVER['SERVER_NAME'] ) ){
+            $current_domain = $_SERVER['SERVER_NAME']; 
+            $current_full_host = $_SERVER['HTTP_HOST'];
+        }
+        
+        $domain = str_contains($current_domain, "valuta-dn") ? 'valuta-dn' : 'kursivalut';
+        $table = $domain == 'valuta-dn' ? 'donetsk' : 'moscow';
+        if( $current_domain != $current_full_host){
+            $table = explode('.', $current_full_host)[0];
+        }
+        
+        return [ 'domain' => $domain, 'table' => $table ];
     }
 }

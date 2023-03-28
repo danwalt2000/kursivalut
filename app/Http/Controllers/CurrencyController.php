@@ -12,7 +12,6 @@ use App\Http\Controllers\ParseAdsController;
 use App\Http\Controllers\ParseUriController;
 use App\Http\Controllers\VarsController;
 use App\Http\Controllers\DBController;
-// use App\Models\{Ads, Donetsk, Lugansk, Mariupol};
  
 class CurrencyController extends Controller
 {
@@ -20,6 +19,8 @@ class CurrencyController extends Controller
     public $get_posts;
     public $to_view = [];
     public $posts;
+    public $host;
+    public $domain;
     public $table;
     public $parsed_url = [];
     public $path = [];
@@ -30,7 +31,9 @@ class CurrencyController extends Controller
     {
         $this->posts = new DBController;
         $this->vars = new VarsController;
-        $this->table = Config::get('locales.table');
+        $this->host = SessionController::getHost();
+        $this->domain = $this->host['domain'];
+        $this->table = $this->host['table'];
         $this->db_ads = $this->posts->getPosts( $this->table );
         $this->path = ParseUriController::parseUri();
         if( !empty($this->path['query']) ) $this->query = "?" . $this->path['query'];
