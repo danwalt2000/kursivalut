@@ -36,8 +36,13 @@ return [
         'h1_keyword'     => ' в Луганске и ЛНР',
         'currencies'     => ['dollar', 'euro', 'hrn', 'cashless'],
         'publics'        => [
-            "1304227894" => ["id" => "obmenka_lugansk",       "time" => "everyTenMinutes", "domain" => "tg"],    // 5
-            "1629996803" => ["id" => "obmen_lugansk_obmen",   "time" => "everyTenMinutes", "domain" => "tg"]     // 10
+            "1304227894" => ["id" => "obmenka_lugansk",       "time" => "everyTenMinutes", "domain" => "tg"],     // 10
+            "1510326304" => ["id" => "obmennik_lnr",       "time" => "everyTenMinutes", "domain" => "tg"],        // 10
+            "1776390569" => ["id" => "obmenLPRobnal",       "time" => "everyTenMinutes", "domain" => "tg"],       // 10
+            "1780966414" => ["id" => "obmenka_val",       "time" => "everyTenMinutes", "domain" => "tg"],         // 10
+            "1629996803" => ["id" => "obmen_lugansk_obmen",   "time" => "everyFifteenMinutes", "domain" => "tg"], // 15
+            "1789001285" => ["id" => "valuta_lugansk",   "time" => "everyFifteenMinutes", "domain" => "tg"],      // 15
+            "1643215722" => ["id" => "obmenka_dnr_lnr",   "time" => "everyFifteenMinutes", "domain" => "tg"]      // 15
         ]
     ],
     'mariupol'       => [
@@ -60,9 +65,9 @@ return [
         'h1_keyword'     => ' в Мелитополе и Запорожской области',
         'currencies'     => ['dollar', 'euro', 'hrn'],
         'publics'        => [
-            "1699506983" => ["id" => "mlt_obnal",             "time" => "everyFiveMinutes", "domain" => "tg"],    // 5
-            "1600113833" => ["id" => "obnal_mlt_ua",          "time" => "everyTenMinutes", "domain" => "tg"],    // 10
-            "1809540638" => ["id" => "obmengenichesk",        "time" => "everyFifteenMinutes", "domain" => "tg"],    // 10
+            "1699506983" => ["id" => "mlt_obnal",             "time" => "everyFiveMinutes", "domain" => "tg"],     // 5
+            "1600113833" => ["id" => "obnal_mlt_ua",          "time" => "everyTenMinutes", "domain" => "tg"],      // 10
+            "1809540638" => ["id" => "obmengenichesk",        "time" => "everyFifteenMinutes", "domain" => "tg"],  // 15
         ]
     ],
     'berdyansk'       => [
@@ -72,8 +77,8 @@ return [
         'h1_keyword'     => ' в Бердянске и Запорожской области',
         'currencies'     => ['dollar', 'euro', 'hrn'],
         'publics'        => [
-            "1751133458" => ["id" => "valutaBrd",          "time" => "everyFiveMinutes", "domain" => "tg"],    // 5
-            "1579972943" => ["id" => "obmen_berdyansk",    "time" => "everyTenMinutes", "domain" => "tg"],     // 10
+            "1751133458" => ["id" => "valutaBrd",          "time" => "everyFiveMinutes", "domain" => "tg"],       // 5
+            "1579972943" => ["id" => "obmen_berdyansk",    "time" => "everyTenMinutes", "domain" => "tg"],        // 10
         ]
     ],
 ];
