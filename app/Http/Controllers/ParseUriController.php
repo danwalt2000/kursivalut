@@ -45,7 +45,7 @@ class ParseUriController extends Controller
 
         if( !empty($url[1]) ){
             $query = $url[1];
-            $hours_pattern = "/(?<=(date\=))(5||24||168)/";
+            $hours_pattern = "/(?<=(date\=))(5|24|168)/";
             $sort_type_pattern = "/((?<=(sort\=))[\w+.]+)/";
             $order_pattern = "/((?<=(order\=))[\w+.]+)/";
             $rate_pattern = "/((?<=(rate\=))[\w+.]+)/";

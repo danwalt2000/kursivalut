@@ -60,7 +60,7 @@
         <span class="h6">Сортировка</span>
     
         <li class="with-arrow dropdown-item">
-            <span class="with-arrow-rarr with-arrow-rarr-span @if("date_desc" == $path['sort']) with-arrow-rarr-up @endif">Дата</span>
+            <span class="with-arrow-rarr with-arrow-rarr-span @if("date_asc" == $path['sort']) with-arrow-rarr-up @endif">Дата</span>
         </li>
         <div class="dropdown-hidden">
             <li class="dropdown-item with-arrow-rarr @if("date_desc" == $path['sort']) with-arrow-rarr-up @endif"><a 

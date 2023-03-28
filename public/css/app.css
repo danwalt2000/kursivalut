@@ -602,6 +602,7 @@ nav ul{
     transform: rotate(180deg);
     background-position: top;
 }
+span.with-arrow-rarr-up::after,
 .with-arrow-rarr-up a::after{
     transform: rotate(90deg);
 }
