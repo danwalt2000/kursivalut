@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Facade;
 use Illuminate\Http\Request;
 
 return [
-    'api_keys'        => [
+    'api_keys'       => [
         'vk' => [
             'url_key'        => 'https://api.vk.com/method/wall.get?v=5.81&access_token=',
             'items_key'      => 'items',
