@@ -24,7 +24,7 @@
             <a href="/ads/buy/{{ $path['currency'] }}{{$query}}">Покупка</a>
         </li>
     </nav>
-    <div class="currency-title">Валюта</div>
+    @if(count($currencies) > 3)<div class="currency-title">Валюта</div>@endif
     <nav class="nav-wrapper nav-currencies">
         @foreach($currencies as $name => $title)
             <li class="chip @if($path["currency"] != '' && $currencies[$path["currency"]] == $title)chip-active @endif">
