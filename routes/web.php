@@ -33,3 +33,5 @@ Route::post('/ajax', [AjaxController::class, 'ajaxPost']);
 
 Route::get('/{landing}', [CurrencyController::class, 'landing'])
      ->where(['landing' => 'legal']);
+
+Route::get("sitemap.xml" , [CurrencyController::class, 'sitemap']);

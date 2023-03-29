@@ -17,8 +17,8 @@
         <meta name="csrf-token" content="{{ csrf_token() }}" />
 
         <link href="/css/app.css?v=@isset($hash){{$hash}}@endisset" rel="stylesheet">
-        <link rel="icon" type="image/x-icon" alt="icon" href="/img/valuta.ico">
-        <link rel="apple-touch-icon" href="/img/pig.svg"/>
+        <link rel="icon" type="image/x-icon" alt="icon" href="/img/favicon.svg">
+        <link rel="apple-touch-icon" href="/img/favicon.svg"/>
 
         {{-- На страницах фильтрации по дате дублируется контент, поэтому нужен canonical --}}
         @if( Request::get('date') )

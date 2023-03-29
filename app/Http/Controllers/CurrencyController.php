@@ -141,6 +141,10 @@ class CurrencyController extends Controller
         $path = explode( "?", \Request::getRequestUri() )[0];
         return view($path, $this->to_view);
     }
+    public function sitemap()
+    {
+        return \Illuminate\Support\Facades\Redirect::to('/sitemaps/sitemap-' . $this->table . '.xml');
+    }
 
     public function index()
     {
