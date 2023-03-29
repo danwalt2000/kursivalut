@@ -14,6 +14,7 @@
     --h3-font: 400 18px/140% "Open Sans", sans-serif;
     --h4-font: 400 16px/140% "Open Sans", sans-serif;
     --para-medium-font: 400 15px/140% "Open Sans", sans-serif;
+    --span-font: 400 13px/140% "Open Sans", sans-serif;
     --para-small-font: 400 12px/140% "Open Sans", sans-serif;
 
 }
@@ -119,11 +120,14 @@ a:hover{
 }
 .search-input{
     min-width: 180px;
-    padding: 11px 40px 10px 10px;
+    padding: 9px 40px 9px 10px;
     border: none;
     border: 1px solid var(--para-color);
     box-sizing: border-box;
     border-radius: 4px;
+}
+.search-input::placeholder{
+    font: var(--span-font);
 }
 .form-wrapper input:focus-visible,
 .form-ad-row textarea:focus-visible,
@@ -223,7 +227,7 @@ a:hover{
     background-color: var(--active-bg-color);
     border: 1px solid var(--link-color);
     color: var(--link-color);
-    font: var(--para-medium-font);
+    font: var(--span-font);
     border-radius: 4px;
     bottom: 0;
     left: 0;
@@ -1018,10 +1022,19 @@ span.with-arrow-rarr-up::after,
     .sorting-column h2{
         font: var(--h4-font)
     }
+    .time-published{
+        font: var(--para-small-font);
+    }
 }
 @media (max-width: 450px){
     .nav-wrapper{
         grid-template-columns: repeat(3, max-content);
+    }
+    .hidden_on_mobile{
+        display: none;
+    }
+    .go_to_vk{
+        text-transform: capitalize;
     }
 }
 @media (max-height: 600px){

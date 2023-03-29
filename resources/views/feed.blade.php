@@ -4,8 +4,8 @@
             <div class="info">
                 <img width="50px" height="50px" src="/img/groups/{!! str_replace('-', '', $ad->owner_id) !!}.webp" title="Группа" alt="Группа">
                 <div class="time-info">
-                    <p class="time-published">Опубликовано в</p>
-                    <p class="time">{{ gmdate("H:i", ($ad->date + 3 * 60 * 60)) }}
+                    <p class="time-published">Опубликовано</p>
+                    <p class="time">в&nbsp;{{ gmdate("H:i", ($ad->date + 3 * 60 * 60)) }}
                     @if( $ad->date > strtotime('today midnight')) сегодня
                     @elseif( $ad->date > strtotime('yesterday midnight')) вчера
                     @else{{ gmdate("d.m.Y", ($ad->date + 3 * 60 * 60)) }}@endif
@@ -18,9 +18,7 @@
                 @else
                     <a class="go_to_vk" data-id="{{ $ad->vk_id }}" 
                         href="{{ $ad->link }}" target="_blank" 
-                        rel="nofollow noopener noreferrer">
-                        Открыть источник
-                    </a>
+                        rel="nofollow noopener noreferrer"><span class="hidden_on_mobile">Открыть</span> источник</a>
                 @endif
             </div>
         </header>
