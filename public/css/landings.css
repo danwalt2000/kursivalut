@@ -1,0 +1,22 @@
+.landing .columns{
+    grid-template-columns: 1fr;
+}
+
+.landing-back-home{
+    background-color: var(--active-bg-color);
+    padding: 9px;
+    margin: 15px 0;
+    width: fit-content;
+    border-radius: 6px;
+}
+.legal-header{
+    margin: 0;
+    padding: 25px 25px 0;
+}
+.legal-header h1{
+    margin: 0;
+}
+.legal-article{
+    background-color: var(--main-bg-color);
+    padding: 10px 25px 25px;
+}

@@ -58,8 +58,8 @@
                 </div>
                 <div class="form-ad-row">
                     <textarea id="textarea" name="textarea" rows="4" cols="20" 
-                    placeholder="Продам 1000 долларов в Донецке"></textarea>
-                    <label id="textarea_label" class="textarea_label" for="textarea">Продам 1000 долларов в Донецке</label>
+                    placeholder="Продам 1000 долларов{{$locale["h1_keyword"]}}"></textarea>
+                    <label id="textarea_label" class="textarea_label" for="textarea">Продам 1000 долларов{{$locale["h1_keyword"]}}</label>
                 </div>
                 <div class="form-ad-row">
                     <input id="ad_form_submit" class="form-ad-submit" type="submit" value="Опубликовать">

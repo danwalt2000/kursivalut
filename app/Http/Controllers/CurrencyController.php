@@ -46,6 +46,7 @@ class CurrencyController extends Controller
             'ads'             => $this->db_ads,
             'ads_count'       => $this->posts->getPosts($this->table, "count"),
             'currencies'      => $this->currencies,
+            'locale'          => $this->locale,
             'table'           => $this->table,
             'date_sort'       => Config::get('common.date_sort'),
             'path'            => $this->path,
@@ -133,6 +134,12 @@ class CurrencyController extends Controller
         $this->to_view['ads_count'] = $this->posts->getPosts( $this->table, "count", "all", "", $search );
         
         return view('search', $this->to_view);
+    }
+
+    public function landing()
+    {
+        $path = explode( "?", \Request::getRequestUri() )[0];
+        return view($path, $this->to_view);
     }
 
     public function index()
