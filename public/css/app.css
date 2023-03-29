@@ -87,7 +87,7 @@ a:hover{
 }
 .logo{
     display: grid;
-    grid-template-columns: 1fr max-content  max-content;
+    grid-template-columns: max-content 1fr max-content  max-content;
     background-color: var(--main-bg-color);
     border-radius: 6px;
     justify-content: space-between;
@@ -102,16 +102,33 @@ a:hover{
 .logo-link{
     display: flex;
     align-items: center;
+    gap: 5px;
 }
 .logo-title{
-    font: var(--h2-font);
+    font: var(--h3-font);
     margin: 0;
     color: var(--title-color);
     white-space: nowrap;
 }
 .logo-img{
     width: 70px;
-    margin-right: 10px;
+}
+.location-modal-open{
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: var(--link-color);
+    cursor: pointer;
+}
+.location-modal-open:hover{
+    color: var(--link-hover-color);
+}
+.location-modal-open::before{
+    content: '';
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    background-image: url(/img/location.svg);
 }
 .search-form{
     position: relative;
@@ -175,19 +192,10 @@ a:hover{
     flex-direction: column;
     gap: 10px;
 }
-.form-bg,
-.popup-bg{
-    width: 100vw;
-    height: 100vh;
-    position: fixed;
-    background-color: rgba(0, 0, 0, 0.1);
-    top: 0;
-    left: 0;
-    display: none;
-}
 .header-nav_wrapper, 
 .post, 
 .form-wrapper,
+.modal-inner,
 .sorting-column{
     background-color: #fff;
     margin: 10px 0;
@@ -208,6 +216,7 @@ a:hover{
     background-repeat: no-repeat;
 }
 .form-bg,
+.modal-hidden,
 .popup-bg{
     width: 100vw;
     height: 100vh;
@@ -218,6 +227,7 @@ a:hover{
     display: none;
 }
 .form-bg-open,
+.modal-active .modal-hidden,
 .popup-bg-open{
     display: block;
     z-index: 2;
@@ -241,6 +251,7 @@ a:hover{
     background-color: var(--logo-color);
     color: var(--main-bg-color);
 }
+.modal-inner,
 .form-wrapper{
     position: fixed;
     left: 0;

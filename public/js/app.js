@@ -145,6 +145,24 @@ window.addEventListener('DOMContentLoaded', () => {
             if(modalParam) location.href = '/';
         }
     });
+
+    // управление модальными окнами
+    const closeModal = ()=>{
+        document.querySelectorAll('.modal-wrapper').forEach(
+            wrapper => wrapper.classList.remove('modal-active')
+        );
+        document.removeEventListener('click', closeModal);
+    }
+    const openModal = (event)=>{
+        event.stopPropagation();
+        event.target.parentElement.classList.add('modal-active');
+        document.addEventListener('click', closeModal);
+    }    
+    const modalButtons = document.querySelectorAll('.modal-open');
+    modalButtons.forEach( modalButton =>{
+        modalButton.addEventListener('click', openModal);
+    });
+
     
     const openSearch = document.querySelector("#open-search");
     openSearch.addEventListener("click", function(){

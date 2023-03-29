@@ -33,6 +33,7 @@ class CurrencyController extends Controller
         $this->host = SessionController::getHost();
         $this->domain = $this->host['domain'];
         $this->table = $this->host['table'];
+        $this->locales = Config::get('locales'); 
 
         // в разных локалях разные наборы валют
         $this->locale = Config::get('locales.' . $this->host['table']);
@@ -46,6 +47,7 @@ class CurrencyController extends Controller
             'ads'             => $this->db_ads,
             'ads_count'       => $this->posts->getPosts($this->table, "count"),
             'currencies'      => $this->currencies,
+            'locales'          => $this->locales,
             'locale'          => $this->locale,
             'table'           => $this->table,
             'date_sort'       => Config::get('common.date_sort'),

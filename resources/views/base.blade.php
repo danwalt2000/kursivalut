@@ -35,6 +35,25 @@
                         <img width="70px" height="70px" alt="Обмен валют" class="logo-img" src="/img/pig.svg" >
                         <p class="logo-title">Обмен валют</p>
                     </a>
+                    <div class="location modal-wrapper">
+                        <span class="modal-open location-modal-open">{{$locale['title']}}</span>
+                        <div class="popup-bg modal-hidden">
+                            <div class="modal-inner">
+                                <p>Выберите город</p>
+                                <ul>
+                                    @foreach($locales as $city)
+                                        @if($city['name'] != $locale['name'])
+                                            <li class="location-city">
+                                                <a 
+                                                href="https://@if($city['name'] != 'donetsk'){{$city['name']}}.@endif{{$city['domain']}}.ru"
+                                                >{{$city['title']}}</a>
+                                            </li>
+                                        @endif
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                     @include('form')
                     <span id="open-search" class="search open-search"></span>
                     <form action="{{ url("s") }}" class="search-form" method="get">
