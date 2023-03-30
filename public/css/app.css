@@ -58,7 +58,7 @@ body {
     color: var(--title-color);
     font: var(--para-medium-font);
 }
-h1, h2, h3, h4, h5{
+h1, h2, h3, h4, h5, p{
     margin-top: 0;
 }
 h1{
@@ -107,6 +107,7 @@ a:hover{
 }
 .logo-title{
     font: var(--h3-font);
+    line-height: 115%;
     margin: 0;
     color: var(--title-color);
     white-space: nowrap;
@@ -1097,6 +1098,9 @@ span.with-arrow-rarr-up::after,
     }
     .go_to_vk{
         text-transform: capitalize;
+    }
+    .modal-inner{
+        max-width: 80%;
     }
 }
 @media (max-height: 600px){

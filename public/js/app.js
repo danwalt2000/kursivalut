@@ -147,11 +147,14 @@ window.addEventListener('DOMContentLoaded', () => {
     });
 
     // управление модальными окнами
-    const closeModal = ()=>{
-        document.querySelectorAll('.modal-wrapper').forEach(
-            wrapper => wrapper.classList.remove('modal-active')
-        );
-        document.removeEventListener('click', closeModal);
+    const closeModal = (event)=>{
+        let modalInner = document.querySelector('.modal-inner');
+        if ( !modalInner.contains(event.target) || event.target.classList.contains("close_modal") ) {
+            document.querySelectorAll('.modal-wrapper').forEach(
+                wrapper => wrapper.classList.remove('modal-active')
+            );
+            document.removeEventListener('click', closeModal);
+        }
     }
     const openModal = (event)=>{
         event.stopPropagation();
