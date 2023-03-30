@@ -13,6 +13,7 @@
     --h2-font: 600 22px/140% 'Open Sans', sans-serif;
     --h3-font: 400 18px/140% "Open Sans", sans-serif;
     --h4-font: 400 16px/140% "Open Sans", sans-serif;
+    --para-medium-bolt: 500 15px/140% "Open Sans", sans-serif;
     --para-medium-font: 400 15px/140% "Open Sans", sans-serif;
     --span-font: 400 13px/140% "Open Sans", sans-serif;
     --para-small-font: 400 12px/140% "Open Sans", sans-serif;
@@ -130,6 +131,33 @@ a:hover{
     display: inline-block;
     background-image: url(/img/location.svg);
 }
+.location-title{
+    font: var(--h2-font);
+}
+.location-list{
+    list-style-type: none;
+    padding: 0;
+    display: grid;
+    grid-gap: 24px;
+}
+.location-city a{
+    color: var(--para-color);
+    font: var(--para-medium-bolt);
+}
+.location_current-city{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    grid-row: 1;
+}
+.location_current-city::before{
+    content: '';
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+    background-image: url(/img/checked-icon.svg);
+}
 .search-form{
     position: relative;
     justify-self: flex-end;
@@ -221,7 +249,7 @@ a:hover{
     width: 100vw;
     height: 100vh;
     position: fixed;
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: rgba(0, 0, 0, 0.4);
     top: 0;
     left: 0;
     display: none;
@@ -1002,7 +1030,7 @@ span.with-arrow-rarr-up::after,
         height: 50px;
     }
     .logo-title{
-        font: var(--h3-font)
+        display: none;
     }
     .form-wrapper{
         max-width: 300px;

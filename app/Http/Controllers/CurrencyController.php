@@ -56,6 +56,7 @@ class CurrencyController extends Controller
             'hash'            => $this->getCurrentGitCommit(),
             'h1'              => ParseUriController::getH1(),
             'search'          => '',
+            'add_class'       => '',
             'is_allowed'      => true,
             'submit_msg'      => 'Вы уже публиковали объявление.',
             'next_submit'     => ''
@@ -134,7 +135,8 @@ class CurrencyController extends Controller
         $this->to_view['search'] = $search;
         $this->to_view['ads'] = $this->posts->getPosts( $this->table, "get", "all", "", $search );
         $this->to_view['ads_count'] = $this->posts->getPosts( $this->table, "count", "all", "", $search );
-        
+        $this->to_view['add_class'] = 'page-search';
+
         return view('search', $this->to_view);
     }
 
