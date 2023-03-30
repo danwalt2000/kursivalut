@@ -87,6 +87,8 @@ class DBController extends Controller
     }
     
     public static function getPhone( $info ){
+        if(empty( (new self)->getPostById($info["postId"]) ) ) Log::error($info); 
+        
         $ad = (new self)->getPostById( $info["postId"] ); // Ads::where('vk_id', $info["postId"])->take(1)->get();
         if( empty($ad) ) return; 
 

@@ -14,6 +14,7 @@
         <meta property="og:type" content="website">
         <meta property="og:site_name" content="Аггрегатор объявлений об обмене валют">
         <meta property="og:image" content="/img/pig.svg">
+        <meta name="yandex-verification" content="831c8687bb83c11a" />
         <meta name="csrf-token" content="{{ csrf_token() }}" />
 
         <link href="/css/app.css?v=@isset($hash){{$hash}}@endisset" rel="stylesheet">
