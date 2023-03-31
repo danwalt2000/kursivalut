@@ -937,6 +937,7 @@ span.with-arrow-rarr-up::after,
     .sorting-column-collapsed .chip-active{
         display: flex;
         margin: 0;
+        height: fit-content;
     }
     .sorting-column h2{
         margin: 0;
@@ -949,6 +950,7 @@ span.with-arrow-rarr-up::after,
     }
     .show-all-row{
         flex-direction: row;
+        align-items: center;
     }
     .open-filters{
         display: block;
