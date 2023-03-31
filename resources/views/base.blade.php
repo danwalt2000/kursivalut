@@ -18,10 +18,10 @@
         <meta name="csrf-token" content="{{ csrf_token() }}" />
 
         <link href="/css/app.css?v=@isset($hash){{$hash}}@endisset" rel="stylesheet">
-        <link rel="icon" type="image/svg+xml " alt="icon" href="/img/favicon.svg">
-        <link rel="apple-touch-icon" href="/img/favicon.svg"/>
+        <link rel="icon" type="image/svg+xml" alt="icon" href="/img/favicon.svg">
+        <link rel="apple-touch-icon" type="image/svg+xml" href="/img/favicon.svg"/>
 
-        {{-- На страницах фильтрации по дате дублируется контент, поэтому нужен canonical --}}
+        {{-- На страницах фильтрации по дате и курсу дублируется контент, поэтому нужен canonical --}}
         @if( Request::get('date') )
             <link rel="canonical" href="{{ Request::url() }}" />
         @elseif( Request::get('rate') )
@@ -33,7 +33,7 @@
             <main class="main">
                 <div class="logo">
                     <a href="/" class="logo-link">
-                        <img width="70px" height="70px" alt="Обмен валют" class="logo-img" src="/img/pig.svg" >
+                        <img width="70px" height="70px" alt="Обмен валют" class="logo-img" src="/img/favicon.svg" >
                         <p class="logo-title">Обмен валют</p>
                     </a>
                     <div class="location modal-wrapper">
