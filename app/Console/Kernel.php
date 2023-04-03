@@ -25,12 +25,12 @@ class Kernel extends ConsoleKernel
                 // в рабочее время частота запросов к группам указана в переменной $publics
                 $schedule->call( function() use ($channel, $locale){
                     (new GetAdsController)->getNewAds( $channel, $locale );
-                })->$time()->between('4:30', '18:00'); // по Гринвичу
+                })->$time()->between('4:30', '16:00'); // по Гринвичу
     
                 // в нерабоче время обращаться к группам раз в полчаса
                 $schedule->call( function() use ($channel, $locale){
                     (new GetAdsController)->getNewAds( $channel, $locale );
-                })->everyThirtyMinutes()->unlessBetween('4:30', '18:00'); // по Гринвичу
+                })->everyThirtyMinutes()->unlessBetween('4:30', '16:00'); // по Гринвичу
             }
         } 
     }
