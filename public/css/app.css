@@ -279,6 +279,7 @@ a:hover{
 .form-open:hover{
     background-color: var(--logo-color);
     color: var(--main-bg-color);
+    border-color: var(--logo-color);
 }
 .modal-inner,
 .form-wrapper{
@@ -1055,8 +1056,8 @@ span.with-arrow-rarr-up::after,
         transition: transform .1s;
         background: var(--main-bg-color);
         width: calc(100vw - 30px);
-        left: -30px;
-        right: -30px;
+        left: 0;
+        right: 0;
         padding: 5px 0;
         margin: auto;
     }
