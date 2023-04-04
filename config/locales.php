@@ -21,7 +21,7 @@ return [
             "obmenvalut_dnr"        => ["id" => "-172375183", "time" => "hourly", "domain" => "vk"],              // 60
             "valutoobmen"           => ["id" => "-75586957",  "time" => "hourly", "domain" => "vk"],              // 60
 
-            "1154050282" => ["id" => "obmenkadn",             "time" => "everyFiveMinutes", "domain" => "tg"],    // 5
+            "1154050282" => ["id" => "obmenkadn",             "time" => "everyTenMinutes", "domain" => "tg"],     // 10
             "1161871204" => ["id" => "obmenkadonetck",        "time" => "everyTenMinutes", "domain" => "tg"],     // 10
             "1345575332" => ["id" => "obmen_valut_donetsk_1", "time" => "everyTenMinutes", "domain" => "tg"],     // 10
             "1265653325" => ["id" => "obmenvalutdon",         "time" => "everyFifteenMinutes", "domain" => "tg"], // 15
@@ -65,7 +65,7 @@ return [
         'h1_keyword'     => ' в Мелитополе и Запорожской области',
         'currencies'     => ['dollar', 'euro', 'hrn'],
         'publics'        => [
-            "1699506983" => ["id" => "mlt_obnal",             "time" => "everyFiveMinutes", "domain" => "tg"],     // 5
+            "1699506983" => ["id" => "mlt_obnal",             "time" => "everyTenMinutes", "domain" => "tg"],      // 10
             "1600113833" => ["id" => "obnal_mlt_ua",          "time" => "everyTenMinutes", "domain" => "tg"],      // 10
             "1809540638" => ["id" => "obmengenichesk",        "time" => "everyFifteenMinutes", "domain" => "tg"],  // 15
         ]
@@ -77,8 +77,8 @@ return [
         'h1_keyword'     => ' в Бердянске и Запорожской области',
         'currencies'     => ['dollar', 'euro', 'hrn'],
         'publics'        => [
-            "1751133458" => ["id" => "valutaBrd",          "time" => "everyFiveMinutes", "domain" => "tg"],       // 5
-            "1579972943" => ["id" => "obmen_berdyansk",    "time" => "everyTenMinutes", "domain" => "tg"],        // 10
+            "1751133458" => ["id" => "valutaBrd",          "time" => "everyTenMinutes", "domain" => "tg"],         // 10
+            "1579972943" => ["id" => "obmen_berdyansk",    "time" => "everyTenMinutes", "domain" => "tg"],         // 10
         ]
     ],
     'minsk'       => [
@@ -88,16 +88,16 @@ return [
         'h1_keyword'     => ' в Минске и Республике Беларусь',
         'currencies'     => ['dollar', 'euro', 'hrn', 'cashless'],
         'publics'        => [
-            "1661599578" => ["id" => "obmen_rb", "time" => "everyFiveMinutes", "domain" => "tg"],                // 5
-            "1656368659" => ["id" => "obmenvrb", "time" => "everyFiveMinutes", "domain" => "tg"],                // 5
-            "1774846066" => ["id" => "exchange_minsk", "time" => "everyFiveMinutes", "domain" => "tg"],          // 10
+            "1661599578" => ["id" => "obmen_rb", "time" => "everyTenMinutes", "domain" => "tg"],                 // 10
+            "1656368659" => ["id" => "obmenvrb", "time" => "everyTenMinutes", "domain" => "tg"],                 // 10
+            "1774846066" => ["id" => "exchange_minsk", "time" => "everyTenMinutes", "domain" => "tg"],           // 10
             "1537031622" => ["id" => "obmen_rb_minsk1", "time" => "everyTenMinutes", "domain" => "tg"],          // 10
             "1768008123" => ["id" => "EXCHANGE_BY", "time" => "everyTenMinutes", "domain" => "tg"],              // 10
             "1285340951" => ["id" => "obmen_minsk", "time" => "everyTenMinutes", "domain" => "tg"],              // 10
             "1677945470" => ["id" => "obmenbtcrb", "time" => "everyTenMinutes", "domain" => "tg"],               // 10
-            "1393592627" => ["id" => "obmenrbrf", "time" => "everyTenMinutes", "domain" => "tg"],                // 10
-            "1733494082" => ["id" => "obmen_belarus", "time" => "everyTenMinutes", "domain" => "tg"],            // 10
             "1765384254" => ["id" => "chatProkopovich", "time" => "everyTenMinutes", "domain" => "tg"],          // 10
+            "1733494082" => ["id" => "obmen_belarus", "time" => "everyFifteenMinutes", "domain" => "tg"],        // 15
+            "1393592627" => ["id" => "obmenrbrf", "time" => "everyFifteenMinutes", "domain" => "tg"],            // 15
         ]
     ],
 ];
