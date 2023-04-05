@@ -32,9 +32,7 @@ class AjaxController extends Controller
     public function ajaxPost(Request $request){
         $input = $request->all();
         $ad = DBController::getPhone($input);
-        if( empty($ad->phone) ){
-            return $ad;
-        }
+        if( empty($ad->phone) ) return $ad; 
         return $ad->phone;
     }
 }

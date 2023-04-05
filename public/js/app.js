@@ -1,13 +1,16 @@
 let csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-const linksToVk = Array.from(document.querySelectorAll(".go_to_vk"));
 
 function getPhone( arr ){
     let phoneBlock = event.target;
+    if( phoneBlock.classList.contains("hidden_phone-visible") ) return;
+
+    let adContent = phoneBlock.parentNode.innerHTML.replace(" <button", "&#32;<button").replace("</button> ", "</button>&#32;");
     let postObj = { 
         postId: arr[0], 
-        phoneIndex: arr[1]
+        phoneIndex: arr[1],
+        content: adContent
     }
-    let post = JSON.stringify(postObj)
+    let post = JSON.stringify(postObj);
 
     const url = "/ajax";
     let xhr = new XMLHttpRequest()
@@ -120,13 +123,6 @@ window.addEventListener('DOMContentLoaded', () => {
             dropButton.addEventListener("click", toggleDropdown, false);
         } );
     }
-
-    linksToVk.forEach( link =>{
-        link.addEventListener("click", function(e){
-            let adId = [ e.target.dataset.id, 0 ];
-            getPhone( adId, "link" );
-        }, false);
-    });
 
     const formOpen = document.querySelector("#form-open");
     const formBg = document.querySelector("#form-bg");

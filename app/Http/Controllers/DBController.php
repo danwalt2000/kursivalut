@@ -77,9 +77,10 @@ class DBController extends Controller
                 ->$get_or_count();
     }
 
-    // public function getPostByContent( $table, $content ){
-    //     return DB::table($table)->where( 'content', $content )->count();
-    // }
+    public static function getPostByContent( $content ){
+        $table = SessionController::getHost()["table"];
+        return DB::table($table)->where( 'content_changed', $content )->first();
+    }
 
     public static function getPostById( $id ){
         $table = SessionController::getHost()["table"];
@@ -87,10 +88,13 @@ class DBController extends Controller
     }
     
     public static function getPhone( $info ){
-        if( empty( $info["postId"] ) ) Log::error($info); 
+        $ad = DBController::getPostById( $info["postId"] ); 
         
-        $ad = (new self)->getPostById( $info["postId"] ); // Ads::where('vk_id', $info["postId"])->take(1)->get();
-        if( empty($ad) ) return; 
+        // бывает, что пользователь находится на странице так долго, 
+        // что за это время сервер успевает обновить объявлени и по id его уже не найти. 
+        // В таком случае ищем в БД объявление по содержанию
+        if( empty($ad) ) $ad = DBController::getPostByContent( $info["content"] );
+        if( empty($ad) ) return;
 
         // если телефонов несколько, отдаем по индексу
         $phones = explode(",", $ad->phone);
