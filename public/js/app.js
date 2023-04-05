@@ -1,12 +1,11 @@
 let csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 const linksToVk = Array.from(document.querySelectorAll(".go_to_vk"));
 
-function getPhone( arr, phoneOrLink = "phone" ){
+function getPhone( arr ){
     let phoneBlock = event.target;
     let postObj = { 
         postId: arr[0], 
-        phoneIndex: arr[1],
-        phoneOrLink: phoneOrLink
+        phoneIndex: arr[1]
     }
     let post = JSON.stringify(postObj)
 

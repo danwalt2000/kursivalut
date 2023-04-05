@@ -27,7 +27,7 @@ class ParseAdsController extends Controller
         foreach( $ads as $ad ){
             $table = $locale['name'];
             // если объявление уже есть в базе, пропускаем его
-            $is_id_in_table = $posts->getPostById($ad["id"]); 
+            $is_id_in_table = $posts->getPostById( $ad["id"] ); 
             if( !empty($is_id_in_table) || empty($ad[$text_key]) ) continue;               
 
             // извлечение номера телефона

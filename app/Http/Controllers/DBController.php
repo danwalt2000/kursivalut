@@ -29,11 +29,12 @@ class DBController extends Controller
             $rate_limit = 0;
         }
 
-        if(!empty($_GET["sort"]) && str_contains( "date rate popularity", $_GET["sort"]) ){
+        // проверяем, чтобы get-параметры строго соответствовали значениям
+        if(!empty($_GET["sort"]) &&  ( str_contains( "date", $_GET["sort"]) || str_contains( "rate", $_GET["sort"]) ) ){
             $sort = $_GET["sort"];
         } 
         $asc_desc = 'desc';
-        if(!empty($_GET["order"]) && str_contains( "asc desc", $_GET["order"]) ){
+        if(!empty($_GET["order"]) && ( str_contains( "asc", $_GET["order"]) || str_contains( "desc", $_GET["order"]) ) ){
             $asc_desc = $_GET["order"];
         }
         
@@ -83,11 +84,10 @@ class DBController extends Controller
     public static function getPostById( $id ){
         $table = SessionController::getHost()["table"];
         return DB::table($table)->where( 'vk_id', $id )->first();
-        // return $model::where('vk_id', '=', $id)->take(1)->$get_or_count();
     }
     
     public static function getPhone( $info ){
-        if(empty( (new self)->getPostById($info["postId"]) ) ) Log::error($info); 
+        if( empty( $info["postId"] ) ) Log::error($info); 
         
         $ad = (new self)->getPostById( $info["postId"] ); // Ads::where('vk_id', $info["postId"])->take(1)->get();
         if( empty($ad) ) return; 
