@@ -47,7 +47,7 @@ class ParseAdsController extends Controller
             }
             // объявления, у которых не получилось определить направление, 
             // считаются малоценными и в БД не записываются
-            // if( !$type ) continue; 
+            if( !$type ) continue; 
             $rate = 0;
             if( !$type ){
                 $table = 'ads';
