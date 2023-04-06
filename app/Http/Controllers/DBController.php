@@ -91,7 +91,7 @@ class DBController extends Controller
         $ad = DBController::getPostById( $info["postId"] ); 
         
         // бывает, что пользователь находится на странице так долго, 
-        // что за это время сервер успевает обновить объявлени и по id его уже не найти. 
+        // что за это время сервер успевает обновить объявление и по id его уже не найти. 
         // В таком случае ищем в БД объявление по содержанию
         if( empty($ad) ) $ad = DBController::getPostByContent( $info["content"] );
         if( empty($ad) ) return;

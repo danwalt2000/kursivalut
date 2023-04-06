@@ -18,8 +18,13 @@
         <meta name="csrf-token" content="{{ csrf_token() }}" />
 
         <link href="/css/app.css?v=@isset($hash){{$hash}}@endisset" rel="stylesheet">
-        <link rel="icon" type="image/svg+xml" alt="icon" href="/img/favicon.svg">
-        <link rel="apple-touch-icon" type="image/svg+xml" href="/img/favicon.svg"/>
+        @if($table == 'donetsk')
+            <link rel="icon" type="image/svg+xml" alt="icon" href="/img/favicon.svg">
+            <link rel="apple-touch-icon" type="image/svg+xml" href="/img/favicon.svg"/>
+        @else
+            <link rel="icon" type="image/x-icon" alt="icon" href="/img/valuta.ico">
+            <link rel="apple-touch-icon" type="image/svg+xml" href="/img/favicon.svg"/>
+        @endif
 
         {{-- На страницах фильтрации по дате и курсу дублируется контент, поэтому нужен canonical --}}
         @if( Request::get('date') )
