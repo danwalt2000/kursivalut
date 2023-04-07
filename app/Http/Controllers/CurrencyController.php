@@ -14,22 +14,18 @@ use App\Http\Controllers\DBController;
  
 class CurrencyController extends Controller
 {
-    public $db_ads = [];
-    public $get_posts;
-    public $to_view = [];
-    public $posts;
-    public $host;
-    public $locale;
-    public $currencies = [];
-    public $domain;
-    public $table;
-    public $parsed_url = [];
-    public $path = [];
+    public $db_ads = [];     // последние записи
+    public $to_view = [];    // массив переменных для представления
+    public $host;            // текущий домен и поддомен
+    public $locale;          // текущая локаль из конф. файла locales.php
+    public $currencies = []; // список валют для текущей локали
+    public $domain;          // текущий домен
+    public $path = [];       // путь uri
+    public $table;           // текущая таблица БД, например, donetsk 
     public $query = '';
 
     public function __construct()
     {
-        $this->posts = new DBController;
         $this->host = SessionController::getHost();
         $this->domain = $this->host['domain'];
         $this->table = $this->host['table'];
@@ -40,12 +36,12 @@ class CurrencyController extends Controller
         foreach( $this->locale['currencies'] as $currency ){
             $this->currencies[$currency] = Config::get('common.currencies')[$currency];
         }
-        $this->db_ads = $this->posts->getPosts( $this->table );
+        $this->db_ads = DBController::getPosts( $this->table );
         $this->path = ParseUriController::parseUri();
         if( !empty($this->path['query']) ) $this->query = "?" . $this->path['query'];
         $this->to_view = [
             'ads'             => $this->db_ads,
-            'ads_count'       => $this->posts->getPosts($this->table, "count"),
+            'ads_count'       => DBController::getPosts($this->table, "count"),
             'currencies'      => $this->currencies,
             'locales'          => $this->locales,
             'locale'          => $this->locale,
@@ -79,8 +75,8 @@ class CurrencyController extends Controller
 
     public function show( $sell_buy = "all", $currency = '' )
     {
-        $this->to_view['ads'] = $this->posts->getPosts( $this->table, "get", $sell_buy, $currency );
-        $this->to_view['ads_count'] = $this->posts->getPosts( $this->table, "count", $sell_buy, $currency);
+        $this->to_view['ads'] = DBController::getPosts( $this->table, "get", $sell_buy, $currency );
+        $this->to_view['ads_count'] = DBController::getPosts( $this->table, "count", $sell_buy, $currency);
         return view('currency', $this->to_view);
     }
     
@@ -117,7 +113,7 @@ class CurrencyController extends Controller
                 'link'            => '',
                 'type'            => $type
             ];
-            $this->posts->storePosts( $this->table, $args);
+            DBController::storePosts( $this->table, $args);
             $this->to_view['submit_msg'] = "Ваше объявление опубликовано!";
             SessionController::updateAllowed();
         }
@@ -133,18 +129,20 @@ class CurrencyController extends Controller
         $search = !empty($_GET["search"]) ? $_GET["search"] : '';
         
         $this->to_view['search'] = $search;
-        $this->to_view['ads'] = $this->posts->getPosts( $this->table, "get", "all", "", $search );
-        $this->to_view['ads_count'] = $this->posts->getPosts( $this->table, "count", "all", "", $search );
+        $this->to_view['ads'] = DBController::getPosts( $this->table, "get", "all", "", $search );
+        $this->to_view['ads_count'] = DBController::getPosts( $this->table, "count", "all", "", $search );
         $this->to_view['add_class'] = 'page-search';
 
         return view('search', $this->to_view);
     }
 
+    // отдельный контроллер и шаблон для лендингов
     public function landing()
     {
         $path = explode( "?", \Request::getRequestUri() )[0];
         return view($path, $this->to_view);
     }
+    // отдельный контроллер и шаблон для сайтмапов
     public function sitemap()
     {
         return \Illuminate\Support\Facades\Redirect::to('/sitemaps/sitemap-' . $this->table . '.xml');
@@ -152,10 +150,6 @@ class CurrencyController extends Controller
 
     public function index()
     {
-        // $receiver = new GetAdsController;
-        // $this->to_view['ads'] = $receiver->getNewAds( $this->vars->publics["obmenvalut_donetsk"] );
-        // $this->to_view['ads'] = $receiver->getNewAds( $this->vars->publics["1154050282"] );
-        // $this->to_view['ads'] = GetAdsController::getNewAds( "-92215147" );
         return view('currency', $this->to_view);
     }
 }
