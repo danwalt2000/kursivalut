@@ -130,16 +130,18 @@ window.addEventListener('DOMContentLoaded', () => {
 
     // если есть параметр modal=post, значит нужно открыть модальное окно формы
     if( modalParam && modalParam == "post") formBg.classList.add("form-bg-open");
-    formOpen.addEventListener("click", function(){
-        formBg.classList.add("form-bg-open");
-    });
-    formBg.addEventListener('click', function (event) {
-        if ( !formWrapper.contains(event.target) || event.target.id === "close_modal" ) {
-            formBg.classList.remove("form-bg-open");
-            // при наличии модального окна, отправляем на главную
-            if(modalParam) location.href = '/';
-        }
-    });
+    if(formOpen){
+        formOpen.addEventListener("click", function(){
+            formBg.classList.add("form-bg-open");
+        });
+        formBg.addEventListener('click', function (event) {
+            if ( !formWrapper.contains(event.target) || event.target.id === "close_modal" ) {
+                formBg.classList.remove("form-bg-open");
+                // при наличии модального окна, отправляем на главную
+                if(modalParam) location.href = '/';
+            }
+        });
+    }
 
     // управление модальными окнами
     const closeModal = (event)=>{

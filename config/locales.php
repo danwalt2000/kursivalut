@@ -107,8 +107,8 @@ return [
         'h1_keyword'     => ' в Москве',
         'currencies'     => ['dollar', 'euro'],
         'publics'        => [
-            "1406118239" => ["id" => "obmenvmsk", "time" => "everyFiveMinutes", "domain" => "tg"],                 // 30
-            "1460221844" => ["id" => "currency_exchanges", "time" => "everyFiveMinutes", "domain" => "tg"],        // 30
+            "1406118239" => ["id" => "obmenvmsk", "time" => "everyThirtyMinutes", "domain" => "tg"],                 // 30
+            "1460221844" => ["id" => "currency_exchanges", "time" => "everyThirtyMinutes", "domain" => "tg"],        // 30
         ]
     ],
     // 'spb'       => [
@@ -118,8 +118,8 @@ return [
     //     'h1_keyword'     => ' в Санкт-Петербурге',
     //     'currencies'     => ['dollar', 'euro'],
     //     'publics'        => [
-    //         "1482220060" => ["id" => "simkinividimki11", "time" => "everyFiveMinutes", "domain" => "tg"],           // 30
-    //         "1614231511" => ["id" => "exchange_piter", "time" => "everyFiveMinutes", "domain" => "tg"],             // 30
+    //         "1482220060" => ["id" => "simkinividimki11", "time" => "everyThirtyMinutes", "domain" => "tg"],           // 30
+    //         "1614231511" => ["id" => "exchange_piter", "time" => "everyThirtyMinutes", "domain" => "tg"],             // 30
     //     ]
     // ],
     'rostov'       => [
@@ -129,11 +129,11 @@ return [
         'h1_keyword'     => ' в Ростове-на-Дону и Ростовской области',
         'currencies'     => ['dollar', 'euro', 'hrn'],
         'publics'        => [
-            "1635308592" => ["id" => "obmen_valutROS", "time" => "everyFiveMinutes", "domain" => "tg"],                 // 30
-            "1282408554" => ["id" => "Rostovobmen", "time" => "everyFiveMinutes", "domain" => "tg"],                 // 30
-            "1635743092" => ["id" => "obmen_rostov", "time" => "everyFiveMinutes", "domain" => "tg"],                 // 30
-            "1741293290" => ["id" => "obmendonchat", "time" => "everyFiveMinutes", "domain" => "tg"],                 // 30
-            "1604607517" => ["id" => "exchange_rostov", "time" => "everyFiveMinutes", "domain" => "tg"],              // 30
+            "1635308592" => ["id" => "obmen_valutROS", "time" => "everyThirtyMinutes", "domain" => "tg"],                 // 30
+            "1282408554" => ["id" => "Rostovobmen", "time" => "everyThirtyMinutes", "domain" => "tg"],                 // 30
+            "1635743092" => ["id" => "obmen_rostov", "time" => "everyThirtyMinutes", "domain" => "tg"],                 // 30
+            "1741293290" => ["id" => "obmendonchat", "time" => "everyThirtyMinutes", "domain" => "tg"],                 // 30
+            "1604607517" => ["id" => "exchange_rostov", "time" => "everyThirtyMinutes", "domain" => "tg"],              // 30
         ]
     ],
     'krym'       => [
@@ -143,12 +143,12 @@ return [
         'h1_keyword'     => ' в Севастополе и Крыму',
         'currencies'     => ['dollar', 'euro', 'hrn'],
         'publics'        => [
-            "1520647319" => ["id" => "krymex", "time" => "everyFiveMinutes", "domain" => "tg"],                 // 30
-            "1419501182" => ["id" => "obmenvkrym", "time" => "everyFiveMinutes", "domain" => "tg"],                 // 30
-            "1695691631" => ["id" => "obmen_92", "time" => "everyFiveMinutes", "domain" => "tg"],                 // 30
-            "1662030913" => ["id" => "Qrimex", "time" => "everyFiveMinutes", "domain" => "tg"],                 // 30
-            "1798727074" => ["id" => "Exchange_Crimea", "time" => "everyFiveMinutes", "domain" => "tg"],                 // 30
-            "1775797250" => ["id" => "obmen9282", "time" => "everyFiveMinutes", "domain" => "tg"],                 // 30
+            "1520647319" => ["id" => "krymex", "time" => "everyThirtyMinutes", "domain" => "tg"],                 // 30
+            "1419501182" => ["id" => "obmenvkrym", "time" => "everyThirtyMinutes", "domain" => "tg"],                 // 30
+            "1695691631" => ["id" => "obmen_92", "time" => "everyThirtyMinutes", "domain" => "tg"],                 // 30
+            "1662030913" => ["id" => "Qrimex", "time" => "everyThirtyMinutes", "domain" => "tg"],                 // 30
+            "1798727074" => ["id" => "Exchange_Crimea", "time" => "everyThirtyMinutes", "domain" => "tg"],                 // 30
+            "1775797250" => ["id" => "obmen9282", "time" => "everyThirtyMinutes", "domain" => "tg"],                 // 30
         ]
     ],
     'krasnodar'       => [
@@ -158,8 +158,9 @@ return [
         'h1_keyword'     => ' в Краснодаре',
         'currencies'     => ['dollar', 'euro', 'hrn'],
         'publics'        => [
-            "1664166871" => ["id" => "obmennikkrasnodar", "time" => "everyFiveMinutes", "domain" => "tg"],                 // 30
-            "1756305590" => ["id" => "exchange_krasnodar", "time" => "everyFiveMinutes", "domain" => "tg"],                 // 30
+            "1664166871" => ["id" => "obmennikkrasnodar", "time" => "everyThirtyMinutes", "domain" => "tg"],                 // 30
+            "1756305590" => ["id" => "exchange_krasnodar", "time" => "everyThirtyMinutes", "domain" => "tg"],                 // 30
+            // "1695691631" => ["id" => "obmen_92", "time" => "everyThirtyMinutes", "domain" => "tg"],                 // 30
         ]
     ],
 ];

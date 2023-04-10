@@ -64,7 +64,7 @@
                             </div>
                         </div>
                     </div>
-                    @include('form')
+                    @if($locale['domain'] == 'valuta-dn') @include('form') @endif
                     <span id="open-search" class="search open-search"></span>
                     <form action="{{ url("s") }}" class="search-form" method="get">
                         <input id="search" type="text" placeholder="Поиск в объявлениях" name="search" value=""
