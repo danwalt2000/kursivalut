@@ -88,16 +88,78 @@ return [
         'h1_keyword'     => ' в Минске и Республике Беларусь',
         'currencies'     => ['dollar', 'euro', 'hrn', 'cashless'],
         'publics'        => [
-            "1661599578" => ["id" => "obmen_rb", "time" => "everyTenMinutes", "domain" => "tg"],                 // 10
-            "1656368659" => ["id" => "obmenvrb", "time" => "everyTenMinutes", "domain" => "tg"],                 // 10
-            "1774846066" => ["id" => "exchange_minsk", "time" => "everyTenMinutes", "domain" => "tg"],           // 10
-            "1537031622" => ["id" => "obmen_rb_minsk1", "time" => "everyTenMinutes", "domain" => "tg"],          // 10
-            "1768008123" => ["id" => "EXCHANGE_BY", "time" => "everyTenMinutes", "domain" => "tg"],              // 10
-            "1285340951" => ["id" => "obmen_minsk", "time" => "everyTenMinutes", "domain" => "tg"],              // 10
-            "1677945470" => ["id" => "obmenbtcrb", "time" => "everyTenMinutes", "domain" => "tg"],               // 10
-            "1765384254" => ["id" => "chatProkopovich", "time" => "everyTenMinutes", "domain" => "tg"],          // 10
-            "1733494082" => ["id" => "obmen_belarus", "time" => "everyFifteenMinutes", "domain" => "tg"],        // 15
-            "1393592627" => ["id" => "obmenrbrf", "time" => "everyFifteenMinutes", "domain" => "tg"],            // 15
+            "1661599578" => ["id" => "obmen_rb", "time" => "everyThirtyMinutes", "domain" => "tg"],                 // 15
+            "1656368659" => ["id" => "obmenvrb", "time" => "everyThirtyMinutes", "domain" => "tg"],                 // 15
+            // "1774846066" => ["id" => "exchange_minsk", "time" => "everyTenMinutes", "domain" => "tg"],           // 10
+            // "1537031622" => ["id" => "obmen_rb_minsk1", "time" => "everyTenMinutes", "domain" => "tg"],          // 10
+            // "1768008123" => ["id" => "EXCHANGE_BY", "time" => "everyTenMinutes", "domain" => "tg"],              // 10
+            // "1285340951" => ["id" => "obmen_minsk", "time" => "everyTenMinutes", "domain" => "tg"],              // 10
+            // "1677945470" => ["id" => "obmenbtcrb", "time" => "everyTenMinutes", "domain" => "tg"],               // 10
+            // "1765384254" => ["id" => "chatProkopovich", "time" => "everyTenMinutes", "domain" => "tg"],          // 10
+            // "1733494082" => ["id" => "obmen_belarus", "time" => "everyFifteenMinutes", "domain" => "tg"],        // 15
+            // "1393592627" => ["id" => "obmenrbrf", "time" => "everyFifteenMinutes", "domain" => "tg"],            // 15
+        ]
+    ],
+    'moscow'       => [
+        'title'          => 'Москва',
+        'name'           => 'moscow',
+        'domain'         => 'kursivalut',
+        'h1_keyword'     => ' в Москве',
+        'currencies'     => ['dollar', 'euro'],
+        'publics'        => [
+            "1406118239" => ["id" => "obmenvmsk", "time" => "everyFiveMinutes", "domain" => "tg"],                 // 30
+            "1460221844" => ["id" => "currency_exchanges", "time" => "everyFiveMinutes", "domain" => "tg"],        // 30
+        ]
+    ],
+    // 'spb'       => [
+    //     'title'          => 'Санкт-Петербург',
+    //     'name'           => 'spb',
+    //     'domain'         => 'kursivalut',
+    //     'h1_keyword'     => ' в Санкт-Петербурге',
+    //     'currencies'     => ['dollar', 'euro'],
+    //     'publics'        => [
+    //         "1482220060" => ["id" => "simkinividimki11", "time" => "everyFiveMinutes", "domain" => "tg"],           // 30
+    //         "1614231511" => ["id" => "exchange_piter", "time" => "everyFiveMinutes", "domain" => "tg"],             // 30
+    //     ]
+    // ],
+    'rostov'       => [
+        'title'          => 'Ростов-на-Дону',
+        'name'           => 'rostov',
+        'domain'         => 'kursivalut',
+        'h1_keyword'     => ' в Ростове-на-Дону и Ростовской области',
+        'currencies'     => ['dollar', 'euro', 'hrn'],
+        'publics'        => [
+            "1635308592" => ["id" => "obmen_valutROS", "time" => "everyFiveMinutes", "domain" => "tg"],                 // 30
+            "1282408554" => ["id" => "Rostovobmen", "time" => "everyFiveMinutes", "domain" => "tg"],                 // 30
+            "1635743092" => ["id" => "obmen_rostov", "time" => "everyFiveMinutes", "domain" => "tg"],                 // 30
+            "1741293290" => ["id" => "obmendonchat", "time" => "everyFiveMinutes", "domain" => "tg"],                 // 30
+            "1604607517" => ["id" => "exchange_rostov", "time" => "everyFiveMinutes", "domain" => "tg"],              // 30
+        ]
+    ],
+    'krym'       => [
+        'title'          => 'Севастополь и Крым',
+        'name'           => 'krym',
+        'domain'         => 'kursivalut',
+        'h1_keyword'     => ' в Севастополе и Крыму',
+        'currencies'     => ['dollar', 'euro', 'hrn'],
+        'publics'        => [
+            "1520647319" => ["id" => "krymex", "time" => "everyFiveMinutes", "domain" => "tg"],                 // 30
+            "1419501182" => ["id" => "obmenvkrym", "time" => "everyFiveMinutes", "domain" => "tg"],                 // 30
+            "1695691631" => ["id" => "obmen_92", "time" => "everyFiveMinutes", "domain" => "tg"],                 // 30
+            "1662030913" => ["id" => "Qrimex", "time" => "everyFiveMinutes", "domain" => "tg"],                 // 30
+            "1798727074" => ["id" => "Exchange_Crimea", "time" => "everyFiveMinutes", "domain" => "tg"],                 // 30
+            "1775797250" => ["id" => "obmen9282", "time" => "everyFiveMinutes", "domain" => "tg"],                 // 30
+        ]
+    ],
+    'krasnodar'       => [
+        'title'          => 'Краснодар',
+        'name'           => 'krasnodar',
+        'domain'         => 'kursivalut',
+        'h1_keyword'     => ' в Краснодаре',
+        'currencies'     => ['dollar', 'euro', 'hrn'],
+        'publics'        => [
+            "1664166871" => ["id" => "obmennikkrasnodar", "time" => "everyFiveMinutes", "domain" => "tg"],                 // 30
+            "1756305590" => ["id" => "exchange_krasnodar", "time" => "everyFiveMinutes", "domain" => "tg"],                 // 30
         ]
     ],
 ];
