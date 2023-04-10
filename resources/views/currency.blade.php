@@ -18,7 +18,7 @@
         </header>
         
         <section id="feed" class="feed">
-            @include('feed', ['ads' => $ads])
+            @include('parts.feed', ['ads' => $ads])
         </section>
     </div>
 @stop

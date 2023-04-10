@@ -26,7 +26,7 @@ class AjaxController extends Controller
         if( empty($search) ) $search = '';
 
         $to_view['ads'] = DBController::getPosts( $table, "get", $sellbuy, $currency, $search, $offset );
-        return view('feed', $to_view);;
+        return view('parts.feed', $to_view);;
     }
 
     public function ajaxPost(Request $request){

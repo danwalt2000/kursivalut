@@ -21,7 +21,9 @@
         <link rel="apple-touch-icon" href="/img/pig.svg"/>
 
         @if( $table != 'donetsk' )
-            <link rel="canonical" href="{{ str_replace( ($locale['name'] . '.'), '', Request::url() ) }}" />
+            @hasSection('canonical')
+                <link rel="canonical" href="https://@yield('canonical')" />
+            @endif
         @endif
     </head>
     <body class="antialiased landing">
@@ -32,15 +34,11 @@
                         <img width="70px" height="70px" alt="Обмен валют" class="logo-img" src="/img/pig.svg" >
                         <p class="logo-title">Обмен валют</p>
                     </a>
-                    <span id="open-search" class="search open-search"></span>
-                    <form action="{{ url("s") }}" class="search-form" method="get">
-                        <input id="search" type="text" placeholder="Поиск в объявлениях" name="search" value=""
-                            class="search-input @error('search') is-invalid @enderror" minlength="1" maxlength="30" required>
-                        <label class="search-label" for="search">Поиск в объявлениях</label>
-                        <button id="search-submit" type="submit" class="search-submit" title="Поиск">
-                            <img alt="Поиск" class="search" src="/img/search.svg" alt="" width="18" height="18">
-                        </button>  
-                    </form>
+                    @include('parts.location')
+                    
+                    @if($locale['domain'] == 'valuta-dn') @include('parts.form') @endif
+                    
+                    @include('parts.searchform')
                 </div>
                 <a class="back-home landing-back-home" href="/">Вернуться</a>
                 <div class="columns">

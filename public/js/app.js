@@ -178,5 +178,5 @@ window.addEventListener('DOMContentLoaded', () => {
             filters.classList.add("sorting-column-collapsed");
         }
     }
-    filtersButton.addEventListener("click", toggleFilters );
+    if(filtersButton) filtersButton.addEventListener("click", toggleFilters );
 });

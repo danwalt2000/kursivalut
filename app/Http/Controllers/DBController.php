@@ -69,7 +69,7 @@ class DBController extends Controller
         return DB::table($table)
                 ->where("date", ">", $cut_by_time)
                 ->where('type', 'like', "%" . $query . "%")
-                ->where('content', 'like', "%" . $search_clean . "%")
+                ->where('content_changed', 'like', "%" . $search_clean . "%")
                 ->where('rate', '>=', $rate_limit)
                 ->orderBy($sort, $asc_desc)
                 ->skip($skip)

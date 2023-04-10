@@ -41,46 +41,18 @@
                         <img width="70px" height="70px" alt="Обмен валют" class="logo-img" src="/img/favicon.svg" >
                         <p class="logo-title">Обмен валют</p>
                     </a>
-                    <div class="location modal-wrapper">
-                        <span class="modal-open location-modal-open">{{$locale['title']}}</span>
-                        <div class="popup-bg modal-hidden">
-                            <div class="modal-inner location-popup">
-                                <span class="modal-close close_modal"></span>
-                                <p class="location-title">Выберите город</p>
-                                <ul class="location-list">
-                                    @foreach($locales as $city)
-                                        @if($city['name'] == $locale['name'])
-                                            <li class="location-city location_current-city">
-                                                <span>{{$city['title']}}</span>
-                                        @else
-                                            <li class="location-city">
-                                                <a href="//@if($city['name'] != 'donetsk'){{$city['name']}}.@endif{{$city['domain']}}.{{env('ENV_DOMAIN')}}">
-                                                    {{$city['title']}}
-                                                </a>
-                                        @endif
-                                        </li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    @if($locale['domain'] == 'valuta-dn') @include('form') @endif
-                    <span id="open-search" class="search open-search"></span>
-                    <form action="{{ url("s") }}" class="search-form" method="get">
-                        <input id="search" type="text" placeholder="Поиск в объявлениях" name="search" value=""
-                            class="search-input @error('search') is-invalid @enderror" minlength="1" maxlength="30" required>
-                        <label class="search-label" for="search">Поиск в объявлениях</label>
-                        <button id="search-submit" type="submit" class="search-submit" title="Поиск">
-                            <img alt="Поиск" class="search" src="/img/search.svg" alt="" width="18" height="18">
-                        </button>  
-                    </form>
+                    @include('parts.location')
+                    
+                    @if($locale['domain'] == 'valuta-dn') @include('parts.form') @endif
+                    
+                    @include('parts.searchform')
                 </div>
                 <div class="columns">
                     @section('main')
                     @show
 
                     <div class="right_column">
-                        @include('sorting', ['date_sort' => $date_sort, 'path' => $path, 'ads' => $ads])    
+                        @include('parts.sorting', ['date_sort' => $date_sort, 'path' => $path, 'ads' => $ads])    
 
                         <div class="additional-info">
                             <a class="additional-info-a" href="/legal">Правовая информация</a>
