@@ -1110,6 +1110,9 @@ span.with-arrow-rarr-up::after,
     .form-wrapper{
         top: 2%;
     }
+    .location-list{
+        gap: 12px;
+    }
     .form-ad-row input{
         padding: 6px 10px;
     }

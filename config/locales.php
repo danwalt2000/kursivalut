@@ -113,6 +113,7 @@ return [
         'domain'         => 'kursivalut',
         'h1_keyword'     => ' в Москве',
         'currencies'     => ['dollar', 'euro'],
+        'metrika'        => '93171361',
         'publics'        => [
             "1406118239" => ["id" => "obmenvmsk", "time" => "everyThirtyMinutes", "domain" => "tg"],                 // 30
             "1460221844" => ["id" => "currency_exchanges", "time" => "everyThirtyMinutes", "domain" => "tg"],        // 30
@@ -135,6 +136,7 @@ return [
         'domain'         => 'kursivalut',
         'h1_keyword'     => ' в Ростове-на-Дону и Ростовской области',
         'currencies'     => ['dollar', 'euro', 'hrn'],
+        'metrika'        => '93171389',
         'publics'        => [
             "1635308592" => ["id" => "obmen_valutROS", "time" => "everyThirtyMinutes", "domain" => "tg"],                 // 30
             "1282408554" => ["id" => "Rostovobmen", "time" => "everyThirtyMinutes", "domain" => "tg"],                 // 30
@@ -149,6 +151,7 @@ return [
         'domain'         => 'kursivalut',
         'h1_keyword'     => ' в Севастополе и Крыму',
         'currencies'     => ['dollar', 'euro', 'hrn'],
+        'metrika'        => '93171377',
         'publics'        => [
             "1520647319" => ["id" => "krymex", "time" => "everyThirtyMinutes", "domain" => "tg"],                 // 30
             "1419501182" => ["id" => "obmenvkrym", "time" => "everyThirtyMinutes", "domain" => "tg"],                 // 30
@@ -163,6 +166,7 @@ return [
         'name'           => 'krasnodar',
         'domain'         => 'kursivalut',
         'h1_keyword'     => ' в Краснодаре',
+        'metrika'        => '93171402',
         'currencies'     => ['dollar', 'euro', 'hrn'],
         'publics'        => [
             "1664166871" => ["id" => "obmennikkrasnodar", "time" => "everyThirtyMinutes", "domain" => "tg"],                 // 30
