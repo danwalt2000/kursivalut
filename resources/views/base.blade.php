@@ -14,7 +14,12 @@
         <meta property="og:type" content="website">
         <meta property="og:site_name" content="Аггрегатор объявлений об обмене валют">
         <meta property="og:image" content="/img/pig.svg">
-        <meta name="yandex-verification" content="831c8687bb83c11a" />
+        
+        @if(!empty($locale['domain']) && 'kursivalut' == $locale['domain'])
+            <meta name="yandex-verification" content="55e08214f3c8e88d" />
+        @else
+            <meta name="yandex-verification" content="831c8687bb83c11a" />
+        @endif
         <meta name="csrf-token" content="{{ csrf_token() }}" />
 
         <link href="/css/app.css?v=@isset($hash){{$hash}}@endisset" rel="stylesheet">
