@@ -10,6 +10,7 @@ return [
         'domain'         => 'valuta-dn',
         'h1_keyword'     => ' в Донецке и ДНР',
         'currencies'     => ['dollar', 'euro', 'hrn', 'cashless'],
+        'metrika'        => '90961172',
         'publics'        => [
             "obmenvalut_donetsk"    => ["id" => "-87785879",  "time" => "everyFiveMinutes", "domain" => "vk"],    // 5
             "obmen_valut_donetsk"   => ["id" => "-92215147",  "time" => "everyFiveMinutes", "domain" => "vk"],    // 5
@@ -35,6 +36,7 @@ return [
         'domain'         => 'valuta-dn',
         'h1_keyword'     => ' в Луганске и ЛНР',
         'currencies'     => ['dollar', 'euro', 'hrn', 'cashless'],
+        'metrika'        => '93171078',
         'publics'        => [
             "1304227894" => ["id" => "obmenka_lugansk",       "time" => "everyTenMinutes", "domain" => "tg"],     // 10
             "1510326304" => ["id" => "obmennik_lnr",       "time" => "everyTenMinutes", "domain" => "tg"],        // 10
@@ -51,6 +53,7 @@ return [
         'domain'         => 'valuta-dn',
         'h1_keyword'     => ' в Мариуполе и ДНР',
         'currencies'     => ['dollar', 'euro', 'hrn'],
+        'metrika'        => '93171171',
         'publics'        => [
             "obmenvalut_mariupol"    => ["id" => "-212955319",  "time" => "everyThirtyMinutes", "domain" => "vk"],  // 30
 
@@ -64,6 +67,7 @@ return [
         'domain'         => 'valuta-dn',
         'h1_keyword'     => ' в Мелитополе и Запорожской области',
         'currencies'     => ['dollar', 'euro', 'hrn'],
+        'metrika'        => '93171182',
         'publics'        => [
             "1699506983" => ["id" => "mlt_obnal",             "time" => "everyTenMinutes", "domain" => "tg"],      // 10
             "1600113833" => ["id" => "obnal_mlt_ua",          "time" => "everyTenMinutes", "domain" => "tg"],      // 10
@@ -76,10 +80,12 @@ return [
         'domain'         => 'valuta-dn',
         'h1_keyword'     => ' в Бердянске и Запорожской области',
         'currencies'     => ['dollar', 'euro', 'hrn'],
+        'metrika'        => '93170908',
         'publics'        => [
             "1751133458" => ["id" => "valutaBrd",          "time" => "everyTenMinutes", "domain" => "tg"],         // 10
             "1579972943" => ["id" => "obmen_berdyansk",    "time" => "everyTenMinutes", "domain" => "tg"],         // 10
-        ]
+        ],
+        
     ],
     'minsk'       => [
         'title'          => 'Минск',
@@ -87,6 +93,7 @@ return [
         'domain'         => 'valuta-dn',
         'h1_keyword'     => ' в Минске и Республике Беларусь',
         'currencies'     => ['dollar', 'euro', 'hrn', 'cashless'],
+        'metrika'        => '93171189',
         'publics'        => [
             "1661599578" => ["id" => "obmen_rb", "time" => "everyThirtyMinutes", "domain" => "tg"],                 // 15
             "1656368659" => ["id" => "obmenvrb", "time" => "everyThirtyMinutes", "domain" => "tg"],                 // 15

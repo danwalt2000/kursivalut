@@ -30,12 +30,14 @@ class CurrencyController extends Controller
         $this->domain = $this->host['domain'];
         $this->table = $this->host['table'];
         $this->locales = Config::get('locales'); 
-
+        
         // в разных локалях разные наборы валют
         $this->locale = Config::get('locales.' . $this->host['table']);
         foreach( $this->locale['currencies'] as $currency ){
             $this->currencies[$currency] = Config::get('common.currencies')[$currency];
         }
+        $metrika = 90961172;
+        if(!empty($this->locale['metrika'])) $metrika = $this->locale['metrika'];
         $this->db_ads = DBController::getPosts( $this->table );
         $this->path = ParseUriController::parseUri();
         if( !empty($this->path['query']) ) $this->query = "?" . $this->path['query'];
@@ -51,6 +53,7 @@ class CurrencyController extends Controller
             'query'           => $this->query,
             'hash'            => $this->getCurrentGitCommit(),
             'h1'              => ParseUriController::getH1(),
+            'metrika'         => $metrika,
             'search'          => '',
             'add_class'       => '',
             'is_allowed'      => true,

@@ -15,11 +15,7 @@
         <meta property="og:site_name" content="Аггрегатор объявлений об обмене валют">
         <meta property="og:image" content="/img/pig.svg">
         
-        @if(!empty($locale['domain']) && 'kursivalut' == $locale['domain'])
-            <meta name="yandex-verification" content="55e08214f3c8e88d" />
-        @else
-            <meta name="yandex-verification" content="831c8687bb83c11a" />
-        @endif
+        <meta name="yandex-verification" content="831c8687bb83c11a" />
         <meta name="csrf-token" content="{{ csrf_token() }}" />
 
         <link href="/css/app.css?v=@isset($hash){{$hash}}@endisset" rel="stylesheet">
@@ -140,13 +136,14 @@
                 k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
                 (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
             
-                ym(90961172, "init", {
+                ym({{$metrika}}, "init", {
                     clickmap:true,
                     trackLinks:true,
-                    accurateTrackBounce:true
+                    accurateTrackBounce:true,
+                    webvisor:true
                 });
             </script>
-            <noscript><div><img src="https://mc.yandex.ru/watch/90961172" style="position:absolute; left:-9999px;" alt="Включите JavaScript, пожалуйста" /></div></noscript>
+            <noscript><div><img src="https://mc.yandex.ru/watch/{{$metrika}}" style="position:absolute; left:-9999px;" alt="Включите JavaScript, пожалуйста" /></div></noscript>
             <!-- /Yandex.Metrika counter -->
         @endproduction
     </body>
