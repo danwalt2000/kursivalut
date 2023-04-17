@@ -78,7 +78,7 @@ return [
         'title'          => 'Бердянск',
         'name'           => 'berdyansk',
         'domain'         => 'valuta-dn',
-        'h1_keyword'     => ' в Бердянске и Запорожской области',
+        'h1_keyword'     => ' в Бердянске',
         'currencies'     => ['dollar', 'euro', 'hrn'],
         'metrika'        => '93170908',
         'publics'        => [
