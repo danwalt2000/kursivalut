@@ -51,7 +51,7 @@ return [
         'title'          => 'Мариуполь',
         'name'           => 'mariupol',
         'domain'         => 'valuta-dn',
-        'h1_keyword'     => ' в Мариуполе и ДНР',
+        'h1_keyword'     => ' в Мариуполе',
         'currencies'     => ['dollar', 'euro', 'hrn'],
         'metrika'        => '93171171',
         'publics'        => [
