@@ -34,7 +34,7 @@ class CurrencyController extends Controller
         // в разных локалях разные наборы валют
         $this->locale = Config::get('locales.' . $this->host['table']);
         // в логи сыпет ошибки
-        if(empty($this->locale)) Log::error($_SERVER['HTTP_HOST']);
+        if(empty($this->locale)) Log::error($_SERVER['SERVER_NAME']);
         
         foreach( $this->locale['currencies'] as $currency ){
             $this->currencies[$currency] = Config::get('common.currencies')[$currency];
