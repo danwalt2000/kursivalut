@@ -20,3 +20,8 @@
     background-color: var(--main-bg-color);
     padding: 10px 25px 25px;
 }
+@media (max-width: 992px){
+    .landing-back-home{
+        margin: 15px;
+    }
+}

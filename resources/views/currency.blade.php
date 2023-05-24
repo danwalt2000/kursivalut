@@ -8,8 +8,11 @@
         <header class="header-nav_wrapper">
             <h1>{{ $h1 }}</h1>
             
-            @if($path['hint'] && !empty($ads) )
-                <p class="hint_message">{{$path['hint']}}</p>
+            @if($path['desc'] && !empty($ads) )
+                <p class="hint_message">{{$path['desc']}}</p>
+                {{-- @if($path['hint'] )
+                    <p class="hint_submessage">{{$path['hint']}}</p>
+                @endif --}}
             @endif
 
             @if( !empty($ads) )

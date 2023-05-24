@@ -150,7 +150,6 @@ a:hover{
     align-items: center;
     gap: 10px;
     font-weight: 600;
-    grid-row: 1;
 }
 .location_current-city::before{
     content: '';
