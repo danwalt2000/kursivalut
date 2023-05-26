@@ -119,9 +119,6 @@
                         if ( window.pageYOffset + window.screen.height >= feed.scrollHeight) {
                             loadMore();
                         }
-                        console.log(window.pageYOffset);
-                        console.log(window.screen.height);
-                        console.log("=========");
                         if(window.pageYOffset > window.screen.height){
                             scrollToTop.classList.add("scroll-to-top_active");
                             scrollToTop.classList.remove("scroll-to-top_inactive");
