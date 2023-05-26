@@ -179,4 +179,5 @@ window.addEventListener('DOMContentLoaded', () => {
         }
     }
     if(filtersButton) filtersButton.addEventListener("click", toggleFilters );
+
 });
