@@ -11,6 +11,7 @@ use App\Http\Controllers\GetAdsController;
 use App\Http\Controllers\ParseAdsController;
 use App\Http\Controllers\ParseUriController;
 use App\Http\Controllers\DBController;
+use App\Http\Controllers\RatesController;
  
 class CurrencyController extends Controller
 {
@@ -78,6 +79,7 @@ class CurrencyController extends Controller
         }
     }
 
+    // фильтры: покупка/продажа, валюта
     public function show( $sell_buy = "all", $currency = '' )
     {
         $this->to_view['ads'] = DBController::getPosts( $this->table, "get", $sell_buy, $currency );
@@ -85,6 +87,7 @@ class CurrencyController extends Controller
         return view('currency', $this->to_view);
     }
     
+    // добавления нового объявления через форму
     public function store( Request $request )
     {
         if ( SessionController::isAllowed() && $request->path() == "all" )  {
@@ -129,6 +132,7 @@ class CurrencyController extends Controller
         return view('all', $this->to_view);
     }
     
+    // страница поиска
     public function search()
     {
         $search = !empty($_GET["search"]) ? $_GET["search"] : '';
@@ -153,8 +157,11 @@ class CurrencyController extends Controller
         return \Illuminate\Support\Facades\Redirect::to('/sitemaps/sitemap-' . $this->table . '.xml');
     }
 
+    // главная страница
     public function index()
     {
+        $rates = new RatesController;
+        $rates->writeRates();
         return view('currency', $this->to_view);
     }
 }
