@@ -66,7 +66,7 @@
             <div class="footer_content">
                 Технический партнер <a href="https://sharpdesign.ru">SharpDesign</a>.</footer>
             </div>
-            <div id="scroll-to-top" class="scroll-to-top"></div>
+            <div id="scroll-to-top" class="scroll-to-top scroll-to-top_inactive"></div>
         <script>
             window.ifMore = Math.ceil( Number("{{ $ads_count / 20 }}"));
             window.feedStatus = 1;
@@ -119,11 +119,9 @@
                         if ( window.pageYOffset + window.screen.height >= feed.scrollHeight) {
                             loadMore();
                         }
-                        console.log(window.pageYOffset);
-                        console.log(window.screen.height);
-                        console.log("=========");
                         if(window.pageYOffset > window.screen.height){
                             scrollToTop.classList.add("scroll-to-top_active");
+                            scrollToTop.classList.remove("scroll-to-top_inactive");
                         } else{
                             scrollToTop.classList.remove("scroll-to-top_active");
                         }
