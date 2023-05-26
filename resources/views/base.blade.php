@@ -66,6 +66,7 @@
             <div class="footer_content">
                 Технический партнер <a href="https://sharpdesign.ru">SharpDesign</a>.</footer>
             </div>
+            <div id="scroll-to-top" class="scroll-to-top"></div>
         <script>
             window.ifMore = Math.ceil( Number("{{ $ads_count / 20 }}"));
             window.feedStatus = 1;
@@ -107,11 +108,24 @@
                     req.send();
                 }
     
+                
+                const scrollToTop = document.querySelector("#scroll-to-top");
+                scrollToTop.addEventListener("click", function(){
+                    window.scrollTo({top: 0, left: 0, behavior: "smooth", });
+                });
                 // Detect when scrolled to bottom.
                 if( window.ifMore > 1){
                     document.addEventListener('scroll', function() {
                         if ( window.pageYOffset + window.screen.height >= feed.scrollHeight) {
                             loadMore();
+                        }
+                        console.log(window.pageYOffset);
+                        console.log(window.screen.height);
+                        console.log("=========");
+                        if(window.pageYOffset > window.screen.height){
+                            scrollToTop.classList.add("scroll-to-top_active");
+                        } else{
+                            scrollToTop.classList.remove("scroll-to-top_active");
                         }
                     });
                 }

@@ -14,7 +14,7 @@
                     <p class="hint_submessage">{{$path['hint']}}</p>
                 @endif --}}
             @endif
-
+            
             @if( !empty($ads) )
                 <p class="ads_found">Найдено объявлений {{ $ads_count }}</p>
             @endif
