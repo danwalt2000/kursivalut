@@ -148,6 +148,8 @@ class CurrencyController extends Controller
     // отдельный контроллер и шаблон для лендингов
     public function landing()
     {
+        $rates = new RatesController;
+        $rates->writeRates();
         $path = explode( "?", \Request::getRequestUri() )[0];
         return view($path, $this->to_view);
     }
@@ -160,8 +162,6 @@ class CurrencyController extends Controller
     // главная страница
     public function index()
     {
-        $rates = new RatesController;
-        $rates->writeRates();
         return view('currency', $this->to_view);
     }
 }

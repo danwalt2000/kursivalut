@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('rates', function (Blueprint $table) {
             $table->id();
-            $table->date('time');
-            $table->string('direction');
-            $table->float('rate');
+            $table->string('time');
+            $table->string('currency');
+            $table->float('sell_rate');
+            $table->float('buy_rate');
             $table->string('locale');
         });
     }

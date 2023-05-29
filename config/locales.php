@@ -10,6 +10,8 @@ return [
         'domain'         => 'valuta-dn',
         'h1_keyword'     => ' в Донецке и ДНР',
         'currencies'     => ['dollar', 'euro', 'hrn', 'cashless'],
+        'rate_currencies'=> ['dollar', 'euro', 'hrn'],
+        'show_rates'     => true,
         'metrika'        => '90961172',
         'publics'        => [
             "obmenvalut_donetsk"    => ["id" => "-87785879",  "time" => "everyFiveMinutes", "domain" => "vk"],    // 5
@@ -36,6 +38,8 @@ return [
         'domain'         => 'valuta-dn',
         'h1_keyword'     => ' в Луганске и ЛНР',
         'currencies'     => ['dollar', 'euro', 'hrn', 'cashless'],
+        'rate_currencies'=> ['dollar', 'euro', 'hrn'],
+        'show_rates'     => true,
         'metrika'        => '93171078',
         'publics'        => [
             "1304227894" => ["id" => "obmenka_lugansk",       "time" => "everyTenMinutes", "domain" => "tg"],     // 10
@@ -54,6 +58,8 @@ return [
         'domain'         => 'valuta-dn',
         'h1_keyword'     => ' в Мариуполе',
         'currencies'     => ['dollar', 'euro', 'hrn'],
+        'rate_currencies'=> ['dollar', 'hrn'],
+        'show_rates'     => false,
         'metrika'        => '93171171',
         'publics'        => [
             "obmenvalut_mariupol"    => ["id" => "-212955319",  "time" => "everyThirtyMinutes", "domain" => "vk"],  // 30
@@ -68,6 +74,8 @@ return [
         'domain'         => 'valuta-dn',
         'h1_keyword'     => ' в Мелитополе и Запорожской области',
         'currencies'     => ['dollar', 'euro', 'hrn'],
+        'rate_currencies'=> ['dollar', 'hrn'],
+        'show_rates'     => true,
         'metrika'        => '93171182',
         'publics'        => [
             "1699506983" => ["id" => "mlt_obnal",             "time" => "everyTenMinutes", "domain" => "tg"],      // 10
@@ -81,6 +89,8 @@ return [
         'domain'         => 'valuta-dn',
         'h1_keyword'     => ' в Бердянске',
         'currencies'     => ['dollar', 'euro', 'hrn'],
+        'rate_currencies'=> ['dollar', 'hrn'],
+        'show_rates'     => true,
         'metrika'        => '93170908',
         'publics'        => [
             "1751133458" => ["id" => "valutaBrd",          "time" => "everyTenMinutes", "domain" => "tg"],         // 10
@@ -94,6 +104,8 @@ return [
         'domain'         => 'valuta-dn',
         'h1_keyword'     => ' в Минске и Республике Беларусь',
         'currencies'     => ['dollar', 'euro', 'hrn', 'cashless'],
+        'rate_currencies'=> ['dollar', 'euro', 'hrn'],
+        'show_rates'     => false,
         'metrika'        => '93171189',
         'publics'        => [
             "1661599578" => ["id" => "obmen_rb", "time" => "everyThirtyMinutes", "domain" => "tg"],                 // 15
@@ -114,6 +126,8 @@ return [
         'domain'         => 'kursivalut',
         'h1_keyword'     => ' в Москве',
         'currencies'     => ['dollar', 'euro'],
+        'rate_currencies'=> ['dollar', 'euro'],
+        'show_rates'     => true,
         'metrika'        => '93171361',
         'publics'        => [
             "1406118239" => ["id" => "obmenvmsk", "time" => "everyThirtyMinutes", "domain" => "tg"],                 // 30
@@ -137,6 +151,8 @@ return [
         'domain'         => 'kursivalut',
         'h1_keyword'     => ' в Ростове-на-Дону и Ростовской области',
         'currencies'     => ['dollar', 'euro', 'hrn'],
+        'rate_currencies'=> ['dollar', 'euro', 'hrn'],
+        'show_rates'     => false,
         'metrika'        => '93171389',
         'publics'        => [
             "1635308592" => ["id" => "obmen_valutROS", "time" => "everyThirtyMinutes", "domain" => "tg"],                 // 30
@@ -152,6 +168,8 @@ return [
         'domain'         => 'kursivalut',
         'h1_keyword'     => ' в Севастополе и Крыму',
         'currencies'     => ['dollar', 'euro', 'hrn'],
+        'rate_currencies'=> ['dollar', 'hrn'],
+        'show_rates'     => true,
         'metrika'        => '93171377',
         'publics'        => [
             "1520647319" => ["id" => "krymex", "time" => "everyThirtyMinutes", "domain" => "tg"],                 // 30
@@ -167,8 +185,10 @@ return [
         'name'           => 'krasnodar',
         'domain'         => 'kursivalut',
         'h1_keyword'     => ' в Краснодаре',
-        'metrika'        => '93171402',
         'currencies'     => ['dollar', 'euro', 'hrn'],
+        'rate_currencies'=> ['dollar', 'euro', 'hrn'],
+        'show_rates'     => false,
+        'metrika'        => '93171402',
         'publics'        => [
             "1664166871" => ["id" => "obmennikkrasnodar", "time" => "everyThirtyMinutes", "domain" => "tg"],                 // 30
             "1756305590" => ["id" => "exchange_krasnodar", "time" => "everyThirtyMinutes", "domain" => "tg"],                 // 30

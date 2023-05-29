@@ -105,4 +105,34 @@ class DBController extends Controller
     {
         DB::table($table)->updateOrInsert( [ 'content' => $args['content'] ], $args );
     }
+
+    // получает курсы, записанные в БД
+    public static function getRates( $locale, $currency, $time ){
+        return DB::table("rates")
+                ->where( 'locale', $locale )
+                ->where( 'currency', $currency )
+                ->where( 'time', '<', $time + 59*60 )
+                ->orderBy( 'time', 'desc' )
+                ->first();
+    }
+
+    // получает средний курс из таблицы $table и направления $direction (например, продать доллар)
+    // за время $time, отсекая курсы на 15% больше или меньше, чем имеющаяся в БД запись
+    public static function getAvg( $table, $direction, $time,  $averages ){
+        return DB::table($table)
+               ->where( 'type', $direction )
+               ->where('date', '<', $time )
+               ->where('date', '>', $time - 24*60*60 )
+               ->where('rate', '>', $averages[0])
+               ->where('rate', '<', $averages[1])
+               ->avg("rate");
+    }
+
+    public static function storeAvg( $args ){
+        DB::table("rates")->updateOrInsert( [ 
+            'time' => $args['time'],
+            'currency' => $args['currency'],
+            'locale' => $args['locale']
+        ], $args );
+    }
 }
