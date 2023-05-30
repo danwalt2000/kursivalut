@@ -23,13 +23,15 @@ class CurrencyController extends Controller
     public $path = [];       // разложенный по частям uri
     public $table;           // текущая таблица БД, например, donetsk 
     public $query = '';
+    public $rates;
 
     public function __construct()
     {
         $this->host = SessionController::getHost();
         $this->table = $this->host['table'];
         $this->locales = Config::get('locales'); 
-        
+        $this->rates = new RatesController;
+
         // в разных локалях разные наборы валют
         $this->locale = Config::get('locales.' . $this->host['table']);
         // в логи сыпет ошибки
@@ -48,12 +50,14 @@ class CurrencyController extends Controller
             'ads'             => $this->db_ads,
             'ads_count'       => DBController::getPosts($this->table, "count"),
             'currencies'      => $this->currencies,
-            'locales'          => $this->locales,
+            'locales'         => $this->locales,
             'locale'          => $this->locale,
             'table'           => $this->table,
             'date_sort'       => Config::get('common.date_sort'),
             'path'            => $this->path,
             'query'           => $this->query,
+            'rates'           => $this->rates->getRatesByLocale( $this->locale ),
+            'title'           => ParseUriController::generateTitle(),
             'hash'            => $this->getCurrentGitCommit(),
             'h1'              => ParseUriController::getH1(),
             'metrika'         => $metrika,
@@ -73,7 +77,8 @@ class CurrencyController extends Controller
     }
 
     // используется для добавления версии к css файлу
-    function getCurrentGitCommit( $branch='master' ) {
+    function getCurrentGitCommit( $branch='master' ) 
+    {
         if ( $hash = file_get_contents( sprintf(__DIR__ . '/../../../.git/refs/heads/%s', $branch ) ) ) {
             return trim($hash);
         } else {
@@ -150,8 +155,6 @@ class CurrencyController extends Controller
     // отдельный контроллер и шаблон для лендингов
     public function landing()
     {
-        $rates = new RatesController;
-        $rates->writeRates();
         $path = explode( "?", \Request::getRequestUri() )[0];
         return view($path, $this->to_view);
     }

@@ -12,50 +12,50 @@ class ParseUriController extends Controller
         $host = SessionController::getHost();
         $locale = Config::get('locales.' . $host['table']);
         
-        $title = ParseUriController::generateTitle()["h1"];
+        $title = ParseUriController::generateTitle()->h1;
         
         return $title["sell_buy"] . $title["currency"] . $locale['h1_keyword'];
     }
 
     public static function generateTitle( $uri = null ){
         $path = !empty($uri) ? $uri : ParseUriController::parseUri();
-        $headline = [ 
+        $headline = (object)[ 
             "h1" => [],
-            "description" => [
+            "description" => (object)[
                 "rate" => "только объявления содержащие курс",
                 "hint" => 'Чтобы посмотреть все предложения, снимите в фильтрах галочку "Только с курсом".',
                 "sort" => 'убывания'
             ]
         ];
         if( $path['sell_buy'] == 'sell'){
-            $headline["h1"]["sell_buy"] = "Продажа ";
+            $headline->h1["sell_buy"] = "Продажа ";
         } elseif( $path['sell_buy'] == 'buy'){
-            $headline["h1"]["sell_buy"] = "Покупка ";
+            $headline->h1["sell_buy"] = "Покупка ";
         } else{
-            $headline["h1"]["sell_buy"] = "Обмен ";
+            $headline->h1["sell_buy"] = "Обмен ";
         }
         foreach(Config::get('common.currencies_loc') as $name => $title){
             if($path["currency"] == ''){
-                $headline["h1"]["currency"] = "валюты";
+                $headline->h1["currency"] = "валюты";
                 break;
             }
             if($path["currency"] == $name ){
-                $headline["h1"]["currency"] = $title;
+                $headline->h1["currency"] = $title;
             }
         }
-        $headline["description"]["hours"] = " за последние сутки";
+        $headline->description->hours = " за последние сутки";
         if( !empty($path['hours']) ){
             if($path['hours'] == 5){
-                $headline["description"]["hours"] = " за последние пять часов";
+                $headline->description->hours = " за последние пять часов";
             } elseif($path['hours'] == 168){
-                $headline["description"]["hours"] = " за последнюю неделю";
+                $headline->description->hours = " за последнюю неделю";
             }
         }
         if( !empty($_GET["rate"]) && $_GET["rate"] == "false" ){
-            $headline["description"]["rate"] = "все объявления";
-            $headline["description"]["hint"] = "";
+            $headline->description->rate = "все объявления";
+            $headline->description->hint = "";
         } 
-        if( !empty($_GET["order"]) && $_GET["order"] == "asc" ) $headline["description"]["sort"] = "возрастания"; 
+        if( !empty($_GET["order"]) && $_GET["order"] == "asc" ) $headline->description->sort = "возрастания"; 
 
         return $headline;
     }
@@ -100,8 +100,8 @@ class ParseUriController extends Controller
             $path_parts["currency"] = empty($path_array[3]) ? '' : $path_array[3];
             
         }
-        $message = ParseUriController::generateTitle($path_parts)["description"];
-        $path_parts["desc"] = "Показаны " . $message["rate"] . $message["hours"] . " в порядке " . $message["sort"] . " даты публикации.";
+        $message = ParseUriController::generateTitle($path_parts)->description;
+        $path_parts["desc"] = "Показаны " . $message->rate . $message->hours . " в порядке " . $message->sort . " даты публикации.";
         // $path_parts["hint"] = $message["hint"];
 
         return $path_parts;

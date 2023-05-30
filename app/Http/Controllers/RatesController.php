@@ -3,16 +3,58 @@
 namespace App\Http\Controllers;
 use Log;
 use Config;
+use Illuminate\Http\Request;
 use App\Http\Controllers\DBController;
 use App\Http\Controllers\CurrencyController;
  
 class RatesController extends Controller
 {
-    public function writeRates( $time = null ){
-        $rounded_time = $this->getRoundedTime($time);
-        $locales =  Config::get('locales'); 
+    public $locales = [];
 
-        foreach( $locales as $locale ){
+    public function __construct()
+    {
+        $this->locales =  Config::get('locales'); 
+    }
+
+    public function getAll()
+    {
+        $rounded_time = $this->getRoundedTime( time() );
+        $rates = (object) [ 
+            'rates' => []
+        ];
+        foreach( $this->locales as $locale ){
+            if( empty($locale["show_rates"]) ) continue; 
+            foreach( $locale["rate_currencies"] as $currency ){
+                $rate = DBController::getRates($locale["name"], $currency, $rounded_time);
+                if( !empty($rate) ) array_push($rates->rates, $rate);
+            }
+        }
+        return $rates;
+    }
+
+    public function getRatesByLocale( $locale )
+    {
+        if( empty($locale["show_rates"]) ) return;
+
+        $rounded_time = $this->getRoundedTime( time() );
+        $rates = [];
+        foreach( $locale["rate_currencies"] as $currency ){
+            $rate = DBController::getRates($locale["name"], $currency, $rounded_time);
+            if( !empty($rate) ){
+                $rate->avg = round( ($rate->sell_rate + $rate->buy_rate)/2, 2); 
+                $rate->name = Config::get('common.currencies_rates')[$rate->currency]; 
+                array_push($rates, $rate);
+            }
+        }
+        
+        return $rates;
+    }
+
+    public function writeRates( $time = null )
+    {
+        $rounded_time = $this->getRoundedTime($time);
+
+        foreach( $this->locales as $locale ){
             // в некоторых локалях слишком мало объявлений
             // для стабильного вычисления среднего курса и построения графика
             if( empty($locale["show_rates"]) ) continue; 
@@ -28,8 +70,9 @@ class RatesController extends Controller
                 }
                 $avg_sell = DBController::getAvg($table, "sell_" . $currency, $rounded_time, $avgs );
                 $avg_buy = DBController::getAvg($table, "buy_" . $currency, $rounded_time, $avgs );
-                // echo $locale["name"] . " " . $currency . " sell " . var_dump($avg_sell) . "<br>";
-                // echo $locale["name"] . " " . $currency . " buy " . var_dump($avg_buy) . "<br>";
+                if( empty($avg_sell) ) $avg_sell = $db_rates->sell_rate;
+                if( empty($avg_buy) ) $avg_buy = $db_rates->buy_rate;
+
                 if( !empty($avg_sell) && !empty($avg_buy) ) {
                     $args = [
                         'time'       => $rounded_time,
@@ -39,28 +82,16 @@ class RatesController extends Controller
                         'locale'     => $table
                     ];
                     DBController::storeAvg( $args );
-
                 }
 
             }
-            // $this->currencies[$currency] = Config::get('common.currencies')[$currency];
         }
        
     }
 
-    // получает среднее значение курса за определенное время $time
-    // $locale - город и таблица, например, donetsk
-    // $direction - направление, например, продажа доллара - sell_dollar
-    // public function getAverage( $locale, $time, $direction ){
-        // return ($locale, $time, $direction);
-        // $input = $request->all();
-        // $ad = DBController::getPhone($input);
-        // if( empty($ad->phone) ) return $ad; 
-        // return $ad->phone;
-    // }
-        
     // получает текущее либо заданное время, округленное до часа
-    public function getRoundedTime( $time ){
+    public function getRoundedTime( $time )
+    {
         $seconds = $time ? $time : time();
         return round($seconds / (60 * 60)) * (60 * 60);
     }

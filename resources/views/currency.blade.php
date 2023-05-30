@@ -16,6 +16,20 @@
                 <p class="ads_found">Найдено объявлений {{ $ads_count }}</p>
             @endif
         </header>
+
+        @if( !empty($rates) )
+        <aside class="rates">
+            <h2>Курсы валют на наличном рынке {{$locale["h1_keyword"]}} на сегодня</h2>
+            <section class="rates_table">
+                @foreach($rates as $rate)
+                <div class="rates_table_currency">
+                    <div class="rates_table_name">{{$rate->name}}</div>
+                    <div class="rates_table_name">{{$rate->avg}}</div>
+                </div>
+                @endforeach
+            </section>
+        </aside>
+        @endif
         
         <section id="feed" class="feed">
             @include('parts.feed', ['ads' => $ads])

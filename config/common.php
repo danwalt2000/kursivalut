@@ -39,6 +39,11 @@ return [
         "hrn" => "гривны (Ощад, Приват, Моно)",
         "cashless" => "безнала руб. (Сбер, Тиньков)"
     ],
+    'currencies_rates'  => [
+        "dollar" => "USD/RUB",
+        "euro" => "EUR/RUB",
+        "hrn" => "UAH/RUB"
+    ],
      'date_sort'      => [
         //  1   => "1 час",
          5   => "5 часов",

@@ -221,6 +221,7 @@ a:hover{
     gap: 10px;
 }
 .header-nav_wrapper, 
+.rates,
 .post, 
 .form-wrapper,
 .modal-inner,
@@ -874,6 +875,14 @@ span.with-arrow-rarr-up::after,
     opacity: .2;
     visibility: visible;
     transition: opacity .3s;
+}
+.rates_table{
+    display: flex;
+    gap: 20px;
+}
+.rates_table_currency{
+    display: flex;
+    gap: 5px;
 }
 @media (min-width: 992px) and (max-height: 460px){
     .sorting-column{
