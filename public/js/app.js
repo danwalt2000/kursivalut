@@ -163,6 +163,26 @@ window.addEventListener('DOMContentLoaded', () => {
         modalButton.addEventListener('click', openModal);
     });
 
+    const openHintBtn = document.querySelector(".open-hint-btn");
+    if(!!openHintBtn){
+        const openHintMessage = document.querySelector(".open-hint-message");
+        const closeHint = document.querySelector(".open-hint-btn-close");
+
+        openHintBtn.addEventListener("click", e =>{
+            let opened = openHintMessage.classList.contains("open-hint-message_active");
+            openHintBtn.classList.remove("open-hint-btn_active");
+            openHintMessage.classList.remove("open-hint-message_active");
+            console.log(opened);
+            if(!opened){
+                e.target.classList.add("open-hint-btn_active");
+                openHintMessage.classList.add("open-hint-message_active");
+            }
+        });
+        closeHint.addEventListener("click", e =>{
+            openHintBtn.classList.remove("open-hint-btn_active");
+            openHintMessage.classList.remove("open-hint-message_active");
+        });
+    }
     
     const openSearch = document.querySelector("#open-search");
     openSearch.addEventListener("click", function(){
