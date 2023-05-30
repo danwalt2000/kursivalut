@@ -29,7 +29,8 @@ class DBController extends Controller
             $rate_limit = 0;
         }
 
-        // проверяем, чтобы get-параметры строго соответствовали значениям
+        // проверяем, чтобы get-параметры строго соответствовали значениям,
+        // иначе можно получить 500-ю ошибку
         if(!empty($_GET["sort"]) &&  ( str_contains( "date", $_GET["sort"]) || str_contains( "rate", $_GET["sort"]) ) ){
             $sort = $_GET["sort"];
         } 
@@ -41,7 +42,7 @@ class DBController extends Controller
         // период, за который запрашиваются записи - измеряется в часах
         $time_range = 24;
         if(!empty($_GET["date"]) && 
-            filter_var($_GET["date"], FILTER_VALIDATE_INT)!== false &&
+            filter_var($_GET["date"], FILTER_VALIDATE_INT) !== false &&
             (24 == $_GET["date"] || 5 == $_GET["date"] || 168 == $_GET["date"]) ){
             $time_range = $_GET["date"];
         }
@@ -82,11 +83,15 @@ class DBController extends Controller
         return DB::table($table)->where( 'content_changed', $content )->first();
     }
 
+    // id может быть неуникальным, поскольку это id с площадки (vk, tg) 
     public static function getPostById( $id ){
         $table = SessionController::getHost()["table"];
         return DB::table($table)->where( 'vk_id', $id )->first();
     }
     
+    // получение номера телефона: все найденные в объявлениях номера
+    // телефонов скрываются, чтобы их не индексировали поисковики
+    // получить номер телефона можно по клику на спойлер через xhr
     public static function getPhone( $info ){
         $ad = DBController::getPostById( $info["postId"] ); 
         
@@ -106,7 +111,7 @@ class DBController extends Controller
         DB::table($table)->updateOrInsert( [ 'content' => $args['content'] ], $args );
     }
 
-    // получает курсы, записанные в БД
+    // получает курсы, записанные в БД в таблице rates
     public static function getRates( $locale, $currency, $time ){
         return DB::table("rates")
                 ->where( 'locale', $locale )

@@ -10,9 +10,6 @@
             
             @if($path['desc'] && !empty($ads) )
                 <p class="hint_message">{{$path['desc']}}</p>
-                {{-- @if($path['hint'] )
-                    <p class="hint_submessage">{{$path['hint']}}</p>
-                @endif --}}
             @endif
             
             @if( !empty($ads) )

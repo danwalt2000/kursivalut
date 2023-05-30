@@ -3,6 +3,7 @@
 namespace App\Console;
 
 use App\Http\Controllers\GetAdsController;
+use App\Http\Controllers\RatesController;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use Config;
@@ -17,7 +18,14 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+        // вычисление среднего курса: в 03 минуты каждого часа 
+        // (чтобы не совпадало с другими задачами) 
+        // с 07:00 до 19:00 по Москве
+        $schedule->call( function(){
+            (new RatesController)->writeRates(  );
+        })->hourlyAt(3)->between('4:00', '16:00'); // по Гринвичу
 
+        // сбор новых объявлений
         foreach ( Config::get('locales') as $subdomain => $locale ){
             foreach( $locale['publics'] as $name => $channel ){
                 $time = $channel["time"];

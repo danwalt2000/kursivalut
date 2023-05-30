@@ -11,12 +11,12 @@ class RatesController extends Controller
     public function writeRates( $time = null ){
         $rounded_time = $this->getRoundedTime($time);
         $locales =  Config::get('locales'); 
-        // var_dump(date("m.d H:i", $rounded_time));
-        // var_dump(date("m.d H:i", $rounded_time - 24*60*60 ));
-        // var_dump($rounded_time);
-        // var_dump($rounded_time - 24*60*60 );
+
         foreach( $locales as $locale ){
-            if( empty($locale["show_rates"]) ) continue;
+            // в некоторых локалях слишком мало объявлений
+            // для стабильного вычисления среднего курса и построения графика
+            if( empty($locale["show_rates"]) ) continue; 
+
             foreach( $locale["rate_currencies"] as $currency ){
                 $table = $locale["name"];
                 $avgs = [0, 999];
@@ -25,7 +25,6 @@ class RatesController extends Controller
                     $sell_rate = $db_rates->sell_rate;
                     $buy_rate = $db_rates->buy_rate;
                     $avgs = [ $buy_rate * 0.85, $sell_rate * 1.15 ];
-                    var_dump($sell_rate);
                 }
                 $avg_sell = DBController::getAvg($table, "sell_" . $currency, $rounded_time, $avgs );
                 $avg_buy = DBController::getAvg($table, "buy_" . $currency, $rounded_time, $avgs );
@@ -46,23 +45,7 @@ class RatesController extends Controller
             }
             // $this->currencies[$currency] = Config::get('common.currencies')[$currency];
         }
-        // $to_view = (new CurrencyController)->to_view;
-        // $table = SessionController::getHost()["table"];
-
-        // $sellbuy = $request->query('sellbuy');
-        // if( empty($sellbuy) ) $sellbuy = '';
-
-        // $currency = $request->query('currency');
-        // if( empty($currency) ) $currency = '';
-        
-        // $offset = $request->query('offset');
-        // if( empty($offset) ) $offset = 0;
-        
-        // $search = $request->query('search');
-        // if( empty($search) ) $search = '';
-
-        // $to_view['ads'] = DBController::getPosts( $table, "get", $sellbuy, $currency, $search, $offset );
-        // return view('parts.feed', $to_view);;
+       
     }
 
     // получает среднее значение курса за определенное время $time

@@ -20,15 +20,13 @@ class CurrencyController extends Controller
     public $host;            // текущий домен и поддомен
     public $locale;          // текущая локаль из конф. файла locales.php
     public $currencies = []; // список валют для текущей локали
-    public $domain;          // текущий домен
-    public $path = [];       // путь uri
+    public $path = [];       // разложенный по частям uri
     public $table;           // текущая таблица БД, например, donetsk 
     public $query = '';
 
     public function __construct()
     {
         $this->host = SessionController::getHost();
-        $this->domain = $this->host['domain'];
         $this->table = $this->host['table'];
         $this->locales = Config::get('locales'); 
         
@@ -39,8 +37,10 @@ class CurrencyController extends Controller
         foreach( $this->locale['currencies'] as $currency ){
             $this->currencies[$currency] = Config::get('common.currencies')[$currency];
         }
+
         $metrika = 90961172;
         if(!empty($this->locale['metrika'])) $metrika = $this->locale['metrika'];
+
         $this->db_ads = DBController::getPosts( $this->table );
         $this->path = ParseUriController::parseUri();
         if( !empty($this->path['query']) ) $this->query = "?" . $this->path['query'];
@@ -63,6 +63,8 @@ class CurrencyController extends Controller
             'submit_msg'      => 'Вы уже публиковали объявление.',
             'next_submit'     => ''
         ];
+        // middleware для записи в сессию времени публикации объявления
+        // и возможности нового заполнения формы
         $this->middleware(function ($request, $next){
             $this->to_view["is_allowed"] = SessionController::isAllowed();
             $this->to_view["next_submit"] = SessionController::nextSubmit();
