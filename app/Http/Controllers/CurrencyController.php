@@ -56,7 +56,7 @@ class CurrencyController extends Controller
             'date_sort'       => Config::get('common.date_sort'),
             'path'            => $this->path,
             'query'           => $this->query,
-            // 'rates'           => $this->rates->getRatesByLocale( $this->locale ),
+            'rates'           => $this->rates->getRatesByLocale( $this->locale ),
             'title'           => ParseUriController::generateTitle(),
             'hash'            => $this->getCurrentGitCommit(),
             'h1'              => ParseUriController::getH1(),

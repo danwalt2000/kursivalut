@@ -1205,6 +1205,10 @@ span.with-arrow-rarr-up::after,
     .modal-inner{
         max-width: 80%;
     }
+    .rates_table{
+        flex-direction: column;
+        gap: 15px;
+    }
 }
 @media (max-height: 600px){
     .form-wrapper{
