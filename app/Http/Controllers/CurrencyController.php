@@ -70,7 +70,7 @@ class CurrencyController extends Controller
         // middleware для записи в сессию времени публикации объявления
         // и возможности нового заполнения формы
         $this->middleware(function ($request, $next){
-            $this->to_view["is_allowed"] = SessionController::isAllowed();
+            $this->to_view["is_allowed"]  = SessionController::isAllowed();
             $this->to_view["next_submit"] = SessionController::nextSubmit();
             return $next($request);
         });
@@ -79,7 +79,7 @@ class CurrencyController extends Controller
     // используется для добавления версии к css файлу
     function getCurrentGitCommit( $branch='master' ) 
     {
-        if ( $hash = file_get_contents( sprintf(__DIR__ . '/../../../.git/refs/heads/%s', $branch ) ) ) {
+        if ( $hash = file_get_contents( sprintf( __DIR__ . '/../../../.git/refs/heads/%s', $branch ) ) ) {
             return trim($hash);
         } else {
             return false;
