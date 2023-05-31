@@ -135,9 +135,11 @@ class DBController extends Controller
 
     public static function storeAvg( $args ){
         DB::table("rates")->updateOrInsert( [ 
-            'time' => $args['time'],
-            'currency' => $args['currency'],
-            'locale' => $args['locale']
+            'time'      => $args['time'],
+            'currency'  => $args['currency'],
+            'locale'    => $args['locale'],
+            'sell_rate' => $args['sell_rate'],
+            'buy_rate'  => $args['buy_rate'],
         ], $args );
     }
 }

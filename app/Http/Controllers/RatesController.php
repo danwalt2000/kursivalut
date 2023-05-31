@@ -70,8 +70,8 @@ class RatesController extends Controller
                 }
                 $avg_sell = DBController::getAvg($table, "sell_" . $currency, $rounded_time, $avgs );
                 $avg_buy = DBController::getAvg($table, "buy_" . $currency, $rounded_time, $avgs );
-                if( empty($avg_sell) ) $avg_sell = $db_rates->sell_rate;
-                if( empty($avg_buy) ) $avg_buy = $db_rates->buy_rate;
+                if( empty($avg_sell)  && !empty($db_rates->sell_rate) ) $avg_sell = $db_rates->sell_rate;
+                if( empty($avg_buy) && !empty($db_rates->buy_rate) ) $avg_buy = $db_rates->buy_rate;
 
                 if( !empty($avg_sell) && !empty($avg_buy) ) {
                     $args = [
