@@ -35,7 +35,7 @@ class WriteOldRates extends Command
 
         while( $rate_time < time() ){
             $rates_controller->writeRates($rate_time);
-            $rate_time += 60*60;
+            $rate_time += 4*60*60; // через каждые четыре часа
         }
     }
 }

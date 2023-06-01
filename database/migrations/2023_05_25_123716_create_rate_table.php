@@ -15,8 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('time');
             $table->string('currency');
+            $table->string('symbol');
             $table->float('sell_rate');
             $table->float('buy_rate');
+            $table->float('average');
+            $table->float('changes');
             $table->string('locale');
         });
     }

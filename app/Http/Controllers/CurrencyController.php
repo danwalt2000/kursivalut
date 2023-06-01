@@ -56,7 +56,8 @@ class CurrencyController extends Controller
             'date_sort'       => Config::get('common.date_sort'),
             'path'            => $this->path,
             'query'           => $this->query,
-            'rates'           => $this->rates->getRatesByLocale( $this->locale ),
+            // 'rates'           => $this->rates->getRatesByLocale( $this->locale ),
+            // 'stock_rates'     => $this->rates->getRatesByLocale( 'stock' ),
             'title'           => ParseUriController::generateTitle(),
             'hash'            => $this->getCurrentGitCommit(),
             'h1'              => ParseUriController::getH1(),
@@ -155,6 +156,10 @@ class CurrencyController extends Controller
     // отдельный контроллер и шаблон для лендингов
     public function landing()
     {
+        // $rates = new RatesController;
+        // $rates->writeRates();
+        // $rates->getStockRates();
+        // var_dump($rates->getRatesByLocale( 'stock' ));
         $path = explode( "?", \Request::getRequestUri() )[0];
         return view($path, $this->to_view);
     }

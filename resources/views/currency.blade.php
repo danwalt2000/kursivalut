@@ -20,21 +20,29 @@
         @if( !empty($rates) )
         <aside class="rates">
             <div class="rates_title">
-                <h2>Курсы валют на наличном рынке сегодня</h2>
-                <div class="open-hint">
-                    <span class="open-hint-btn">?</span>
-                    <div class="open-hint-message"><span class="open-hint-btn-close"></span>
-                        Средние курсы купли-продажи валюты за последние 24 часа
-                    </div>
-                </div>
+                <h2>Курсы валют на сегодня</h2>
             </div>
             <section class="rates_table">
-                @foreach($rates as $rate)
-                <div class="rates_table_currency">
-                    <div class="rates_table_name">{{$rate->name}}</div>
-                    <div class="rates_table_rate">{{$rate->avg}}</div>
+                <div class="rates_table_spot">
+                    <div class="rates_table_title">
+                        Наличный рынок
+                        <div class="open-hint">
+                            <span class="open-hint-btn">?</span>
+                            <div class="open-hint-message"><span class="open-hint-btn-close"></span>
+                                Средние курсы купли-продажи валюты за последние 24 часа
+                            </div>
+                        </div>
+                    </div>
+                    @foreach($rates as $rate)
+                        @include('parts.rates-loop', ['rate' => $rate])    
+                    @endforeach
                 </div>
-                @endforeach
+                <div class="rates_table_stock">
+                    <div class="rates_table_title">Биржевые котировки</div>
+                    @foreach($stock_rates as $rate)
+                        @include('parts.rates-loop', ['rate' => $rate])    
+                    @endforeach
+                </div>
             </section>
         </aside>
         @endif

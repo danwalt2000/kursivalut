@@ -59,8 +59,8 @@ class GetAdsController extends CurrencyController
      */
     public function getApiLink()
     {
-        $access_token = Storage::get('/private/token.txt');
-        // $access_token = env('VK_TOKEN');
+        // $access_token = Storage::get('/private/token.txt');
+        $access_token = env('VK_TOKEN');
         $count = 10;
         // $count = 100;
         // $count = 1000;

@@ -164,19 +164,24 @@ window.addEventListener('DOMContentLoaded', () => {
     });
 
     const openHintBtn = document.querySelector(".open-hint-btn");
+    const openHintMessage = document.querySelector(".open-hint-message");
+    const hideHint = ()=>{
+        openHintBtn.classList.remove("open-hint-btn_active");
+        openHintMessage.classList.remove("open-hint-message_active");
+    }
+
     if(!!openHintBtn){
-        const openHintMessage = document.querySelector(".open-hint-message");
         const closeHint = document.querySelector(".open-hint-btn-close");
 
         openHintBtn.addEventListener("click", e =>{
             let opened = openHintMessage.classList.contains("open-hint-message_active");
-            openHintBtn.classList.remove("open-hint-btn_active");
-            openHintMessage.classList.remove("open-hint-message_active");
-            console.log(opened);
+            
             if(!opened){
+                document.addEventListener("click", hideHint);
                 e.target.classList.add("open-hint-btn_active");
                 openHintMessage.classList.add("open-hint-message_active");
-            }
+                e.stopPropagation();
+            } 
         });
         closeHint.addEventListener("click", e =>{
             openHintBtn.classList.remove("open-hint-btn_active");

@@ -878,14 +878,17 @@ span.with-arrow-rarr-up::after,
 .rates_table{
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 50px;
 }
 .rates_table_rate{
-    font: var(--para-medium-extrabolt)
+    font: var(--para-medium-extrabolt);
+    display: flex;
+    gap: 5px;
 }
 .rates_table_currency{
     display: flex;
     gap: 5px;
+    justify-content: space-between;
 }
 .rates_title{
     display: flex;
@@ -894,6 +897,38 @@ span.with-arrow-rarr-up::after,
 }
 .rates_title h2{
     margin-bottom: 0;
+}
+.rates_table_title{
+    display: flex;
+    gap: 10px;
+}
+.rates_table_spot,
+.rates_table_stock{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.changes-span{
+    font: var(--para-small-font);
+    border: 1px solid grey;
+    padding: 2px 4px;
+    border-radius: 4px;
+}
+.changes-span-minus{
+    border: 1px solid red;
+    color: red;
+}
+.changes-span-plus{
+    border: 1px solid green;
+    color: green;
+    display: flex;
+    gap: 2px;
+}
+.changes-span-plus::before{
+    content: '+';
+    display: block;
+    width: 5px;
+    height: 5px;
 }
 .open-hint{
     position: relative;
@@ -916,7 +951,7 @@ span.with-arrow-rarr-up::after,
     background: var(--title-color);
     color: var(--chip-bg-color);
     font: var(--para-small-font);
-    right: -15px;
+    left: -15px;
     padding: 16px 25px 16px 16px;
     border-radius: 6px;
     width: 250px;
@@ -931,7 +966,7 @@ span.with-arrow-rarr-up::after,
     width: 14px;
     height: 14px;
     top: -6px;
-    right: 18px;
+    left: 18px;
     position: absolute;
     transform: rotate(45deg);
 }
@@ -948,6 +983,7 @@ span.with-arrow-rarr-up::after,
     cursor: pointer;
     background-size: contain;
 }
+
 @media (min-width: 992px) and (max-height: 460px){
     .sorting-column{
         position: static;

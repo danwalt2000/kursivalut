@@ -21,9 +21,14 @@ class Kernel extends ConsoleKernel
         // вычисление среднего курса: в 03 минуты каждого часа 
         // (чтобы не совпадало с другими задачами) 
         // с 07:00 до 19:00 по Москве
-        $schedule->call( function(){
-            (new RatesController)->writeRates(  );
+        $rates = new RatesController;
+        $schedule->call( function() use ($rates){
+            $rates->writeRates();
         })->hourlyAt(3)->between('4:00', '16:00'); // по Гринвичу
+        
+        $schedule->call( function() use ($rates){
+            $rates->getStockRates();
+        })->hourlyAt(4)->between('4:00', '16:00'); // по Гринвичу
 
         // сбор новых объявлений
         foreach ( Config::get('locales') as $subdomain => $locale ){
