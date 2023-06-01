@@ -4,6 +4,8 @@
     --active-bg-color: rgba(81, 209, 224, .1);
     --link-color: #1f7c87; /* #51d1e0 */
     --logo-color: #51d1e0;
+    --red: #eb4e3d;
+    --green: #65c466;
     --link-hover-color: #267f89;
     --title-color: #242423;
     --para-color: #3E3E40;
@@ -915,12 +917,14 @@ span.with-arrow-rarr-up::after,
     border-radius: 4px;
 }
 .changes-span-minus{
-    border: 1px solid red;
-    color: red;
+    border: 1px solid var(--red);
+    background-color: var(--red);
+    color: var(--chip-bg-color);
 }
 .changes-span-plus{
-    border: 1px solid green;
-    color: green;
+    border: 1px solid var(--green);
+    background-color: var(--green);
+    color: var(--chip-bg-color);
     display: flex;
     gap: 2px;
 }
