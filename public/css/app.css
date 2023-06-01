@@ -958,7 +958,7 @@ span.with-arrow-rarr-up::after,
     left: -15px;
     padding: 16px 25px 16px 16px;
     border-radius: 6px;
-    width: 250px;
+    width: 150px;
     top: 30px;
 }
 .open-hint-message_active{
@@ -1219,6 +1219,12 @@ span.with-arrow-rarr-up::after,
     }
     .chip a{
         padding: 5px;
+    }
+    .open-hint-message{
+        left: -140px;
+    }
+    .open-hint-message::before{
+        left: 143px;
     }
 }
 @media (max-width: 500px){
