@@ -57,7 +57,7 @@ class CurrencyController extends Controller
             'path'            => $this->path,
             'query'           => $this->query,
             'rates'           => $this->rates->getRatesByLocale( $this->locale ),
-            // 'stock_rates'     => $this->rates->getRatesByLocale( 'stock' ),
+            'stock_rates'     => $this->rates->getRatesByLocale( 'stock' ),
             'title'           => ParseUriController::generateTitle(),
             'hash'            => $this->getCurrentGitCommit(),
             'h1'              => ParseUriController::getH1(),

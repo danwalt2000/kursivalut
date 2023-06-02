@@ -37,12 +37,12 @@
                         @include('parts.rates-loop', ['rate' => $rate])    
                     @endforeach
                 </div>
-                {{-- <div class="rates_table_stock">
+                <div class="rates_table_stock">
                     <div class="rates_table_title">Биржевые котировки</div>
                     @foreach($stock_rates as $rate)
                         @include('parts.rates-loop', ['rate' => $rate])    
                     @endforeach
-                </div> --}}
+                </div>
             </section>
         </aside>
         @endif

@@ -156,7 +156,7 @@ class RatesController extends Controller
     public function getDayBeforeAverage( $table, $currency, $rounded_time, $average )
     {
         $changes = 0;
-        $day_before = strtotime("yesterday", $rounded_time);
+        $day_before = strtotime("today", $rounded_time);
         $day_before_average = DBController::getRates($table, $currency, $day_before);
         if( !empty($day_before_average) ){
             $changes = $average - $day_before_average->average;
