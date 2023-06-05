@@ -64,9 +64,10 @@
         </div>
         <footer class="footer">
             <div class="footer_content">
-                Технический партнер <a href="https://sharpdesign.ru">SharpDesign</a>.</footer>
+                Технический партнер <a href="https://sharpdesign.ru">SharpDesign</a>.
             </div>
             <div id="scroll-to-top" class="scroll-to-top scroll-to-top_inactive"></div>
+        </footer>
         <script>
             window.ifMore = Math.ceil( Number("{{ $ads_count / 20 }}"));
             window.feedStatus = 1;

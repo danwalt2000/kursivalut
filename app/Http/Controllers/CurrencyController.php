@@ -28,20 +28,18 @@ class CurrencyController extends Controller
     public function __construct()
     {
         $this->host = SessionController::getHost();
-        $this->table = $this->host['table'];
+        $this->table = !empty($this->host['table']) ? $this->host['table'] : "donetsk";
         $this->locales = Config::get('locales'); 
         $this->rates = new RatesController;
 
         // в разных локалях разные наборы валют
         $this->locale = Config::get('locales.' . $this->host['table']);
-        // в логи сыпет ошибки
-        if(empty($this->locale)) Log::error($_SERVER['SERVER_NAME']);
+
         foreach( $this->locale['currencies'] as $currency ){
             $this->currencies[$currency] = Config::get('common.currencies')[$currency];
         }
 
-        $metrika = 90961172;
-        if(!empty($this->locale['metrika'])) $metrika = $this->locale['metrika'];
+        $metrika_id = !empty($this->locale['metrika']) ? $this->locale['metrika'] : env("METRIKA_ID");
 
         $this->db_ads = DBController::getPosts( $this->table );
         $this->path = ParseUriController::parseUri();
@@ -61,7 +59,7 @@ class CurrencyController extends Controller
             'title'           => ParseUriController::generateTitle(),
             'hash'            => $this->getCurrentGitCommit(),
             'h1'              => ParseUriController::getH1(),
-            'metrika'         => $metrika,
+            'metrika'         => $metrika_id,
             'search'          => '',
             'add_class'       => '',
             'is_allowed'      => true,
@@ -77,7 +75,7 @@ class CurrencyController extends Controller
         });
     }
 
-    // используется для добавления версии к css файлу
+    // используется для добавления версии к css и js файлам
     function getCurrentGitCommit( $branch='master' ) 
     {
         if ( $hash = file_get_contents( sprintf( __DIR__ . '/../../../.git/refs/heads/%s', $branch ) ) ) {
@@ -108,7 +106,7 @@ class CurrencyController extends Controller
                 'textarea'  => 'required|max:400',
             ]);
 
-            $currency = array_search($validated["currency"], Config::get('common.currencies'));
+            $currency = array_search( $validated["currency"], Config::get('common.currencies') );
             $type = $validated["sellbuy"] . "_" . $currency;
             
             $id = time();
@@ -156,14 +154,10 @@ class CurrencyController extends Controller
     // отдельный контроллер и шаблон для лендингов
     public function landing()
     {
-        // $rates = new RatesController;
-        // $rates->writeRates();
-        // $rates->getStockRates();
-        // var_dump($rates->getRatesByLocale( 'stock' ));
         $path = explode( "?", \Request::getRequestUri() )[0];
         return view($path, $this->to_view);
     }
-    // отдельный контроллер и шаблон для сайтмапов
+    // отдельный контроллер для сайтмапов
     public function sitemap()
     {
         return \Illuminate\Support\Facades\Redirect::to('/sitemaps/sitemap-' . $this->table . '.xml');

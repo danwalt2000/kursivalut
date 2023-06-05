@@ -69,6 +69,7 @@ class RatesController extends Controller
                 "hrn"    => $euro / $json["rates"]["UAH"]
             ];
             foreach($currencies as $currency => $rate){
+                $changes = $this->getDayBeforeAverage('stock', $currency, $rounded_time, $rate);
                 $args = [
                     'time'       => $rounded_time,
                     'currency'   => $currency,
@@ -76,7 +77,7 @@ class RatesController extends Controller
                     'sell_rate'  => round($rate, 2),
                     'buy_rate'   => round($rate, 2),
                     'average'    => round($rate, 2),
-                    'changes'    => $this->getDayBeforeAverage('stock', $currency, $rounded_time, $rate),
+                    'changes'    => round($changes, 2),
                     'locale'     => 'stock'
                 ];
                 DBController::storeAvg( $args );
@@ -118,7 +119,7 @@ class RatesController extends Controller
                         'sell_rate'  => round($avg_sell, 2),
                         'buy_rate'   => round($avg_buy, 2),
                         'average'    => round($average, 2),
-                        'changes'    => $changes,
+                        'changes'    => round($changes, 2),
                         'locale'     => $table
                     ];
                     DBController::storeAvg( $args );

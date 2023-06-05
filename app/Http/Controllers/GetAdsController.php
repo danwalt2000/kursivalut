@@ -62,8 +62,6 @@ class GetAdsController extends CurrencyController
         // $access_token = Storage::get('/private/token.txt');
         $access_token = env('VK_TOKEN');
         $count = 10;
-        // $count = 100;
-        // $count = 1000;
         
         $api = $this->api_keys;
         $url_base = $api['url_key'];
