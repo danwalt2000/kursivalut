@@ -6,11 +6,11 @@
 
         <title>@yield('title')</title>
         <meta name="robots" content="noyaca">
-        <meta name="description" content="Черный рынок. {{ $h1 }} - объявления реальных людей">
+        <meta name="description" content="Курс {{ $title->h1->currency }}{{ $title->h1->locale }}{{ $title->description->hours }} на черном рынке.">
         <meta name="keywords" content="купить валюту, купить доллар, купить евро, купить гривну, купить рубль, купить безнал, продать валюту, продать доллар, продать евро, продать гривну, продать безнал, Донецк, купить доллар в ДНР, купить доллар в Макеевке, Горловка" />
 
         <meta property="og:title" content="@yield('title')">
-        <meta property="og:description" content="Черный рынок. {{ $h1 }} - объявления реальных людей">
+        <meta property="og:description" content="Курс {{ $title->h1->currency }}{{ $title->h1->locale }}{{ $title->description->hours }} на черном рынке.">
         <meta property="og:type" content="website">
         <meta property="og:site_name" content="Аггрегатор объявлений об обмене валют">
         <meta property="og:image" content="/img/pig.svg">

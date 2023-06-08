@@ -14,13 +14,18 @@ class ParseUriController extends Controller
         
         $title = ParseUriController::generateTitle()->h1;
         
-        return $title["sell_buy"] . $title["currency"] . $locale['h1_keyword'];
+        return $title->sell_buy . $title->currency . $locale['h1_keyword'];
     }
 
     public static function generateTitle( $uri = null ){
+        $host = SessionController::getHost();
+        $locale = Config::get('locales.' . $host['table']);
+
         $path = !empty($uri) ? $uri : ParseUriController::parseUri();
         $headline = (object)[ 
-            "h1" => [],
+            "h1" => (object)[
+                "locale" => $locale['h1_keyword']
+            ],
             "description" => (object)[
                 "rate" => "только объявления содержащие курс",
                 "hint" => 'Чтобы посмотреть все предложения, снимите в фильтрах галочку "Только с курсом".',
@@ -28,22 +33,22 @@ class ParseUriController extends Controller
             ]
         ];
         if( $path['sell_buy'] == 'sell'){
-            $headline->h1["sell_buy"] = "Продажа ";
+            $headline->h1->sell_buy = "Продажа ";
         } elseif( $path['sell_buy'] == 'buy'){
-            $headline->h1["sell_buy"] = "Покупка ";
+            $headline->h1->sell_buy = "Покупка ";
         } else{
-            $headline->h1["sell_buy"] = "Обмен ";
+            $headline->h1->sell_buy = "Обмен ";
         }
         foreach(Config::get('common.currencies_loc') as $name => $title){
             if($path["currency"] == ''){
-                $headline->h1["currency"] = "валюты";
+                $headline->h1->currency = "валюты";
                 break;
             }
             if($path["currency"] == $name ){
-                $headline->h1["currency"] = $title;
+                $headline->h1->currency = $title;
             }
         }
-        $headline->description->hours = " за последние сутки";
+        $headline->description->hours = " на сегодня";
         if( !empty($path['hours']) ){
             if($path['hours'] == 5){
                 $headline->description->hours = " за последние пять часов";
