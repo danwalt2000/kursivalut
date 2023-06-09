@@ -160,7 +160,7 @@ return [
             "1282408554" => ["id" => "Rostovobmen", "time" => "everyThirtyMinutes", "domain" => "tg"],                 // 30
             "1635743092" => ["id" => "obmen_rostov", "time" => "everyThirtyMinutes", "domain" => "tg"],                 // 30 
             "1741293290" => ["id" => "obmendonchat", "time" => "everyThirtyMinutes", "domain" => "tg"],                 // 30
-            "1604607517" => ["id" => "exchange_rostov", "time" => "everyThirtyMinutes", "domain" => "tg"],              // 30 stopped here
+            "1604607517" => ["id" => "exchange_rostov", "time" => "everyThirtyMinutes", "domain" => "tg"],              // 30
         ]
     ],
     'krym'       => [
@@ -177,7 +177,7 @@ return [
             "1419501182" => ["id" => "obmenvkrym", "time" => "everyThirtyMinutes", "domain" => "tg"],                 // 30
             "1695691631" => ["id" => "obmen_92", "time" => "everyThirtyMinutes", "domain" => "tg"],                 // 30
             "1662030913" => ["id" => "Qrimex", "time" => "everyThirtyMinutes", "domain" => "tg"],                 // 30
-            "1798727074" => ["id" => "Exchange_Crimea", "time" => "everyThirtyMinutes", "domain" => "tg"],                 // 30
+            "1798727074" => ["id" => "Exchange_Crimea", "time" => "everyThirtyMinutes", "domain" => "tg"],         // 30  
             "1775797250" => ["id" => "obmen9282", "time" => "everyThirtyMinutes", "domain" => "tg"],                 // 30
         ]
     ],
