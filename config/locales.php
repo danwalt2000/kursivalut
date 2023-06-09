@@ -47,7 +47,7 @@ return [
             "1728863498" => ["id" => "obmenka_kurs_lugansk", "time" => "everyTenMinutes", "domain" => "tg"],      // 10
             "1776390569" => ["id" => "obmenLPRobnal",       "time" => "everyTenMinutes", "domain" => "tg"],       // 10
             "1780966414" => ["id" => "obmenka_val",       "time" => "everyTenMinutes", "domain" => "tg"],         // 10
-            "1629996803" => ["id" => "obmen_lugansk_obmen",   "time" => "everyFifteenMinutes", "domain" => "tg"], // 15
+            "1629996803" => ["id" => "obmen_lugansk_obmen",   "time" => "everyFifteenMinutes", "domain" => "tg"], // 15  
             "1789001285" => ["id" => "valuta_lugansk",   "time" => "everyFifteenMinutes", "domain" => "tg"],      // 15
             "1643215722" => ["id" => "obmenka_dnr_lnr",   "time" => "everyFifteenMinutes", "domain" => "tg"]      // 15
         ]
@@ -66,6 +66,7 @@ return [
 
             "1650543563" => ["id" => "obmenmrpl",             "time" => "everyTenMinutes", "domain" => "tg"],       // 10
             "1784051014" => ["id" => "obmenmariupolya",       "time" => "everyThirtyMinutes", "domain" => "tg"],    // 30
+            "1689436376" => ["id" => "obmenvalut_mariupol",       "time" => "everyThirtyMinutes", "domain" => "tg"],    // 30
         ]
     ],
     'melitopol'       => [
@@ -79,8 +80,8 @@ return [
         'metrika'        => '93171182',
         'publics'        => [
             "1699506983" => ["id" => "mlt_obnal",             "time" => "everyTenMinutes", "domain" => "tg"],      // 10
-            // "1600113833" => ["id" => "obnal_mlt_ua",          "time" => "everyTenMinutes", "domain" => "tg"],      // 10
-            "1809540638" => ["id" => "obmengenichesk",        "time" => "everyFifteenMinutes", "domain" => "tg"],  // 15
+            "1600113833" => ["id" => "obnal_mlt_money",        "time" => "everyFifteenMinutes", "domain" => "tg"],  // 15    
+            "1809540638" => ["id" => "obmengenichesk",        "time" => "everyFifteenMinutes", "domain" => "tg"],  // 15    
         ]
     ],
     'berdyansk'       => [
@@ -94,7 +95,7 @@ return [
         'metrika'        => '93170908',
         'publics'        => [
             "1751133458" => ["id" => "valutaBrd",          "time" => "everyTenMinutes", "domain" => "tg"],         // 10
-            "1579972943" => ["id" => "obmen_berdyansk",    "time" => "everyTenMinutes", "domain" => "tg"],         // 10
+            "1579972943" => ["id" => "obmen_berdyansk",    "time" => "everyTenMinutes", "domain" => "tg"],         // 10 
         ],
         
     ],
@@ -108,7 +109,7 @@ return [
         'show_rates'     => false,
         'metrika'        => '93171189',
         'publics'        => [
-            "1661599578" => ["id" => "obmen_rb", "time" => "everyThirtyMinutes", "domain" => "tg"],                 // 15
+            "1661599578" => ["id" => "obmen_rb", "time" => "everyThirtyMinutes", "domain" => "tg"],                 // 15 
             "1656368659" => ["id" => "obmenvrb", "time" => "everyThirtyMinutes", "domain" => "tg"],                 // 15
             // "1774846066" => ["id" => "exchange_minsk", "time" => "everyTenMinutes", "domain" => "tg"],           // 10
             // "1537031622" => ["id" => "obmen_rb_minsk1", "time" => "everyTenMinutes", "domain" => "tg"],          // 10
@@ -157,9 +158,9 @@ return [
         'publics'        => [
             "1635308592" => ["id" => "obmen_valutROS", "time" => "everyThirtyMinutes", "domain" => "tg"],                 // 30
             "1282408554" => ["id" => "Rostovobmen", "time" => "everyThirtyMinutes", "domain" => "tg"],                 // 30
-            "1635743092" => ["id" => "obmen_rostov", "time" => "everyThirtyMinutes", "domain" => "tg"],                 // 30
+            "1635743092" => ["id" => "obmen_rostov", "time" => "everyThirtyMinutes", "domain" => "tg"],                 // 30 
             "1741293290" => ["id" => "obmendonchat", "time" => "everyThirtyMinutes", "domain" => "tg"],                 // 30
-            "1604607517" => ["id" => "exchange_rostov", "time" => "everyThirtyMinutes", "domain" => "tg"],              // 30
+            "1604607517" => ["id" => "exchange_rostov", "time" => "everyThirtyMinutes", "domain" => "tg"],              // 30 stopped here
         ]
     ],
     'krym'       => [
