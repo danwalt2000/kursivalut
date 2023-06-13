@@ -21,7 +21,7 @@ class ParseUriController extends Controller
         $host = SessionController::getHost();
         $locale = Config::get('locales.' . $host['table']);
 
-        $path = !empty($uri) ? $uri : ParseUriController::parseUri();
+        $path = $uri ?? ParseUriController::parseUri();
         $headline = (object)[ 
             "h1" => (object)[
                 "locale" => $locale['h1_keyword']
@@ -102,7 +102,7 @@ class ParseUriController extends Controller
         if( str_contains($path, "ads") ){
             $path_array = explode("/", $path);
             $path_parts["sell_buy"] =  $path_array[2];
-            $path_parts["currency"] = empty($path_array[3]) ? '' : $path_array[3];
+            $path_parts["currency"] = $path_array[3] ?? '';
             
         }
         $message = ParseUriController::generateTitle($path_parts)->description;

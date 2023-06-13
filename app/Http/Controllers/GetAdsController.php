@@ -13,18 +13,22 @@ class GetAdsController extends CurrencyController
     public $api_keys;
     public $channel;
     public $table;
+    public $parser;
+
+    public function __construct()
+    {
+        $this->parser = new ParseAdsController;
+    }
 
     /**
-     * Получение новых объявлений
+     * Получение новых объявлений по запросу на API площадок
      *
      * @param  array $channel - данные о группе, с которой беруться объявления 
      * @return object (ads)
      */
     public function getNewAds( $channel, $locale )
     {
-        $currency = new CurrencyController;
         $posts = new DBController;
-        $parser = new ParseAdsController;
 
         $this->channel = $channel;          // vk or tg
         $this->domain = $channel['domain']; // vk or tg
@@ -48,9 +52,10 @@ class GetAdsController extends CurrencyController
         }
         
         $items = $json["response"][ $this->api_keys['items_key'] ];
-        $currency->db_ads = $parser->parseAd( $items, $channel, $locale );
         
-        return $currency->db_ads;
+        $result_ads = $this->parser->parseAd( $items, $channel, $locale );
+
+        return $result_ads;
     }
 
     /**
@@ -70,5 +75,29 @@ class GetAdsController extends CurrencyController
         $url = $url_base . $api['url_channel_key'] . '=' . $this->channel['id']; // + &owner_id=
         $url .= '&' . $api['url_limit_key'] . '=' . $count; // &count=
         return $url;
+    }
+
+    // получение нового объявления по обращению к API этого приложения
+    public function getNewAdByAPI(){
+        if(empty($_POST) ) return;
+        $json = json_decode($_POST["content"]);
+        $message = $json->result->update->message;
+        // Log::error($message);
+        if( empty($message->peer_id) || empty($message->peer_id->channel_id) ) return;
+        $channel_id = $message->peer_id->channel_id;
+
+        $locales = Config::get('locales');
+        $target_locale = [];
+
+        foreach($locales as $locale){
+            if( array_key_exists($channel_id, $locale['tg']) ){
+                $target_locale = $locale;
+                break;
+            }
+        }
+        $for_parsing = (array) $message;
+        $parsed_ad = $this->parser->parseAd( [$for_parsing], $locale['tg'][$channel_id], $locale );
+
+        return $parsed_ad;
     }
 }

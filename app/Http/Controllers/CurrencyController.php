@@ -28,7 +28,7 @@ class CurrencyController extends Controller
     public function __construct()
     {
         $this->host = SessionController::getHost();
-        $this->table = !empty($this->host['table']) ? $this->host['table'] : "donetsk";
+        $this->table = $this->host['table'] ?? "donetsk";
         $this->locales = Config::get('locales'); 
         $this->rates = new RatesController;
 
@@ -39,7 +39,7 @@ class CurrencyController extends Controller
             $this->currencies[$currency] = Config::get('common.currencies')[$currency];
         }
 
-        $metrika_id = !empty($this->locale['metrika']) ? $this->locale['metrika'] : env("METRIKA_ID");
+        $metrika_id = $this->locale['metrika'] ?? env("METRIKA_ID");
 
         $this->db_ads = DBController::getPosts( $this->table );
         $this->path = ParseUriController::parseUri();
@@ -141,7 +141,7 @@ class CurrencyController extends Controller
     // страница поиска
     public function search()
     {
-        $search = !empty($_GET["search"]) ? $_GET["search"] : '';
+        $search = $_GET["search"] ?? '';
         
         $this->to_view['search'] = $search;
         $this->to_view['ads'] = DBController::getPosts( $this->table, "get", "all", "", $search );

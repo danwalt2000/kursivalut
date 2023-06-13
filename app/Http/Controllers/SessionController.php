@@ -37,7 +37,7 @@ class SessionController extends Controller
         }
         
         $domain = str_contains($current_domain, "valuta-dn") ? 'valuta-dn' : 'kursivalut';
-        $table = $domain == 'valuta-dn' ? 'donetsk' : 'moscow';
+        $table = ($domain == 'valuta-dn') ? 'donetsk' : 'moscow';
         if( $current_domain != $current_full_host){
             $table = explode('.', $current_full_host)[0];
         }

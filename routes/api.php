@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RatesController;
+use App\Http\Controllers\GetAdsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +21,4 @@ use App\Http\Controllers\RatesController;
 // });
 
 Route::get('/rates', [RatesController::class, 'getAll']);
+Route::post('/posts/add', [GetAdsController::class, 'getNewAdByAPI']);

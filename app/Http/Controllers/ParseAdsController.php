@@ -19,7 +19,7 @@ class ParseAdsController extends Controller
         $posts = new DBController;
         $ads = $json;
         $this->channel = $channel;
-        $this->domain = $channel['domain'];
+        $this->domain = 'tg';
         
         $this->api_keys = Config::get('common.api_keys')[ $this->domain ];
         $text_key = $this->api_keys['text_key'];
@@ -63,14 +63,14 @@ class ParseAdsController extends Controller
             $owner_id = $ad[ $this->api_keys['channel_id_key'] ];
             if( 'tg' == $this->domain ){ 
                 // бывает, что объявления публикуют каналы
-                if( !empty($user_id['user_id']) ){
-                    $user_id = $user_id['user_id'];
-                } elseif( !empty($user_id['channel_id']) ){
-                    $user_id = $user_id['channel_id']; 
+                if( !empty($user_id->user_id) ){
+                    $user_id = $user_id->user_id;
+                } elseif( !empty($user_id->channel_id) ){
+                    $user_id = $user_id->channel_id; 
                 } else{
                     continue;
                 }
-                $owner_id = $owner_id['channel_id'];
+                $owner_id = $owner_id->channel_id;
             }
 
             if( $ad["from_id"] != $owner_id && !empty($ad[$text_key])){

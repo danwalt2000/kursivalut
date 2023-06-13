@@ -149,7 +149,7 @@ class RatesController extends Controller
     // получает текущее либо заданное время, округленное до часа
     public function getRoundedTime( $time )
     {
-        $seconds = $time ? $time : time();
+        $seconds = $time ?? time();
         return round($seconds / (60 * 60)) * (60 * 60);
     }
     

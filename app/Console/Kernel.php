@@ -32,7 +32,9 @@ class Kernel extends ConsoleKernel
 
         // сбор новых объявлений
         foreach ( Config::get('locales') as $subdomain => $locale ){
-            foreach( $locale['publics'] as $name => $channel ){
+            // актуально только для vk
+            if( empty($locale['vk']) ) continue;
+            foreach( $locale['vk'] as $name => $channel ){
                 $time = $channel["time"];
     
                 // в рабочее время частота запросов к группам указана в переменной $publics
