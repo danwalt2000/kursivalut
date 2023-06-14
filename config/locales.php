@@ -47,7 +47,6 @@ return [
         'tg'             => [
             "1304227894" => ["id" => "obmenka_lugansk",       "time" => "everyTenMinutes"],     // 10
             "1510326304" => ["id" => "obmennik_lnr",       "time" => "everyTenMinutes"],        // 10
-            "1728863498" => ["id" => "obmenka_kurs_lugansk", "time" => "everyTenMinutes"],      // 10
             "1776390569" => ["id" => "obmenLPRobnal",       "time" => "everyTenMinutes"],       // 10
             "1780966414" => ["id" => "obmenka_val",       "time" => "everyTenMinutes"],         // 10
             "1629996803" => ["id" => "obmen_lugansk_obmen",   "time" => "everyFifteenMinutes"], // 15  

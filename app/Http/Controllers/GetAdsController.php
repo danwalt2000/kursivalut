@@ -45,6 +45,7 @@ class GetAdsController extends CurrencyController
         // бывает, что от API приходит ошибка
         $errors = $api_keys["error_key"]; // у API разные названия ключа: error и errors
         if ( !empty( $json[$errors] ) ){ 
+            Log::error($url);
             return Log::error($json);
         }
         
