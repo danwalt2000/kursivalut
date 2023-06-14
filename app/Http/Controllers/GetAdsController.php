@@ -11,7 +11,6 @@ class GetAdsController extends CurrencyController
 {
     public $domain;
     public $channel;
-    public $table;
     public $parser;
 
     public function __construct()
@@ -39,7 +38,7 @@ class GetAdsController extends CurrencyController
             $response = Http::get($url);
         } catch(\Exception $exception) {
             Log::error($exception);
-            return $posts::getPosts( $this->table );
+            return $posts::getPosts( $table );
         }
         $json = json_decode($response->getBody(), true);
         
@@ -53,7 +52,7 @@ class GetAdsController extends CurrencyController
         
         $result_ads = $this->parser->parseAd( $items, $channel, $locale );
 
-        return $posts::getPosts( $this->table );
+        return $posts::getPosts( $table );
     }
 
     /**
@@ -94,7 +93,7 @@ class GetAdsController extends CurrencyController
             }
         }
 
-        if(!empty($target_locale)){
+        if( !empty($target_locale) ){
             $for_parsing = [ (array) $message ];
             $parsed_ad = $this->parser->parseAd( $for_parsing, $locale['tg'][$channel_id], $locale, 'tg' );
     
