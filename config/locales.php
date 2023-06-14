@@ -26,10 +26,11 @@ return [
         ],
         'tg'             => [
             "1154050282" => ["id" => "obmenkadn",             "time" => "everyTenMinutes"],     // 10
+            "1649134439" => ["id" => "obmenvDNR",             "time" => "everyTenMinutes"],     // 10
             "1161871204" => ["id" => "obmenkadonetck",        "time" => "everyTenMinutes"],     // 10
             "1345575332" => ["id" => "obmen_valut_donetsk_1", "time" => "everyTenMinutes"],     // 10
             "1265653325" => ["id" => "obmenvalutdon",         "time" => "everyFifteenMinutes"], // 15
-            "1295018924" => ["id" => "obmen77market",         "time" => "everyFifteenMinutes"], // 15
+            "1295018924" => ["id" => "obmen77market",         "time" => "everyFifteenMinutes"], // 15  
             "1204646240" => ["id" => "valut_don",             "time" => "everyThirtyMinutes"],  // 30
         ]
     ],
@@ -43,7 +44,7 @@ return [
         'show_rates'     => true,
         'metrika'        => '93171078',
         'vk'             => [],
-        'tg'        => [
+        'tg'             => [
             "1304227894" => ["id" => "obmenka_lugansk",       "time" => "everyTenMinutes"],     // 10
             "1510326304" => ["id" => "obmennik_lnr",       "time" => "everyTenMinutes"],        // 10
             "1728863498" => ["id" => "obmenka_kurs_lugansk", "time" => "everyTenMinutes"],      // 10
@@ -184,7 +185,7 @@ return [
         'tg'             => [
             "1520647319" => ["id" => "krymex", "time" => "everyThirtyMinutes"],                 // 30
             "1419501182" => ["id" => "obmenvkrym", "time" => "everyThirtyMinutes"],                 // 30
-            "1695691631" => ["id" => "obmen_92", "time" => "everyThirtyMinutes"],                 // 30
+            "1695691631" => ["id" => "obmen_92", "time" => "everyThirtyMinutes"],                 // 30 
             "1662030913" => ["id" => "Qrimex", "time" => "everyThirtyMinutes"],                 // 30
             "1798727074" => ["id" => "Exchange_Crimea", "time" => "everyThirtyMinutes"],         // 30  
             "1775797250" => ["id" => "obmen9282", "time" => "everyThirtyMinutes"],                 // 30
@@ -200,7 +201,7 @@ return [
         'show_rates'     => false,
         'metrika'        => '93171402',
         'vk'             => [],
-        'tg     '        => [
+        'tg'             => [
             "1664166871" => ["id" => "obmennikkrasnodar", "time" => "everyThirtyMinutes"],                 // 30
             "1756305590" => ["id" => "exchange_krasnodar", "time" => "everyThirtyMinutes"],                 // 30
             // "1695691631" => ["id" => "obmen_92", "time" => "everyThirtyMinutes"],                 // 30

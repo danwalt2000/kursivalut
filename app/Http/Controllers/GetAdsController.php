@@ -10,7 +10,6 @@ use App\Http\Controllers\CurrencyController;
 class GetAdsController extends CurrencyController
 {
     public $domain;
-    public $api_keys;
     public $channel;
     public $table;
     public $parser;
@@ -26,13 +25,12 @@ class GetAdsController extends CurrencyController
      * @param  array $channel - данные о группе, с которой беруться объявления 
      * @return object (ads)
      */
-    public function getNewAds( $channel, $locale )
+    public function getVkAds( $channel, $locale )
     {
         $posts = new DBController;
 
         $this->channel = $channel;          // vk or tg
-        $this->domain = $channel['domain']; // vk or tg
-        $this->api_keys = Config::get('common.api_keys')[ $this->domain ];
+        $api_keys = Config::get('common.api_keys')['vk'];
         $table = $locale['name'];
         
         $url = $this->getApiLink();
@@ -46,16 +44,16 @@ class GetAdsController extends CurrencyController
         $json = json_decode($response->getBody(), true);
         
         // бывает, что от API приходит ошибка
-        $errors = $this->api_keys["error_key"]; // у API разные названия ключа: error и errors
+        $errors = $api_keys["error_key"]; // у API разные названия ключа: error и errors
         if ( !empty( $json[$errors] ) ){ 
             return Log::error($json);
         }
         
-        $items = $json["response"][ $this->api_keys['items_key'] ];
+        $items = $json["response"][ $api_keys['items_key'] ];
         
         $result_ads = $this->parser->parseAd( $items, $channel, $locale );
 
-        return $result_ads;
+        return $posts::getPosts( $this->table );
     }
 
     /**
@@ -68,10 +66,10 @@ class GetAdsController extends CurrencyController
         $access_token = env('VK_TOKEN');
         $count = 10;
         
-        $api = $this->api_keys;
+        $api = Config::get('common.api_keys')['vk'];;
         $url_base = $api['url_key'];
 
-        if( 'vk' == $this->domain) $url_base .= $access_token . '&'; // к vk добавляем токен
+        $url_base .= $access_token . '&'; // к vk добавляем токен
         $url = $url_base . $api['url_channel_key'] . '=' . $this->channel['id']; // + &owner_id=
         $url .= '&' . $api['url_limit_key'] . '=' . $count; // &count=
         return $url;
@@ -79,7 +77,7 @@ class GetAdsController extends CurrencyController
 
     // получение нового объявления по обращению к API этого приложения
     public function getNewAdByAPI(){
-        if(empty($_POST) ) return;
+        if( empty($_POST) ) return;
         $json = json_decode($_POST["content"]);
         $message = $json->result->update->message;
         // Log::error($message);
@@ -95,9 +93,12 @@ class GetAdsController extends CurrencyController
                 break;
             }
         }
-        $for_parsing = (array) $message;
-        $parsed_ad = $this->parser->parseAd( [$for_parsing], $locale['tg'][$channel_id], $locale );
 
-        return $parsed_ad;
+        if(!empty($target_locale)){
+            $for_parsing = [ (array) $message ];
+            $parsed_ad = $this->parser->parseAd( $for_parsing, $locale['tg'][$channel_id], $locale, 'tg' );
+    
+            return $parsed_ad;
+        }
     }
 }

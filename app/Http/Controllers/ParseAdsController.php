@@ -14,14 +14,14 @@ class ParseAdsController extends Controller
     /**
      * Распределяет объявления по направлениям и записывает в БД
      */
-    public function parseAd( $json, $channel, $locale )
+    public function parseAd( $json, $channel, $locale, $domain = 'vk' )
     {
         $posts = new DBController;
         $ads = $json;
         $this->channel = $channel;
-        $this->domain = 'tg';
+        $this->domain = $domain;
         
-        $this->api_keys = Config::get('common.api_keys')[ $this->domain ];
+        $this->api_keys = Config::get('common.api_keys')[$domain];
         $text_key = $this->api_keys['text_key'];
         
         foreach( $ads as $ad ){
@@ -73,7 +73,7 @@ class ParseAdsController extends Controller
                 $owner_id = $owner_id->channel_id;
             }
 
-            if( $ad["from_id"] != $owner_id && !empty($ad[$text_key])){
+            if( !empty($ad[$text_key])){
                 $args = [
                     'vk_id'           => $ad["id"],
                     'vk_user'         => $user_id,
@@ -161,4 +161,8 @@ class ParseAdsController extends Controller
         }
         return $link;
     }
+    // public function get ( $ad )
+    // {
+
+    // }
 }
