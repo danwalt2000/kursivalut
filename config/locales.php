@@ -138,6 +138,7 @@ return [
         'metrika'        => '93171361',
         'vk'             => [],
         'tg'             => [
+            "1422420951" => ["id" => "Obmen_moskvaa", "time" => "everyThirtyMinutes"],                 // 30
             "1406118239" => ["id" => "obmenvmsk", "time" => "everyThirtyMinutes"],                 // 30
             "1460221844" => ["id" => "currency_exchanges", "time" => "everyThirtyMinutes"],        // 30
         ]
@@ -185,9 +186,9 @@ return [
             "1520647319" => ["id" => "krymex", "time" => "everyThirtyMinutes"],                 // 30
             "1419501182" => ["id" => "obmenvkrym", "time" => "everyThirtyMinutes"],                 // 30
             "1695691631" => ["id" => "obmen_92", "time" => "everyThirtyMinutes"],                 // 30 
-            "1662030913" => ["id" => "Qrimex", "time" => "everyThirtyMinutes"],                 // 30
-            "1798727074" => ["id" => "Exchange_Crimea", "time" => "everyThirtyMinutes"],         // 30  
-            "1775797250" => ["id" => "obmen9282", "time" => "everyThirtyMinutes"],                 // 30
+            // "1798727074" => ["id" => "Exchange_Crimea", "time" => "everyThirtyMinutes"],         // 30  
+            // "1775797250" => ["id" => "obmen9282", "time" => "everyThirtyMinutes"],                 // 30
+            // "1662030913" => ["id" => "Qrimex", "time" => "everyThirtyMinutes"],                 // 30
         ]
     ],
     'krasnodar'       => [

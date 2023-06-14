@@ -79,14 +79,13 @@ class GetAdsController extends CurrencyController
     public function getNewAdByAPI(){
         if( empty($_POST) ) return;
         $json = json_decode($_POST["content"]);
-        $message = $json->result->update->message;
-        // Log::error($message);
+        $message = $json->message;
         if( empty($message->peer_id) || empty($message->peer_id->channel_id) ) return;
         $channel_id = $message->peer_id->channel_id;
 
         $locales = Config::get('locales');
         $target_locale = [];
-
+        
         foreach($locales as $locale){
             if( array_key_exists($channel_id, $locale['tg']) ){
                 $target_locale = $locale;
@@ -96,6 +95,7 @@ class GetAdsController extends CurrencyController
 
         if( !empty($target_locale) ){
             $for_parsing = [ (array) $message ];
+            // Log::error(json_encode($for_parsing));
             $parsed_ad = $this->parser->parseAd( $for_parsing, $locale['tg'][$channel_id], $locale, 'tg' );
     
             return $parsed_ad;

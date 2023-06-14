@@ -20,7 +20,8 @@ class ParseAdsController extends Controller
         $ads = $json;
         $this->channel = $channel;
         $this->domain = $domain;
-        
+        $is_ad_writed_to_db = false;
+
         $this->api_keys = Config::get('common.api_keys')[$domain];
         $text_key = $this->api_keys['text_key'];
         
@@ -94,10 +95,11 @@ class ParseAdsController extends Controller
                 if( 'ads' == $table ) $args = array_merge($args, ['locale' => $locale['name']]);
 
                 $posts::storePosts( $table, $args );
+                $is_ad_writed_to_db = true;
             } 
         }
         
-        return $posts::getPosts(); // последние записи в БД
+        return $is_ad_writed_to_db; // последние записи в БД
     }
 
     // извлекаем из объявления курс 
