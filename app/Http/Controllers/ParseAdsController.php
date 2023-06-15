@@ -20,7 +20,7 @@ class ParseAdsController extends Controller
         $ads = $json;
         $this->channel = $channel;
         $this->domain = $domain;
-        $is_ad_writed_to_db = false;
+        $is_ad_writed_to_db = 0;
 
         $this->api_keys = Config::get('common.api_keys')[$domain];
         $text_key = $this->api_keys['text_key'];
@@ -95,7 +95,7 @@ class ParseAdsController extends Controller
                 if( 'ads' == $table ) $args = array_merge($args, ['locale' => $locale['name']]);
 
                 $posts::storePosts( $table, $args );
-                $is_ad_writed_to_db = true;
+                $is_ad_writed_to_db = 1;
             } 
         }
         

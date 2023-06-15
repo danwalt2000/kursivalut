@@ -77,7 +77,9 @@ class GetAdsController extends CurrencyController
 
     // получение нового объявления по обращению к API этого приложения
     public function getNewAdByAPI(){
-        if( empty($_POST) ) return;
+        if( empty($_POST) || 
+            empty($_POST["password"]) || 
+            "80e069208b677e486c64da633608e6215197b55d" != $_POST["password"]  ) return;
         $json = json_decode($_POST["content"]);
         $message = $json->message;
         if( empty($message->peer_id) || empty($message->peer_id->channel_id) ) return;
