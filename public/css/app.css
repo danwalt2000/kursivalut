@@ -541,6 +541,9 @@ nav ul{
     grid-column: 1 / 3;
     gap: 5px;
     margin: 0;
+    max-width: 195px;
+    justify-content: space-between;
+    width: 100%;
 }
 .currencies li{
     list-style-type: none;
@@ -551,14 +554,25 @@ nav ul{
     background-color: var(--main-bg-color);
     -webkit-box-shadow: -1px 13px 8px 0px rgba(34, 60, 80, 0.2);
     -moz-box-shadow: -1px 13px 8px 0px rgba(34, 60, 80, 0.2);
-    box-shadow: -1px 13px 8px 0px rgba(34, 60, 80, 0.2);
+    box-shadow: -1px -1px 8px 1px rgba(34, 60, 80, 0.2);
     position: absolute;
     width: fit-content;
     z-index: 2;
     border-radius: 6px;
-    margin-top: 2px;
+    margin-top: 10px;
     top: 100%;
     right: 0;
+}
+.dropdown-hidden::after{
+    content: '';
+    width: 10px;
+    height: 10px;
+    background-color: var(--main-bg-color);
+    transform: rotate(45deg);
+    position: absolute;
+    top: -3px;
+    right: 18px;
+    display: inline-block;
 }
 .dropdown-hidden li{
     padding: 0 14px;
@@ -955,7 +969,7 @@ span.with-arrow-rarr-up::after,
     background: var(--title-color);
     color: var(--chip-bg-color);
     font: var(--para-small-font);
-    left: -15px;
+    right: -15px;
     padding: 16px 25px 16px 16px;
     border-radius: 6px;
     width: 150px;
@@ -970,7 +984,7 @@ span.with-arrow-rarr-up::after,
     width: 14px;
     height: 14px;
     top: -6px;
-    left: 18px;
+    right: 18px;
     position: absolute;
     transform: rotate(45deg);
 }
@@ -1105,17 +1119,11 @@ span.with-arrow-rarr-up::after,
     .dropdown-hidden{
         top: auto;
         bottom: 130%;
+        box-shadow: -1px 4px 8px 1px rgba(34, 60, 80, 0.2);
     }
     .dropdown-hidden::after{
-        content: '';
-        width: 10px;
-        height: 10px;
-        background-color: var(--main-bg-color);
-        transform: rotate(45deg);
-        position: absolute;
+        top: unset;
         bottom: -3px;
-        right: 18px;
-        display: inline-block;
     }
     .scroll-to-top{
         bottom: 11%;
@@ -1158,7 +1166,6 @@ span.with-arrow-rarr-up::after,
     .currencies{
         grid-column: 1 / 3;
         justify-self: flex-start;
-        margin-bottom: 10px;
     }
     .ads_found{
         grid-row: 6;
