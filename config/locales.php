@@ -40,7 +40,7 @@ return [
         'domain'         => 'valuta-dn',
         'h1_keyword'     => ' в Луганске и ЛНР',
         'currencies'     => ['dollar', 'euro', 'hrn', 'cashless'],
-        'rate_currencies'=> ['dollar', 'euro', 'hrn'],
+        'rate_currencies'=> ['dollar', 'hrn'],
         'show_rates'     => true,
         'metrika'        => '93171078',
         'vk'             => [],
