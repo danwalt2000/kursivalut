@@ -26,6 +26,13 @@
         <div class="post-content">{!! $ad->content_changed !!}</div>
         {{-- <span class="">{!! $ad->content !!}</span> --}}
     </article>
+    @if($loop->index == 1 )
+        @isset($locale['yandex-ad'])
+        @mobile
+            @include('parts.yandex-ad')    
+        @endmobile
+        @endif
+    @endisset
 @empty
     <article class="post no-ads">
         <img class="no-ads-img" src="/img/no-ads.svg" title="Объявлений не найдено" alt="Объявлений не найдено">
