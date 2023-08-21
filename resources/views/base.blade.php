@@ -61,13 +61,15 @@
                         <div class="additional-info">
                             <a class="additional-info-a" href="/legal">Правовая информация</a>
                         </div>
-                        @isset($locale['yandex-ad'])
-                            @desktop
-                                <div class="desktop-yandex-ads">
-                                    @include('parts.yandex-ad')    
-                                </div>
-                            @enddesktop
-                        @endisset
+                        @production
+                            @isset($locale['yandex-ad'])
+                                @desktop
+                                    <div class="desktop-yandex-ads">
+                                        @include('parts.yandex-ad')    
+                                    </div>
+                                @enddesktop
+                            @endisset
+                        @endproduction
                     </div>
                 </div>
             </main>

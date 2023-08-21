@@ -41,7 +41,6 @@ class SessionController extends Controller
         if( $current_domain != $current_full_host){
             $table = explode('.', $current_full_host)[0];
         }
-        
         return [ 'domain' => $domain, 'table' => $table ];
     }
 }
