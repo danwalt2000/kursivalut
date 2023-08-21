@@ -894,7 +894,7 @@ span.with-arrow-rarr-up::after,
     opacity: .2;
     visibility: visible;
     transition: opacity .3s;
-    z-index: 2;
+    z-index: 3;
 }
 .rates_table{
     display: flex;
@@ -1067,7 +1067,7 @@ div[data-block-name="button"] a{
         bottom: 0;
         left: 0;
         width: 100%;
-        z-index: 3;
+        z-index: 2;
     }
     .additional-info{
         display: none;
