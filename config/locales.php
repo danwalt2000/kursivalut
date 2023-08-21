@@ -65,6 +65,7 @@ return [
         'rate_currencies'=> ['dollar', 'hrn'],
         'show_rates'     => false,
         'metrika'        => '93171171',
+        'yandex-ad'      => '2671372',
         'vk'             => [
             "obmenvalut_mariupol"    => ["id" => "-212955319",  "time" => "everyThirtyMinutes"],  // 30
         ],
@@ -83,6 +84,7 @@ return [
         'rate_currencies'=> ['dollar', 'hrn'],
         'show_rates'     => true,
         'metrika'        => '93171182',
+        'yandex-ad'      => '2671451',
         'vk'             => [],
         'tg'             => [
             "1699506983" => ["id" => "mlt_obnal",             "time" => "everyTenMinutes"],      // 10
@@ -99,6 +101,7 @@ return [
         'rate_currencies'=> ['dollar', 'hrn'],
         'show_rates'     => true,
         'metrika'        => '93170908',
+        'yandex-ad'      => '2671495',
         'vk'             => [],
         'tg'             => [
             "1751133458" => ["id" => "valutaBrd",          "time" => "everyTenMinutes"],         // 10
@@ -115,6 +118,7 @@ return [
         'rate_currencies'=> ['dollar', 'euro', 'hrn'],
         'show_rates'     => false,
         'metrika'        => '93171189',
+        'yandex-ad'      => '2671514',
         'vk'             => [],
         'tg'             => [
             "1661599578" => ["id" => "obmen_rb", "time" => "everyThirtyMinutes"],                 // 15 
@@ -138,6 +142,7 @@ return [
         'rate_currencies'=> ['dollar', 'euro'],
         'show_rates'     => true,
         'metrika'        => '93171361',
+        'yandex-ad'      => '2671563',
         'vk'             => [],
         'tg'             => [
             "1422420951" => ["id" => "Obmen_moskvaa", "time" => "everyThirtyMinutes"],                 // 30
@@ -165,6 +170,7 @@ return [
         'rate_currencies'=> ['dollar', 'euro', 'hrn'],
         'show_rates'     => false,
         'metrika'        => '93171389',
+        'yandex-ad'      => '2671579',
         'vk'             => [],
         'tg'             => [
             "1635308592" => ["id" => "obmen_valutROS", "time" => "everyThirtyMinutes"],                 // 30
@@ -183,6 +189,7 @@ return [
         'rate_currencies'=> ['dollar', 'hrn'],
         'show_rates'     => true,
         'metrika'        => '93171377',
+        'yandex-ad'      => '2671597',
         'vk'             => [],
         'tg'             => [
             "1520647319" => ["id" => "krymex", "time" => "everyThirtyMinutes"],                 // 30
@@ -202,6 +209,7 @@ return [
         'rate_currencies'=> ['dollar', 'euro', 'hrn'],
         'show_rates'     => false,
         'metrika'        => '93171402',
+        'yandex-ad'      => '2671600',
         'vk'             => [],
         'tg'             => [
             "1664166871" => ["id" => "obmennikkrasnodar", "time" => "everyThirtyMinutes"],                 // 30
