@@ -1006,7 +1006,8 @@ span.with-arrow-rarr-up::after,
     cursor: pointer;
     background-size: contain;
 }
-div[data-block-name="button"] span{
+div[data-block-name="button"] span,
+div[data-block-name="button"] a{
     color: var(--main-bg-color);
 }
 @media (min-width: 992px) and (max-height: 460px){
