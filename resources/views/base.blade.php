@@ -33,9 +33,13 @@
         @elseif( Request::get('rate') )
             <link rel="canonical" href="{{ Request::url() }}" />
         @endif
-        <!-- Yandex.RTB -->
-        <script>window.yaContextCb=window.yaContextCb||[]</script>
-        <script src="https://yandex.ru/ads/system/context.js" async></script>
+        @production
+            @isset($locale['yandex-ad'])
+                <!-- Yandex.RTB -->
+                <script>window.yaContextCb=window.yaContextCb||[]</script>
+                <script src="https://yandex.ru/ads/system/context.js" async></script>
+            @endisset
+        @endproduction
     </head>
     <body class="antialiased {{$add_class}}">
         <div class="bg-gradient">

@@ -13,7 +13,7 @@ return [
         'rate_currencies'=> ['dollar', 'euro', 'hrn'],
         'show_rates'     => true,
         'metrika'        => '90961172',
-        'yandex-ad'      => '2593677',
+        // 'yandex-ad'      => '2593677',
         'vk'             => [
             "obmenvalut_donetsk"    => ["id" => "-87785879",  "time" => "everyFiveMinutes"],    // 5
             "obmen_valut_donetsk"   => ["id" => "-92215147",  "time" => "everyFiveMinutes"],    // 5
@@ -44,7 +44,7 @@ return [
         'rate_currencies'=> ['dollar', 'hrn'],
         'show_rates'     => true,
         'metrika'        => '93171078',
-        'yandex-ad'      => '2593860',
+        // 'yandex-ad'      => '2593860',
         'vk'             => [],
         'tg'             => [
             "1304227894" => ["id" => "obmenka_lugansk",       "time" => "everyTenMinutes"],     // 10
