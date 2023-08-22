@@ -53,7 +53,7 @@
                     <label for="sum">Сумма</label>
                 </div>
                 <div class="form-ad-row">
-                    <input type="text" name="city" id="city" placeholder="В городе" autocomplete="off">
+                    <input type="text" name="city" id="city" placeholder="В городе" autocomplete="address-level2">
                     <label for="city">В городе</label>
                 </div>
                 <div class="form-ad-row">
