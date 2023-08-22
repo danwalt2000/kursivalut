@@ -24,8 +24,8 @@
                     <label for="tobuy">Купить</label>
                 </div>
                 <div class="form-ad-row datalist">
-                    <input id="ad-currencies" list="currencies" name="currency" placeholder="Валюту *" required>
-                    <label for="currency">Валюту *</label>
+                    <input id="ad-currencies" list="currencies" name="currency" placeholder="Валюту *" autocomplete="off" required>
+                    <label for="ad-currencies">Валюту *</label>
                     <datalist id="currencies">
                         <option value="Доллар">
                         <option value="Евро">
@@ -37,7 +37,7 @@
                     <input type="number" step="0.01" 
                     maxlength="3" 
                     oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-                    name="rate" id="rate" placeholder="Курс *" required>
+                    name="rate" id="rate" placeholder="Курс *" autocomplete="off" required>
                     <label for="rate">Курс *</label>
                 </div>
 
@@ -45,7 +45,7 @@
                     <input type="text" name="phone" 
                     id="phone" placeholder="Телефон *"
                     oninvalid="setCustomValidity('Допускаются только цифры и символы +-. Длина телефона 7-20 символов')" 
-                    oninput="setCustomValidity('')" required>
+                    oninput="setCustomValidity('')" autocomplete="tel" required>
                     <label for="phone">Телефон *</label>
                 </div>
                 <div class="form-ad-row">
@@ -53,11 +53,11 @@
                     <label for="sum">Сумма</label>
                 </div>
                 <div class="form-ad-row">
-                    <input type="text" name="city" id="city" placeholder="В городе">
+                    <input type="text" name="city" id="city" placeholder="В городе" autocomplete="off">
                     <label for="city">В городе</label>
                 </div>
                 <div class="form-ad-row">
-                    <textarea id="textarea" name="textarea" rows="4" cols="20" 
+                    <textarea id="textarea" name="textarea" rows="4" cols="20" autocomplete="off"
                     placeholder="Продам 1000 долларов{{$locale["h1_keyword"]}}"></textarea>
                     <label id="textarea_label" class="textarea_label" for="textarea">Продам 1000 долларов{{$locale["h1_keyword"]}}</label>
                 </div>
