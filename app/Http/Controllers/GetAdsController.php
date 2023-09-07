@@ -79,7 +79,7 @@ class GetAdsController extends CurrencyController
     public function getNewAdByAPI(){
         if( empty($_POST) || 
             empty($_POST["password"]) || 
-            "80e069208b677e486c64da633608e6215197b55d" != $_POST["password"]  ) abort(403);
+            env('API_PASSWORD') != $_POST["password"]  ) abort(403);
         $json = json_decode($_POST["content"]);
         $message = $json->message;
         if( empty($message->peer_id) || empty($message->peer_id->channel_id) ) return;
