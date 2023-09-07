@@ -49,7 +49,7 @@ async(function () use ($options) {
                     $ad = $json->result->update;
                     $content = json_encode($ad);
 
-                    $url = 'https://' . env("APP_URL") . '/api/posts/add';
+                    $url = env("APP_URL") . '/api/posts/add';
 
                     $curl_handle = curl_init();
                     curl_setopt($curl_handle, CURLOPT_URL, $url);
