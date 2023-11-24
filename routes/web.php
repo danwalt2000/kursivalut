@@ -36,6 +36,6 @@ Route::get('/{landing}', [CurrencyController::class, 'landing'])
 
 Route::get("sitemap.xml" , [CurrencyController::class, 'sitemap']);
 
-Route::get('/.well-known/acme-challenge/{token}', function (string $token) {
-     return \Illuminate\Support\Facades\Storage::get('public/.well-known/acme-challenge/' . $token);
- });
+// Route::get('/.well-known/acme-challenge/{token}', function (string $token) {
+//      return \Illuminate\Support\Facades\Storage::get('public/.well-known/acme-challenge/' . $token);
+//  });
