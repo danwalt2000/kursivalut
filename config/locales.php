@@ -54,9 +54,9 @@ return [
             "1780966414" => ["id" => "obmenka_val",       "time" => "everyTenMinutes"],         // 10
             "1629996803" => ["id" => "obmen_lugansk_obmen",   "time" => "everyFifteenMinutes"], // 15  
             "1789001285" => ["id" => "valuta_lugansk",   "time" => "everyFifteenMinutes"],      // 15
-            "1643215722" => ["id" => "obmenka_dnr_lnr",   "time" => "everyFifteenMinutes"]      // 15
-            "1471055481" => ["id" => "ObmenValut_Lugansk",   "time" => "everyFifteenMinutes"]      // 15
-            "1824762799" => ["id" => "obmenik_lugansk",   "time" => "everyFifteenMinutes"]      // 15
+            "1643215722" => ["id" => "obmenka_dnr_lnr",   "time" => "everyFifteenMinutes"],      // 15
+            "1471055481" => ["id" => "ObmenValut_Lugansk",   "time" => "everyFifteenMinutes"],      // 15
+            "1824762799" => ["id" => "obmenik_lugansk",   "time" => "everyFifteenMinutes"],      // 15
         ]
     ],
     'mariupol'       => [
