@@ -155,6 +155,11 @@ return [
             "1406118239" => ["id" => "obmenvmsk", "time" => "everyThirtyMinutes"],                 // 30
             "1460221844" => ["id" => "currency_exchanges", "time" => "everyThirtyMinutes"],        // 30
             "1364752817" => ["id" => "obmeny_valyuty", "time" => "everyThirtyMinutes"],                 // 30
+            "1683359903" => ["id" => "a7337z", "time" => "everyThirtyMinutes"],                 // 30
+            "1725670916" => ["id" => "sovcomrates_msk", "time" => "everyThirtyMinutes"],                 // 30
+            "1861025310" => ["id" => "valuta_R", "time" => "everyThirtyMinutes"],                 // 30
+            "1513641809" => ["id" => "curency_exchange_rf", "time" => "everyThirtyMinutes"],                 // 30
+            "2060147758" => ["id" => "exchangemoneymsk", "time" => "everyThirtyMinutes"],                 // 30
         ]
     ],
     // 'spb'       => [
