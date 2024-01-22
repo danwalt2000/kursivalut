@@ -27,7 +27,6 @@ return [
         ],
         'tg'             => [
             "1154050282" => ["id" => "obmenkadn",             "time" => "everyTenMinutes"],     // 10
-            "1649134439" => ["id" => "obmenvDNR",             "time" => "everyTenMinutes"],     // 10
             "1161871204" => ["id" => "obmenkadonetck",        "time" => "everyTenMinutes"],     // 10
             "1345575332" => ["id" => "obmen_valut_donetsk_1", "time" => "everyTenMinutes"],     // 10
             "1265653325" => ["id" => "obmenvalutdon",         "time" => "everyFifteenMinutes"], // 15
@@ -56,7 +55,6 @@ return [
             "1629996803" => ["id" => "obmen_lugansk_obmen",   "time" => "everyFifteenMinutes"], // 15  
             "1789001285" => ["id" => "valuta_lugansk",   "time" => "everyFifteenMinutes"],      // 15
             "1643215722" => ["id" => "obmenka_dnr_lnr",   "time" => "everyFifteenMinutes"],      // 15
-            "1471055481" => ["id" => "ObmenValut_Lugansk",   "time" => "everyFifteenMinutes"],      // 15
             "1824762799" => ["id" => "obmenik_lugansk",   "time" => "everyFifteenMinutes"],      // 15
             "1271652753" => ["id" => "obmen_lugansk_reserv",   "time" => "everyFifteenMinutes"],      // 15
         ]
@@ -154,7 +152,6 @@ return [
         'tg'             => [
             "1406118239" => ["id" => "obmenvmsk", "time" => "everyThirtyMinutes"],                 // 30
             "1460221844" => ["id" => "currency_exchanges", "time" => "everyThirtyMinutes"],        // 30
-            "1364752817" => ["id" => "obmeny_valyuty", "time" => "everyThirtyMinutes"],                 // 30
             "1683359903" => ["id" => "a7337z", "time" => "everyThirtyMinutes"],                 // 30
             "1725670916" => ["id" => "sovcomrates_msk", "time" => "everyThirtyMinutes"],                 // 30
             "1861025310" => ["id" => "valuta_R", "time" => "everyThirtyMinutes"],                 // 30
