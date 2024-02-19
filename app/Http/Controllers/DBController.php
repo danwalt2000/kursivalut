@@ -18,7 +18,8 @@ class DBController extends Controller
             $currency = '', 
             $search = '', 
             $offset = 0,
-            $rate = 0.01
+            $rate = 0.01,
+            $date = ''
         ){
         $sort = 'date';
         $limit = 20;
@@ -42,8 +43,7 @@ class DBController extends Controller
         // период, за который запрашиваются записи - измеряется в часах
         $time_range = 24;
         if(!empty($_GET["date"]) && 
-            filter_var($_GET["date"], FILTER_VALIDATE_INT) !== false &&
-            (24 == $_GET["date"] || 5 == $_GET["date"] || 168 == $_GET["date"]) ){
+        filter_var($_GET["date"], FILTER_VALIDATE_FLOAT) !== false){
             $time_range = $_GET["date"];
         }
 

@@ -1,11 +1,11 @@
 @forelse($ads as $ad)
-    <article class="post">
+    <article class="post ad">
         <header class="post-header">
             <div class="info">
                 <img width="50px" height="50px" src="/img/groups/{!! str_replace('-', '', $ad->owner_id) !!}.webp" title="Группа" alt="Группа">
                 <div class="time-info">
                     <p class="time-published">Опубликовано</p>
-                    <p class="time">в&nbsp;{{ gmdate("H:i", ($ad->date + 3 * 60 * 60)) }}
+                    <p class="time" data-time="{{$ad->date}}">в&nbsp;{{ gmdate("H:i", ($ad->date + 3 * 60 * 60)) }}
                     @if( $ad->date > strtotime('today midnight')) сегодня
                     @elseif( $ad->date > strtotime('yesterday midnight')) вчера
                     @else{{ gmdate("d.m.Y", ($ad->date + 3 * 60 * 60)) }}@endif

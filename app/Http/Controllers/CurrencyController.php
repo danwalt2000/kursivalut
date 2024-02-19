@@ -42,10 +42,12 @@ class CurrencyController extends Controller
         $metrika_id = $this->locale['metrika'] ?? env("METRIKA_ID");
 
         $this->db_ads = DBController::getPosts( $this->table );
+        $last_ad_time =  isset($this->db_ads->first()->date) ? $this->db_ads->first()->date : '';
         $this->path = ParseUriController::parseUri();
         if( !empty($this->path['query']) ) $this->query = "?" . $this->path['query'];
         $this->to_view = [
             'ads'             => $this->db_ads,
+            'last_ad_time'    => $last_ad_time,
             'ads_count'       => DBController::getPosts($this->table, "count"),
             'currencies'      => $this->currencies,
             'locales'         => $this->locales,

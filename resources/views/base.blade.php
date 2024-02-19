@@ -82,12 +82,15 @@
             <div class="footer_content">
                 Технический партнер <a href="https://sharpdesign.ru">SharpDesign</a>.
             </div>
-            <div id="scroll-to-top" class="scroll-to-top scroll-to-top_inactive"></div>
+            <div id="scroll-to-top" class="scroll-to-top scroll-to-top_inactive">
+                <div id="how-many-new-ads" class="how-many-new-ads how-many-new-ads_inactive"></div>
+            </div>
         </footer>
         <script>
             window.ifMore = Math.ceil( Number("{{ $ads_count / 20 }}"));
             window.feedStatus = 1;
             window.currentHeight = 0;
+            window.lastAdTime = "{{ $last_ad_time }}";
             
             let currency = "{{ $path['currency'] }}";
             const constructUrl = function (){
@@ -101,37 +104,76 @@
             }
 
             window.addEventListener('DOMContentLoaded', () => {
-                var feed = document.querySelector('#feed');
+                const feed = document.querySelector('#feed');
+                const howManyAdsBlock = document.querySelector("#how-many-new-ads");
                 let url = constructUrl();
+
+                window.howManyNewAds = 0;
+                window.newAdsLastContainer = '';
                    
-                const loadMore = function() {  
-                    // если дошли до конца записей
-                    if(window.feedStatus >= window.ifMore) return;
-    
-                    // условие, чтобы функция не срабатывала несколько раз при скроллинге
-                    if( window.currentHeight && window.currentHeight + 1000 > window.pageYOffset ) return;
-                    window.currentHeight = window.pageYOffset;
+                // используется при загрузке бесконечной ленты 
+                // и при запросе новых объявлений каждые n минут
+                const loadMore = function(lastAdTime = '') {  
+                    if(!window.lastAdTime){ // событие скролла
+                        // если дошли до конца записей
+                        if(window.feedStatus >= window.ifMore) return;
+                            
+                        // условие, чтобы функция не срабатывала несколько раз при скроллинге
+                        if( window.currentHeight && window.currentHeight + 1000 > window.pageYOffset ) return;
+                        window.currentHeight = window.pageYOffset;
+                    } else{                 // событие запроса новых объявлений
+                        let nowTenDigits = Math.floor(Date.now()/1000);
+                        const dateRegexp = /date=\d+/;
+                        let hoursSinceLastFetch = (nowTenDigits - window.lastAdTime + 600) / 60 / 60;
+                        url = url.replace(/\&offset=\d+/, '');
+                        if(dateRegexp.test(url)){
+                            url = url.replace(/date=\d+/, 'date='+hoursSinceLastFetch);
+                        } else{
+                            url += 'date='+hoursSinceLastFetch;
+                        }
+                        console.log("fetching...");
+                        // console.log("last time " + window.lastAdTime);
+                        // console.log("now time " + nowTenDigits);
+                        // console.log("diff..." + hoursSinceLastFetch);
+                    }
                     
                     function reqListener () {
-                        window.feedStatus++;
                         url = constructUrl();
-                        var item = document.createElement('div');
+                        const item = document.createElement('div');
                         item.innerHTML = this.responseText;
-                        feed.appendChild(item);
+                        if(!window.lastAdTime){ // событие скролла
+                            window.feedStatus++;
+                            feed.appendChild(item);
+                        } else{                // событие запроса новых объявлений
+                            let blockClassName = "new-ads-" + Date.now();
+                            item.className = "fetched " + blockClassName;
+                            let countNewPosts = item.querySelectorAll(".ad").length;
+                            if(!!countNewPosts){
+                                window.howManyNewAds += countNewPosts;
+                                howManyAdsBlock.innerText = window.howManyNewAds;
+                                window.newAdsLastContainer = blockClassName;
+                                window.lastAdTime = document.querySelector("#feed .time").dataset.time;
+                                feed.prepend(item);
+
+                            }
+                            // setTimeout(() => {
+                            //     item.className += " fetched-uncolored";
+                            // }, 500);
+                        }
                     }
+                    
                     const req = new XMLHttpRequest();
                     req.addEventListener("load", reqListener);
                     req.open("GET", url);
                     req.send();
                 }
     
-                
                 const scrollToTop = document.querySelector("#scroll-to-top");
                 scrollToTop.addEventListener("click", function(){
                     window.scrollTo({top: 0, left: 0, behavior: "smooth", });
                 });
                 // Detect when scrolled to bottom.
-                if( window.ifMore > 1){
+                if( window.ifMore > 1 ){
                     document.addEventListener('scroll', function() {
                         if ( window.pageYOffset + window.screen.height >= feed.scrollHeight) {
                             loadMore();
@@ -139,11 +181,21 @@
                         if(window.pageYOffset > window.screen.height){
                             scrollToTop.classList.add("scroll-to-top_active");
                             scrollToTop.classList.remove("scroll-to-top_inactive");
+                            if(window.howManyNewAds > 0) howManyAdsBlock.classList.remove("how-many-new-ads_inactive");
                         } else{
                             scrollToTop.classList.remove("scroll-to-top_active");
+                            howManyAdsBlock.classList.add("how-many-new-ads_inactive");
+                            let fetched = document.querySelectorAll(".fetched");
+                            if(!!fetched && fetched.length){
+                                fetched.forEach(el => el.classList.add("fetched-uncolored") );
+                            }
+                            window.howManyNewAds = 0;
                         }
                     });
                 }
+                // const newAdsFetching = window.setInterval(getNewAds, 3600);
+
+                // setTimeout(loadMore, 1000);
             });
         </script>
         <script src="/js/app.js?v=@isset($hash){{$hash}}@endisset" defer></script>
