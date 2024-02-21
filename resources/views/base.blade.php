@@ -19,13 +19,8 @@
         <meta name="csrf-token" content="{{ csrf_token() }}" />
 
         <link href="/css/app.css?v=@isset($hash){{$hash}}@endisset" rel="stylesheet">
-        @if($table == 'donetsk')
-            <link rel="icon" type="image/svg+xml" alt="icon" href="/img/favicon.svg">
-            <link rel="apple-touch-icon" type="image/svg+xml" href="/img/favicon.svg"/>
-        @else
-            <link rel="icon" type="image/x-icon" alt="icon" href="/img/valuta.ico">
-            <link rel="apple-touch-icon" type="image/svg+xml" href="/img/favicon.svg"/>
-        @endif
+        <link id="favicon" rel="icon" type="image/svg+xml" alt="icon" href="/img/favicon.svg">
+        <link rel="apple-touch-icon" type="image/svg+xml" href="/img/favicon.svg"/>
 
         {{-- На страницах фильтрации по дате и курсу дублируется контент, поэтому нужен canonical --}}
         @if( Request::get('date') )
@@ -107,6 +102,7 @@
                 const feed = document.querySelector('#feed');
                 const howManyAdsBlock = document.querySelector("#how-many-new-ads");
                 let url = constructUrl();
+                let favicon = document.querySelector("#favicon");
 
                 window.howManyNewAds = 0;
                 window.newAdsLastContainer = '';
@@ -151,6 +147,7 @@
                                 howManyAdsBlock.innerText = window.howManyNewAds;
                                 window.newAdsLastContainer = blockClassName;
                                 window.lastAdTime = item.querySelector(".time").dataset.time;
+                                favicon.href = '/img/favicon-dot.svg';
                                 feed.prepend(item);
                                 unstyleNewPosts();
                             }
@@ -177,6 +174,7 @@
                                 if(window.howManyNewAds < 0 || !window.howManyNewAds){
                                     window.howManyNewAds = 0;
                                     howManyAdsBlock.classList.add("how-many-new-ads_inactive");
+                                    favicon.href = '/img/favicon.svg';
                                 }
                                 howManyAdsBlock.innerText = window.howManyNewAds;
                             }
