@@ -145,7 +145,7 @@
                             url = constructUrl();
                             let blockClassName = "new-ads-" + Date.now();
                             item.className = "fetched " + blockClassName;
-                            let countNewPosts = item.querySelectorAll(".ad").length;
+                            let countNewPosts = item.querySelectorAll(".declaration").length;
                             if(!!countNewPosts){
                                 window.howManyNewAds += countNewPosts;
                                 howManyAdsBlock.innerText = window.howManyNewAds;
@@ -172,7 +172,7 @@
                                 block.classList.add("fetched-uncolored");
                                 // убираем перекрытие, чтобы не мешало клику по объявлению
                                 setTimeout(() => block.classList.add("fetched-hidden"), 3500);
-                                let countPosts = block.querySelectorAll(".ad").length;
+                                let countPosts = block.querySelectorAll(".declaration").length;
                                 window.howManyNewAds -= countPosts;
                                 if(window.howManyNewAds < 0 || !window.howManyNewAds){
                                     window.howManyNewAds = 0;

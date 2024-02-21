@@ -1,5 +1,5 @@
 @forelse($ads as $ad)
-    <article class="post ad">
+    <article class="post declaration">
         <header class="post-header">
             <div class="info">
                 <img width="50px" height="50px" src="/img/groups/{!! str_replace('-', '', $ad->owner_id) !!}.webp" title="Группа" alt="Группа">
