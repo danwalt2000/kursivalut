@@ -121,7 +121,7 @@
                         // условие, чтобы функция не срабатывала несколько раз при скроллинге
                         if( window.currentHeight && window.currentHeight + 1000 > window.pageYOffset ) return;
                         window.currentHeight = window.pageYOffset;
-                    } else{                 // событие запроса новых объявлений
+                    } else {                 // событие запроса новых объявлений
                         let nowTenDigits = Math.floor(Date.now()/1000);
                         const dateRegexp = /date=\d+/;
                         let hoursSinceLastFetch = (nowTenDigits - window.lastAdTime - 10) / 60 / 60;
