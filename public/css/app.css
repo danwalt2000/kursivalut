@@ -1039,7 +1039,10 @@ div[data-block-name="button"] a{
 }
 .fetched-uncolored::after{
     opacity: 0;
-    transition: opacity 4s ease-out;
+    transition: opacity 3s ease-out;
+}
+.fetched-hidden::after{
+    content: unset;
 }
 .overlay-hidden::after{
     visibility: hidden;

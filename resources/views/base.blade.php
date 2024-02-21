@@ -113,8 +113,8 @@
                    
                 // используется при загрузке бесконечной ленты 
                 // и при запросе новых объявлений каждые n минут
-                const loadMore = function(lastAdTime = '') {  
-                    if(!window.lastAdTime){ // событие скролла
+                const loadMore = function(occasion = '') {  
+                    if(occasion === 'scroll'){ // событие скролла
                         // если дошли до конца записей
                         if(window.feedStatus >= window.ifMore) return;
                             
@@ -124,27 +124,25 @@
                     } else{                 // событие запроса новых объявлений
                         let nowTenDigits = Math.floor(Date.now()/1000);
                         const dateRegexp = /date=\d+/;
-                        let hoursSinceLastFetch = (nowTenDigits - window.lastAdTime + 600) / 60 / 60;
+                        let hoursSinceLastFetch = (nowTenDigits - window.lastAdTime - 10) / 60 / 60;
                         url = url.replace(/\&offset=\d+/, '');
                         if(dateRegexp.test(url)){
                             url = url.replace(/date=\d+/, 'date='+hoursSinceLastFetch);
                         } else{
+                            if(!url.endsWith("&")) url += "&";
                             url += 'date='+hoursSinceLastFetch;
                         }
-                        console.log("fetching...");
-                        // console.log("last time " + window.lastAdTime);
-                        // console.log("now time " + nowTenDigits);
-                        // console.log("diff..." + hoursSinceLastFetch);
                     }
                     
                     function reqListener () {
-                        url = constructUrl();
                         const item = document.createElement('div');
                         item.innerHTML = this.responseText;
-                        if(!window.lastAdTime){ // событие скролла
+                        if(occasion === 'scroll'){ // событие скролла
                             window.feedStatus++;
+                            url = constructUrl();
                             feed.appendChild(item);
-                        } else{                // событие запроса новых объявлений
+                        } else {                // событие запроса новых объявлений
+                            url = constructUrl();
                             let blockClassName = "new-ads-" + Date.now();
                             item.className = "fetched " + blockClassName;
                             let countNewPosts = item.querySelectorAll(".ad").length;
@@ -152,13 +150,10 @@
                                 window.howManyNewAds += countNewPosts;
                                 howManyAdsBlock.innerText = window.howManyNewAds;
                                 window.newAdsLastContainer = blockClassName;
-                                window.lastAdTime = document.querySelector("#feed .time").dataset.time;
+                                window.lastAdTime = item.querySelector(".time").dataset.time;
                                 feed.prepend(item);
-
+                                unstyleNewPosts();
                             }
-                            // setTimeout(() => {
-                            //     item.className += " fetched-uncolored";
-                            // }, 500);
                         }
                     }
                     
@@ -167,35 +162,51 @@
                     req.open("GET", url);
                     req.send();
                 }
-    
+                
+                const unstyleNewPosts = ()=>{
+                    let fetched = document.querySelectorAll(".fetched");
+                    if(fetched){
+                        fetched.forEach(block =>{
+                            let rect = block.getBoundingClientRect();
+                            if(rect.bottom > 150 && !block.classList.contains("fetched-uncolored")){
+                                block.classList.add("fetched-uncolored");
+                                // убираем перекрытие, чтобы не мешало клику по объявлению
+                                setTimeout(() => block.classList.add("fetched-hidden"), 3500);
+                                let countPosts = block.querySelectorAll(".ad").length;
+                                window.howManyNewAds -= countPosts;
+                                if(window.howManyNewAds < 0 || !window.howManyNewAds){
+                                    window.howManyNewAds = 0;
+                                    howManyAdsBlock.classList.add("how-many-new-ads_inactive");
+                                }
+                                howManyAdsBlock.innerText = window.howManyNewAds;
+                            }
+                        });
+                        
+                    }
+                }
+
                 const scrollToTop = document.querySelector("#scroll-to-top");
                 scrollToTop.addEventListener("click", function(){
-                    window.scrollTo({top: 0, left: 0, behavior: "smooth", });
+                    window.scrollTo({top: 0, left: 0, behavior: "smooth" });
                 });
                 // Detect when scrolled to bottom.
-                if( window.ifMore > 1 ){
-                    document.addEventListener('scroll', function() {
-                        if ( window.pageYOffset + window.screen.height >= feed.scrollHeight) {
-                            loadMore();
-                        }
-                        if(window.pageYOffset > window.screen.height){
-                            scrollToTop.classList.add("scroll-to-top_active");
-                            scrollToTop.classList.remove("scroll-to-top_inactive");
-                            if(window.howManyNewAds > 0) howManyAdsBlock.classList.remove("how-many-new-ads_inactive");
-                        } else{
-                            scrollToTop.classList.remove("scroll-to-top_active");
-                            howManyAdsBlock.classList.add("how-many-new-ads_inactive");
-                            let fetched = document.querySelectorAll(".fetched");
-                            if(!!fetched && fetched.length){
-                                fetched.forEach(el => el.classList.add("fetched-uncolored") );
-                            }
-                            window.howManyNewAds = 0;
-                        }
-                    });
-                }
-                // const newAdsFetching = window.setInterval(getNewAds, 3600);
-
-                // setTimeout(loadMore, 1000);
+                document.addEventListener('scroll', function() {
+                    if ( window.pageYOffset + window.screen.height >= feed.scrollHeight) {
+                        loadMore('scroll');
+                    }
+                    if(window.pageYOffset > window.screen.height){
+                        scrollToTop.classList.add("scroll-to-top_active");
+                        scrollToTop.classList.remove("scroll-to-top_inactive");
+                        if(window.howManyNewAds > 0) howManyAdsBlock.classList.remove("how-many-new-ads_inactive");
+                    } else{
+                        scrollToTop.classList.remove("scroll-to-top_active");
+                        howManyAdsBlock.classList.add("how-many-new-ads_inactive");
+                    }
+                    unstyleNewPosts();
+                });
+                @isset($locale['load_freq'])
+                const newAdsFetching = window.setInterval(loadMore, {{ $locale['load_freq'] }}000);
+                @endisset
             });
         </script>
         <script src="/js/app.js?v=@isset($hash){{$hash}}@endisset" defer></script>

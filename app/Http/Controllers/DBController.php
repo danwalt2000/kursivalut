@@ -64,9 +64,8 @@ class DBController extends Controller
             $search_clean = htmlspecialchars($search);
         }
         $skip = $offset * $limit;
+        $cut_by_time = time() - ($time_range * 60 * 60);
 
-        $cut_by_time = time() - $time_range * 60 * 60;
-        
         return DB::table($table)
                 ->where("date", ">", $cut_by_time)
                 ->where('type', 'like', "%" . $query . "%")
