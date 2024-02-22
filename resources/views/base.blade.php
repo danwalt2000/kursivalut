@@ -41,7 +41,7 @@
             <main class="main">
                 <div class="logo">
                     <a href="/" class="logo-link">
-                        <img width="70px" height="70px" alt="Обмен валют" class="logo-img" src="/img/favicon.svg" >
+                        <img width="70px" height="70px" alt="Обмен валют" class="logo-img" src="/img/favicon.svg" loading="lazy">
                         <p class="logo-title">Обмен валют</p>
                     </a>
                     @include('parts.location')

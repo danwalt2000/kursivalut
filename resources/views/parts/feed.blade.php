@@ -2,7 +2,7 @@
     <article class="post declaration">
         <header class="post-header">
             <div class="info">
-                <img width="50px" height="50px" src="/img/groups/{!! str_replace('-', '', $ad->owner_id) !!}.webp" title="Группа" alt="Группа">
+                <img width="50px" height="50px" src="/img/groups/{!! str_replace('-', '', $ad->owner_id) !!}.webp" title="Группа" alt="Группа" loading="lazy">
                 <div class="time-info">
                     <p class="time-published">Опубликовано</p>
                     <p class="time" data-time="{{$ad->date}}">в&nbsp;{{ gmdate("H:i", ($ad->date + 3 * 60 * 60)) }}
@@ -14,7 +14,7 @@
             </div>
             <div class="info-more">
                 @if($ad->owner_id == 1)
-                    <img class="info-more-our" width="50px" height="50px" src="/img/shield.svg" title="Создано на нашем сайте" alt="Создано на нашем сайте">
+                    <img class="info-more-our" width="50px" height="50px" src="/img/shield.svg" title="Создано на нашем сайте" alt="Создано на нашем сайте" loading="lazy">
                 @else
                     <a class="go_to_vk" data-id="{{ $ad->vk_id }}" 
                         href="{{ $ad->link }}" target="_blank" 
@@ -37,7 +37,7 @@
     @endproduction --}}
 @empty
     <article class="post no-ads">
-        <img class="no-ads-img" src="/img/no-ads.svg" title="Объявлений не найдено" alt="Объявлений не найдено">
+        <img class="no-ads-img" src="/img/no-ads.svg" title="Объявлений не найдено" alt="Объявлений не найдено" loading="lazy">
         <h2 class="">Объявлений не найдено</h2>
     </article>
 @endforelse
