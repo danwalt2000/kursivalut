@@ -28,7 +28,8 @@ class Kernel extends ConsoleKernel
         
         $schedule->call( function() use ($rates){
             $rates->getStockRates();
-        })->weekdays()->hourlyAt(4)->between('3:00', '20:00'); // по Гринвичу
+        // })->weekdays()->hourlyAt(4)->between('3:00', '20:00'); // по Гринвичу
+        })->weekdays()->everyThreeHours()->between('6:00', '12:00'); // по Гринвичу
 
         // сбор новых объявлений
         foreach ( Config::get('locales') as $subdomain => $locale ){
