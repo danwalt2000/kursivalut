@@ -120,10 +120,10 @@
                     } else {                 // событие запроса новых объявлений
                         let nowTenDigits = Math.floor(Date.now()/1000);
                         const dateRegexp = /date=\d+/;
-                        let hoursSinceLastFetch = (nowTenDigits - window.lastAdTime - 10) / 60 / 60;
+                        let hoursSinceLastFetch = parseFloat(((nowTenDigits - window.lastAdTime - 10) / 60 / 60).toFixed(4));
                         url = url.replace(/\&offset=\d+/, '');
                         if(dateRegexp.test(url)){
-                            url = url.replace(/date=\d+/, 'date='+hoursSinceLastFetch);
+                            url = url.replace(/[\d\.]+/, 'date='+hoursSinceLastFetch);
                         } else{
                             if(!url.endsWith("&")) url += "&";
                             url += 'date='+hoursSinceLastFetch;
