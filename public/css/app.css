@@ -226,12 +226,32 @@ a:hover{
 .post, 
 .form-wrapper,
 .modal-inner,
+.attention-note,
 .sorting-column{
-    background-color: #fff;
+    background-color: var(--main-bg-color);
     margin: 10px 0;
     border-radius: 6px;
     padding: 25px;
     background-repeat: no-repeat;
+}
+.attention-note{
+    background-color: var(--title-color);
+    color: var(--main-bg-color);
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    align-items: center;
+    gap: 10px;
+}
+.attention-note::before{
+    content: '';
+    width: 40px;
+    height: 40px;
+    border-radius: 6px;
+    display: inline-block;
+    background-image: url(/img/danger-treangle-green.svg);
+    background-repeat: no-repeat;
+    background-color: var(--main-bg-color);
+    background-position: center;
 }
 .close_modal{
     display: block;
@@ -707,7 +727,7 @@ span.with-arrow-rarr-up::after,
     position: absolute;
     top: 13px; 
     left: 10px;
-    background: #fff;
+    background: var(--main-bg-color);
     padding: 0 5px;
     visibility: hidden;
     transition: transform .3s linear;
