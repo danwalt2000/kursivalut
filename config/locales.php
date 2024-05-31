@@ -16,14 +16,14 @@ return [
         'metrika'        => '90961172',
         // 'yandex-ad'      => '2593677',
         'vk'             => [
-            "obmenvalut_donetsk"    => ["id" => "-87785879",  "time" => "everyFiveMinutes"],    // 5
+            // "obmenvalut_donetsk"    => ["id" => "-87785879",  "time" => "everyFiveMinutes"],    // 5 BANNED
             "obmen_valut_donetsk"   => ["id" => "-92215147",  "time" => "everyFiveMinutes"],    // 5
             "obmenvalyut_dpr"       => ["id" => "-153734109", "time" => "everyThirtyMinutes"],  // 30
             "club156050748"         => ["id" => "-156050748", "time" => "everyThirtyMinutes"],  // 30
-            "kursvalut_donetsk"     => ["id" => "-63859238",  "time" => "everyThirtyMinutes"],  // 30
-            "obmen_valut_dnr"       => ["id" => "-193547744", "time" => "hourly"],              // 60
-            "donetsk_obmen_valyuta" => ["id" => "-174075254", "time" => "hourly"],              // 60
-            "obmenvalut_dnr"        => ["id" => "-172375183", "time" => "hourly"],              // 60
+            // "kursvalut_donetsk"     => ["id" => "-63859238",  "time" => "everyThirtyMinutes"],  // 30 BANNED
+            // "obmen_valut_dnr"       => ["id" => "-193547744", "time" => "hourly"],              // 60 BANNED
+            // "donetsk_obmen_valyuta" => ["id" => "-174075254", "time" => "hourly"],              // 60 BANNED
+            // "obmenvalut_dnr"        => ["id" => "-172375183", "time" => "hourly"],              // 60 BANNED
             "valutoobmen"           => ["id" => "-75586957",  "time" => "hourly"]               // 60
         ],
         'tg'             => [
@@ -73,7 +73,7 @@ return [
         'metrika'        => '93171171',
         // 'yandex-ad'      => '2671372',
         'vk'             => [
-            "obmenvalut_mariupol"    => ["id" => "-212955319",  "time" => "everyThirtyMinutes"],  // 30
+            // "obmenvalut_mariupol"    => ["id" => "-212955319",  "time" => "everyThirtyMinutes"],  // 30
         ],
         'tg'             => [
             "1650543563" => ["id" => "obmenmrpl",             "time" => "everyTenMinutes"],       // 10
