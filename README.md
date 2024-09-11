@@ -1,4 +1,4 @@
-<p align="center"><a href="https://valuta-dn.ru" target="_blank"><img src="https://valuta-dn.ru/img/pig.svg" width="150" alt="Valuta-dn Logo"></a></p>
+<p align="center"><a href="https://moscow.kursivalut.ru" target="_blank"><img src="https://valuta-dn.ru/img/pig.svg" width="150" alt="Kursivalut Logo"></a></p>
 
 ## Currency ads aggregator
 <p>This app is fast, robust and fully automatic telegram & vk posts analyzer.</p>
@@ -8,4 +8,4 @@
 <p>This app has multilocalization which means that you can use different domains for different sets of telegram channels or vk publics. Each locale settings stores in config/locales.php.</p>
 <p>Regex patterns, currency sets and other configs are in config/common.php</p>
 <p>App is based on PHP8.2 and Laravel 10 with Nginx on the server side.</p>
-<p>Working version you can find here <a href="https://valuta-dn.ru">valuta-dn.ru</a>.</p>
+<p>Working version you can find here <a href="https://moscow.kursivalut.ru">kursivalut.ru</a>.</p>
