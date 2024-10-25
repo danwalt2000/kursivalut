@@ -70,22 +70,6 @@
                     href="{{ preg_replace('/\?$/', '', request()->fullUrlWithQuery(['sort' => null, 'order' => null]) ) }}"
                 @endif >Дата</a>
         </div>
-        {{-- <span class="h6">Сортировка</span> --}}
-        {{-- <li class="chip with-arrow with-arrow-rarr @if("date_desc" == $path['sort']) chip-active @endif">
-            <a href="{{ preg_replace('/\?$/', '', request()->fullUrlWithQuery(['sort' => null, 'order' => null]) ) }}" title="Сортировать от нового к старому">
-                Дата
-            </a>
-        </li>
-        <li class="chip with-arrow with-arrow-rarr with-arrow-rarr-up @if("date_asc" == $path['sort']) chip-active @endif">
-            <a href="{{ request()->fullUrlWithQuery(['sort' => 'date', 'order' => 'asc']) }}" title="Сортировать от старого к новому">
-                Дата
-            </a>
-        </li> --}}
-        {{-- <li class="chip with-arrow with-arrow-rarr @if("popularity_desc" == $path['sort']) chip-active @endif">
-            <a href="{{ request()->fullUrlWithQuery(['sort' => 'popularity', 'order' => 'desc']) }}" title="Сортировать по убыванию популярности">
-                Популярности
-            </a>
-        </li> --}}
     </ul>
    
 </section>

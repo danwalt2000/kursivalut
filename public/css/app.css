@@ -1,9 +1,10 @@
 :root {
     --main-bg-color: #fff;
     --chip-bg-color: #fefafa;
-    --active-bg-color: rgba(81, 209, 224, .1);
+    --active-bg-color: #effafc;
     --link-color: #1f7c87; /* #51d1e0 */
     --logo-color: #51d1e0;
+    --gray-border-color: #D6D6D6;
     --red: #eb4e3d;
     --green: #65c466;
     --link-hover-color: #267f89;
@@ -223,6 +224,7 @@ a:hover{
 }
 .header-nav_wrapper, 
 .rates,
+.chart,
 .post, 
 .form-wrapper,
 .modal-inner,
@@ -424,10 +426,11 @@ nav ul{
     justify-content: space-between;
     padding: 0;
 }
-.chip{
+.chip,
+.chart-button{
     line-height: 32px;
     cursor: pointer;
-    border: 1px #D6D6D6 solid;
+    border: 1px var(--gray-border-color) solid;
     border-radius: 6px;
     display: flex;
     align-items: center;
@@ -439,7 +442,8 @@ nav ul{
 .chip a:hover{
     color: var(--link-hover-color);
 }
-.chip-active{
+.chip-active,
+.chart-currency_active{
     background: var(--active-bg-color);
     color: var(--active-bg-color);
     display: flex;
@@ -473,7 +477,7 @@ nav ul{
     width: fit-content;
     border-radius: 6px;
     padding: 6px;
-    border: 1px #D6D6D6 solid;
+    border: 1px var(--gray-border-color) solid;
     margin-right: 10px;
     background-color: var(--chip-bg-color);
 }
@@ -587,7 +591,7 @@ nav ul{
     top: 100%;
     right: 0;
 }
-.dropdown-hidden::after{
+.dropdown-hidden li:first-child::after{
     content: '';
     width: 10px;
     height: 10px;
@@ -601,15 +605,17 @@ nav ul{
 .dropdown-hidden li{
     padding: 0 14px;
 }
-.dropdown-hidden li a{
+.dropdown-hidden li a,
+.chart-period{
     display: block;
     padding: 10px;
-    border-top: #D6D6D6 1px solid;
+    border-top: var(--gray-border-color) 1px solid;
 }
 .dropdown-hidden  li:first-child a{
     border: unset
 }
-.dropdown-hidden  li:hover{
+.dropdown-hidden li:hover,
+.dropdown-hidden li:first-child:hover::after{
     background-color: var(--active-bg-color);
 }
 .with-arrow{
@@ -622,6 +628,7 @@ nav ul{
 }
 
 .sort .with-arrow,
+.chart-dropdown .with-arrow,
 .currencies .with-arrow{
     padding: 5px 10px;
     min-width: 80px;
@@ -639,6 +646,7 @@ nav ul{
 }
 .sort .with-arrow::after,
 .currencies .with-arrow::after,
+.chart-dropdown .with-arrow::after,
 .with-arrow a::after{
     content: '';
     background: url(/img/arrow-down-cyan.svg) no-repeat;
@@ -1067,6 +1075,46 @@ div[data-block-name="button"] a{
 .overlay-hidden::after{
     visibility: hidden;
 }
+.chart-button{
+    padding: 5px 10px;
+    line-height: 21px;
+}
+.chart-list{
+    position: relative;
+    padding: 0;
+    margin: 0;
+    min-width: 130px;
+}
+.chart-list .chart-period_active{
+    gap: 5px;
+} 
+.chart-dropdown,
+.chart-buttons{
+    display: flex;
+    gap: 5px;
+    padding: 0;
+    margin: 0;
+    align-items: center;
+}
+.chart-list .dropdown-hidden{
+    width: 100%;
+}
+.chart-period_hidden{
+    display: none;
+}
+.chart_hidden{
+    display: none;
+}
+.chart-nav{
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+    align-items: center;
+}
+.dropdown-hidden .chart-period{
+    padding: 10px 14px;
+}
 @media (min-width: 992px) and (max-height: 460px){
     .sorting-column{
         position: static;
@@ -1183,7 +1231,7 @@ div[data-block-name="button"] a{
     .sorting-column-collapsed .open-filters{
         transform: rotate(.5turn);
     }
-    .dropdown-hidden{
+    .right_column .dropdown-hidden{
         top: auto;
         bottom: 130%;
         box-shadow: -1px 4px 8px 1px rgba(34, 60, 80, 0.2);
@@ -1224,6 +1272,16 @@ div[data-block-name="button"] a{
     }
     .form-bg-open+.form-open .form-open-span{
         transform: rotate(45deg);
+    }
+    .chart_title,
+    .chart-nav{
+        padding: 0 25px;
+    }
+    .chart{
+        padding: 25px 5px;
+    }
+    .chart-nav{
+        flex-direction: column;
     }
 }
 @media (max-width: 580px){

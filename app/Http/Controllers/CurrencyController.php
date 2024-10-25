@@ -20,6 +20,7 @@ class CurrencyController extends Controller
     public $host;            // текущий домен и поддомен
     public $locale;          // текущая локаль из конф. файла locales.php
     public $currencies = []; // список валют для текущей локали
+    public $currencies_loc = []; // список валют в родительном падеже
     public $path = [];       // разложенный по частям uri
     public $table;           // текущая таблица БД, например, donetsk 
     public $query = '';
@@ -31,6 +32,7 @@ class CurrencyController extends Controller
         $this->table = $this->host['table'] ?? "donetsk";
         $this->locales = Config::get('locales'); 
         $this->rates = new RatesController;
+        $this->currencies_loc = Config::get('common.currencies_loc');
 
         // в разных локалях разные наборы валют
         $this->locale = Config::get('locales.' . $this->host['table']);
@@ -50,6 +52,7 @@ class CurrencyController extends Controller
             'last_ad_time'    => $last_ad_time,
             'ads_count'       => DBController::getPosts($this->table, "count"),
             'currencies'      => $this->currencies,
+            'currencies_loc'  => $this->currencies_loc,
             'locales'         => $this->locales,
             'locale'          => $this->locale,
             'table'           => $this->table,

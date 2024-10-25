@@ -20,7 +20,7 @@ use App\Http\Controllers\GetAdsController;
 //     return $request->user();
 // });
 
-Route::get('/rates', [RatesController::class, 'getAll']);
+Route::get('/rates', [RatesController::class, 'get']);
 
 Route::get('/posts/add', function () { return redirect('/'); });
-Route::post('/posts/add', [GetAdsController::class, 'getNewAdByAPI']);
+Route::post('/posts/add', [GetAdsController::class, 'addPostByAPI']);

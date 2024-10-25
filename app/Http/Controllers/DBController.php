@@ -110,14 +110,24 @@ class DBController extends Controller
         DB::table($table)->updateOrInsert( [ 'content' => $args['content'] ], $args );
     }
 
-    // получает курсы, записанные в БД в таблице rates
-    public static function getRates( $locale, $currency, $time ){
+    // получает последний курс определенной валюты в определенной локали
+    public static function getRate( $locale, $currency, $time ){
         return DB::table("rates")
                 ->where( 'locale', $locale )
                 ->where( 'currency', $currency )
                 ->where( 'time', '<', $time + 59*60 )
                 ->orderBy( 'time', 'desc' )
                 ->first();
+    }
+
+    public static function getRatesByRange( $locale, $currency, $time_range ){
+        return DB::table("rates")
+                ->whereIn( 'locale', [$locale, 'stock'] )
+                ->where( 'currency', $currency )
+                ->where( 'time', '<', time() + 59*60 )
+                ->where( 'time', '>', $time_range )
+                ->orderBy( 'time', 'desc' )
+                ->get(['average', 'time', 'locale']);
     }
 
     // получает средний курс из таблицы $table и направления $direction (например, продать доллар)

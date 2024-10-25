@@ -17,12 +17,12 @@
             @endif
         </header>
 
-        <aside class="attention-note">
+        {{-- <aside class="attention-note">
             В связи с участившимися случаями блокировки vk-сообществ, публикующих объявления об обмене валют, наше приложение больше не будет собирать информацию с сайта vk.com. <br>Через наш сайт нельзя публиковать объявления об обмене валют.
-        </aside>
+        </aside> --}}
 
         @if( !empty($rates) )
-        <aside class="rates">
+        <aside id="rates" class="rates">
             <div class="rates_title">
                 <h2>Курсы валют на сегодня</h2>
             </div>
@@ -48,6 +48,45 @@
                     @endforeach
                 </div>
             </section>
+        </aside>
+        <aside id="chart-block" class="chart chart_hidden">
+            <div class="chart_title">
+                <h2>График курса <span id="chart_currency" class="chart_currency">доллара</span> к рублю</h2>
+            </div>
+            <div>
+                <canvas id="chart"></canvas>
+            </div>
+            <div class="chart-nav">
+                <div class="chart-dropdown dropdown-menu">
+                    <span class="h6">За период:</span>
+                
+                    <ul class="chart-list">
+                        <li class="with-arrow dropdown-item chart-period_active">
+                            <span class="with-arrow-rarr" data-period="14">две недели</span>
+                        </li>
+                        <div class="dropdown-hidden">
+                            <li class="dropdown-item chart-period with-arrow-rarr " data-period="7">неделю</li>
+                            <li class="dropdown-item chart-period with-arrow-rarr chart-period_hidden" data-period="14">две недели</li>
+                            <li class="dropdown-item chart-period with-arrow-rarr" data-period="30">30 дней</li>
+                            <li class="dropdown-item chart-period with-arrow-rarr" data-period="180">180 дней</li>
+                            <li class="dropdown-item chart-period with-arrow-rarr" data-period="365">365 дней</li>
+                        </div>
+                    </ul>
+                </div>
+                <ul class="chart-buttons">
+                    @foreach($rates as $rate)
+                        <li class="chart-button chart-currency @if($rate->currency == "dollar") chart-currency_active @endif" 
+                            data-currency="{{$rate->currency}}" data-title="{{$currencies_loc[$rate->currency]}}">
+                            {{$currencies[$rate->currency]}}
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
+                
+                <script src="/js/ratechart.js"></script>
+                <script src="/js/libs/chart.js" defer></script>
+                {{-- <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script> --}}
+            
         </aside>
         @endif
         

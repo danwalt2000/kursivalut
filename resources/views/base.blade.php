@@ -86,6 +86,9 @@
             window.feedStatus = 1;
             window.currentHeight = 0;
             window.lastAdTime = "{{ $last_ad_time }}";
+            window.locale = "{{ $locale['name'] }}";
+            window.isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            window.h1Keyword = "{{ $locale["h1_keyword"] }}";
             
             let currency = "{{ $path['currency'] }}";
             const constructUrl = function (){
@@ -202,9 +205,9 @@
                     }
                     unstyleNewPosts();
                 });
-                @isset($locale['load_freq'])
+                @if( isset($locale['load_freq']) && count($ads) > 0 )
                 const newAdsFetching = window.setInterval(loadMore, {{ $locale['load_freq'] }}000);
-                @endisset
+                @endif
             });
         </script>
         <script src="/js/app.js?v=@isset($hash){{$hash}}@endisset" defer></script>

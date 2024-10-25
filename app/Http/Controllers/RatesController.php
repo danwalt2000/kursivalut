@@ -1,6 +1,7 @@
 <?php
  
 namespace App\Http\Controllers;
+use Illuminate\Http\Request;
 use Log;
 use Config;
 use Illuminate\Support\Facades\Http;
@@ -15,19 +16,34 @@ class RatesController extends Controller
         $this->locales =  Config::get('locales'); 
     }
 
+    public function get(Request $request)
+    {
+        $locale = htmlspecialchars( $request->query('locale') );
+        $currency = htmlspecialchars( $request->query('currency') );
+        $timerange = htmlspecialchars( $request->query('timerange') );
+
+        $rates = ($locale && $currency && $timerange) ? $this->getRatesByRange($locale, $currency, $timerange) : $this->getAll();
+        return $rates;
+    }
+
+    // курсы всех валют данной локали - используется в таблице сегодняшних курсов
     public function getAll()
     {
-        $rounded_time = $this->getRoundedTime( time() );
-        $rates = (object) [ 
-            'rates' => []
-        ];
+        $rates = (object) [ 'rates' => [] ];
         foreach( $this->locales as $locale ){
             if( empty($locale["show_rates"]) ) continue; 
-            foreach( $locale["rate_currencies"] as $currency ){
-                $rate = DBController::getRates($locale["name"], $currency, $rounded_time);
-                if( !empty($rate) ) array_push($rates->rates, $rate);
-            }
+            $rate = $this->getRatesByLocale($locale);
+            if( !empty($rate) ) array_push($rates->rates, $rate);
         }
+        return $rates;
+    }
+    
+    // курсы определенной валюты за определенное время - используется в графике курсов
+    public function getRatesByRange( $table = 'donetsk', $currency = 'dollar', $range = false )
+    {
+        $diapason = $range ? $range : 7;
+        $time_range = time() - ($diapason*24*60*60);
+        $rates = DBController::getRatesByRange($table, $currency, $time_range);
         return $rates;
     }
 
@@ -44,15 +60,15 @@ class RatesController extends Controller
         if( empty($show_rates) ) return;
 
 
-        $rounded_time = $this->getRoundedTime( time() );
+        $rounded_now = $this->getRoundedTime( time() );
         $rates = [];
         foreach( $rate_currencies as $currency ){
-            $rate = DBController::getRates($table, $currency, $rounded_time);
+            $rate = DBController::getRate($table, $currency, $rounded_now);
             if( !empty($rate) ){
                 array_push($rates, $rate);
             }
         }
-        
+
         return $rates;
     }
 
@@ -94,7 +110,7 @@ class RatesController extends Controller
                 $table = $locale["name"];
                 $avgs = [0, 999];
                 // предыдущий курс 
-                $db_rates = DBController::getRates($table, $currency, $rounded_time);
+                $db_rates = DBController::getRate($table, $currency, $rounded_time);
                 if( !empty($db_rates) ){
                     $last_average = $db_rates->average; 
                     // отсеккаем значения на 15% меньше и больше предыдущего курса 
@@ -158,7 +174,7 @@ class RatesController extends Controller
     {
         $changes = 0;
         $day_before = strtotime("today", $rounded_time);
-        $day_before_average = DBController::getRates($table, $currency, $day_before);
+        $day_before_average = DBController::getRate($table, $currency, $day_before);
         if( !empty($day_before_average) ){
             $changes = $average - $day_before_average->average;
         }

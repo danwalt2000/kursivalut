@@ -44,7 +44,7 @@ return [
         'h1_keyword'     => ' в Луганске и ЛНР',
         'currencies'     => ['dollar', 'euro', 'hrn', 'cashless'],
         'rate_currencies'=> ['dollar', 'hrn'],
-        'load_freq'      => '120',
+        'load_freq'      => '60',
         'show_rates'     => true,
         'metrika'        => '93171078',
         // 'yandex-ad'      => '2593860',

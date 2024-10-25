@@ -76,7 +76,7 @@ class GetAdsController extends CurrencyController
     }
 
     // получение нового объявления по обращению к API этого приложения
-    public function getNewAdByAPI(){
+    public function addPostByAPI(){
         if( empty($_POST) || 
             empty($_POST["password"]) || 
             env('API_PASSWORD') != $_POST["password"]  ) abort(403);
