@@ -18,10 +18,9 @@ class RatesController extends Controller
 
     public function get(Request $request)
     {
-        $locale = htmlspecialchars( $request->query('locale') );
-        $currency = htmlspecialchars( $request->query('currency') );
-        $timerange = htmlspecialchars( $request->query('timerange') );
-
+        $locale = preg_match('/^[\p{Latin}]+$/u', $request->query('locale')) ? $request->query('locale') : "donetsk";
+        $currency = in_array($request->query('currency'), ['dollar', 'euro', 'hrn']) ? $request->query('currency') : "dollar";
+        $timerange = filter_var($request->query('timerange'), FILTER_VALIDATE_INT)!== false ? $request->query('timerange') : 7;
         $rates = ($locale && $currency && $timerange) ? $this->getRatesByRange($locale, $currency, $timerange) : $this->getAll();
         return $rates;
     }

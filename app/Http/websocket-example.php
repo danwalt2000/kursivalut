@@ -64,7 +64,7 @@ async(function () use ($options) {
                     curl_setopt($curl_handle, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows; U; Windows NT 5.1; rv:1.7.3) Gecko/20041001 Firefox/0.10.1");
                     $query = curl_exec($curl_handle);
                     curl_close($curl_handle);
-                    var_dump($query);
+                    // var_dump($query);
                     printf("[%s] Received event: %s\n", date('Y-m-d H:i:s'), $payload);
                 }
             }

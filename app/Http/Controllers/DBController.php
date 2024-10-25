@@ -32,18 +32,18 @@ class DBController extends Controller
 
         // проверяем, чтобы get-параметры строго соответствовали значениям,
         // иначе можно получить 500-ю ошибку
-        if(!empty($_GET["sort"]) &&  ( str_contains( "date", $_GET["sort"]) || str_contains( "rate", $_GET["sort"]) ) ){
+        if(!empty($_GET["sort"]) && in_array($_GET["sort"], ["date", "rate"]) ){
             $sort = $_GET["sort"];
         } 
         $asc_desc = 'desc';
-        if(!empty($_GET["order"]) && ( str_contains( "asc", $_GET["order"]) || str_contains( "desc", $_GET["order"]) ) ){
+        if(!empty($_GET["order"]) && in_array($_GET["order"], ["asc", "desc"]) ){
             $asc_desc = $_GET["order"];
         }
         
         // период, за который запрашиваются записи - измеряется в часах
         $time_range = 24;
-        if(!empty($_GET["date"]) && 
-        filter_var($_GET["date"], FILTER_VALIDATE_FLOAT) !== false){
+        if( !empty($_GET["date"]) && 
+            filter_var($_GET["date"], FILTER_VALIDATE_FLOAT) !== false){
             $time_range = $_GET["date"];
         }
 
@@ -52,16 +52,14 @@ class DBController extends Controller
         // Валюта берется из пути currency
         $query = '';
         if( !empty($sell_buy) || !empty($currency) ){
-            if($sell_buy != "all"){
-                $query = $sell_buy . '_';
-            }
+            if($sell_buy != "all") $query = $sell_buy . '_'; 
             $query .= $currency;
         }
 
         // строка поиска
         $search_clean = '';
         if( !empty($search) ){
-            $search_clean = htmlspecialchars($search);
+            $search_clean = preg_match('/[A-Za-zА-Яа-я0-9\.\,\s]/', $search) ? $search : "Вы ввели запрещенные символы";
         }
         $skip = $offset * $limit;
         $cut_by_time = time() - ($time_range * 60 * 60);
