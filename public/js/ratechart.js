@@ -31,6 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const req = new XMLHttpRequest();
         req.onload = (e) => {
             const resp = JSON.parse(e.currentTarget.responseText);
+            // разрешение графика в зависимости от периода
             const dimensities = {
                 "7": 2,
                 "14": 8,
@@ -38,8 +39,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 "180": 24,
                 "365": 48
             }
-            let dimensity = dimensities[timerange]; // разрешение графика - 4 часа
-            // const averages = {};
+            // дефолтное разрешение графика - 8 часов
+            let dimensity = dimensities[timerange]; 
             const averages = [];
 
             resp.forEach(rate => {
@@ -58,13 +59,21 @@ document.addEventListener("DOMContentLoaded", () => {
             indexes.forEach( idx => chart.push(averages[idx]) )
 
             const dataset = { "time": [], "locale": [], "stock": [] }
+            /* TODO: навигацию по курсам надо переделать */
             chart.reverse().forEach(el =>{
+                let loc, stock;
+                if(el[1][1][0] === "stock"){
+                    loc = el[1][0][1];
+                    stock = el[1][1][1];
+                } else{
+                    stock = el[1][0][1];
+                    loc = el[1][1][1];
+                }
                 dataset.time.push(el[0]);
-                dataset.locale.push(el[1][0][1]);
-                dataset.stock.push(el[1][1][1]);
+                dataset.locale.push(loc);
+                dataset.stock.push(stock);
             })
 
-            
             initChart(dataset);
             const hiddenChart = document.querySelector(".chart_hidden");
             if(hiddenChart) hiddenChart.classList.remove("chart_hidden");
