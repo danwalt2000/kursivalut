@@ -100,14 +100,14 @@ document.addEventListener("DOMContentLoaded", () => {
             data: {
                 labels: labels,
                 datasets: [{
-                    label: 'Наличный курс' + window.h1Keyword,
+                    label: window.isMobileDevice ? 'нал.' : 'Наличный курс' + window.h1Keyword,
                     data: dataset.locale,
                     borderWidth: 2,
                     borderColor: "#51d1e0",
                     backgroundColor : "#51d1e0"
                 },
                 {
-                    label: 'Биржевой курс',
+                    label: window.isMobileDevice ? 'биржа' : 'Биржевой курс',
                     data: dataset.stock,
                     borderWidth: 1,
                     borderColor: "#ffb1c1",
