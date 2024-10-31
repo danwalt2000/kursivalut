@@ -33,9 +33,9 @@ document.addEventListener("DOMContentLoaded", () => {
             const resp = JSON.parse(e.currentTarget.responseText);
             // разрешение графика в зависимости от периода
             const dimensities = {
-                "7": 2,
-                "14": 8,
-                "30": 12,
+                "7": 12,
+                "14": 12,
+                "30": 24,
                 "180": 24,
                 "365": 48
             }
@@ -43,35 +43,34 @@ document.addEventListener("DOMContentLoaded", () => {
             let dimensity = dimensities[timerange]; 
             const averages = [];
 
-            resp.forEach(rate => {
-                let times = resp.filter(elem => elem.time === rate.time);
-                if(times.length !== 2 || rate.time in averages) return;
-                averages.push([rate.time, times.map( time => [time.locale, time.average] )] )
+            const stocks = resp.filter( rate => rate.locale === "stock" ).reverse()
+            const locales = resp.filter( rate => rate.locale !== "stock" ).reverse()
+
+            locales.forEach( (rate, index) => {
+                let closestStock = stocks.filter( st => st.time === rate.time)
+                let st = 0;
+                if(!closestStock.length){
+                    index === 0 ? st = stocks[0].average : st = averages[averages.length - 1][1][1]
+                } else{
+                    st = closestStock[0].average
+                }
+                averages.push([rate.time, [rate.average, st] ] )
             });
             const indexes = [0];
             averages.forEach( (rate, index) =>{
                 let lastIndex = indexes[indexes.length - 1];
-                if(rate[0] <= averages[lastIndex][0] - dimensity*60*60){
+                if(rate[0] - dimensity*60*60 >= averages[lastIndex][0]){
                     indexes.push(index);
                 }
             });
             const chart = [];
             indexes.forEach( idx => chart.push(averages[idx]) )
-
+            
             const dataset = { "time": [], "locale": [], "stock": [] }
-            /* TODO: навигацию по курсам надо переделать */
-            chart.reverse().forEach(el =>{
-                let loc, stock;
-                if(el[1][1][0] === "stock"){
-                    loc = el[1][0][1];
-                    stock = el[1][1][1];
-                } else{
-                    stock = el[1][0][1];
-                    loc = el[1][1][1];
-                }
+            chart.forEach(el =>{
                 dataset.time.push(el[0]);
-                dataset.locale.push(loc);
-                dataset.stock.push(stock);
+                dataset.locale.push(el[1][0]);
+                dataset.stock.push(el[1][1]);
             })
 
             initChart(dataset);

@@ -83,7 +83,7 @@
                 </ul>
             </div>
                 
-                <script src="/js/ratechart.js"></script>
+                <script src="/js/ratechart.js?v=@isset($hash){{$hash}}@endisset"></script>
                 <script src="/js/libs/chart.js" defer></script>
                 {{-- <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script> --}}
             

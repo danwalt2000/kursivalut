@@ -4,74 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "04f30f0e798a85e5f900e303a9ff18ef",
+    "content-hash": "ff981a91f14f2a2243553bbfa6a2b2fa",
     "packages": [
-        {
-            "name": "accentinteractive/laravel-blocker",
-            "version": "v1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/accentinteractive/laravel-blocker.git",
-                "reference": "ffadcfa5e2b9554777be233c750896ea715da5de"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/accentinteractive/laravel-blocker/zipball/ffadcfa5e2b9554777be233c750896ea715da5de",
-                "reference": "ffadcfa5e2b9554777be233c750896ea715da5de",
-                "shasum": ""
-            },
-            "require": {
-                "guzzlehttp/guzzle": "^7.5",
-                "illuminate/console": "^6.0|^7.0|^8.0|^9.0|^10.0",
-                "illuminate/filesystem": "^6.0|^7.0|^8.0|^9.0|^10.0",
-                "illuminate/support": "^6.0|^7.0|^8.0|^9.0|^10.0",
-                "php": "^7.3|^7.4|^8.0"
-            },
-            "require-dev": {
-                "orchestra/testbench": "4.*|5.*|6.*|^7.0|^8.0",
-                "phpunit/phpunit": "^8.4|^9.0|^10.0"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Accentinteractive\\LaravelBlocker\\LaravelBlockerServiceProvider"
-                    ],
-                    "aliases": {
-                        "LaravelBlocker": "LaravelBlocker",
-                        "BlockedIpStore": "Accentinteractive\\LaravelBlocker\\Facades\\BlockedIpStore"
-                    }
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Accentinteractive\\LaravelBlocker\\": "src",
-                    "Accentinteractive\\LaravelBlocker\\Database\\Factories\\": "database/factories"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Joost van Veen",
-                    "email": "joost@accentinteractive.nl",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Block bad bots and users that visit certain (exploit) urls for a set amount of time.",
-            "homepage": "https://github.com/accentinteractive/laravel-blocker",
-            "keywords": [
-                "accentinteractive",
-                "laravel-blocker"
-            ],
-            "support": {
-                "issues": "https://github.com/accentinteractive/laravel-blocker/issues",
-                "source": "https://github.com/accentinteractive/laravel-blocker/tree/v1.0.0"
-            },
-            "time": "2023-07-10T08:19:41+00:00"
-        },
         {
             "name": "brick/math",
             "version": "0.12.1",

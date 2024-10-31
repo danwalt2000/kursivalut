@@ -171,9 +171,6 @@ class CurrencyController extends Controller
     // главная страница
     public function index()
     {
-        $locales =  Config::get('locales');
-        $donetsk = $locales['donetsk'];
-        // (new GetAdsController)->getVkAds( $donetsk['vk']["obmenvalut_donetsk"], $donetsk );
         return view('currency', $this->to_view);
     }
 }
