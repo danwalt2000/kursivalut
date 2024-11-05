@@ -7,7 +7,7 @@ return [
     'donetsk'       => [
         'title'          => 'Донецк',
         'name'           => 'donetsk',
-        'domain'         => 'valuta-dn',
+        'domain'         => 'kursivalut',
         'h1_keyword'     => ' в Донецке и ДНР',
         'currencies'     => ['dollar', 'euro', 'hrn', 'cashless'],
         'rate_currencies'=> ['dollar', 'euro', 'hrn'],
@@ -40,7 +40,7 @@ return [
     'lugansk'       => [
         'title'          => 'Луганск',
         'name'           => 'lugansk',
-        'domain'         => 'valuta-dn',
+        'domain'         => 'kursivalut',
         'h1_keyword'     => ' в Луганске и ЛНР',
         'currencies'     => ['dollar', 'euro', 'hrn', 'cashless'],
         'rate_currencies'=> ['dollar', 'hrn'],
@@ -64,7 +64,7 @@ return [
     'mariupol'       => [
         'title'          => 'Мариуполь',
         'name'           => 'mariupol',
-        'domain'         => 'valuta-dn',
+        'domain'         => 'kursivalut',
         'h1_keyword'     => ' в Мариуполе',
         'currencies'     => ['dollar', 'euro', 'hrn'],
         'rate_currencies'=> ['dollar', 'hrn'],
@@ -86,7 +86,7 @@ return [
     'melitopol'       => [
         'title'          => 'Мелитополь',
         'name'           => 'melitopol',
-        'domain'         => 'valuta-dn',
+        'domain'         => 'kursivalut',
         'h1_keyword'     => ' в Мелитополе и Запорожской области',
         'currencies'     => ['dollar', 'euro', 'hrn'],
         'rate_currencies'=> ['dollar', 'hrn'],
@@ -103,7 +103,7 @@ return [
     'berdyansk'       => [
         'title'          => 'Бердянск',
         'name'           => 'berdyansk',
-        'domain'         => 'valuta-dn',
+        'domain'         => 'kursivalut',
         'h1_keyword'     => ' в Бердянске',
         'currencies'     => ['dollar', 'euro', 'hrn'],
         'rate_currencies'=> ['dollar', 'hrn'],
@@ -114,8 +114,8 @@ return [
         'vk'             => [],
         'tg'             => [
             "1579972943" => ["id" => "obmen_berdyansk",    "time" => "everyTenMinutes"],         // 10 
-            "1282923863" => ["id" => "helpchangefiat",    "time" => "everyTenMinutes"],         // 10 
-            "1718783064" => ["id" => "obmenvalutberdynsk",    "time" => "everyTenMinutes"],         // 10 
+            "1282923863" => ["id" => "helpchangefiat",     "time" => "everyTenMinutes"],         // 10 
+            "1718783064" => ["id" => "obmenvalutberdynsk", "time" => "everyTenMinutes"],         // 10 
         ],
         
     ],

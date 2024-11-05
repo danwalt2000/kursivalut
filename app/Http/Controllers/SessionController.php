@@ -28,19 +28,21 @@ class SessionController extends Controller
     }
 
     public static function getHost(){
-        $current_domain = 'valuta-dn';
-        $current_full_host = 'valuta-dn';
+        $current_domain = 'kursivalut';
+        $current_full_host = 'kursivalut';
         
         if( !empty( $_SERVER['SERVER_NAME'] ) ){
             $current_domain = $_SERVER['SERVER_NAME']; 
             $current_full_host = $_SERVER['HTTP_HOST'];
         }
         
-        $domain = str_contains($current_domain, "valuta-dn") ? 'valuta-dn' : 'kursivalut';
-        $table = ($domain == 'valuta-dn') ? 'donetsk' : 'moscow';
+        $domain = str_contains($current_full_host, 'valuta-dn') ? 'valuta-dn' : 'kursivalut';
+
+        $table = ($domain == 'kursivalut') ? 'donetsk' : 'moscow';
         if( $current_domain != $current_full_host){
             $table = explode('.', $current_full_host)[0];
         }
+
         return [ 'domain' => $domain, 'table' => $table ];
     }
 }

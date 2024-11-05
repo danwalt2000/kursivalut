@@ -54,14 +54,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 } else{
                     st = closestStock[0].average
                 }
-                averages.push([rate.time, [rate.average, st] ] )
+                averages.push([ rate.time, [rate.average, st] ])
             });
             const indexes = [0];
             averages.forEach( (rate, index) =>{
                 let lastIndex = indexes[indexes.length - 1];
-                if(rate[0] - dimensity*60*60 >= averages[lastIndex][0]){
-                    indexes.push(index);
-                }
+                if(rate[0] - dimensity*60*60 >= averages[lastIndex][0]) indexes.push(index); 
             });
             const chart = [];
             indexes.forEach( idx => chart.push(averages[idx]) )
