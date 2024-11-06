@@ -65,9 +65,7 @@ class SessionController extends Controller
         
         // для тестирования
         if(App::environment('local')){
-            $ip = '95.31.18.119'; // РФ
-            // $ip = '51.38.115.34'; // Европа
-            // $ip = '37.57.231.112'; // Украина
+            $ip = env('TEST_IP_LOCATION');
         }
 
         try {
