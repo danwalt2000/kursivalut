@@ -45,7 +45,6 @@ class SessionController extends Controller
         }
         // var_dump($geo_country);
         // var_dump($geo_allowed);
-        // var_dump(preg_match('/(UA|RU)/', $geo_country));
         return [
             'geo_country' => $geo_country,
             'geo_allowed' => $geo_allowed,

@@ -80,7 +80,7 @@ class CurrencyController extends Controller
         $this->middleware(function ($request, $next){
             $this->to_view["is_allowed"]  = SessionController::isAllowed();
             $this->to_view["next_submit"] = SessionController::nextSubmit();
-            $this->to_view["geodata"]     = SessionController::getGeodata();
+            // $this->to_view["geodata"]     = SessionController::getGeodata();
             return $next($request);
         });
     }
