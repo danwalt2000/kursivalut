@@ -1,5 +1,3 @@
-{{-- {{ $geodata["geo_country"] }}
-{{ $geodata["geo_allowed"] }} --}}
 @if(isset($geodata) && !empty($geodata['geo_allowed']) )
     @forelse($ads as $ad)
         <article class="post declaration">
@@ -29,15 +27,6 @@
             <div class="post-content">{!! $ad->content_changed !!}</div>
             {{-- <span class="">{!! $ad->content !!}</span> --}}
         </article>
-        {{-- @production
-            @if($loop->index == 1 )
-                @isset($locale['yandex-ad'])
-                @mobile
-                    @include('parts.yandex-ad')    
-                @endmobile
-                @endif
-            @endisset
-        @endproduction --}}
     @empty
         <article class="post no-ads">
             <img class="no-ads-img" src="/img/no-ads.svg" title="Объявлений не найдено" alt="Объявлений не найдено" loading="lazy">
