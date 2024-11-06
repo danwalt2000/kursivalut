@@ -9,7 +9,7 @@ return [
         'name'           => 'donetsk',
         'domain'         => 'kursivalut',
         'h1_keyword'     => ' в Донецке и ДНР',
-        'currencies'     => ['dollar', 'euro', 'hrn', 'cashless'],
+        'currencies'     => ['dollar', 'euro', 'hrn'],
         'rate_currencies'=> ['dollar', 'euro', 'hrn'],
         'load_freq'      => '60',                                  // частота загрузки новых объявлений в сек - 1 минута
         'show_rates'     => true,
@@ -42,7 +42,7 @@ return [
         'name'           => 'lugansk',
         'domain'         => 'kursivalut',
         'h1_keyword'     => ' в Луганске и ЛНР',
-        'currencies'     => ['dollar', 'euro', 'hrn', 'cashless'],
+        'currencies'     => ['dollar', 'euro', 'hrn'],
         'rate_currencies'=> ['dollar', 'hrn'],
         'load_freq'      => '60',
         'show_rates'     => true,

@@ -44,8 +44,8 @@ document.addEventListener("DOMContentLoaded", () => {
             let dimensity = dimensities[timerange]; 
             const averages = [];
 
-            const stocks = resp.filter( rate => rate.locale === "stock" ).reverse()
-            const locales = resp.filter( rate => rate.locale !== "stock" ).reverse()
+            const stocks = resp.filter( rate => rate.locale === "stock" )
+            const locales = resp.filter( rate => rate.locale !== "stock" )
 
             locales.forEach( (rate, index) => {
                 let closestStock = stocks.filter( st => st.time === rate.time)
@@ -60,13 +60,13 @@ document.addEventListener("DOMContentLoaded", () => {
             const indexes = [0];
             averages.forEach( (rate, index) =>{
                 let lastIndex = indexes[indexes.length - 1];
-                if(rate[0] - dimensity*60*60 >= averages[lastIndex][0]) indexes.push(index); 
+                if(rate[0] <= averages[lastIndex][0] - dimensity*60*60) indexes.push(index); 
             });
             const chart = [];
             indexes.forEach( idx => chart.push(averages[idx]) )
             
             const dataset = { "time": [], "locale": [], "stock": [] }
-            chart.forEach(el =>{
+            chart.reverse().forEach(el =>{
                 dataset.time.push(el[0]);
                 dataset.locale.push(el[1][0]);
                 dataset.stock.push(el[1][1]);
