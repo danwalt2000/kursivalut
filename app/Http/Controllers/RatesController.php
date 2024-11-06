@@ -52,12 +52,11 @@ class RatesController extends Controller
         $rate_currencies = ['dollar', 'euro', 'hrn'];
         $table = 'stock';
         if( 'stock' != $locale ){
-            $show_rates = $locale["show_rates"];
+            $show_rates      = $locale["show_rates"];
             $rate_currencies = $locale["rate_currencies"];
-            $table = $locale["name"];
+            $table           = $locale["name"];
         }
-        if( empty($show_rates) ) return;
-
+        if( empty($show_rates) ) $table = 'donetsk';
 
         $rounded_now = $this->getRoundedTime( time() );
         $rates = [];

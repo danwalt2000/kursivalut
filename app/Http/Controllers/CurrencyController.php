@@ -29,6 +29,8 @@ class CurrencyController extends Controller
     public function __construct()
     {
         $this->host = SessionController::getHost();
+        // $this->geodata = SessionController::getGeodata();
+        
         $this->table = $this->host['table'] ?? "donetsk";
         $this->locales = Config::get('locales'); 
         $this->rates = new RatesController;
@@ -36,7 +38,6 @@ class CurrencyController extends Controller
 
         // в разных локалях разные наборы валют
         $this->locale = Config::get('locales.' . $this->host['table']);
-        // var_dump($this->host['table']);
         if(empty($this->locale['currencies'])) return abort(404);
 
         foreach( $this->locale['currencies'] as $currency ){
@@ -78,6 +79,7 @@ class CurrencyController extends Controller
         $this->middleware(function ($request, $next){
             $this->to_view["is_allowed"]  = SessionController::isAllowed();
             $this->to_view["next_submit"] = SessionController::nextSubmit();
+            $this->to_view["geodata"]     = SessionController::getGeodata();
             return $next($request);
         });
     }
@@ -141,7 +143,7 @@ class CurrencyController extends Controller
 
         $this->to_view["ads"] = DBController::getPosts($this->table);;
         $this->to_view["is_allowed"] = SessionController::isAllowed();
-        $this->to_view["next_submit"] = SessionController::nextSubmit();
+        // $this->to_view["next_submit"] = SessionController::nextSubmit();
         return view('all', $this->to_view);
     }
     

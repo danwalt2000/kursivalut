@@ -815,6 +815,9 @@ span.with-arrow-rarr-up::after,
 .no-ads{
     text-align: center;
 }
+.post-content_left{
+    text-align: left;
+}
 .form-ad-submit{
     width: 100%;
     cursor: pointer;
@@ -1114,6 +1117,9 @@ div[data-block-name="button"] a{
 }
 .dropdown-hidden .chart-period{
     padding: 10px 14px;
+}
+.mt-10{
+    margin-top: 10px;
 }
 @media (min-width: 992px) and (max-height: 460px){
     .sorting-column{

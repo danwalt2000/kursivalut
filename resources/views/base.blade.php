@@ -82,11 +82,13 @@
             </div>
         </footer>
         <script>
-            window.ifMore = Math.ceil( Number("{{ $ads_count / 20 }}"));
+            window.ifAllowed = "{{ !empty($geodata['geo_allowed']) }}";
+            window.ifMore = window.ifAllowed ? Math.ceil( Number("{{ $ads_count / 20 }}")) : 0;
             window.feedStatus = 1;
             window.currentHeight = 0;
             window.lastAdTime = "{{ $last_ad_time }}";
             window.locale = "{{ $locale['name'] }}";
+            window.showRates = "{{ $locale['show_rates'] }}";
             window.isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
             window.h1Keyword = "{{ $locale["h1_keyword"] }}";
             
@@ -205,7 +207,7 @@
                     }
                     unstyleNewPosts();
                 });
-                @if( isset($locale['load_freq']) && count($ads) > 0 )
+                @if( isset($locale['load_freq']) && count($ads) > 0 && !empty($geodata['geo_allowed']))
                 const newAdsFetching = window.setInterval(loadMore, {{ $locale['load_freq'] }}000);
                 @endif
             });

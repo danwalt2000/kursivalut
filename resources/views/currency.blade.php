@@ -8,7 +8,7 @@
         <header class="header-nav_wrapper">
             <h1>{{ $h1 }}</h1>
             
-            @if($path['desc'] && !empty($ads) )
+            @if($path['desc'] && !empty($ads) && !empty($geodata['geo_allowed']) )
                 <p class="hint_message">{{$path['desc']}}</p>
             @endif
             

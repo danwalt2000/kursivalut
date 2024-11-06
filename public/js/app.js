@@ -204,5 +204,8 @@ window.addEventListener('DOMContentLoaded', () => {
         }
     }
     if(filtersButton) filtersButton.addEventListener("click", toggleFilters );
-
+    const spoilerText = document.querySelector(".spoiler_text");
+    if(spoilerText) spoilerText.addEventListener("click", function(){
+        spoilerText.classList.add("hidden_phone-visible")
+    })
 });

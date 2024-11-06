@@ -27,7 +27,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 }, 10);
             }
         }
-        const url = `/api/rates?locale=${window.locale}&currency=${currency}&timerange=${timerange}`;
+        let locale = window.showRates ? window.locale : 'donetsk';
+        const url = `/api/rates?locale=${locale}&currency=${currency}&timerange=${timerange}`;
         const req = new XMLHttpRequest();
         req.onload = (e) => {
             const resp = JSON.parse(e.currentTarget.responseText);
