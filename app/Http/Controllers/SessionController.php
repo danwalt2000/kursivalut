@@ -35,11 +35,13 @@ class SessionController extends Controller
             $current_domain = $_SERVER['SERVER_NAME']; 
             $current_full_host = $_SERVER['HTTP_HOST'];
         }
+        // var_dump($current_domain);
+        // var_dump($current_full_host);
         
-        $domain = str_contains($current_full_host, 'valuta-dn') ? 'valuta-dn' : 'kursivalut';
-
-        $table = ($domain == 'kursivalut') ? 'donetsk' : 'moscow';
-        if( $current_domain != $current_full_host){
+        $domain = 'kursivalut';
+        $table = 'donetsk';
+        
+        if( $current_domain != $current_full_host || $current_domain == 'lugansk.kursivalut.ru'){
             $table = explode('.', $current_full_host)[0];
         }
 

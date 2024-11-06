@@ -27,7 +27,7 @@ class PostAdsController extends CurrencyController
         try {
             Http::get($url);
         } catch(\Exception $exception) {
-            Log::error($exception);;
+            Log::error($exception);
         }
     }
 }
