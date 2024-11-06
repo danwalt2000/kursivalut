@@ -12,7 +12,7 @@
         <meta property="og:title" content="@yield('title')">
         <meta property="og:description" content="Курс {{ $title->h1->currency }}{{ $title->h1->locale }}{{ $title->description->hours }} на черном рынке.">
         <meta property="og:type" content="website">
-        <meta property="og:site_name" content="Аггрегатор объявлений об обмене валют">
+        <meta property="og:site_name" content="Агрегатор объявлений об обмене валют">
         <meta property="og:image" content="/img/pig.svg">
         
         <meta name="yandex-verification" content="831c8687bb83c11a" />

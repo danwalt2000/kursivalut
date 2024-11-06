@@ -11,7 +11,7 @@
         <meta property="og:title" content="@yield('title')">
         <meta property="og:description" content="@yield('description')">
         <meta property="og:type" content="website">
-        <meta property="og:site_name" content="Аггрегатор объявлений об обмене валют">
+        <meta property="og:site_name" content="Агрегатор объявлений об обмене валют">
         <meta property="og:image" content="/img/pig.svg">
         <meta name="csrf-token" content="{{ csrf_token() }}" />
 
