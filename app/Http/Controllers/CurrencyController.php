@@ -35,10 +35,12 @@ class CurrencyController extends Controller
         $this->locales = Config::get('locales'); 
         $this->rates = new RatesController;
         $this->currencies_loc = Config::get('common.currencies_loc');
+        $this->path = ParseUriController::parseUri();
 
         // в разных локалях разные наборы валют
         $this->locale = Config::get('locales.' . $this->host['table']);
-        if(empty($this->locale['currencies'])) return abort(404);
+        if(empty($this->locale['currencies']) || 
+            (!empty($this->path["currency"]) && !in_array($this->path["currency"], $this->locale['currencies'])) ) return abort(404);
 
         foreach( $this->locale['currencies'] as $currency ){
             $this->currencies[$currency] = Config::get('common.currencies')[$currency];
@@ -47,8 +49,8 @@ class CurrencyController extends Controller
         $metrika_id = $this->locale['metrika'] ?? env("METRIKA_ID");
 
         $this->db_ads = DBController::getPosts( $this->table );
-        $last_ad_time =  isset($this->db_ads->first()->date) ? $this->db_ads->first()->date : '';
-        $this->path = ParseUriController::parseUri();
+        $last_ad_time = isset($this->db_ads->first()->date) ? $this->db_ads->first()->date : '';
+        
         if( !empty($this->path['query']) ) $this->query = "?" . $this->path['query'];
         $this->to_view = [
             'ads'             => $this->db_ads,
