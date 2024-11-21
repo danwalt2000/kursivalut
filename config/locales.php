@@ -16,13 +16,13 @@ return [
         'metrika'        => '90961172',
         // 'yandex-ad'      => '2593677',
         'vk'             => [
-            // "obmenvalut_donetsk"    => ["id" => "-87785879",  "time" => "everyFiveMinutes"],    // 5 BANNED
+            "obmenvalut_donetsk"    => ["id" => "-87785879",  "time" => "everyFiveMinutes"],    // 5 BANNED
             // "obmen_valut_donetsk"   => ["id" => "-92215147",  "time" => "everyFiveMinutes"],    // 5
-            // "obmenvalyut_dpr"       => ["id" => "-153734109", "time" => "everyThirtyMinutes"],  // 30
-            // "club156050748"         => ["id" => "-156050748", "time" => "everyThirtyMinutes"],  // 30
-            // "kursvalut_donetsk"     => ["id" => "-63859238",  "time" => "everyThirtyMinutes"],  // 30 BANNED
-            // "obmen_valut_dnr"       => ["id" => "-193547744", "time" => "hourly"],              // 60 BANNED
-            // "donetsk_obmen_valyuta" => ["id" => "-174075254", "time" => "hourly"],              // 60 BANNED
+            "obmenvalyut_dpr"       => ["id" => "-153734109", "time" => "everyThirtyMinutes"],  // 30
+            "club156050748"         => ["id" => "-156050748", "time" => "everyThirtyMinutes"],  // 30
+            "kursvalut_donetsk"     => ["id" => "-63859238",  "time" => "everyThirtyMinutes"],  // 30 BANNED
+            "obmen_valut_dnr"       => ["id" => "-193547744", "time" => "hourly"],              // 60 BANNED
+            "donetsk_obmen_valyuta" => ["id" => "-174075254", "time" => "hourly"],              // 60 BANNED
             // "obmenvalut_dnr"        => ["id" => "-172375183", "time" => "hourly"],              // 60 BANNED
             // "valutoobmen"           => ["id" => "-75586957",  "time" => "hourly"]               // 60 неактуально
         ],
