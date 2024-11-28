@@ -13,7 +13,7 @@ return [
         'rate_currencies'=> ['dollar', 'euro', 'hrn'],
         'load_freq'      => '60',                                  // частота загрузки новых объявлений в сек - 1 минута
         'show_rates'     => true,
-        'metrika'        => '90961172',
+        'metrika'        => '99071950',
         // 'yandex-ad'      => '2593677',
         'vk'             => [
             "obmenvalut_donetsk"    => ["id" => "-87785879",  "time" => "everyFiveMinutes"],    // 5 BANNED
