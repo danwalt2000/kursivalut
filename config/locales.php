@@ -35,6 +35,7 @@ return [
             "1204646240" => ["id" => "valut_don",             "time" => "everyThirtyMinutes"],  // 30
             "1684913683" => ["id" => "retrust_dnr",           "time" => "everyThirtyMinutes"],  // 30
             "1199000277" => ["id" => "obmen_valut_dnr2020",   "time" => "everyThirtyMinutes"],  // 30
+            "1824000800" => ["id" => "valutchat_donetsk_lnr", "time" => "everyThirtyMinutes"],  // 30
         ]
     ],
     'lugansk'       => [
@@ -52,6 +53,8 @@ return [
         'tg'             => [
             "1304227894" => ["id" => "obmenka_lugansk",       "time" => "everyTenMinutes"],     // 10
             "1510326304" => ["id" => "obmennik_lnr",       "time" => "everyTenMinutes"],        // 10
+            "1865624683" => ["id" => "obmenik_lnr",        "time" => "everyTenMinutes"],        // 10
+            "1886512425" => ["id" => "luganskobmen",        "time" => "everyTenMinutes"],        // 10
             "1776390569" => ["id" => "obmenLPRobnal",       "time" => "everyTenMinutes"],       // 10
             "1780966414" => ["id" => "obmenka_val",       "time" => "everyTenMinutes"],         // 10
             "1629996803" => ["id" => "obmen_lugansk_obmen",   "time" => "everyFifteenMinutes"], // 15  
