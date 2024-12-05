@@ -68,11 +68,12 @@ class SessionController extends Controller
         }
 
         try {
-            $geodata = $reader->city($ip)->jsonSerialize(); //jsonSerialize seems to actually return an associative array.
+            $geoinfo = $reader->city($ip)->jsonSerialize(); //jsonSerialize seems to actually return an associative array.
+            if( !empty($geodata['country']) && !empty($geodata['country']['iso_code']) ) $geodata = $geoinfo;
         }
         catch (\Exception $e) {
             Log::warning($e->getMessage());
-            return response()->json("Geo-location not found!", 500);
+            // return response()->json("Geo-location not found!", 500);
         }
         return $geodata['country']['iso_code'];
     }
@@ -82,12 +83,10 @@ class SessionController extends Controller
         $current_domain = 'kursivalut';
         $current_full_host = 'kursivalut';
         
-        if( !empty( $_SERVER['SERVER_NAME'] ) ){
+        if( !empty( $_SERVER['SERVER_NAME'] ) && !empty($_SERVER['HTTP_HOST']) ){
             $current_domain = $_SERVER['SERVER_NAME']; 
             $current_full_host = $_SERVER['HTTP_HOST'];
         }
-        // var_dump($current_domain);
-        // var_dump($current_full_host);
         
         $domain = 'kursivalut';
         $table = 'donetsk';
