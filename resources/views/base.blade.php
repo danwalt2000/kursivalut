@@ -46,7 +46,7 @@
                     </a>
                     @include('parts.location')
                     
-                    {{-- @if($locale['domain'] == 'valuta-dn') @include('parts.form') @endif --}}
+                    @include('parts.form')
                     
                     @include('parts.searchform')
                 </div>

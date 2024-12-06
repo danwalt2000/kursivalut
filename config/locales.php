@@ -24,7 +24,13 @@ return [
             "obmen_valut_dnr"       => ["id" => "-193547744", "time" => "hourly"],              // 60 BANNED
             "donetsk_obmen_valyuta" => ["id" => "-174075254", "time" => "hourly"],              // 60 BANNED
             // "obmenvalut_dnr"        => ["id" => "-172375183", "time" => "hourly"],              // 60 BANNED
-            // "valutoobmen"           => ["id" => "-75586957",  "time" => "hourly"]               // 60 неактуально
+            
+            "moneydonetsk"        => ["id" => "-24635912", "time" => "everyThirtyMinutes"],              // 60 BANNED
+            "obmenvalytdon_43586" => ["id" => "-86752029", "time" => "hourly"],              // 60 BANNED
+            // "obmenkaclub"        => ["id" => "-141203158", "time" => "hourly"],              // 60 BANNED
+            // "obmen_valut_harcyzsk" => ["id" => "-111721499", "time" => "hourly"],              // 60 BANNED
+            
+            "valutoobmen"           => ["id" => "-75586957",  "time" => "hourly"]               // 60 неактуально
         ],
         'tg'             => [
             "1154050282" => ["id" => "obmenkadn",             "time" => "everyTenMinutes"],     // 10
