@@ -30,8 +30,10 @@ class SessionController extends Controller
     }
 
     public static function getGeodata(){
-        $geo_country = session()->get('geo_country');
-        $geo_allowed = session()->get('geo_allowed');
+        // $geo_country = session()->get('geo_country');
+        // $geo_allowed = session()->get('geo_allowed');
+        $geo_country;
+        $geo_allowed;
 
         
         if( empty($geo_country) || empty($geo_country) ){
@@ -39,12 +41,10 @@ class SessionController extends Controller
 
             // пользователям из России и Украины ленту не показывать
             $geo_allowed = !boolval(preg_match('/(UA|RU)/', $geo_country));
-
-            session()->put( 'geo_country', $geo_country );
-            session()->put( 'geo_allowed', $geo_allowed );
+            // var_dump($geo_country);
+            // session()->put( 'geo_country', $geo_country );
+            // session()->put( 'geo_allowed', $geo_allowed );
         }
-        // var_dump($geo_country);
-        // var_dump($geo_allowed);
         return [
             'geo_country' => $geo_country,
             'geo_allowed' => $geo_allowed,
@@ -56,7 +56,7 @@ class SessionController extends Controller
         $reader = Reader::connect();
         if (isset($_SERVER["HTTP_CF_CONNECTING_IP"])) {
             $ip = $_SERVER["HTTP_CF_CONNECTING_IP"];
-        } elseif($_SERVER['REMOTE_ADDR']){
+        } elseif(isset($_SERVER['REMOTE_ADDR'])){
             $ip = $_SERVER['REMOTE_ADDR'];
         } else{
             $ip = "51.38.115.34";

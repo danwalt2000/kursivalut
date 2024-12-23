@@ -128,31 +128,6 @@ return [
         ],
         
     ],
-    'minsk'       => [
-        'title'          => 'Минск',
-        'name'           => 'minsk',
-        'domain'         => 'valuta-dn',
-        'h1_keyword'     => ' в Минске и Республике Беларусь',
-        'currencies'     => ['dollar', 'euro', 'hrn', 'cashless'],
-        'rate_currencies'=> ['dollar', 'euro', 'hrn'],
-        'load_freq'      => '360',
-        'show_rates'     => false,
-        'metrika'        => '93171189',
-        // 'yandex-ad'      => '2671514',
-        'vk'             => [],
-        'tg'             => [
-            "1661599578" => ["id" => "obmen_rb", "time" => "everyThirtyMinutes"],                 // 15 
-            "1656368659" => ["id" => "obmenvrb", "time" => "everyThirtyMinutes"],                 // 15
-            // "1774846066" => ["id" => "exchange_minsk", "time" => "everyTenMinutes"],           // 10
-            // "1537031622" => ["id" => "obmen_rb_minsk1", "time" => "everyTenMinutes"],          // 10
-            // "1768008123" => ["id" => "EXCHANGE_BY", "time" => "everyTenMinutes"],              // 10
-            // "1285340951" => ["id" => "obmen_minsk", "time" => "everyTenMinutes"],              // 10
-            // "1677945470" => ["id" => "obmenbtcrb", "time" => "everyTenMinutes"],               // 10
-            // "1765384254" => ["id" => "chatProkopovich", "time" => "everyTenMinutes"],          // 10
-            // "1733494082" => ["id" => "obmen_belarus", "time" => "everyFifteenMinutes"],        // 15
-            // "1393592627" => ["id" => "obmenrbrf", "time" => "everyFifteenMinutes"],            // 15
-        ]
-    ],
     'moscow'       => [
         'title'          => 'Москва',
         'name'           => 'moscow',
@@ -243,6 +218,31 @@ return [
             "1664166871" => ["id" => "obmennikkrasnodar", "time" => "everyThirtyMinutes"],                 // 30
             "1756305590" => ["id" => "exchange_krasnodar", "time" => "everyThirtyMinutes"],                 // 30
             // "1695691631" => ["id" => "obmen_92", "time" => "everyThirtyMinutes"],                 // 30
+        ]
+    ],
+    'minsk'       => [
+        'title'          => 'Минск',
+        'name'           => 'minsk',
+        'domain'         => 'valuta-dn',
+        'h1_keyword'     => ' в Минске и Республике Беларусь',
+        'currencies'     => ['dollar', 'euro', 'hrn', 'cashless'],
+        'rate_currencies'=> ['dollar', 'euro', 'hrn'],
+        'load_freq'      => '360',
+        'show_rates'     => false,
+        'metrika'        => '93171189',
+        // 'yandex-ad'      => '2671514',
+        'vk'             => [],
+        'tg'             => [
+            "1661599578" => ["id" => "obmen_rb", "time" => "everyThirtyMinutes"],                 // 15 
+            "1656368659" => ["id" => "obmenvrb", "time" => "everyThirtyMinutes"],                 // 15
+            // "1774846066" => ["id" => "exchange_minsk", "time" => "everyTenMinutes"],           // 10
+            // "1537031622" => ["id" => "obmen_rb_minsk1", "time" => "everyTenMinutes"],          // 10
+            // "1768008123" => ["id" => "EXCHANGE_BY", "time" => "everyTenMinutes"],              // 10
+            // "1285340951" => ["id" => "obmen_minsk", "time" => "everyTenMinutes"],              // 10
+            // "1677945470" => ["id" => "obmenbtcrb", "time" => "everyTenMinutes"],               // 10
+            // "1765384254" => ["id" => "chatProkopovich", "time" => "everyTenMinutes"],          // 10
+            // "1733494082" => ["id" => "obmen_belarus", "time" => "everyFifteenMinutes"],        // 15
+            // "1393592627" => ["id" => "obmenrbrf", "time" => "everyFifteenMinutes"],            // 15
         ]
     ],
 ];
