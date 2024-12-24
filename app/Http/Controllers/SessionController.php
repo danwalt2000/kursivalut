@@ -41,7 +41,6 @@ class SessionController extends Controller
 
             // пользователям из России и Украины ленту не показывать
             $geo_allowed = !boolval(preg_match('/(UA|RU)/', $geo_country));
-            // var_dump($geo_country);
             // session()->put( 'geo_country', $geo_country );
             // session()->put( 'geo_allowed', $geo_allowed );
         }
