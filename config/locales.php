@@ -30,18 +30,18 @@ return [
             // "obmenkaclub"        => ["id" => "-141203158", "time" => "hourly"],              // 60 BANNED
             // "obmen_valut_harcyzsk" => ["id" => "-111721499", "time" => "hourly"],              // 60 BANNED
             
-            "valutoobmen"           => ["id" => "-75586957",  "time" => "hourly"]               // 60 неактуально
+            // "valutoobmen"           => ["id" => "-75586957",  "time" => "hourly"]               // 60 неактуально
         ],
         'tg'             => [
-            "1154050282" => ["id" => "obmenkadn",             "time" => "everyTenMinutes"],     // 10
-            "1161871204" => ["id" => "obmenkadonetck",        "time" => "everyTenMinutes"],     // 10
-            "1345575332" => ["id" => "obmen_valut_donetsk_1", "time" => "everyTenMinutes"],     // 10
-            "1265653325" => ["id" => "obmenvalutdon",         "time" => "everyFifteenMinutes"], // 15
-            "1295018924" => ["id" => "obmen77market",         "time" => "everyFifteenMinutes"], // 15  
-            "1204646240" => ["id" => "valut_don",             "time" => "everyThirtyMinutes"],  // 30
-            "1684913683" => ["id" => "retrust_dnr",           "time" => "everyThirtyMinutes"],  // 30
-            "1199000277" => ["id" => "obmen_valut_dnr2020",   "time" => "everyThirtyMinutes"],  // 30
-            "1824000800" => ["id" => "valutchat_donetsk_lnr", "time" => "everyThirtyMinutes"],  // 30
+            "1154050282" => ["id" => "obmenkadn"],   
+            "1161871204" => ["id" => "obmenkadonetck"], 
+            "1345575332" => ["id" => "obmen_valut_donetsk_1"], 
+            "1265653325" => ["id" => "obmenvalutdon"],
+            "1295018924" => ["id" => "obmen77market"], 
+            "1204646240" => ["id" => "valut_don"],
+            "1684913683" => ["id" => "retrust_dnr"], 
+            "1199000277" => ["id" => "obmen_valut_dnr2020"],
+            "1824000800" => ["id" => "valutchat_donetsk_lnr"],
         ]
     ],
     'lugansk'       => [
@@ -57,17 +57,17 @@ return [
         // 'yandex-ad'      => '2593860',
         'vk'             => [],
         'tg'             => [
-            "1304227894" => ["id" => "obmenka_lugansk",       "time" => "everyTenMinutes"],     // 10
-            "1510326304" => ["id" => "obmennik_lnr",       "time" => "everyTenMinutes"],        // 10
-            "1865624683" => ["id" => "obmenik_lnr",        "time" => "everyTenMinutes"],        // 10
-            "1886512425" => ["id" => "luganskobmen",        "time" => "everyTenMinutes"],        // 10
-            "1776390569" => ["id" => "obmenLPRobnal",       "time" => "everyTenMinutes"],       // 10
-            "1780966414" => ["id" => "obmenka_val",       "time" => "everyTenMinutes"],         // 10
-            "1629996803" => ["id" => "obmen_lugansk_obmen",   "time" => "everyFifteenMinutes"], // 15  
-            "1789001285" => ["id" => "valuta_lugansk",   "time" => "everyFifteenMinutes"],      // 15
-            "1643215722" => ["id" => "obmenka_dnr_lnr",   "time" => "everyFifteenMinutes"],      // 15
-            "1824762799" => ["id" => "obmenik_lugansk",   "time" => "everyFifteenMinutes"],      // 15
-            "1271652753" => ["id" => "obmen_lugansk_reserv",   "time" => "everyFifteenMinutes"],      // 15
+            "1304227894" => ["id" => "obmenka_lugansk"], 
+            "1510326304" => ["id" => "obmennik_lnr"], 
+            "1865624683" => ["id" => "obmenik_lnr"], 
+            "1886512425" => ["id" => "luganskobmen"], 
+            "1776390569" => ["id" => "obmenLPRobnal"], 
+            "1780966414" => ["id" => "obmenka_val"], 
+            "1629996803" => ["id" => "obmen_lugansk_obmen"], 
+            "1789001285" => ["id" => "valuta_lugansk"], 
+            "1643215722" => ["id" => "obmenka_dnr_lnr"], 
+            "1824762799" => ["id" => "obmenik_lugansk"], 
+            "1271652753" => ["id" => "obmen_lugansk_reserv"], 
         ]
     ],
     'mariupol'       => [
@@ -83,13 +83,14 @@ return [
         // 'yandex-ad'      => '2671372',
         'vk'             => [
             // "obmenvalut_mariupol"    => ["id" => "-212955319",  "time" => "everyThirtyMinutes"],  // 30
+            // "club145372726"    => ["id" => "-",  "time" => "everyThirtyMinutes"],  // 30
         ],
         'tg'             => [
-            "1650543563" => ["id" => "obmenmrpl",             "time" => "everyTenMinutes"],       // 10
-            "1784051014" => ["id" => "obmenmariupolya",       "time" => "everyThirtyMinutes"],    // 30
-            "1689436376" => ["id" => "obmenvalut_mariupol",       "time" => "everyThirtyMinutes"],    // 30
-            "1946011018" => ["id" => "obmenmar",       "time" => "everyThirtyMinutes"],    // 30
-            "1765663345" => ["id" => "obmen_don",       "time" => "everyThirtyMinutes"],    // 30
+            "1650543563" => ["id" => "obmenmrpl"], 
+            "1784051014" => ["id" => "obmenmariupolya"], 
+            "1689436376" => ["id" => "obmenvalut_mariupol"], 
+            "1946011018" => ["id" => "obmenmar"],
+            "1765663345" => ["id" => "obmen_don"], 
         ]
     ],
     'melitopol'       => [
@@ -105,8 +106,8 @@ return [
         // 'yandex-ad'      => '2671451',
         'vk'             => [],
         'tg'             => [
-            "1699506983" => ["id" => "mlt_obnal",             "time" => "everyTenMinutes"],      // 10
-            "1809540638" => ["id" => "obmengenichesk",        "time" => "everyFifteenMinutes"],  // 15    
+            "1699506983" => ["id" => "mlt_obnal"], 
+            "1809540638" => ["id" => "obmengenichesk"], 
         ]
     ],
     'berdyansk'       => [
@@ -122,9 +123,9 @@ return [
         // 'yandex-ad'      => '2671495',
         'vk'             => [],
         'tg'             => [
-            "1579972943" => ["id" => "obmen_berdyansk",    "time" => "everyTenMinutes"],         // 10 
-            "1282923863" => ["id" => "helpchangefiat",     "time" => "everyTenMinutes"],         // 10 
-            "1718783064" => ["id" => "obmenvalutberdynsk", "time" => "everyTenMinutes"],         // 10 
+            "1579972943" => ["id" => "obmen_berdyansk"], 
+            "1282923863" => ["id" => "helpchangefiat"], 
+            "1718783064" => ["id" => "obmenvalutberdynsk"], 
         ],
         
     ],
@@ -141,13 +142,13 @@ return [
         // 'yandex-ad'      => '2671563',
         'vk'             => [],
         'tg'             => [
-            "1406118239" => ["id" => "obmenvmsk", "time" => "everyThirtyMinutes"],                 // 30
-            "1460221844" => ["id" => "currency_exchanges", "time" => "everyThirtyMinutes"],        // 30
-            "1683359903" => ["id" => "a7337z", "time" => "everyThirtyMinutes"],                 // 30
-            "1725670916" => ["id" => "sovcomrates_msk", "time" => "everyThirtyMinutes"],                 // 30
-            "1861025310" => ["id" => "valuta_R", "time" => "everyThirtyMinutes"],                 // 30
-            "1513641809" => ["id" => "curency_exchange_rf", "time" => "everyThirtyMinutes"],                 // 30
-            "2060147758" => ["id" => "exchangemoneymsk", "time" => "everyThirtyMinutes"],                 // 30
+            "1406118239" => ["id" => "obmenvmsk"], 
+            "1460221844" => ["id" => "currency_exchanges"],
+            "1683359903" => ["id" => "a7337z"], 
+            "1725670916" => ["id" => "sovcomrates_msk"],
+            "1861025310" => ["id" => "valuta_R"], 
+            "1513641809" => ["id" => "curency_exchange_rf"], 
+            "2060147758" => ["id" => "exchangemoneymsk"], 
         ]
     ],
     // 'spb'       => [
@@ -174,11 +175,11 @@ return [
         // 'yandex-ad'      => '2671579',
         'vk'             => [],
         'tg'             => [
-            "1635308592" => ["id" => "obmen_valutROS", "time" => "everyThirtyMinutes"],                 // 30
-            "1282408554" => ["id" => "Rostovobmen", "time" => "everyThirtyMinutes"],                 // 30
-            "1635743092" => ["id" => "obmen_rostov", "time" => "everyThirtyMinutes"],                 // 30 
-            "1741293290" => ["id" => "obmendonchat", "time" => "everyThirtyMinutes"],                 // 30
-            "1604607517" => ["id" => "exchange_rostov", "time" => "everyThirtyMinutes"],              // 30
+            "1635308592" => ["id" => "obmen_valutROS"], 
+            "1282408554" => ["id" => "Rostovobmen"], 
+            "1635743092" => ["id" => "obmen_rostov"],
+            "1741293290" => ["id" => "obmendonchat"],
+            "1604607517" => ["id" => "exchange_rostov"],
         ]
     ],
     'krym'       => [
@@ -194,12 +195,12 @@ return [
         // 'yandex-ad'      => '2671597',
         'vk'             => [],
         'tg'             => [
-            "1520647319" => ["id" => "krymex", "time" => "everyThirtyMinutes"],                 // 30
-            "1419501182" => ["id" => "obmenvkrym", "time" => "everyThirtyMinutes"],                 // 30
-            "1695691631" => ["id" => "obmen_92", "time" => "everyThirtyMinutes"],                 // 30 
-            "1798727074" => ["id" => "Exchange_Crimea", "time" => "everyThirtyMinutes"],         // 30  
-            "1775797250" => ["id" => "obmen9282", "time" => "everyThirtyMinutes"],                 // 30
-            "1662030913" => ["id" => "Qrimex", "time" => "everyThirtyMinutes"],                 // 30
+            "1520647319" => ["id" => "krymex"],                 
+            "1419501182" => ["id" => "obmenvkrym"],                 
+            "1695691631" => ["id" => "obmen_92"],                 
+            "1798727074" => ["id" => "Exchange_Crimea"],         
+            "1775797250" => ["id" => "obmen9282"],               
+            "1662030913" => ["id" => "Qrimex"],                 
         ]
     ],
     'krasnodar'       => [
@@ -215,15 +216,15 @@ return [
         // 'yandex-ad'      => '2671600',
         'vk'             => [],
         'tg'             => [
-            "1664166871" => ["id" => "obmennikkrasnodar", "time" => "everyThirtyMinutes"],                 // 30
-            "1756305590" => ["id" => "exchange_krasnodar", "time" => "everyThirtyMinutes"],                 // 30
+            "1664166871" => ["id" => "obmennikkrasnodar"], 
+            "1756305590" => ["id" => "exchange_krasnodar"], 
             // "1695691631" => ["id" => "obmen_92", "time" => "everyThirtyMinutes"],                 // 30
         ]
     ],
     'minsk'       => [
         'title'          => 'Минск',
         'name'           => 'minsk',
-        'domain'         => 'valuta-dn',
+        'domain'         => 'kursivalut',
         'h1_keyword'     => ' в Минске и Республике Беларусь',
         'currencies'     => ['dollar', 'euro', 'hrn', 'cashless'],
         'rate_currencies'=> ['dollar', 'euro', 'hrn'],
@@ -233,8 +234,8 @@ return [
         // 'yandex-ad'      => '2671514',
         'vk'             => [],
         'tg'             => [
-            "1661599578" => ["id" => "obmen_rb", "time" => "everyThirtyMinutes"],                 // 15 
-            "1656368659" => ["id" => "obmenvrb", "time" => "everyThirtyMinutes"],                 // 15
+            "1661599578" => ["id" => "obmen_rb"],
+            "1656368659" => ["id" => "obmenvrb"],
             // "1774846066" => ["id" => "exchange_minsk", "time" => "everyTenMinutes"],           // 10
             // "1537031622" => ["id" => "obmen_rb_minsk1", "time" => "everyTenMinutes"],          // 10
             // "1768008123" => ["id" => "EXCHANGE_BY", "time" => "everyTenMinutes"],              // 10
