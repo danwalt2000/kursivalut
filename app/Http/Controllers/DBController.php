@@ -86,6 +86,19 @@ class DBController extends Controller
         return DB::table($table)->where( 'vk_id', $id )->first();
     }
     
+    //  
+    public static function getPostByChannelAndId( $channel, $id ){
+        $table = SessionController::getHost()["table"];
+        var_dump($channel);
+        return DB::table($table)->where( 'owner_id', $channel )->where( 'vk_id', $id )->first();
+    }
+    
+    // получает последнее сообщение с курсом: используется при репосте 
+    // в tg, чтобы не получилось задваивания объявлений в группах
+    public static function getLastAdWithRate( $table ){
+        return DB::table($table)->where( 'rate','>=', '0' )->orderBy( 'date', 'desc' )->first();
+    }
+    
     // получение номера телефона: все найденные в объявлениях номера
     // телефонов скрываются, чтобы их не индексировали поисковики
     // получить номер телефона можно по клику на спойлер через xhr

@@ -14,6 +14,7 @@ return [
         'load_freq'      => '60',                                  // частота загрузки новых объявлений в сек - 1 минута
         'show_rates'     => true,
         'metrika'        => '99071950',
+        'mygroup'        => '2278210405',
         // 'yandex-ad'      => '2593677',
         'vk'             => [
             "obmenvalut_donetsk"    => ["id" => "-87785879",  "time" => "everyFiveMinutes"],    // 5 BANNED
@@ -33,6 +34,8 @@ return [
             // "valutoobmen"           => ["id" => "-75586957",  "time" => "hourly"]               // 60 неактуально
         ],
         'tg'             => [
+            "2278210405" => ["id" => "kursivalut_ru_donetsk"],   // my channel
+
             "1154050282" => ["id" => "obmenkadn"],   
             "1161871204" => ["id" => "obmenkadonetck"], 
             "1345575332" => ["id" => "obmen_valut_donetsk_1"], 
@@ -54,9 +57,12 @@ return [
         'load_freq'      => '60',
         'show_rates'     => true,
         'metrika'        => '93171078',
+        'mygroup'        => '2325630504',
         // 'yandex-ad'      => '2593860',
         'vk'             => [],
         'tg'             => [
+            "2325630504" => ["id" => "kursivalut_ru_lugansk"],   // my channel
+
             "1304227894" => ["id" => "obmenka_lugansk"], 
             "1510326304" => ["id" => "obmennik_lnr"], 
             "1865624683" => ["id" => "obmenik_lnr"], 
@@ -80,12 +86,15 @@ return [
         'load_freq'      => '360',
         'show_rates'     => false,
         'metrika'        => '93171171',
+        'mygroup'        => '2398100879',
         // 'yandex-ad'      => '2671372',
         'vk'             => [
             // "obmenvalut_mariupol"    => ["id" => "-212955319",  "time" => "everyThirtyMinutes"],  // 30
             // "club145372726"    => ["id" => "-",  "time" => "everyThirtyMinutes"],  // 30
         ],
         'tg'             => [
+            "2398100879" => ["id" => "kursivalut_ru_mariupol"],   // my channel
+
             "1650543563" => ["id" => "obmenmrpl"], 
             "1784051014" => ["id" => "obmenmariupolya"], 
             "1689436376" => ["id" => "obmenvalut_mariupol"], 
@@ -103,9 +112,12 @@ return [
         'load_freq'      => '360',
         'show_rates'     => true,
         'metrika'        => '93171182',
+        'mygroup'        => '2425620918',
         // 'yandex-ad'      => '2671451',
         'vk'             => [],
         'tg'             => [
+            "2425620918" => ["id" => "kursivalut_ru_melitopol"],   // my channel
+
             "1699506983" => ["id" => "mlt_obnal"], 
             "1809540638" => ["id" => "obmengenichesk"], 
         ]
@@ -120,9 +132,12 @@ return [
         'load_freq'      => '360',
         'show_rates'     => true,
         'metrika'        => '93170908',
+        'mygroup'        => '2494724495',
         // 'yandex-ad'      => '2671495',
         'vk'             => [],
         'tg'             => [
+            "2494724495" => ["id" => "kursivalut_ru_berdyansk"],   // my channel
+
             "1579972943" => ["id" => "obmen_berdyansk"], 
             "1282923863" => ["id" => "helpchangefiat"], 
             "1718783064" => ["id" => "obmenvalutberdynsk"], 
@@ -139,9 +154,12 @@ return [
         'load_freq'      => '60',
         'show_rates'     => true,
         'metrika'        => '93171361',
+        'mygroup'        => '2394013892',
         // 'yandex-ad'      => '2671563',
         'vk'             => [],
         'tg'             => [
+            "2394013892" => ["id" => "kursivalut_ru_moscow"],   // my channel
+
             "1406118239" => ["id" => "obmenvmsk"], 
             "1460221844" => ["id" => "currency_exchanges"],
             "1683359903" => ["id" => "a7337z"], 
@@ -172,9 +190,12 @@ return [
         'load_freq'      => '360',
         'show_rates'     => false,
         'metrika'        => '93171389',
+        'mygroup'        => '2384576742',
         // 'yandex-ad'      => '2671579',
         'vk'             => [],
         'tg'             => [
+            "2384576742" => ["id" => "kursivalut_ru_rostov"],   // my channel
+
             "1635308592" => ["id" => "obmen_valutROS"], 
             "1282408554" => ["id" => "Rostovobmen"], 
             "1635743092" => ["id" => "obmen_rostov"],
@@ -192,9 +213,12 @@ return [
         'load_freq'      => '120',
         'show_rates'     => true,
         'metrika'        => '93171377',
+        'mygroup'        => '2366099862',
         // 'yandex-ad'      => '2671597',
         'vk'             => [],
         'tg'             => [
+            "2366099862" => ["id" => "kursivalut_ru_krym"],   // my channel
+
             "1520647319" => ["id" => "krymex"],                 
             "1419501182" => ["id" => "obmenvkrym"],                 
             "1695691631" => ["id" => "obmen_92"],                 
@@ -213,9 +237,12 @@ return [
         'load_freq'      => '360',
         'show_rates'     => false,
         'metrika'        => '93171402',
+        'mygroup'        => '2387622174',
         // 'yandex-ad'      => '2671600',
         'vk'             => [],
         'tg'             => [
+            "2387622174" => ["id" => "kursivalut_ru_krasnodar"],   // my channel
+
             "1664166871" => ["id" => "obmennikkrasnodar"], 
             "1756305590" => ["id" => "exchange_krasnodar"], 
             // "1695691631" => ["id" => "obmen_92", "time" => "everyThirtyMinutes"],                 // 30
@@ -231,9 +258,12 @@ return [
         'load_freq'      => '360',
         'show_rates'     => false,
         'metrika'        => '93171189',
+        'mygroup'        => '2464064240',
         // 'yandex-ad'      => '2671514',
         'vk'             => [],
         'tg'             => [
+            "2464064240" => ["id" => "kursivalut_ru_minsk"],   // my channel
+
             "1661599578" => ["id" => "obmen_rb"],
             "1656368659" => ["id" => "obmenvrb"],
             // "1774846066" => ["id" => "exchange_minsk", "time" => "everyTenMinutes"],           // 10

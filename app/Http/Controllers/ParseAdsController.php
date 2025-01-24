@@ -16,11 +16,13 @@ class ParseAdsController extends Controller
      */
     public function parseAd( $json, $channel, $locale, $domain = 'vk' )
     {
-        $posts = new DBController;
+        $db = new DBController;
         $ads = $json;
         $this->channel = $channel;
         $this->domain = $domain;
-        $is_ad_writed_to_db = 0;
+        $ad_object = [
+            "success" => false
+        ];
 
         $this->api_keys = Config::get('common.api_keys')[$domain];
         $text_key = $this->api_keys['text_key'];
@@ -28,7 +30,7 @@ class ParseAdsController extends Controller
         foreach( $ads as $ad ){
             $table = $locale['name'];
             // если объявление уже есть в базе, пропускаем его
-            $is_id_in_table = $posts->getPostById( $ad["id"] ); 
+            $is_id_in_table = $db->getPostById( $ad["id"] ); 
             if( !empty($is_id_in_table) || empty($ad[$text_key]) ) continue;               
 
             // извлечение номера телефона
@@ -94,12 +96,25 @@ class ParseAdsController extends Controller
                 // в таблицу записываем также локаль, в которой объявление было размещено
                 if( 'ads' == $table ) $args = array_merge($args, ['locale' => $locale['name']]);
 
-                $posts::storePosts( $table, $args );
-                $is_ad_writed_to_db = 1;
+                $db::storePosts( $table, $args );
+                $ad_object = [
+                    // репостить только объявления с курсом
+                    // "success" => ($rate > 0),
+                    // репостить все объявления
+                    "success" => true,
+                    "locale"  => $table,
+                    "link"    => $link,
+                    "content" => $ad[$text_key],
+                    "domain"  => $this->domain,     // tg or vk
+                    'vk_id'   => $ad["id"],
+                    'vk_user' => $user_id,
+                    'owner_id'=> $owner_id,
+                    'channel' => $this->channel['id']
+                ];
             } 
         }
         
-        return $is_ad_writed_to_db; // последние записи в БД
+        return $ad_object; 
     }
 
     // извлекаем из объявления курс 
@@ -163,8 +178,4 @@ class ParseAdsController extends Controller
         }
         return $link;
     }
-    // public function get ( $ad )
-    // {
-
-    // }
 }
