@@ -120,7 +120,7 @@ class PostAdsController extends Controller
             if(isset($ad_object["from_id"]->user_id)){
                 $username = PostAdsController::getTgUserInfo($ad_object["from_id"]->user_id);
                 if(!empty($username)){
-                    $username = "пользователя " . $username  . " ";
+                    $username = "пользователя " . $username;
                 }
             } 
             var_dump("-----------------", $ad_object["from_id"]->user_id);
@@ -150,9 +150,9 @@ class PostAdsController extends Controller
             $json = json_decode($response->body());
             if(isset($json->success) && !empty($json->success)){
                 if(isset($json->response->User->username)){
-                    $userinfo = $json->response->User->username;
+                    $userinfo = "@" .  $json->response->User->username . " ";
                 } elseif(isset($json->response->User->first_name)){
-                    $userinfo = " " . $json->response->User->first_name . " ";
+                    $userinfo = $json->response->User->first_name . " ";
                 }
             }
         };
