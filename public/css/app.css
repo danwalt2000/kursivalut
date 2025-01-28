@@ -90,7 +90,7 @@ a:hover{
 }
 .logo{
     display: grid;
-    grid-template-columns: max-content 1fr max-content  max-content;
+    grid-template-columns: max-content 1fr max-content  max-content max-content;
     background-color: var(--main-bg-color);
     border-radius: 6px;
     justify-content: space-between;
@@ -106,6 +106,15 @@ a:hover{
     display: flex;
     align-items: center;
     gap: 5px;
+}
+.tg_link{
+    background-color: var(--logo-color);
+    padding: 8px;
+    border-radius: 4px;
+}
+.tg_link_img{
+    display: flex;
+    align-items: center;
 }
 .logo-title{
     font: var(--h3-font);
@@ -820,6 +829,32 @@ span.with-arrow-rarr-up::after,
 .no-ads{
     text-align: center;
 }
+.no-ads-tg-link{
+    display: flex;
+    color: var(--main-bg-color);
+    background: var(--logo-color);
+    padding: 10px 40px;
+    width: fit-content;
+    max-width: 100%;
+    border-radius: 4px;
+    margin: 0 auto 15px;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+.no-ads-tg-link:hover{
+    color: var(--main-bg-color);
+    opacity: .9;
+}
+.no-ads-tg-link::before{
+    content: '';
+    background-image: url(/img/tg_logo_white.svg);
+    background-repeat: no-repeat;
+    width: 20px;
+    height: 20px;
+    background-size: contain;
+
+}
 .post-content_left{
     text-align: left;
 }
@@ -1294,6 +1329,14 @@ div[data-block-name="button"] a{
     .chart-nav{
         flex-direction: column;
     }
+    .tg_link{
+        border-radius: 50%;
+        padding: 6px;
+    }
+    .tg_link_img{
+        width: 18px;
+        height: 18px;
+    }
 }
 @media (max-width: 580px){
     .form-ad-row input{
@@ -1328,7 +1371,6 @@ div[data-block-name="button"] a{
         background-color: var(--logo-color);
         object-fit: none;
         border-radius: 50%;
-        margin-right: 10px;
     }
     .search-form{
         grid-column: 1 / 4;

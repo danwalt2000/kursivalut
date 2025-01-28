@@ -46,9 +46,13 @@
                     </a>
                     @include('parts.location')
                     
+                    @include('parts.searchform')
                     @include('parts.form')
                     
-                    @include('parts.searchform')
+
+                    <a class="tg_link" href="https://t.me/kursivalut_ru_{{ $locale['name'] }}" target="_blank">
+                        <img src="/img/tg_logo_white.svg" class="tg_link_img" width="20" height="20" loading="lazy">
+                    </a>
                 </div>
                 <div class="columns">
                     @section('main')
