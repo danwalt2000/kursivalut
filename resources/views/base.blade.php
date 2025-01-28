@@ -81,6 +81,20 @@
                 <div id="how-many-new-ads" class="how-many-new-ads how-many-new-ads_inactive"></div>
             </div>
         </footer>
+        @isset($modal_ad)
+            <aside class="modal-wrapper modal-active">
+                <div class="popup-bg modal-hidden">
+                    <section class="modal-inner selected-post-popup">
+                        <div class="close_modal"></div>
+                        @isset($modal_ad->id)
+                            @include('parts.post', ['ad' => $modal_ad])
+                        @else
+                            @include('parts.no-posts')
+                        @endisset
+                    </section>
+                </div>
+            </aside>
+        @endisset
         <script>
             window.ifAllowed = "{{ !empty($geodata['geo_allowed']) }}";
             window.ifMore = window.ifAllowed ? Math.ceil( Number("{{ $ads_count / 20 }}")) : 0;

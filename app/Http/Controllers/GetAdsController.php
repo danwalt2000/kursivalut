@@ -5,10 +5,9 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Log;
 use Config;
-use App\Http\Controllers\CurrencyController;
 use App\Http\Controllers\PostAdsController;
  
-class GetAdsController extends CurrencyController
+class GetAdsController extends Controller
 {
     public $domain;
     public $channel;
@@ -101,16 +100,13 @@ class GetAdsController extends CurrencyController
 
         if( !empty($target_locale) ){
             // не обрабатывать запросы, если это репосты в афилированные группы
-            if($locale['tg'][$channel_id] == $locale["mygroup"] && !isset($_POST["mygroup"])) return "From my group";
+            // Log::error(str_contains($locale['tg'][$channel_id]["id"], env("TG_CHANNEL_DOMAIN")));
+            if(str_contains($locale['tg'][$channel_id]["id"], env("TG_CHANNEL_DOMAIN")) && !isset($_POST["mygroup"])) return "From my group";
             
             $for_parsing = [ (array) $message ];
             // Log::error(json_encode($for_parsing));
             
             $parsed_ad = $this->parser->parseAd( $for_parsing, $locale['tg'][$channel_id], $locale, 'tg' );
-
-            // $url_get_history = env("TG_LISTENER_DOMAIN") . "/api/messages.getHistory/?data[limit]=1&data[peer]=@". env("TG_CHANNEL_DOMAIN") . "donetsk";
-            // $history = Http::get($url_get_history);
-            // var_dump($history);
 
             // если объявление полезное и не из афилированной группы, делаем репост
             if(isset($parsed_ad["success"]) && !empty($parsed_ad["success"]) && !isset($_POST["mygroup"])&&
@@ -120,8 +116,10 @@ class GetAdsController extends CurrencyController
 
             // если объявление бесполезное и в афилированной группе - удаляем его
             if(isset($parsed_ad["success"]) && empty($parsed_ad["success"]) && isset($_POST["mygroup"])){
-                PostAdsController::sendNoteInTg($for_parsing, $locale);
-                PostAdsController::deleteInTg($for_parsing, $locale);
+                $for_remove = $for_parsing[0];
+                $for_remove["locale"] = $locale["name"];
+                PostAdsController::modetateTg($for_remove);
+                // PostAdsController::deleteInTg($parsed_ad);
             }
             return $parsed_ad;
         }

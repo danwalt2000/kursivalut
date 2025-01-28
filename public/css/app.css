@@ -269,6 +269,7 @@ a:hover{
 }
 .form-bg,
 .modal-hidden,
+.modal-bg,
 .popup-bg{
     width: 100vw;
     height: 100vh;
@@ -279,6 +280,7 @@ a:hover{
     display: none;
 }
 .form-bg-open,
+.modal-bg-open,
 .modal-active .modal-hidden,
 .popup-bg-open{
     display: block;
@@ -312,6 +314,9 @@ a:hover{
     top: 10%;
     margin: auto;
     max-width: 350px;
+}
+.selected-post-popup{
+    max-width: 600px;
 }
 .sorting-h2{
     grid-column: 1 / 3;

@@ -89,8 +89,11 @@ class DBController extends Controller
     //  
     public static function getPostByChannelAndId( $channel, $id ){
         $table = SessionController::getHost()["table"];
-        var_dump($channel);
-        return DB::table($table)->where( 'owner_id', $channel )->where( 'vk_id', $id )->first();
+        // var_dump($channel);
+        return DB::table($table)
+                ->where( 'owner_id', $channel )
+                ->where( 'vk_id', $id )
+                ->first();
     }
     
     // получает последнее сообщение с курсом: используется при репосте 

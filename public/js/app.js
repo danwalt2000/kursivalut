@@ -145,19 +145,23 @@ window.addEventListener('DOMContentLoaded', () => {
 
     // управление модальными окнами
     const closeModal = (event)=>{
-        let modalInner = document.querySelector('.modal-inner');
-        if ( !modalInner.contains(event.target) || event.target.classList.contains("close_modal") ) {
-            document.querySelectorAll('.modal-wrapper').forEach(
-                wrapper => wrapper.classList.remove('modal-active')
-            );
-            document.removeEventListener('click', closeModal);
-        }
+        let modalsInner = document.querySelectorAll('.modal-inner');
+        modalsInner.forEach(modalInner => {
+            if ( !modalInner.contains(event.target) || event.target.classList.contains("close_modal") ) {
+                document.querySelectorAll('.modal-wrapper').forEach(
+                    wrapper => wrapper.classList.remove('modal-active')
+                );
+                document.removeEventListener('click', closeModal);
+            }
+        });
+        
     }
     const openModal = (event)=>{
         event.stopPropagation();
         event.target.parentElement.classList.add('modal-active');
         document.addEventListener('click', closeModal);
     }    
+    document.addEventListener('click', closeModal);
     const modalButtons = document.querySelectorAll('.modal-open');
     modalButtons.forEach( modalButton =>{
         modalButton.addEventListener('click', openModal);

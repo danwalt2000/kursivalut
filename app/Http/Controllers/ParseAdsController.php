@@ -20,9 +20,7 @@ class ParseAdsController extends Controller
         $ads = $json;
         $this->channel = $channel;
         $this->domain = $domain;
-        $ad_object = [
-            "success" => false
-        ];
+        $ad_object = [ "success" => false ];
 
         $this->api_keys = Config::get('common.api_keys')[$domain];
         $text_key = $this->api_keys['text_key'];
@@ -99,9 +97,11 @@ class ParseAdsController extends Controller
                 $db::storePosts( $table, $args );
                 $ad_object = [
                     // репостить только объявления с курсом
-                    // "success" => ($rate > 0),
+                    "success" => ($rate > 0),
+
                     // репостить все объявления
-                    "success" => true,
+                    // "success" => true,
+                    
                     "locale"  => $table,
                     "link"    => $link,
                     "content" => $ad[$text_key],
