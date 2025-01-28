@@ -120,7 +120,7 @@ class PostAdsController extends Controller
             if(isset($ad_object["from_id"]->user_id)){
                 $username = PostAdsController::getTgUserInfo($ad_object["from_id"]->user_id);
                 if(!empty($username)){
-                    $username = "пользователя @" . $username  . " ";
+                    $username = "пользователя " . $username  . " ";
                 }
             } 
             var_dump("-----------------", $ad_object["from_id"]->user_id);
