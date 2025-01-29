@@ -39,7 +39,7 @@
     <body class="antialiased {{$add_class}}">
         <div class="bg-gradient">
             <main class="main">
-                <div class="logo">
+                <header class="logo">
                     <a href="/" class="logo-link">
                         <img width="70px" height="70px" alt="Обмен валют" class="logo-img" src="/img/favicon.svg" loading="lazy">
                         <p class="logo-title">Обмен валют</p>
@@ -53,27 +53,18 @@
                     <a class="tg_link" href="https://t.me/kursivalut_ru_{{ $locale['name'] }}" target="_blank">
                         <img src="/img/tg_logo_white.svg" class="tg_link_img" width="20" height="20" loading="lazy">
                     </a>
-                </div>
+                </header>
                 <div class="columns">
                     @section('main')
                     @show
 
-                    <div class="right_column">
+                    <aside class="right_column">
                         @include('parts.sorting', ['date_sort' => $date_sort, 'path' => $path, 'ads' => $ads])    
 
                         <div class="additional-info">
                             <a class="additional-info-a" href="/legal">Правовая информация</a>
                         </div>
-                        @production
-                            @isset($locale['yandex-ad'])
-                                @desktop
-                                    <div class="desktop-yandex-ads">
-                                        @include('parts.yandex-ad')    
-                                    </div>
-                                @enddesktop
-                            @endisset
-                        @endproduction
-                    </div>
+                    </aside>
                 </div>
             </main>
         </div>
