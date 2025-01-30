@@ -151,7 +151,7 @@ class PostAdsController extends Controller
                 if(isset($json->response->User->username)){
                     $userinfo = "@" .  $json->response->User->username . " ";
                 } elseif(isset($json->response->User->first_name)){
-                    $userinfo = htmlspecialchars($json->response->User->first_name) . " ";
+                    $userinfo = preg_replace('/[^A-Za-zА-Яа-я0-9\\-\\s]/', '', $json->response->User->first_name, -1) . " ";
                 }
             }
         };
