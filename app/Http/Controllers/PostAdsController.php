@@ -98,7 +98,6 @@ class PostAdsController extends Controller
     // удаляет бесполезное объявление из афилированных групп
     public static function deleteInTg( $remove_ad_object )
     {
-        // var_dump($remove_ad_object);
         if(isset($remove_ad_object["id"]) && !empty($remove_ad_object["id"]) ){
             $url = env("TG_BOT_DOMAIN") . "/api/channels.deleteMessages/?data[channel]=@" . env("TG_CHANNEL_DOMAIN") . $remove_ad_object["locale"] . "&data[id][0]=" . $remove_ad_object["id"];
             
@@ -123,8 +122,8 @@ class PostAdsController extends Controller
                     $username = "пользователя " . $username;
                 }
             } 
-            var_dump("-----------------", $ad_object["from_id"]->user_id);
-            var_dump($username);
+            // var_dump("-----------------", $ad_object["from_id"]->user_id);
+            // var_dump($username);
             $ad_content = "Сообщение " . $username . "не прошло модерацию и было удалено. Пожалуйста, ознакомьтесь с правилами публикации объявлений в группе";
         } else{
             $subdomain = $ad_object["locale"] == "donetsk" ? "" : $ad_object["locale"] . ".";
@@ -152,7 +151,7 @@ class PostAdsController extends Controller
                 if(isset($json->response->User->username)){
                     $userinfo = "@" .  $json->response->User->username . " ";
                 } elseif(isset($json->response->User->first_name)){
-                    $userinfo = $json->response->User->first_name . " ";
+                    $userinfo = htmlspecialchars($json->response->User->first_name) . " ";
                 }
             }
         };
