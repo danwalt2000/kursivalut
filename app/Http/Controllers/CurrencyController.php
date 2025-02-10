@@ -194,7 +194,6 @@ class CurrencyController extends Controller
                 // var_dump($modal_ad);
             }
         }
-        
         return view('currency', $this->to_view);
     }
 }

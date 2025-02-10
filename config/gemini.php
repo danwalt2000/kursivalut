@@ -2,6 +2,12 @@
 
 declare(strict_types=1);
 
+function getRandomGeminiApiKey(){
+    $api_keys = explode(',', env('GEMINI_API_KEYS'));
+    $rand_int = array_rand($api_keys);
+    return $api_keys[$rand_int];
+}
+
 return [
 
     /*
@@ -14,7 +20,8 @@ return [
     | on Google AI Studio, at https://makersuite.google.com.
     */
 
-    'api_key' => env('GEMINI_API_KEY'),
+    // 'api_key' => env('GEMINI_API_KEY'),
+    'api_key' => getRandomGeminiApiKey(),
 
     /*
     |--------------------------------------------------------------------------

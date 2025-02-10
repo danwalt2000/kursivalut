@@ -111,7 +111,7 @@ class GetAdsController extends Controller
             // если объявление полезное и не из афилированной группы, делаем репост
             if(isset($parsed_ad["success"]) && !empty($parsed_ad["success"]) && !isset($_POST["mygroup"])&&
                isset($parsed_ad["channel"]) && !str_contains($parsed_ad["channel"], env("TG_CHANNEL_DOMAIN"))){
-                // PostAdsController::postToTg($parsed_ad);
+                PostAdsController::postToTg($parsed_ad);
             }
 
             // если объявление бесполезное и в афилированной группе - удаляем его
