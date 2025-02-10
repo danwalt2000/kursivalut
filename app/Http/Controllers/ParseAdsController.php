@@ -128,7 +128,7 @@ class ParseAdsController extends Controller
         <text>' . $ad_text . '</text>';
         // $content = "How do you think, what product is buying in ad inside tag '<text>'? <text>" . $ad_text . "</text>";
         try {
-            $result = Gemini::geminiPro()->generateContent($content);
+            $result = Gemini::geminiFlash()->generateContent($content);
             if(isset($result->candidates[0]->content) && !empty($result->candidates[0]->content->parts)){
                 $ai_response = $result->text();
             }

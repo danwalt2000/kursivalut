@@ -108,18 +108,21 @@ class GetAdsController extends Controller
             
             $parsed_ad = $this->parser->parseAd( $for_parsing, $locale['tg'][$channel_id], $locale, 'tg' );
 
-            // если объявление полезное и не из афилированной группы, делаем репост
-            if(isset($parsed_ad["success"]) && !empty($parsed_ad["success"]) && !isset($_POST["mygroup"])&&
-               isset($parsed_ad["channel"]) && !str_contains($parsed_ad["channel"], env("TG_CHANNEL_DOMAIN"))){
-                PostAdsController::postToTg($parsed_ad);
-            }
-
-            // если объявление бесполезное и в афилированной группе - удаляем его
-            if(isset($parsed_ad["success"]) && empty($parsed_ad["success"]) && isset($_POST["mygroup"])){
-                $for_remove = $for_parsing[0];
-                $for_remove["locale"] = $locale["name"];
-                PostAdsController::modetateTg($for_remove);
-                // PostAdsController::deleteInTg($parsed_ad);
+            // только на проде
+            if(env("APP_ENV") == "production"){
+                // если объявление полезное и не из афилированной группы, делаем репост
+                if(isset($parsed_ad["success"]) && !empty($parsed_ad["success"]) && !isset($_POST["mygroup"])&&
+                   isset($parsed_ad["channel"]) && !str_contains($parsed_ad["channel"], env("TG_CHANNEL_DOMAIN"))){
+                    PostAdsController::postToTg($parsed_ad);
+                }
+    
+                // если объявление бесполезное и в афилированной группе - удаляем его
+                if(isset($parsed_ad["success"]) && empty($parsed_ad["success"]) && isset($_POST["mygroup"])){
+                    $for_remove = $for_parsing[0];
+                    $for_remove["locale"] = $locale["name"];
+                    PostAdsController::modetateTg($for_remove);
+                    // PostAdsController::deleteInTg($parsed_ad);
+                }
             }
             return $parsed_ad;
         }
