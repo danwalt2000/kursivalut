@@ -179,7 +179,6 @@ class CurrencyController extends Controller
     public function index()
     {
         if( !empty($_GET["wall"]) && preg_match('/\d{7,10}\_\d{1,10}/', $_GET["wall"]) ){
-            // $vk_domain = substr($_GET["wall"], 0, 1) === "-" ? "-" : "";
             $channel_and_id = explode("_", $_GET["wall"]);
             if(isset($channel_and_id[0]) && is_int((int)$channel_and_id[0]) && isset($channel_and_id[1]) && is_int((int)$channel_and_id[1])){
                 $modal_ad = DBController::getPostByChannelAndId($channel_and_id[0], $channel_and_id[1]);
@@ -191,7 +190,6 @@ class CurrencyController extends Controller
                     ];
                 }
                 $this->to_view['modal_ad'] = $modal_ad;
-                // var_dump($modal_ad);
             }
         }
         return view('currency', $this->to_view);

@@ -62,7 +62,8 @@ async(function () use ($options) {
                     "6354285876" != $json->result->update->message->from_id->user_id &&
                     "7500623149" != $json->result->update->message->from_id->user_id &&
                     
-                    "updateNewChannelMessage" == $json->result->update->_) {
+                    "updateNewChannelMessage" == $json->result->update->_ &&
+                    "message" == $json->result->update->message->_) {
                     
                     // var_dump("6354285876" != $json->result->update->message->from_id->user_id);
                     var_dump("--- Other message ---");

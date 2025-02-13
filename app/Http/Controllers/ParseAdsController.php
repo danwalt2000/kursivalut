@@ -70,6 +70,16 @@ class ParseAdsController extends Controller
                 }
                 $owner_id = $owner_id->channel_id;
                 $ai_response = $this->getAIResponse($ad[$text_key]);
+
+                // если ИИ определил, что это не объявление о валюте, то в БД его не записываем
+                if(!empty($ai_response)){
+                    $json_string = preg_replace("/`|json/", "", $ai_response);
+                    $json = json_decode(trim($json_string));
+                    if(!isset($json->is_it_currency_exchange_ad) || empty($json->is_it_currency_exchange_ad) || "false" === $json->is_it_currency_exchange_ad){
+                        // $table = "ads";
+                        continue;
+                    }
+                }
             }
 
             if( !empty($ad[$text_key])){
@@ -123,10 +133,9 @@ class ParseAdsController extends Controller
             "multiple_currencies": @bool (true/false) - is it offer to exchange multiple currencies against the Russian ruble?,
             "currency": @string (supported answers: dollar, euro, hryvna or false if there is not) - what currency is proposed to be exchanged in the text against the Russian ruble?,
             "rate": @float (or 0 if no) - what currency rate is offered to the base currency Russian ruble?,
-            "offtopic": @bool (true/false) - does the message contain profanity or insults, is there mention about politics, war or offer of non-financial services?
+            "offtopic": @bool (true/false) - does the message contain profanity or insults, is there mention about politics, war, offering prostitution or drug sales?
         }</questions>
         <text>' . $ad_text . '</text>';
-        // $content = "How do you think, what product is buying in ad inside tag '<text>'? <text>" . $ad_text . "</text>";
         try {
             $result = Gemini::geminiFlash()->generateContent($content);
             if(isset($result->candidates[0]->content) && !empty($result->candidates[0]->content->parts)){
