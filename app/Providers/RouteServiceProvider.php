@@ -45,7 +45,11 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function configureRateLimiting()
     {
+        // увеличиваем лимит запросов для своего IP
         RateLimiter::for('api', function (Request $request) {
+            if ($request->ip() == env("APP_IP")) {
+                return Limit::perMinute(1000)->by(optional($request->user())->id ?: $request->ip());
+            }
             return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
         });
     }
