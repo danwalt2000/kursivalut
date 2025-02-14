@@ -77,7 +77,7 @@ class GetAdsController extends Controller
 
     // получение нового объявления по обращению к API этого приложения
     public function addPostByAPI(){
-        if( empty($_POST) || 
+        if( !isset($_POST["password"]) || 
             empty($_POST["password"]) || 
             env('API_PASSWORD') != $_POST["password"]  ) abort(403);
         $json = json_decode($_POST["content"]);

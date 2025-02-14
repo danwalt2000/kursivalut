@@ -62,9 +62,7 @@ class RatesController extends Controller
         $rates = [];
         foreach( $rate_currencies as $currency ){
             $rate = DBController::getRate($table, $currency, $rounded_now);
-            if( !empty($rate) ){
-                array_push($rates, $rate);
-            }
+            if( !empty($rate) ) array_push($rates, $rate);
         }
 
         return $rates;

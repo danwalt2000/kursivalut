@@ -64,7 +64,7 @@ class CurrencyController extends Controller
             'date_sort'       => Config::get('common.date_sort'),
             'path'            => $this->path,
             'query'           => $this->query,
-            'geodata'         => SessionController::getGeodata(),
+            'geodata'         => once(fn()=> SessionController::getGeodata() ),
             'rates'           => $this->rates->getRatesByLocale( $this->locale ),
             'stock_rates'     => $this->rates->getRatesByLocale( 'stock' ),
             'title'           => ParseUriController::generateTitle(),

@@ -69,7 +69,9 @@ class ParseAdsController extends Controller
                     continue;
                 }
                 $owner_id = $owner_id->channel_id;
+                
                 $ai_response = $this->getAIResponse($ad[$text_key]);
+                // $ai_response = Concurrency::run( $this->getAIResponse($ad[$text_key]) );
 
                 // если ИИ определил, что это не объявление о валюте, то в БД его не записываем
                 if(!empty($ai_response)){
@@ -83,7 +85,6 @@ class ParseAdsController extends Controller
             }
 
             if( !empty($ad[$text_key])){
-
                 $args = [
                     'vk_id'           => $ad["id"],
                     'vk_user'         => $user_id,
@@ -138,7 +139,7 @@ class ParseAdsController extends Controller
         <text>' . $ad_text . '</text>';
         try {
             $result = Gemini::geminiFlash()->generateContent($content);
-            if(isset($result->candidates[0]->content) && !empty($result->candidates[0]->content->parts)){
+            if(isset($result->candidates[0]->content->parts) && !empty($result->candidates[0]->content->parts)){
                 $ai_response = $result->text();
             }
         } catch(\Exception $exception) {

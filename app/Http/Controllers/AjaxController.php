@@ -13,23 +13,16 @@ class AjaxController extends Controller
         $to_view = (new CurrencyController)->to_view;
         $table = SessionController::getHost()["table"];
 
-        $sellbuy = $request->query('sellbuy');
-        if( empty($sellbuy) ) $sellbuy = '';
-
-        $currency = $request->query('currency');
-        if( empty($currency) ) $currency = '';
+        $sellbuy = $request->query('sellbuy') ?? '';
         
-        $offset = $request->query('offset');
-        if( empty($offset) ) $offset = 0;
+        $currency = $request->query('currency') ?? '';
         
-        $search = $request->query('search');
-        if( empty($search) ) $search = '';
+        $offset = $request->query('offset') ?? 0;
+        
+        $search = $request->query('search') ?? '';
 
-        $ads = DBController::getPosts( $table, "get", $sellbuy, $currency, $search, $offset );
-        if(!empty($ads)){
-            $to_view['ads'] = DBController::getPosts( $table, "get", $sellbuy, $currency, $search, $offset );
-            return view('parts.feed', $to_view);;
-        }
+        $to_view['ads'] = DBController::getPosts( $table, "get", $sellbuy, $currency, $search, $offset );
+        return view('parts.feed', $to_view);;
     }
 
     public function ajaxPost(Request $request){

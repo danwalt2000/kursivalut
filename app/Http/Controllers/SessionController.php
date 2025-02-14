@@ -34,7 +34,6 @@ class SessionController extends Controller
         // $geo_allowed = session()->get('geo_allowed');
         $geo_country;
         $geo_allowed;
-
         
         if( empty($geo_country) || empty($geo_country) ){
             $geo_country = SessionController::getGeoIp();
