@@ -144,6 +144,15 @@ class ParseAdsController extends Controller
             }
         } catch(\Exception $exception) {
             Log::error($exception);
+            // подстрахуемся запросом к модели GeminiPro, если GeminiFlash не отвечает
+            try {
+                $result = Gemini::geminiPro()->generateContent($content);
+                if(isset($result->candidates[0]->content->parts) && !empty($result->candidates[0]->content->parts)){
+                    $ai_response = $result->text();
+                }
+            } catch(\Exception $warning) {
+                Log::error($warning);
+            }
         }
         
         return $ai_response; 
