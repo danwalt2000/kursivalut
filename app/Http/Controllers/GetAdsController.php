@@ -117,7 +117,7 @@ class GetAdsController extends Controller
                 }
     
                 // если объявление бесполезное и в афилированной группе - удаляем его
-                if(isset($parsed_ad["success"]) && empty($parsed_ad["success"]) && isset($_POST["mygroup"])){
+                if(isset($parsed_ad["type"]) && empty($parsed_ad["type"]) && isset($_POST["mygroup"])){
                     $for_remove = $for_parsing[0];
                     $for_remove["locale"] = $locale["name"];
                     PostAdsController::modetateTg($for_remove);

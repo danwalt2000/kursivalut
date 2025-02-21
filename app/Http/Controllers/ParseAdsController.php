@@ -22,7 +22,7 @@ class ParseAdsController extends Controller
         $ai_response = '';
         $this->channel = $channel;
         $this->domain = $domain;
-        $ad_object = [ "success" => false ];
+        $ad_object = [ "success" => false, "type" => false ];
 
         $this->api_keys = Config::get('common.api_keys')[$domain];
         $text_key = $this->api_keys['text_key'];
@@ -107,8 +107,9 @@ class ParseAdsController extends Controller
                     // репостить только объявления с курсом
                     "success" => ($rate > 0),
 
-                    // репостить все объявления
-                    // "success" => true,
+                    // если нет этого ключа, то опубликованное в афилированной 
+                    // группе объявление удаляется
+                    "type" => $type,
                     
                     "locale"  => $table,
                     "link"    => $link,
