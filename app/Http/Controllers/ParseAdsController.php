@@ -134,7 +134,7 @@ class ParseAdsController extends Controller
             "is_it_currency_exchange_ad": @bool (true/false) - is it offer to exchange currency (including crypto) in given text?,
             "multiple_currencies": @bool (true/false) - is it offer to exchange multiple currencies against the Russian ruble?,
             "currency": @string (supported answers: dollar, euro, hryvna or false if there is not) - what currency is proposed to be exchanged in the text against the Russian ruble?,
-            "rate": @float (or 0 if no) - what currency rate is offered to the base currency Russian ruble?,
+            "rate": @float (or null if no) - what currency rate is offered to the base currency Russian ruble?,
             "offtopic": @bool (true/false) - does the message contain profanity or insults, is there mention about politics, war, offering prostitution or drug sales?
         }</questions>
         <text>' . $ad_text . '</text>';
