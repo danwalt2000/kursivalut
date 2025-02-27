@@ -13,7 +13,7 @@ return [
         'rate_currencies'=> ['dollar', 'euro', 'hrn'],
         'load_freq'      => '60',                                  // частота загрузки новых объявлений в сек - 1 минута
         'show_rates'     => true,
-        'metrika'        => '100083212',
+        'metrika'        => '99071950',
         'mygroup'        => '2278210405',
         // 'yandex-ad'      => '2593677',
         'vk'             => [
