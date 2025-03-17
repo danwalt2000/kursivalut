@@ -212,4 +212,23 @@ window.addEventListener('DOMContentLoaded', () => {
     if(spoilerText) spoilerText.addEventListener("click", function(){
         spoilerText.classList.add("hidden_phone-visible")
     })
+
+    /* GDPR */
+    const gdpr = document.querySelector("#cookiesInformer");
+    const gdprButton = document.querySelector("#cookiesInformer .dialog__button");
+    const toggleGDPR = ()=>{
+        if(document.cookie.includes("personalDataProcessingAccepted=true")){
+            gdpr.classList.remove("cookiesInformer_active");
+        } else{
+            gdpr.classList.add("cookiesInformer_active");
+        }
+    }    
+    if(!!gdprButton){
+        gdprButton.addEventListener("click", ()=>{
+            document.cookie = `personalDataProcessingAccepted=true; path=/; max-age=${30 * 24 * 60 * 60 * 1000}`;
+            toggleGDPR()
+        })
+        toggleGDPR()
+    }
+    /* end of GDPR */
 });

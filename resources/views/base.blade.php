@@ -75,6 +75,7 @@
             <div id="scroll-to-top" class="scroll-to-top scroll-to-top_inactive">
                 <div id="how-many-new-ads" class="how-many-new-ads how-many-new-ads_inactive"></div>
             </div>
+            @include('parts.gdpr')
         </footer>
         @isset($modal_ad)
             <aside class="modal-wrapper modal-active">
