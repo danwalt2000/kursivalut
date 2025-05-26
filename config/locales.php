@@ -44,7 +44,7 @@ return [
             "1204646240" => ["id" => "valut_don"],
             "1684913683" => ["id" => "retrust_dnr"], 
             "1199000277" => ["id" => "obmen_valut_dnr2020"],
-            "1824000800" => ["id" => "valutchat_donetsk_lnr"],
+            // "1824000800" => ["id" => "valutchat_donetsk_lnr"],
         ]
     ],
     'lugansk'       => [
