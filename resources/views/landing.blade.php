@@ -48,11 +48,9 @@
             </main>
         </div>
         <footer class="footer">
-            <div class="footer_content">
-                Технический партнер <a href="https://sharpdesign.ru">SharpDesign</a>.</footer>
-            </div>
+            @include('parts.footer')
 
-        <script src="/js/app.js?v=@isset($hash){{$hash}}@endisset" defer></script>
+            <script src="/js/app.js?v=@isset($hash){{$hash}}@endisset" defer></script>
         @production
             <!-- Google tag (gtag.js) -->
             <script async src="https://www.googletagmanager.com/gtag/js?id=G-4ZFLR96373"></script>

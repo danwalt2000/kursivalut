@@ -1,4 +1,4 @@
-<p align="center"><a href="https://moscow.kursivalut.ru" target="_blank"><img src="https://valuta-dn.ru/img/pig.svg" width="150" alt="Kursivalut Logo"></a></p>
+<p align="center"><a href="https://moscow.kursivalut.ru" target="_blank"><img src="https://kursivalut.ru/img/pig.svg" width="150" alt="Kursivalut Logo"></a></p>
 
 ## Currency ads aggregator
 <p>This app is fast, robust and fully automatic telegram & vk posts analyzer.</p>

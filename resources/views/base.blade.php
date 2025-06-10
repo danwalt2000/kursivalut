@@ -69,9 +69,7 @@
             </main>
         </div>
         <footer class="footer">
-            <div class="footer_content">
-                Технический партнер <a href="https://sharpdesign.ru">SharpDesign</a>.
-            </div>
+            @include('parts.footer')
             <div id="scroll-to-top" class="scroll-to-top scroll-to-top_inactive">
                 <div id="how-many-new-ads" class="how-many-new-ads how-many-new-ads_inactive"></div>
             </div>
