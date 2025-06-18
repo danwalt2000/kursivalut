@@ -214,6 +214,11 @@ a:hover{
     max-width: 920px;
     margin: auto;
 }
+.footer_content p{
+    color: var(--main-bg-color);
+    margin-bottom: 5px;
+
+}
 .columns{
     display: grid;
     grid-template-columns: 65% 34%;
@@ -945,8 +950,10 @@ span.with-arrow-rarr-up::after,
 }
 .footer a{
     color: var(--main-bg-color);
-    text-decoration: underline;
     font: var(--para-small-font);
+}
+.underscore{
+    text-decoration: underline;
 }
 .form-open-span{
     display: none;
@@ -1292,7 +1299,7 @@ singlead{
         grid-gap: unset;
     }
     .footer_content{
-        margin: 0 15px 40px;
+        margin: 0 15px 60px;
     }
     .logo{
         border-radius: 0;
