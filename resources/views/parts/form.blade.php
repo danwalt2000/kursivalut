@@ -11,7 +11,7 @@
         @endif
         <div id="close_modal" class="close_modal"></div>
         @if($is_allowed)
-            <h2>Подать объявление</h2>
+            <p class="h2">Подать объявление</p>
             <form id="ad_form" action="/all?modal=post" method="post" class="form-ad">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <div class="form-ad-row-radio sell-buy">
@@ -71,7 +71,9 @@
         @endif
     </section>
 </div>
-<button id="form-open" class="form-open">
-    <span class="form-open-span">+</span>
-    Подать объявление
-</button>
+@if( isset($geodata) && !empty($geodata['geo_allowed']) )
+    <button id="form-open" class="form-open">
+        <span class="form-open-span">+</span>
+        Подать объявление
+    </button>
+@endif
