@@ -6,7 +6,7 @@ return [
 
     'keys' => [
         'vk' => [
-            'url_key'        => 'https://api.vk.com/method/wall.get?v=5.81&access_token=',
+            'url_key'        => 'https://api.vk.ru/method/wall.get?v=5.81&access_token=',
             'items_key'      => 'items',
             'text_key'       => 'text',
             'channel_id_key' => 'owner_id',
