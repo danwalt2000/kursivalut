@@ -138,8 +138,12 @@ class ParseAdsController extends Controller
             "offtopic": @bool (true/false) - does the message contain profanity or insults, is there mention about politics, war, offering prostitution or drug sales?
         }</questions>
         <text>' . $ad_text . '</text>';
+        
+        $flashModel = 'gemini-2.5-flash'; 
+        $proModel = 'gemini-2.5-pro';
+        // вывести список моделей Gemini::models()->list()
         try {
-            $result = Gemini::geminiFlash()->generateContent($content);
+            $result = Gemini::generativeModel($flashModel)->generateContent($content);
             if(isset($result->candidates[0]->content->parts) && !empty($result->candidates[0]->content->parts)){
                 $ai_response = $result->text();
             }
@@ -147,7 +151,7 @@ class ParseAdsController extends Controller
             Log::error($exception);
             // подстрахуемся запросом к модели GeminiPro, если GeminiFlash не отвечает
             try {
-                $result = Gemini::geminiPro()->generateContent($content);
+                $result = Gemini::generativeModel($proModel)->generateContent($content);
                 if(isset($result->candidates[0]->content->parts) && !empty($result->candidates[0]->content->parts)){
                     $ai_response = $result->text();
                 }
