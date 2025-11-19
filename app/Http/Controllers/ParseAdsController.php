@@ -139,19 +139,19 @@ class ParseAdsController extends Controller
         }</questions>
         <text>' . $ad_text . '</text>';
         
-        $flashModel = 'gemini-2.5-flash'; 
-        $proModel = 'gemini-2.5-pro';
+        $flashLiteModel = 'gemini-2.5-flash-lite'; 
+        $flashModel = 'gemini-2.5-flash';
         // вывести список моделей Gemini::models()->list()
         try {
-            $result = Gemini::generativeModel($flashModel)->generateContent($content);
+            $result = Gemini::generativeModel($flashLiteModel)->generateContent($content);
             if(isset($result->candidates[0]->content->parts) && !empty($result->candidates[0]->content->parts)){
                 $ai_response = $result->text();
             }
         } catch(\Exception $exception) {
             Log::error($exception);
-            // подстрахуемся запросом к модели GeminiPro, если GeminiFlash не отвечает
+            // подстрахуемся запросом к flash модели, если flash-lite не отвечает
             try {
-                $result = Gemini::generativeModel($proModel)->generateContent($content);
+                $result = Gemini::generativeModel($flashModel)->generateContent($content);
                 if(isset($result->candidates[0]->content->parts) && !empty($result->candidates[0]->content->parts)){
                     $ai_response = $result->text();
                 }
