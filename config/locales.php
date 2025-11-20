@@ -26,7 +26,7 @@ return [
             "donetsk_obmen_valyuta" => ["id" => "-174075254", "time" => "hourly"],              // 60 BANNED
             // "obmenvalut_dnr"        => ["id" => "-172375183", "time" => "hourly"],              // 60 BANNED
             
-            "moneydonetsk"        => ["id" => "-24635912", "time" => "everyThirtyMinutes"],              // 60 BANNED
+            // "moneydonetsk"        => ["id" => "-24635912", "time" => "everyThirtyMinutes"],              // 60 BANNED
             // "obmenvalytdon_43586" => ["id" => "-86752029", "time" => "hourly"],              // 60 BANNED
             // "obmenkaclub"        => ["id" => "-141203158", "time" => "hourly"],              // 60 BANNED
             // "obmen_valut_harcyzsk" => ["id" => "-111721499", "time" => "hourly"],              // 60 BANNED

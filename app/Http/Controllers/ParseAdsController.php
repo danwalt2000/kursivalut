@@ -1,8 +1,8 @@
 <?php
  
 namespace App\Http\Controllers;
-use Log;
-use Config;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Config;
 use App\Http\Controllers\DBController;
 use Gemini\Laravel\Facades\Gemini;
 

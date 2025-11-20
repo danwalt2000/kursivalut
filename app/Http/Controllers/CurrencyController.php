@@ -5,8 +5,8 @@ use Illuminate\Support\Facades\URL;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Psr\Http\Message\RequestInterface;
-use Log;
-use Config;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Config;
 use App\Http\Controllers\GetAdsController;
 use App\Http\Controllers\ParseAdsController;
 use App\Http\Controllers\ParseUriController;
@@ -19,6 +19,7 @@ class CurrencyController extends Controller
     public $to_view = [];    // массив переменных для представления
     public $host;            // текущий домен и поддомен
     public $locale;          // текущая локаль из конф. файла locales.php
+    public $locales;         
     public $currencies = []; // список валют для текущей локали
     public $currencies_loc = []; // список валют в родительном падеже
     public $path = [];       // разложенный по частям uri

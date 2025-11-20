@@ -2,8 +2,8 @@
  
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
-use Log;
-use Config;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Http;
 use App\Http\Controllers\DBController;
  

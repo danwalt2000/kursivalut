@@ -2,9 +2,8 @@
  
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Storage;
-use Log;
-use Config;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Config;
 use App\Http\Controllers\PostAdsController;
  
 class GetAdsController extends Controller
@@ -120,7 +119,59 @@ class GetAdsController extends Controller
                 if(isset($parsed_ad["type"]) && empty($parsed_ad["type"]) && isset($_POST["mygroup"])){
                     $for_remove = $for_parsing[0];
                     $for_remove["locale"] = $locale["name"];
-                    PostAdsController::modetateTg($for_remove);
+                    PostAdsController::moderateTg($for_remove);
+                    // PostAdsController::deleteInTg($parsed_ad);
+                }
+            }
+            return $parsed_ad;
+        }
+    }
+    
+    // получение нового объявления по обращению из php artisan telegram:process {data-json} {--my-group}
+    public function addPostByShellCommand( $json, $is_my_group = false ){
+        if(empty($json->message)) return;
+        $message = $json->message;
+
+        // в новой версии TelegramApiServer структура json'а другая, поэтому это условие не работает 
+        if( empty($message->peer_id) || empty($message->peer_id->channel_id) ) return;
+        
+        $channel_id = $message->peer_id->channel_id;
+
+        $locales = Config::get('locales');
+        $target_locale = [];
+        
+        foreach($locales as $locale){
+            if( array_key_exists($channel_id, $locale['tg']) ){
+                $target_locale = $locale;
+                break;
+            }
+        }
+
+        if( !empty($target_locale) ){
+            // не обрабатывать запросы, если это репосты в афилированные группы
+            // Log::error(str_contains($locale['tg'][$channel_id]["id"], env("TG_CHANNEL_DOMAIN")));
+            if(str_contains($locale['tg'][$channel_id]["id"], env("TG_CHANNEL_DOMAIN")) && $is_my_group == false) return "From my group";
+            
+            $for_parsing = [ (array) $message ];
+            // Log::error(json_encode($for_parsing));
+            
+            $parsed_ad = $this->parser->parseAd( $for_parsing, $locale['tg'][$channel_id], $locale, 'tg' );
+            // только на проде
+            if(env("APP_ENV") == "production"){
+                // иногда нужно проверить на локалке - для этого раскомментируем это и закомментируем условие выше
+                // if(isset($parsed_ad["success"]) && !empty($parsed_ad["type"]) && $is_my_group == false &&
+                
+                // если объявление полезное и не из афилированной группы, делаем репост
+                if(isset($parsed_ad["success"]) && !empty($parsed_ad["success"]) && $is_my_group == false &&
+                   isset($parsed_ad["channel"]) && !str_contains($parsed_ad["channel"], env("TG_CHANNEL_DOMAIN"))){
+                    PostAdsController::postToTg($parsed_ad);
+                }
+    
+                // если объявление бесполезное и в афилированной группе - удаляем его
+                if(isset($parsed_ad["type"]) && empty($parsed_ad["type"]) && $is_my_group == true){
+                    $for_remove = $for_parsing[0];
+                    $for_remove["locale"] = $locale["name"];
+                    PostAdsController::moderateTg($for_remove);
                     // PostAdsController::deleteInTg($parsed_ad);
                 }
             }

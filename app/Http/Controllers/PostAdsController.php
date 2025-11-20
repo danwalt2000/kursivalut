@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
-use Log;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\DBController;
  
 class PostAdsController extends Controller
@@ -42,7 +42,12 @@ class PostAdsController extends Controller
     {
         // если источник объявления - телеграм, то пытаемся сделать репост
         if("tg" === $ad_object["domain"]){
-            $url = env("TG_LISTENER_DOMAIN") . "/api/messages.forwardMessages/?data[from_peer]=".$ad_object["channel"]."&data[to_peer]=@". env("TG_CHANNEL_DOMAIN") . $ad_object["locale"] . "&data[id][0]=" . $ad_object["vk_id"];
+            $ad_locale = $ad_object["locale"];
+
+            // в локальной разработке используется группа @kursivalut_ru_test
+            if(env("APP_ENV") == "local") $ad_locale = "test";
+            
+            $url = env("TG_LISTENER_DOMAIN") . "/api/messages.forwardMessages/?data[from_peer]=".$ad_object["channel"]."&data[to_peer]=@". env("TG_CHANNEL_DOMAIN") . $ad_locale . "&data[id][0]=" . $ad_object["vk_id"];
             // проводим проверку, чтобы последнее сообщение в группе не было от того же пользователя
             // что и нынешнее: часто люди постят свои сообщения одновременно в несколько групп,
             // из-за чего в афилированной группе появляется несколько одинаковых сообщений подряд
@@ -88,7 +93,7 @@ class PostAdsController extends Controller
     }
 
     // удаление спама + отправка сообщения об удалении
-    public static function modetateTg( $remove_ad_object )
+    public static function moderateTg( $remove_ad_object )
     {
         PostAdsController::deleteInTg($remove_ad_object);
         $remove_ad_object["moderation"] = "1";

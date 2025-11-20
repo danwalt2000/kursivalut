@@ -6,7 +6,7 @@ use App\Http\Controllers\GetAdsController;
 use App\Http\Controllers\RatesController;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
-use Config;
+use Illuminate\Support\Facades\Config;
 
 class Kernel extends ConsoleKernel
 {
