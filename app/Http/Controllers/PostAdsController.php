@@ -163,22 +163,6 @@ class PostAdsController extends Controller
         return $userinfo;
     }
 
-    // не используется
-    public static function sendNoteInTg( $ad_object )
-    {
-        if(isset($ad_object["vk_id"]) && !empty($ad_object["vk_id"]) 
-        // && isset($post["from_id"]->user_id) && !empty($post["from_id"]->user_id) && isset($post["message"]) 
-        ){
-            $text = "Ваше сообщение в группе @". env("TG_CHANNEL_DOMAIN") . $ad_object["locale"]." не прошло модерацию и было удалено. Пожалуйста, ознакомьтесь с правилами публикации объявлений в группе. Текст вашего сообщения:\n«" .$ad_object["content"] . "»";
-            $custom_ad_object = $ad_object;
-            $custom_ad_object["content"] = $text;
-            $custom_ad_object["moderation"] = "1";
-            // $url = env("TG_LISTENER_DOMAIN") . "/api/messages.sendMessage/?data[peer]=" . $post["from_id"]->user_id . "&data[message]=" . $text_replaced;
-            PostAdsController::sendToTg($custom_ad_object);
-            
-        }
-    }
-
     // обертка для отправки get-запросов
     public static function sendHttp($url)
     {
