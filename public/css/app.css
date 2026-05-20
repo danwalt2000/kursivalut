@@ -22,6 +22,7 @@
     --h1-font: 700 28px/140% 'Geist', sans-serif;
     --h2-font: 600 20px/140% 'Geist', sans-serif;
     --h3-font: 400 18px/140% "Geist", sans-serif;
+    --h3-bold: 700 18px/140% "Geist", sans-serif;
     --h4-font: 400 16px/140% "Geist", sans-serif;
     --para-medium-extrabolt: 700 15px/140% "Geist", sans-serif;
     --para-medium-bolt: 600 15px/140% "Geist", sans-serif;
@@ -97,6 +98,9 @@ a:hover{
     background-position: top;
     min-height: 100vh;
 }
+.border-border{
+    border: 1px solid var(--border);
+}
 .logo-wrapper{
     background-color: var(--surface-1);
     border: 1px solid color-mix(in oklab, var(--border) 92%, transparent);
@@ -106,36 +110,27 @@ a:hover{
 }
 .logo{
     display: grid;
-    grid-template-columns: max-content minmax(0, 1fr) repeat(4, max-content);
+    grid-template-columns: max-content max-content minmax(0, 1fr) repeat(3, max-content);
     justify-content: space-between;
     align-items: center;
     padding: 0 25px;
     column-gap: 10px;
     max-width: var(--desktop-width);
-    backdrop-filter: blur(18px);
 }
 .logo-link{
     display: flex;
     align-items: center;
     gap: 5px;
 }
-.tg_link{
-    background-color: var(--logo-color);
-    padding: 8px;
-    border-radius: 4px;
-}
 .theme-toggle{
     display: inline-flex;
     align-items: center;
     gap: 10px;
     min-height: 36px;
-    padding: 8px 12px;
-    border: 1px solid color-mix(in oklab, var(--border) 92%, transparent);
+    padding: 12px;
     border-radius: calc(var(--radius) - 2px);
-    background-color: var(--surface-3);
     color: var(--foreground);
     cursor: pointer;
-    box-shadow: 0 8px 18px color-mix(in oklab, var(--foreground) 8%, transparent);
     transition: background-color .2s ease, border-color .2s ease, box-shadow .2s ease, transform .2s ease;
 }
 .theme-toggle:hover{
@@ -146,6 +141,20 @@ a:hover{
 .theme-toggle:focus-visible{
     outline: none;
     box-shadow: var(--shadow-focus);
+}
+.theme-toggle-light,
+.theme-toggle-dark{
+    color: var(--muted-foreground);
+}
+.theme-toggle-dark{
+    color: var(--muted-foreground);
+    display: none;
+}
+.dark .theme-toggle-light{
+    display: none;
+}
+.dark .theme-toggle-dark{
+    display: block;
 }
 .theme-toggle-copy{
     display: flex;
@@ -166,7 +175,6 @@ a:hover{
     display: inline-block;
     width: 14px;
     height: 14px;
-    border: 1.5px solid currentColor;
     border-radius: 50%;
     flex-shrink: 0;
 }
@@ -185,12 +193,8 @@ a:hover{
 .dark .theme-toggle{
     box-shadow: 0 10px 20px color-mix(in oklab, black 28%, transparent);
 }
-.tg_link_img{
-    display: flex;
-    align-items: center;
-}
 .logo-title{
-    font: var(--h3-font);
+    font: var(--h3-bold);
     line-height: 115%;
     margin: 0;
     color: var(--foreground);
@@ -203,18 +207,12 @@ a:hover{
     display: flex;
     align-items: center;
     gap: 4px;
-    color: var(--link-color);
+    color: var(--muted-foreground);
+    font: var(--para-small-font);
     cursor: pointer;
 }
 .location-modal-open:hover{
-    color: var(--link-hover-color);
-}
-.location-modal-open::before{
-    content: '';
-    width: 16px;
-    height: 16px;
-    display: inline-block;
-    background-image: url(/img/location.svg);
+    color: var(--foreground);
 }
 .location-title{
     font: var(--h2-font);
@@ -242,31 +240,31 @@ a:hover{
     display: inline-block;
     background-image: url(/img/checked-icon.svg);
 }
+.search{
+    color: var(--foreground);
+}
 .search-form{
     position: relative;
-    justify-self: flex-end;
+    justify-self: center;
+    width: 100%;
+    max-width: 450px;
+    display: flex;
+    justify-content: center;
 }
 .search-input{
     min-width: 150px;
-    padding: 9px 30px 9px 10px;
-    border: none;
-    border: 1px solid var(--muted-foreground);
+    width: 100%;
+    padding: 7px 10px 7px 40px;
     box-sizing: border-box;
     border-radius: 4px;
 }
 .search-input::placeholder{
     font: var(--span-font);
 }
-.form-wrapper input:focus-visible,
-.form-ad-row textarea:focus-visible,
-.search-input:focus-visible{
-    outline: unset;
-    border: 1px solid var(--link-color);;
-}
 .search-submit{
     position: absolute;
     top: 8px;
-    right: 3px;
+    left: 10px;
     bottom: 0.3125rem;
     color: #7a7a7a;
     background: none;
@@ -293,11 +291,10 @@ a:hover{
     max-width: var(--desktop-width);
     padding: 0 15px;
     display: grid;
-    grid-template-columns: 1fr 280px;
+    grid-template-columns: calc(100% - 300px) 280px;
     grid-gap: 20px;
     justify-content: space-between;
 }
-
 .currency-title{
     grid-column: 1 / 3;
 }
@@ -373,12 +370,9 @@ a:hover{
     z-index: 4;
 }
 .form-open{
-    display: block;
-    background-color: var(--active-bg-color);
-    border: 1px solid var(--link-color);
-    color: var(--link-color);
+    display: flex;
+    gap: 6px;
     font: var(--span-font);
-    border-radius: 4px;
     bottom: 0;
     left: 0;
     right: 0;
@@ -931,7 +925,7 @@ span.with-arrow-rarr-up::after,
 }
 .no-ads-tg-link::before{
     content: '';
-    background-image: url(/img/tg_logo_white.svg);
+    background-image: url(/img/tg_logo.svg);
     background-repeat: no-repeat;
     width: 20px;
     height: 20px;
@@ -1377,23 +1371,25 @@ h1, h2, h3, h4, h5, strong{
     color: var(--foreground);
 }
 .tg_link{
-    background-color: var(--primary);
-    border: 1px solid color-mix(in oklab, var(--primary) 76%, var(--foreground));
-    box-shadow: 0 10px 20px color-mix(in oklab, var(--primary) 18%, transparent);
-    transition: transform .2s ease, box-shadow .2s ease, background-color .2s ease;
+    padding: 12px;
+    border-radius: 4px;
+}
+.tg_link_img{
+    display: flex;
+    align-items: center;
+    color: var(--muted-foreground);
 }
 .tg_link:hover{
-    background-color: var(--link-hover-color);
-    color: var(--primary-foreground);
+    background-color: var(--surface-2);
+    border-color: color-mix(in oklab, var(--primary) 46%, var(--border));
+    border-radius: calc(var(--radius) - 2px);
     transform: translateY(-1px);
-    box-shadow: 0 12px 24px color-mix(in oklab, var(--primary) 24%, transparent);
 }
 .search-input,
 .form-ad-row input,
 .form-ad-row textarea{
     background-color: var(--surface-3);
     color: var(--foreground);
-    border: 1px solid var(--input);
     border-radius: calc(var(--radius) - 2px);
     box-shadow: inset 0 1px 0 color-mix(in oklab, var(--background) 65%, transparent), 0 1px 2px color-mix(in oklab, var(--foreground) 4%, transparent);
     transition: border-color .2s ease, box-shadow .2s ease, background-color .2s ease;
@@ -1409,6 +1405,7 @@ h1, h2, h3, h4, h5, strong{
     border-color: var(--ring);
     box-shadow: var(--shadow-focus);
     background-color: var(--background);
+    outline: unset;
 }
 .search-label,
 .form-ad-row label{

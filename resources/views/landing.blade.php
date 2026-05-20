@@ -36,7 +36,3 @@
 @section('show_modal', '0')
 @section('show_page_scripts', '0')
 @section('show_yandex_ad_script', '0')
-
-@section('main')
-    @parent
-@show

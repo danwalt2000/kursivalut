@@ -1,7 +1,4 @@
 <button type="button" class="theme-toggle" data-theme-toggle aria-pressed="false" aria-label="Переключить тему">
-    <span class="theme-toggle-icon" aria-hidden="true"></span>
-    <span class="theme-toggle-copy">
-        <span class="theme-toggle-label">Тема</span>
-        <span class="theme-toggle-state" data-theme-toggle-state>Светлая</span>
-    </span>
+    <svg alt="Светлая тема" class="theme-toggle-light" width="18" height="18"><use href="/img/sun.svg"></use></svg>
+    <svg alt="Темная тема" class="theme-toggle-dark" width="18" height="18"><use href="/img/moon.svg"></use></svg>
 </button>

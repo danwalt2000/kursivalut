@@ -22,10 +22,3 @@
 @section('show_page_scripts', '0')
 @section('show_app_js', '0')
 @section('show_yandex_ad_script', '0')
-@section('footer_content')
-    Сайт разработан <a href="https://sharpdesign.ru">SharpDesign</a>.
-@endsection
-
-@section('main')
-    @parent
-@show

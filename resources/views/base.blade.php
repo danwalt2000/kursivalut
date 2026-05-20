@@ -72,13 +72,16 @@
                     <div class="logo">
                         <a href="{{ $logoLinkHref }}" class="logo-link">
                             <img width="70px" height="70px" alt="{{ $headerLogoAlt }}" class="logo-img" src="{{ $headerLogoImage }}" loading="lazy">
-                            <p class="logo-title">{{ $headerLogoTitle }}</p>
                         </a>
-                        @if($__env->hasSection('header_location'))
-                            @yield('header_location')
-                        @else
-                            @include('parts.location')
-                        @endif
+                        <div class="logo-text">
+                            <a href="{{ $logoLinkHref }}" class="logo-link"><p class="logo-title">{{ $headerLogoTitle }}</p></a>
+                            @if($__env->hasSection('header_location'))
+                                @yield('header_location')
+                            @else
+                                @include('parts.location')
+                            @endif
+                        </div>
+                        
                         @if($__env->hasSection('header_search'))
                             @yield('header_search')
                         @else
@@ -98,7 +101,8 @@
                             @yield('header_action')
                         @elseif(isset($locale['name']))
                             <a class="tg_link" href="https://t.me/kursivalut_ru_{{ $locale['name'] }}" target="_blank">
-                                <img src="/img/tg_logo_white.svg" class="tg_link_img" width="20" height="20" loading="lazy">
+                                <svg alt="Сообщество Telegram" class="tg_link_img" width="18" height="18"><use href="/img/tg_logo.svg"></use></svg>
+                                {{-- <img src="/img/tg_logo_white.svg" class="tg_link_img" width="20" height="20" loading="lazy"> --}}
                             </a>
                         @endif
                     </div>
@@ -281,6 +285,7 @@
         @endif
         @include('parts.theme-script')
         @if($showAppJs)
+            {{-- @vite('resources/js/app.js') --}}
             <script src="/js/app.js?v=@isset($hash){{$hash}}@endisset" defer></script>
         @endif
         @yield('after_scripts')

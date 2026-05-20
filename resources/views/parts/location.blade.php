@@ -1,5 +1,5 @@
 <div class="location modal-wrapper">
-    <span class="modal-open location-modal-open">{{$locale['title']}}</span>
+    <span class="modal-open location-modal-open">📍 {{$locale['title']}}</span>
     <div class="popup-bg modal-hidden">
         <div class="modal-inner location-popup">
             <span class="modal-close close_modal"></span>
