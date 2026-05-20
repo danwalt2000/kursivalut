@@ -1,63 +1,73 @@
+@import "./globals.css";
+@import "./tailwind.css";
 :root {
-    --main-bg-color: #fff;
-    --chip-bg-color: #fefafa;
-    --active-bg-color: #effafc;
-    --link-color: #1f7c87; /* #51d1e0 */
-    --logo-color: #51d1e0;
-    --gray-border-color: #D6D6D6;
-    --red: #eb4e3d;
-    --green: #65c466;
-    --link-hover-color: #267f89;
-    --title-color: #242423;
-    --para-color: #3E3E40;
-    --question-mark-color: #A8A9AC;
-    --h1-font: 700 28px/140% 'Open Sans', sans-serif;
-    --h2-font: 600 20px/140% 'Open Sans', sans-serif;
-    --h3-font: 400 18px/140% "Open Sans", sans-serif;
-    --h4-font: 400 16px/140% "Open Sans", sans-serif;
-    --para-medium-bolt: 600 15px/140% "Open Sans", sans-serif;
-    --para-medium-font: 400 15px/140% "Open Sans", sans-serif;
-    --span-font: 400 13px/140% "Open Sans", sans-serif;
-    --para-small-font: 400 12px/140% "Open Sans", sans-serif;
+    --background-color: var(--background);
+    --chip-bg-color: color-mix(in oklab, var(--background) 86%, var(--secondary));
+    --active-bg-color: color-mix(in oklab, var(--primary) 12%, var(--background));
+    --link-color: var(--primary);
+    --logo-color: var(--primary);
+    --gray-border-color: var(--border);
+    --red: var(--destructive);
+    --green: var(--success);
+    --link-hover-color: color-mix(in oklab, var(--primary) 86%, var(--foreground));
+    --question-mark-color: var(--muted-foreground);
+    --surface-1: color-mix(in oklab, var(--card) 94%, transparent);
+    --surface-2: color-mix(in oklab, var(--secondary) 76%, var(--background));
+    --surface-3: color-mix(in oklab, var(--background) 82%, var(--secondary));
+    --shadow-soft: 0 12px 30px color-mix(in oklab, var(--foreground) 10%, transparent);
+    --shadow-card: 0 10px 24px color-mix(in oklab, var(--foreground) 8%, transparent);
+    --shadow-focus: 0 0 0 3px color-mix(in oklab, var(--ring) 20%, transparent);
+    --desktop-width: 1501px;
+    --btn-color: var(--sidebar-foreground);
+    --h1-font: 700 28px/140% 'Geist', sans-serif;
+    --h2-font: 600 20px/140% 'Geist', sans-serif;
+    --h3-font: 400 18px/140% "Geist", sans-serif;
+    --h4-font: 400 16px/140% "Geist", sans-serif;
+    --para-medium-extrabolt: 700 15px/140% "Geist", sans-serif;
+    --para-medium-bolt: 600 15px/140% "Geist", sans-serif;
+    --para-medium-font: 400 15px/140% "Geist", sans-serif;
+    --span-font: 400 13px/140% "Geist", sans-serif;
+    --para-small-font: 400 12px/140% "Geist", sans-serif;
+}
+
+.dark {
+    --chip-bg-color: color-mix(in oklab, var(--secondary) 80%, var(--background));
+    --active-bg-color: color-mix(in oklab, var(--primary) 16%, var(--background));
+    --surface-1: color-mix(in oklab, var(--card) 92%, transparent);
+    --surface-2: color-mix(in oklab, var(--secondary) 84%, var(--background));
+    --surface-3: color-mix(in oklab, var(--background) 62%, var(--secondary));
+    --shadow-soft: 0 18px 40px color-mix(in oklab, black 42%, transparent);
+    --shadow-card: 0 14px 32px color-mix(in oklab, black 32%, transparent);
 }
 
 @font-face {
-    font-family: 'Open Sans';
-    src: url('../fonts/open-sans-300.eot?#iefix') format('embedded-opentype'), 
-         url('../fonts/open-sans-300.woff') format('woff'), 
-         url('../fonts/open-sans-300.ttf') format('truetype'), 
-         url('../fonts/open-sans-300.svg') format('svg');
+    font-family: 'Geist';
+    src: url('../fonts/Geist-Light.ttf') format('truetype');
     font-weight: light;
     font-style: normal;
     font-display: swap;
 }
 @font-face {
-    font-family: 'Open Sans';
-    src: url('../fonts/open-sans-regular.eot?#iefix') format('embedded-opentype'), 
-         url('../fonts/open-sans-regular.woff') format('woff'), 
-         url('../fonts/open-sans-regular.ttf') format('truetype'), 
-         url('../fonts/open-sans-regular.svg') format('svg');
+    font-family: 'Geist';
+    src: url('../fonts/Geist-Medium.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
-    font-family: 'Open Sans';
-    src: url('../fonts/open-sans-700.eot?#iefix') format('embedded-opentype'), 
-         url('../fonts/open-sans-700.woff') format('woff'), 
-         url('../fonts/open-sans-700.ttf') format('truetype'), 
-         url('../fonts/open-sans-700.svg') format('svg');
+    font-family: 'Geist';
+    src: url('../fonts/Geist-Bold.ttf') format('truetype');
     font-weight: bold;
     font-style: normal;
     font-display: swap;
 }
 
 body {
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Geist', sans-serif;
     width: 100%;
     margin: 0;
-    color: var(--title-color);
+    color: var(--foreground);
     font: var(--para-medium-font);
 }
 h1, h2, h3, h4, h5, p{
@@ -73,7 +83,7 @@ h3, .h3{
     font: var(--h3-font);
 }
 p{
-    color: var(--para-color);
+    color: var(--muted-foreground);
 }
 a{
     text-decoration: none;
@@ -84,23 +94,25 @@ a:hover{
     color: var(--link-hover-color);
 }
 .bg-gradient{
-    background-color: #edeef0;
     background-position: top;
     min-height: 100vh;
 }
+.logo-wrapper{
+    background-color: var(--surface-1);
+    border: 1px solid color-mix(in oklab, var(--border) 92%, transparent);
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
 .logo{
     display: grid;
-    grid-template-columns: max-content 1fr max-content  max-content max-content;
-    background-color: var(--main-bg-color);
-    border-radius: 6px;
+    grid-template-columns: max-content minmax(0, 1fr) repeat(4, max-content);
     justify-content: space-between;
     align-items: center;
     padding: 0 25px;
     column-gap: 10px;
-    position: sticky;
-    top: 0;
-    box-shadow: 0px 4px 4px rgb(0 0 0 / 8%);
-    z-index: 2;
+    max-width: var(--desktop-width);
+    backdrop-filter: blur(18px);
 }
 .logo-link{
     display: flex;
@@ -112,6 +124,67 @@ a:hover{
     padding: 8px;
     border-radius: 4px;
 }
+.theme-toggle{
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 36px;
+    padding: 8px 12px;
+    border: 1px solid color-mix(in oklab, var(--border) 92%, transparent);
+    border-radius: calc(var(--radius) - 2px);
+    background-color: var(--surface-3);
+    color: var(--foreground);
+    cursor: pointer;
+    box-shadow: 0 8px 18px color-mix(in oklab, var(--foreground) 8%, transparent);
+    transition: background-color .2s ease, border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+}
+.theme-toggle:hover{
+    background-color: var(--surface-2);
+    border-color: color-mix(in oklab, var(--primary) 46%, var(--border));
+    transform: translateY(-1px);
+}
+.theme-toggle:focus-visible{
+    outline: none;
+    box-shadow: var(--shadow-focus);
+}
+.theme-toggle-copy{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    line-height: 1.1;
+}
+.theme-toggle-label{
+    font: var(--para-small-font);
+    color: var(--muted-foreground);
+}
+.theme-toggle-state{
+    font: var(--span-font);
+    color: var(--foreground);
+}
+.theme-toggle-icon{
+    position: relative;
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border: 1.5px solid currentColor;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+.theme-toggle-icon::after{
+    content: '';
+    position: absolute;
+    inset: 2px;
+    border-radius: 50%;
+    background-color: currentColor;
+    transform: scale(0);
+    transition: transform .2s ease;
+}
+.theme-toggle[data-theme="dark"] .theme-toggle-icon::after{
+    transform: scale(1);
+}
+.dark .theme-toggle{
+    box-shadow: 0 10px 20px color-mix(in oklab, black 28%, transparent);
+}
 .tg_link_img{
     display: flex;
     align-items: center;
@@ -120,7 +193,7 @@ a:hover{
     font: var(--h3-font);
     line-height: 115%;
     margin: 0;
-    color: var(--title-color);
+    color: var(--foreground);
     white-space: nowrap;
 }
 .logo-img{
@@ -153,7 +226,7 @@ a:hover{
     grid-gap: 24px;
 }
 .location-city a{
-    color: var(--para-color);
+    color: var(--muted-foreground);
     font: var(--para-medium-font);
 }
 .location_current-city{
@@ -177,7 +250,7 @@ a:hover{
     min-width: 150px;
     padding: 9px 30px 9px 10px;
     border: none;
-    border: 1px solid var(--para-color);
+    border: 1px solid var(--muted-foreground);
     box-sizing: border-box;
     border-radius: 4px;
 }
@@ -204,25 +277,24 @@ a:hover{
     text-transform: lowercase;
 }
 .main{
-    max-width: 920px;
-    padding: 0 15px;
     width: 100%;
     margin: auto;
-    padding-top: 10px;
 }
 .footer_content{
     max-width: 920px;
     margin: auto;
 }
 .footer_content p{
-    color: var(--main-bg-color);
+    color: var(--foreground);
     margin-bottom: 5px;
 
 }
 .columns{
+    max-width: var(--desktop-width);
+    padding: 0 15px;
     display: grid;
-    grid-template-columns: 65% 34%;
-    grid-gap: 10px;
+    grid-template-columns: 1fr 280px;
+    grid-gap: 20px;
     justify-content: space-between;
 }
 
@@ -244,15 +316,15 @@ a:hover{
 .modal-inner,
 .attention-note,
 .sorting-column{
-    background-color: var(--main-bg-color);
-    margin: 10px 0;
+    background-color: var(--surface-1);
+    margin: 20px 0;
     border-radius: 6px;
     padding: 25px;
     background-repeat: no-repeat;
 }
 .attention-note{
-    background-color: var(--title-color);
-    color: var(--main-bg-color);
+    background-color: var(--foreground);
+    color: var(--surface-1);
     display: grid;
     grid-template-columns: 40px 1fr;
     align-items: center;
@@ -266,7 +338,7 @@ a:hover{
     display: inline-block;
     background-image: url(/img/danger-treangle-green.svg);
     background-repeat: no-repeat;
-    background-color: var(--main-bg-color);
+    background-color: var(--surface-1);
     background-position: center;
 }
 .close_modal{
@@ -317,7 +389,7 @@ a:hover{
 }
 .form-open:hover{
     background-color: var(--logo-color);
-    color: var(--main-bg-color);
+    color: var(--background);
     border-color: var(--logo-color);
 }
 .modal-inner,
@@ -408,7 +480,7 @@ a:hover{
     right: 0;
     top: 70%;
     border-radius: 6px;
-    background-color: var(--main-bg-color);
+    background-color: var(--background);
     box-shadow: -1px 13px 8px 0px rgb(34 60 80 / 20%);
     padding: 15px;
     z-index: 2;
@@ -463,7 +535,7 @@ nav ul{
     width: fit-content;
 }
 .chip a{
-    color: var(--para-color);
+    color: var(--muted-foreground);
 }
 .chip a:hover{
     color: var(--link-hover-color);
@@ -498,7 +570,7 @@ nav ul{
 }
 .sell-buy{
     display: flex;
-    background-color: var(--main-bg-color);
+    background-color: var(--background);
     width: fit-content;
     border-radius: 6px;
     padding: 6px;
@@ -546,7 +618,7 @@ nav ul{
 .course_checkbox a{
     display: flex;
     align-items: center;
-    color: var(--para-color);
+    color: var(--muted-foreground);
     gap: 10px;
 }
 .checkbox{
@@ -563,7 +635,7 @@ nav ul{
     content: "";
     height: 14px;
     width: 14px;
-    background-color: var(--main-bg-color);
+    background-color: var(--background);
     border-radius: 50%;
     position: absolute;
     display: inline-block;
@@ -575,7 +647,7 @@ nav ul{
     right: 2px;
 }
 .sell-buy a{
-    color: var(--para-color);
+    color: var(--muted-foreground);
 }
 .sell-buy-active .tab-active a{
     color: var(--link-color);
@@ -604,7 +676,7 @@ nav ul{
 }
 .dropdown-hidden{
     display: none;
-    background-color: var(--main-bg-color);
+    background-color: var(--background);
     -webkit-box-shadow: -1px 13px 8px 0px rgba(34, 60, 80, 0.2);
     -moz-box-shadow: -1px 13px 8px 0px rgba(34, 60, 80, 0.2);
     box-shadow: -1px -1px 8px 1px rgba(34, 60, 80, 0.2);
@@ -620,7 +692,7 @@ nav ul{
     content: '';
     width: 10px;
     height: 10px;
-    background-color: var(--main-bg-color);
+    background-color: var(--background);
     transform: rotate(45deg);
     position: absolute;
     top: -3px;
@@ -664,7 +736,7 @@ nav ul{
 }
 .sell-buy-active{
     border: 1px solid var(--link-color);
-    background-color: var(--main-bg-color);
+    background-color: var(--background);
 }
 .with-arrow:hover{
     background-color: var(--active-bg-color);
@@ -737,7 +809,7 @@ span.with-arrow-rarr-up::after,
     font-family: "Fira Sans", sans-serif;
     font-weight: 400;
     font: var(--para-small-font);
-    color: var(--para-color);
+    color: var(--muted-foreground);
     padding: 12px 16px;
     width: 100%;
 }
@@ -747,7 +819,7 @@ span.with-arrow-rarr-up::after,
 }
 .form-ad-row input::placeholder{
     font: var(--para-small-font);
-    color: var(--para-color);
+    color: var(--muted-foreground);
 }
 .form-ad-row{
     position: relative;
@@ -756,11 +828,11 @@ span.with-arrow-rarr-up::after,
 .search-label,
 .form-ad-row label{
     font: var(--para-small-font);
-    color: var(--para-color);
+    color: var(--muted-foreground);
     position: absolute;
     top: 13px; 
     left: 10px;
-    background: var(--main-bg-color);
+    background: var(--background);
     padding: 0 5px;
     visibility: hidden;
     transition: transform .3s linear;
@@ -817,7 +889,7 @@ span.with-arrow-rarr-up::after,
 }
 .additional-info-a{
     font: var(--para-small-font);
-    color: var(--para-color);
+    color: var(--muted-foreground);
 }
 .sell-buy span{
     font-weight: 100;
@@ -842,7 +914,7 @@ span.with-arrow-rarr-up::after,
 }
 .no-ads-tg-link{
     display: flex;
-    color: var(--main-bg-color);
+    color: var(--background);
     background: var(--logo-color);
     padding: 10px 40px;
     width: fit-content;
@@ -854,7 +926,7 @@ span.with-arrow-rarr-up::after,
     align-items: center;
 }
 .no-ads-tg-link:hover{
-    color: var(--main-bg-color);
+    color: var(--background);
     opacity: .9;
 }
 .no-ads-tg-link::before{
@@ -876,7 +948,7 @@ span.with-arrow-rarr-up::after,
     cursor: pointer;
 }
 .form-ad-row .form-ad-submit{
-    color: var(--main-bg-color);
+    color: var(--background);
     background-color: var(--logo-color);
 }
 .form-ad-submit:hover{
@@ -911,13 +983,13 @@ span.with-arrow-rarr-up::after,
     background-image: unset;
     background-color: rgba(204, 243, 247, .2);
     transition: all .3s linear;
-    color: var(--para-color);
+    color: var(--muted-foreground);
 }
 .hidden_phone:hover{
     color: rgba(0, 0, 0, 0);
 }
 .hidden_phone-visible:hover{
-    color: var(--para-color);
+    color: var(--muted-foreground);
 }
 .page-search .show-all-row,
 .page-search .nav-wrapper,
@@ -943,13 +1015,13 @@ span.with-arrow-rarr-up::after,
     display: block;
 }
 .footer{
-    background: var(--para-color);
-    color: var(--main-bg-color);
+    background: var(--muted-foreground);
+    color: var(--background);
     padding: 10px;
     font: var(--para-small-font);
 }
 .footer a{
-    color: var(--main-bg-color);
+    color: var(--background);
     font: var(--para-small-font);
 }
 .underscore{
@@ -1071,7 +1143,7 @@ span.with-arrow-rarr-up::after,
 .open-hint-message{
     display: none;
     position: absolute;
-    background: var(--title-color);
+    background: var(--foreground);
     color: var(--chip-bg-color);
     font: var(--para-small-font);
     right: -15px;
@@ -1085,7 +1157,7 @@ span.with-arrow-rarr-up::after,
 }
 .open-hint-message::before{
     content: "";
-    background-color: var(--title-color);
+    background-color: var(--foreground);
     width: 14px;
     height: 14px;
     top: -6px;
@@ -1108,7 +1180,7 @@ span.with-arrow-rarr-up::after,
 }
 div[data-block-name="button"] span,
 div[data-block-name="button"] a{
-    color: var(--main-bg-color);
+    color: var(--background);
 }
 .fetched{
     position: relative;
@@ -1193,7 +1265,7 @@ div[data-block-name="button"] a{
     --inner-padding: 18px;
     padding: 18px;
     border-radius: 12px;
-    background: var(--para-color);
+    background: var(--muted-foreground);
     box-shadow: 0 8px 6px 0 rgba(0, 8, 30, 0.10);
     max-width: 420px;
     max-height: calc(100vh - (2 * var(--outer-padding)));
@@ -1285,6 +1357,245 @@ div[data-block-name="button"] a{
 
 singlead{
     display: none;
+}
+
+/* Theme bridge migrated from x-currency */
+html{
+    background-color: var(--background);
+}
+body{
+    background-color: var(--background);
+}
+h1, h2, h3, h4, h5, strong{
+    color: var(--foreground);
+}
+.bg-gradient{
+    background-color: var(--background);
+}
+.logo-link,
+.logo-title{
+    color: var(--foreground);
+}
+.tg_link{
+    background-color: var(--primary);
+    border: 1px solid color-mix(in oklab, var(--primary) 76%, var(--foreground));
+    box-shadow: 0 10px 20px color-mix(in oklab, var(--primary) 18%, transparent);
+    transition: transform .2s ease, box-shadow .2s ease, background-color .2s ease;
+}
+.tg_link:hover{
+    background-color: var(--link-hover-color);
+    color: var(--primary-foreground);
+    transform: translateY(-1px);
+    box-shadow: 0 12px 24px color-mix(in oklab, var(--primary) 24%, transparent);
+}
+.search-input,
+.form-ad-row input,
+.form-ad-row textarea{
+    background-color: var(--surface-3);
+    color: var(--foreground);
+    border: 1px solid var(--input);
+    border-radius: calc(var(--radius) - 2px);
+    box-shadow: inset 0 1px 0 color-mix(in oklab, var(--background) 65%, transparent), 0 1px 2px color-mix(in oklab, var(--foreground) 4%, transparent);
+    transition: border-color .2s ease, box-shadow .2s ease, background-color .2s ease;
+}
+.search-input::placeholder,
+.form-ad-row input::placeholder,
+.form-ad-row textarea::placeholder{
+    color: var(--muted-foreground);
+}
+.form-wrapper input:focus-visible,
+.form-ad-row textarea:focus-visible,
+.search-input:focus-visible{
+    border-color: var(--ring);
+    box-shadow: var(--shadow-focus);
+    background-color: var(--background);
+}
+.search-label,
+.form-ad-row label{
+    background: var(--background);
+}
+.search-submit{
+    color: var(--muted-foreground);
+}
+.header-nav_wrapper,
+.rates,
+.chart,
+.post,
+.form-wrapper,
+.modal-inner,
+.attention-note,
+.sorting-column{
+    background-color: var(--surface-1);
+    border: 1px solid color-mix(in oklab, var(--border) 92%, transparent);
+    border-radius: calc(var(--radius) + 4px);
+    box-shadow: var(--shadow-card);
+}
+.attention-note{
+    background: linear-gradient(135deg, color-mix(in oklab, var(--foreground) 90%, var(--card)) 0%, color-mix(in oklab, var(--foreground) 84%, var(--primary)) 100%);
+    color: var(--card);
+}
+.attention-note::before{
+    background-color: var(--card);
+    border-radius: calc(var(--radius) - 2px);
+}
+.post-header{
+    border-bottom: 1px solid color-mix(in oklab, var(--border) 86%, transparent);
+}
+.info-hidden,
+.dropdown-hidden,
+.open-hint-message{
+    background-color: var(--popover);
+    color: var(--popover-foreground);
+    border: 1px solid color-mix(in oklab, var(--border) 86%, transparent);
+    box-shadow: var(--shadow-card);
+}
+.dropdown-hidden li:hover,
+.dropdown-hidden li:first-child:hover::after{
+    background-color: var(--surface-2);
+}
+.dropdown-hidden li:first-child::after{
+    background-color: var(--popover);
+}
+.dropdown-hidden li a,
+.chart-period{
+    border-top: 1px solid color-mix(in oklab, var(--border) 90%, transparent);
+}
+.chip,
+.chart-button,
+.sell-buy,
+.sort .with-arrow,
+.chart-dropdown .with-arrow,
+.currencies .with-arrow{
+    background-color: var(--surface-3);
+    border: 1px solid color-mix(in oklab, var(--border) 95%, transparent);
+}
+.sell-buy{
+    background-color: var(--surface-2);
+}
+.chip a,
+.sell-buy a,
+.with-arrow a,
+.course_checkbox a,
+.additional-info-a,
+.location-city a,
+.time,
+.time-published{
+    color: var(--muted-foreground);
+}
+.chip:hover,
+.sell-buy li:hover,
+.sell-buy label:hover,
+.with-arrow:hover{
+    background-color: var(--surface-2);
+}
+.chip-active,
+.chart-currency_active,
+.sell-buy-active,
+.tab-active,
+.form-ad-row-radio input[type="radio"]:checked+label{
+    background-color: var(--active-bg-color);
+    border-color: color-mix(in oklab, var(--primary) 55%, var(--border));
+}
+.chip-active,
+.chart-currency_active,
+.chip-active a,
+.sell-buy-active .tab-active a{
+    color: var(--link-color);
+}
+.sort .with-arrow,
+.chart-dropdown .with-arrow,
+.currencies .with-arrow,
+.form-open{
+    border-color: color-mix(in oklab, var(--primary) 46%, var(--border));
+}
+.form-open,
+.form-ad-row .form-ad-submit,
+.no-ads-tg-link{
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+    border-radius: calc(var(--radius) - 2px);
+    border: 1px solid transparent;
+    box-shadow: 0 10px 20px color-mix(in oklab, var(--primary) 18%, transparent);
+}
+.form-open:hover,
+.form-ad-submit:hover,
+.no-ads-tg-link:hover{
+    background-color: var(--link-hover-color);
+    color: var(--primary-foreground);
+    border-color: transparent;
+}
+.go_to_vk{
+    color: var(--primary);
+}
+.go_to_vk:hover{
+    color: var(--link-hover-color);
+}
+.additional-info{
+    padding-top: 4px;
+}
+.footer{
+    background: linear-gradient(180deg, color-mix(in oklab, var(--sidebar) 88%, var(--card)) 0%, var(--sidebar) 100%);
+    color: var(--sidebar-foreground);
+}
+.footer a,
+.footer_content p{
+    color: var(--sidebar-foreground);
+}
+.scroll-to-top{
+    background-color: var(--primary);
+    box-shadow: 0 10px 20px color-mix(in oklab, var(--primary) 18%, transparent);
+}
+.how-many-new-ads{
+    background-color: var(--destructive);
+    color: var(--destructive-foreground);
+}
+.rates_table_title,
+.rates_table_name,
+.rates_title h2{
+    color: var(--foreground);
+}
+.changes-span{
+    border: 1px solid color-mix(in oklab, var(--border) 90%, transparent);
+    background-color: var(--surface-2);
+    color: var(--muted-foreground);
+}
+.changes-span-minus{
+    border-color: var(--destructive);
+    background-color: color-mix(in oklab, var(--destructive) 16%, var(--background));
+    color: var(--destructive);
+}
+.changes-span-plus{
+    border-color: var(--success);
+    background-color: color-mix(in oklab, var(--success) 18%, var(--background));
+    color: var(--success);
+}
+.open-hint-btn{
+    color: var(--question-mark-color);
+    border-color: color-mix(in oklab, var(--border) 90%, transparent);
+    background-color: var(--surface-3);
+}
+.open-hint-message{
+    background: var(--popover);
+    color: var(--popover-foreground);
+}
+.open-hint-message::before{
+    background-color: var(--popover);
+}
+.fetched::after{
+    background-color: color-mix(in oklab, var(--primary) 10%, var(--background));
+}
+.cookiesInformer .dialog{
+    background: color-mix(in oklab, var(--sidebar) 92%, var(--card));
+    border: 1px solid color-mix(in oklab, var(--sidebar-border) 70%, transparent);
+}
+.cookiesInformer .dialog__button{
+    border-color: color-mix(in oklab, var(--sidebar-foreground) 70%, transparent);
+    color: var(--sidebar-foreground);
+}
+.dark .close_modal,
+.dark .open-hint-btn-close{
+    filter: brightness(0) invert(1);
+    opacity: .8;
 }
 @media (min-width: 992px) and (max-height: 460px){
     .sorting-column{
@@ -1445,7 +1756,7 @@ singlead{
         position: absolute;
         top: 100%;
         transition: transform .1s;
-        background: var(--main-bg-color);
+        background: var(--background);
         width: calc(100vw - 30px);
         left: 0;
         right: 0;
@@ -1456,7 +1767,7 @@ singlead{
         display: inline-block;
         font-size: 25px;
         font-weight: 100;
-        color: var(--main-bg-color);
+        color: var(--background);
     }
     .open-search{
         display: block;
@@ -1464,6 +1775,17 @@ singlead{
         background-color: var(--logo-color);
         object-fit: none;
         border-radius: 50%;
+    }
+    .theme-toggle{
+        width: 30px;
+        height: 30px;
+        min-height: 30px;
+        padding: 0;
+        justify-content: center;
+        border-radius: 50%;
+    }
+    .theme-toggle-copy{
+        display: none;
     }
     .search-submit{
         right: 15px;
