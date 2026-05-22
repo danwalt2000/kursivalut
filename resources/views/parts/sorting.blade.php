@@ -5,14 +5,14 @@
         <span class="chip @if( $path['sell_buy'] == 'all' || $path['sell_buy'] == '' ) chip-active @endif"><a href="/{{$query}}">Показать все</a></span>
         @if( !empty($ads) )
         <div class="course_checkbox">
+            Только с курсом
             @if("true" == $path['rate'])
                 <a href="{{ request()->fullUrlWithQuery(['rate' => 'false']) }}" title="Показать в том числе объявления без курса">
                     <div class="checkbox checkbox_active"></div>
             @else
                 <a href="{{ preg_replace('/\?$/', '', request()->fullUrlWithQuery(['rate' => null])) }}" title="Показать только объявления, в которых есть курс">
                     <div class="checkbox"></div>
-            @endif
-            Только с курсом</a>
+            @endif </a>
         </div>
     @endif
     </nav>

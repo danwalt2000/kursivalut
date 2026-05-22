@@ -13,7 +13,7 @@
             @endif
             
             @if( !empty($ads) )
-                <p class="ads_found">Найдено объявлений {{ $ads_count }}</p>
+                <p class="ads_found">Найдено <span class="ads_count">{{ $ads_count }}</span> объявлений </p>
             @endif
         </header>
 
@@ -27,7 +27,7 @@
                 <h2>Курсы валют на сегодня</h2>
             </div>
             <section class="rates_table">
-                <div class="rates_table_spot">
+                <div class="rates_table_column rates_table_spot">
                     <div class="rates_table_title">
                         Наличный рынок
                         <div class="open-hint">
@@ -41,7 +41,7 @@
                         @include('parts.rates-loop', ['rate' => $rate])    
                     @endforeach
                 </div>
-                <div class="rates_table_stock">
+                <div class="rates_table_column rates_table_stock">
                     <div class="rates_table_title">Биржевые котировки</div>
                     @foreach($stock_rates as $rate)
                         @include('parts.rates-loop', ['rate' => $rate])    

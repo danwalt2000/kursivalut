@@ -6,6 +6,6 @@
         @if($rate->changes > 0)changes-span-plus
         @elseif($rate->changes < 0)changes-span-minus
         @endif
-        ">{{$rate->changes}}</span>
+        ">{{ number_format($rate->changes, 2, '.', '') }}</span>
     </div>
 </div>

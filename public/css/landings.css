@@ -1,9 +1,14 @@
 .landing .columns{
     grid-template-columns: 1fr;
 }
-
+.header-nav_wrapper{
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    box-shadow: unset;
+    border: unset;
+}
 .landing-back-home{
-    background-color: var(--active-bg-color);
+    background-color: var(--card);
     padding: 9px;
     margin: 15px 0;
     width: fit-content;
@@ -17,7 +22,7 @@
     margin: 0;
 }
 .legal-article{
-    background-color: var(--main-bg-color);
+    background-color: var(--card);
     padding: 10px 25px 25px;
 }
 @media (max-width: 992px){
