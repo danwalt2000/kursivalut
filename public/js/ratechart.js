@@ -101,22 +101,34 @@ document.addEventListener("DOMContentLoaded", () => {
                     label: window.isMobileDevice ? 'нал.' : 'Наличный курс' + window.h1Keyword,
                     data: dataset.locale,
                     borderWidth: 2,
+                    tension: 0.4,
+                    fill: true,
                     borderColor: "#51d1e0",
-                    backgroundColor : "#51d1e0"
+                    backgroundColor : "rgba(0 137 148 / 0.3)",
                 },
                 {
                     label: window.isMobileDevice ? 'биржа' : 'Биржевой курс',
                     data: dataset.stock,
                     borderWidth: 1,
+                    tension: 0.4,
+                    fill: true,
                     borderColor: "#00aa6f",
-                    backgroundColor : "#00aa6f",
+                    backgroundColor : "rgba(0 143 74 / 0.3)",
                 }]
             },
             options: {
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            usePointStyle: 'circle'
+                        }
+                    }
+                },
                 scales: {
-                y: {
-                    // beginAtZero: true
-                }
+                    y: {
+                        // beginAtZero: true
+                    }
                 }
             }
         });
