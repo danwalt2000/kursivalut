@@ -155,8 +155,8 @@ a:hover{
     color: var(--muted-foreground);
 }
 .theme-toggle-dark{
-    color: var(--muted-foreground);
     display: none;
+    overflow: visible;
 }
 .dark .theme-toggle-light{
     display: none;
@@ -699,7 +699,7 @@ nav ul{
 .dropdown-hidden a{
     color: var(--muted-foreground);
 }
-.dropdown-hidden li:first-child::after{
+/* .dropdown-hidden li:first-child::after{
     content: '';
     width: 10px;
     height: 10px;
@@ -709,7 +709,7 @@ nav ul{
     top: -3px;
     right: 18px;
     display: inline-block;
-}
+} */
 .dropdown-hidden li{
     padding: 0 14px;
 }
@@ -1014,6 +1014,7 @@ span.with-arrow-rarr-up::after,
 .page-search .show-all-row,
 .page-search .nav-wrapper,
 .page-search .currency-title,
+.page-search .sorting-column .h6,
 .page-search .sort{
     display: none;
 }
@@ -1208,6 +1209,7 @@ div[data-block-name="button"] a{
 .chart_title{
     display: flex;
     justify-content: space-between;
+    margin-bottom: 15px;
 }
 .chart-button{
     padding: 5px 10px;
@@ -1911,9 +1913,6 @@ h1, h2, h3, h4, h5, strong{
     .logo-img{
         width: 50px;
         height: 50px;
-    }
-    .logo-title{
-        display: none;
     }
     .form-wrapper{
         max-width: 95%;
