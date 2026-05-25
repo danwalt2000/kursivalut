@@ -52,27 +52,27 @@
         <aside id="chart-block" class="chart chart_hidden">
             <div class="chart_title">
                 <h2>График курса <span id="chart_currency" class="chart_currency">доллара</span> к рублю</h2>
-            </div>
-            <div>
-                <canvas id="chart"></canvas>
-            </div>
-            <div class="chart-nav">
                 <div class="chart-dropdown dropdown-menu">
-                    <span class="h6">За период:</span>
+                    {{-- <span class="h6">За период:</span> --}}
                 
                     <ul class="chart-list">
                         <li class="with-arrow dropdown-item chart-period_active">
-                            <span class="with-arrow-rarr" data-period="14">две недели</span>
+                            <span class="with-arrow-rarr" data-period="14">2 недели</span>
                         </li>
                         <div class="dropdown-hidden">
-                            <li class="dropdown-item chart-period with-arrow-rarr " data-period="7">неделю</li>
-                            <li class="dropdown-item chart-period with-arrow-rarr chart-period_hidden" data-period="14">две недели</li>
+                            <li class="dropdown-item chart-period with-arrow-rarr " data-period="7">неделя</li>
+                            <li class="dropdown-item chart-period with-arrow-rarr chart-period_hidden" data-period="14">2 недели</li>
                             <li class="dropdown-item chart-period with-arrow-rarr" data-period="30">30 дней</li>
                             <li class="dropdown-item chart-period with-arrow-rarr" data-period="180">180 дней</li>
                             <li class="dropdown-item chart-period with-arrow-rarr" data-period="365">365 дней</li>
                         </div>
                     </ul>
                 </div>
+            </div>
+            <div>
+                <canvas id="chart"></canvas>
+            </div>
+            <div class="chart-nav">
                 <ul class="chart-buttons">
                     @foreach($rates as $rate)
                         <li class="chart-button chart-currency @if($rate->currency == "dollar") chart-currency_active @endif" 

@@ -1,5 +1,7 @@
 <section class="sorting-column sorting-column-collapsed">
-    <div id="open-filters" class="open-filters"><img alt="Открыть фильтры" width="15" height="8" src="/img/arrow-down-cyan.svg"></div>
+    <div id="open-filters" class="open-filters">
+        <svg alt="Открыть фильтры" class="open-filters-arrow" width="15" height="8"><use href="/img/arrow-down.svg"></use></svg>
+    </div>
     <h2 class="sorting-h2">Фильтры</h2>
     <nav class="show-all-row">
         <span class="chip @if( $path['sell_buy'] == 'all' || $path['sell_buy'] == '' ) chip-active @endif"><a href="/{{$query}}">Показать все</a></span>
@@ -16,6 +18,7 @@
         </div>
     @endif
     </nav>
+    <p class="h6">Тип операции</p>
     <nav class="nav-wrapper sell_buy">
         <li class="chip @if($path['sell_buy'] == 'sell') chip-active @endif">
             <a href="/ads/sell/{{ $path['currency'] }}{{$query}}">Продажа</a>
@@ -24,6 +27,7 @@
             <a href="/ads/buy/{{ $path['currency'] }}{{$query}}">Покупка</a>
         </li>
     </nav>
+    <p class="h6">Валюта</p>
     @if(count($currencies) > 3)<div class="currency-title">Валюта</div>@endif
     <nav class="nav-wrapper nav-currencies">
         @foreach($currencies as $name => $title)
@@ -34,7 +38,7 @@
         @endforeach
     </nav>
     <ul class="currencies dropdown-menu">
-        <span class="h6">За время</span>
+        <span class="h6">Диапазон времени</span>
         {{-- Выбранный диапазон отображаем первым --}}
     
         <li class="with-arrow dropdown-item">
@@ -60,15 +64,15 @@
         <span class="h6">Сортировка</span>
     
         <li class="with-arrow dropdown-item">
-            <span class="with-arrow-rarr with-arrow-rarr-span @if("date_asc" == $path['sort']) with-arrow-rarr-up @endif">Дата</span>
+            <span class="">Сначала  @if("date_asc" == $path['sort']) старые @else новые @endif</span>
         </li>
         <div class="dropdown-hidden">
-            <li class="dropdown-item with-arrow-rarr @if("date_desc" == $path['sort']) with-arrow-rarr-up @endif"><a 
+            <li class="dropdown-item"><a 
                 @if("date_desc" == $path['sort'])
                     href="{{ request()->fullUrlWithQuery(['sort' => 'date', 'order' => 'asc']) }}"
                 @else
                     href="{{ preg_replace('/\?$/', '', request()->fullUrlWithQuery(['sort' => null, 'order' => null]) ) }}"
-                @endif >Дата</a>
+                @endif >Сначала @if("date_asc" == $path['sort']) новые @else старые @endif</a>
         </div>
     </ul>
    

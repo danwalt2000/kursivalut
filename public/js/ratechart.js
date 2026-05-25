@@ -108,8 +108,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     label: window.isMobileDevice ? 'биржа' : 'Биржевой курс',
                     data: dataset.stock,
                     borderWidth: 1,
-                    borderColor: "#ffb1c1",
-                    backgroundColor : "#ffb1c1",
+                    borderColor: "#00aa6f",
+                    backgroundColor : "#00aa6f",
                 }]
             },
             options: {
