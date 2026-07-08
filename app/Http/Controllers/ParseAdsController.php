@@ -199,7 +199,11 @@ class ParseAdsController extends Controller
     }
 
     public static function parsePhone ( $text, $id ){
-        $result = $text;
+        // Экранируем HTML до инъекции кнопок телефонов,
+        // чтобы предотвратить XSS через пользовательский контент.
+        // Номера телефонов не содержат HTML-спецсимволов,
+        // поэтому regex и str_replace корректно отработают на экранированном тексте.
+        $result = htmlspecialchars( $text, ENT_QUOTES, 'UTF-8' );
         $pattern = '/(071|072|949|095|050|066|\+38|79)([\d\-\s\)\(]{5,15})\d|(\+7)([\d\-\s\)\(]{8,15})\d/'; // "/[+0-9-]{10,20}/";
         preg_match_all( $pattern, $text, $matches );
         $index = 0;

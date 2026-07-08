@@ -1,4 +1,3 @@
-@import "./globals.css";
 @import "./tailwind.css";
 :root {
     --background-color: var(--background);
@@ -634,7 +633,7 @@ nav ul{
 }
 .checkbox{
     width: 40px;
-    height: 18px;
+    height: 19px;
     border-radius: 30px;
     position: relative;
     background-color: var(--active-bg-color);
@@ -643,6 +642,7 @@ nav ul{
 .checkbox_active{
     background-color: var(--logo-color);
     border: none;
+    height: 18px;
 }
 .checkbox::after{
     content: "";

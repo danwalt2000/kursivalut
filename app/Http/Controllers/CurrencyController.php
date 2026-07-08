@@ -112,11 +112,13 @@ class CurrencyController extends Controller
         if ( SessionController::isAllowed() && $request->path() == "all" )  {
             $input = $request->all();
             $validated = $request->validate([
-                'sellbuy'   => 'required', 
-                'currency'  => 'required',
-                'rate'      => 'required|numeric|max:200',
-                'phone'     => 'required',
-                'textarea'  => 'required|max:400',
+                'sellbuy'   => 'required|in:sell,buy', 
+                'currency'  => 'required|in:Доллар,Евро,Гривна,Безнал руб.',
+                'rate'      => 'required|numeric|between:0.01,200',
+                'phone'     => 'required|string|regex:/^[0-9+\-\s()]{7,20}$/',
+                'textarea'  => 'required|string|max:400',
+                'sum'       => 'nullable|numeric|min:0|max:1000000000',
+                'city'      => 'nullable|string|max:100',
             ]);
 
             $currency = array_search( $validated["currency"], Config::get('common.currencies') );

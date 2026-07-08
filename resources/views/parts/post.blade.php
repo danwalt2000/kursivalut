@@ -1,7 +1,7 @@
 <article class="post declaration">
     <header class="post-header">
         <div class="info">
-            <img width="50px" height="50px" src="/img/groups/{!! str_replace('-', '', $ad->owner_id) !!}.webp" title="Группа" alt="Группа" loading="lazy">
+            <img width="50px" height="50px" src="/img/groups/{{ str_replace('-', '', $ad->owner_id) }}.webp" title="Группа" alt="Группа" loading="lazy">
             <div class="time-info">
                 <p class="time-published">Опубликовано</p>
                 <p class="time" data-time="{{$ad->date}}">в&nbsp;{{ gmdate("H:i", ($ad->date + 3 * 60 * 60)) }}
@@ -23,5 +23,4 @@
     </header>
     
     <div class="post-content">{!! $ad->content_changed !!}</div>
-    {{-- <span class="">{!! $ad->content !!}</span> --}}
 </article>

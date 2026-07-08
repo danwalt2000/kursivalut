@@ -16,7 +16,7 @@ class PostAdsController extends Controller
         $access_token = Storage::get('/private/ivanov-token.txt');
         $group_id = "-218361718"; // группа, в которую постятся записи
         
-        $ad = $posts->getPostById($ads_id); // Ads::where('vk_id', $ads_id)->take(1)->get();
+        $ad = $posts->getPostById($ads_id);
         if( !count($ad) ) return; 
 
         $ad = $ad[0]; 
