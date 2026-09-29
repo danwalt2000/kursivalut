@@ -47,7 +47,10 @@ class Kernel extends ConsoleKernel
                     (new GetAdsController)->getVkAds( $channel, $locale );
                 })->everyThirtyMinutes()->unlessBetween('4:30', '16:00'); // по Гринвичу
             }
-        } 
+        }
+
+        // удаление модерационных сообщений через 5 минут после публикации
+        $schedule->command('moderation:cleanup')->everyMinute();
     }
 
     /**

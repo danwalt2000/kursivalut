@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\DBController;
  
 class PostAdsController extends Controller
@@ -139,8 +140,39 @@ class PostAdsController extends Controller
         $text = str_replace(" ", "%20", $ad_content);
         $to_peer = env("TG_CHANNEL_DOMAIN") . $ad_object["locale"];
         $url = env("TG_BOT_DOMAIN") . "/api/messages.sendMessage/?data[peer]=@". $to_peer . "&data[message]=" . $text;
-        
-        PostAdsController::sendHttp($url);
+
+        $response = PostAdsController::sendHttp($url);
+
+        // модерационное уведомление удаляем через 5 минут после публикации:
+        // для этого сохраняем id вновь отправленного сообщения
+        if(isset( $ad_object["moderation"]) && !empty($response)){
+            $json = json_decode($response->body());
+            $message_id = PostAdsController::getNewMessageId($json);
+            if(!empty($message_id)){
+                DB::table('moderation_messages')->insert([
+                    'locale'     => $ad_object["locale"],
+                    'message_id' => $message_id,
+                    'created_at' => now(),
+                ]);
+            }
+        }
+    }
+
+    // извлекает id отправленного сообщения из ответа messages.sendMessage
+    private static function getNewMessageId( $json )
+    {
+        if( empty($json) || empty($json->success) || empty($json->response) ) return null;
+        $updates = $json->response->updates ?? [];
+        foreach( $updates as $update ){
+            if( !empty($update->message) && !empty($update->message->id) ){
+                return $update->message->id;
+            }
+            // для своих сообщений иногда приходит updateMessageID
+            if( !empty($update->_) && $update->_ === 'updateMessageID' && !empty($update->id) ){
+                return $update->id;
+            }
+        }
+        return null;
     }
 
     // Получает никнейм пользователя по id
