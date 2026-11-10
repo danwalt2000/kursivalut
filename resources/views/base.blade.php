@@ -100,10 +100,10 @@
                         @if($__env->hasSection('header_action'))
                             @yield('header_action')
                         @elseif(isset($locale['name']))
-                            <a class="tg_link" href="https://t.me/kursivalut_ru_{{ $locale['name'] }}" target="_blank">
+                            {{-- Кнопка Telegram отключена --}}
+                            {{-- <a class="tg_link" href="https://t.me/kursivalut_ru_{{ $locale['name'] }}" target="_blank">
                                 <svg alt="Сообщество Telegram" class="tg_link_img" width="18" height="18"><use href="/img/tg_logo.svg"></use></svg>
-                                {{-- <img src="/img/tg_logo_white.svg" class="tg_link_img" width="20" height="20" loading="lazy"> --}}
-                            </a>
+                            </a> --}}
                         @endif
                     </div>
                 </header>
